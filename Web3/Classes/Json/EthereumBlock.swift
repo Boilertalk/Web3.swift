@@ -97,9 +97,9 @@ public struct EthereumBlock: Codable {
                 self.init(object: tx)
             } else if let tx = try? container.decode(String.self) {
                 self.init(hash: tx)
+            } else {
+                throw Error.unsupportedType
             }
-
-            throw Error.unsupportedType
         }
 
         public func encode(to encoder: Encoder) throws {
