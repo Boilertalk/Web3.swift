@@ -1,0 +1,12 @@
+use_frameworks!
+
+target 'Web3_Example' do
+  pod 'Web3', :path => '../'
+
+  target 'Web3_Tests' do
+    inherit! :search_paths
+
+    pod 'Quick', '~> 1.2.0'
+  pod 'Nimble', '~> 7.0.2'
+  end
+end
