@@ -1,0 +1,36 @@
+{
+  "name": "Web3",
+  "version": "0.1.0",
+  "summary": "A short description of Web3.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Koray Koska/Web3",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Koray Koska": "koray@koska.at"
+  },
+  "source": {
+    "git": "https://github.com/Koray Koska/Web3.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Web3/Classes/**/*",
+  "dependencies": {
+    "BigInt": [
+      "~> 3.0"
+    ],
+    "CryptoSwift": [
+      "~> 0.8"
+    ],
+    "secp256k1_ios": [
+      "~> 0.0"
+    ],
+    "Alamofire": [
+      "~> 4.6"
+    ]
+  }
+}
