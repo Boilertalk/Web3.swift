@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RPCResponse: Codable {
+public struct RPCResponse<Result: Codable>: Codable {
 
     /// The rpc id
     public let id: Int
@@ -16,7 +16,7 @@ public struct RPCResponse: Codable {
     public let jsonrpc: String
 
     /// The result
-    public let result: EthereumValue?
+    public let result: Result?
 
     /// The error
     public let error: Error?
