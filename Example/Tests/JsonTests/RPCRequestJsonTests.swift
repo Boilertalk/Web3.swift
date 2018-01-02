@@ -12,8 +12,8 @@ import Nimble
 
 class RPCRequestJsonTests: QuickSpec {
 
-    var encoder: JSONEncoder!
-    var decoder: JSONDecoder!
+    var encoder: JSONEncoder = JSONEncoder()
+    var decoder: JSONDecoder = JSONDecoder()
 
     override func spec() {
         describe("rpc requests") {
@@ -34,7 +34,7 @@ class RPCRequestJsonTests: QuickSpec {
                     }
                 """.data(using: .utf8)
                 it("should not be nil") {
-                    expect(rawClientVersion) != nil
+                    expect(rawClientVersion).toNot(beNil())
                 }
 
                 let req: RPCRequest! = try? self.decoder.decode(RPCRequest.self, from: rawClientVersion!)
