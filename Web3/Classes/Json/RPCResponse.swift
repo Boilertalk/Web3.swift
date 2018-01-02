@@ -30,3 +30,5 @@ public struct RPCResponse<Result: Codable>: Codable {
         let message: String
     }
 }
+
+public typealias BasicRPCResponse = RPCResponse<EthereumValue>
