@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/Koray Koska/Web3'
+  s.homepage         = 'https://github.com/Boilertalk/Web3'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Koray Koska' => 'koray@koska.at' }
-  s.source           = { :git => 'https://github.com/Koray Koska/Web3.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/Boilertalk/Web3.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
@@ -39,7 +39,6 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
 
-  # Dependencies
   s.dependency 'BigInt', '~> 3.0'
   s.dependency 'CryptoSwift', '~> 0.8'
   s.dependency 'secp256k1_ios', '~> 0.0'
