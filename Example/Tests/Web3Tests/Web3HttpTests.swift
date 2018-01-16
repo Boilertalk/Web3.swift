@@ -38,6 +38,46 @@ class Web3HttpTests: QuickSpec {
                     }
                 }
             }
+
+            context("net version") {
+
+                waitUntil { done in
+                    web3.net.version { response in
+                        it("should be status ok") {
+                            expect(response.status.rawValue) == Web3Response<EthereumValue>.Status.ok.rawValue
+                        }
+                        it("should not be nil") {
+                            expect(response.rpcResponse).toNot(beNil())
+                        }
+                        it("should be a string response") {
+                            expect(response.rpcResponse?.result?.string).toNot(beNil())
+                        }
+
+                        // Tests done
+                        done()
+                    }
+                }
+            }
+
+            context("net peer count") {
+
+                waitUntil { done in
+                    web3.net.peerCount { response in
+                        it("should be status ok") {
+                            expect(response.status.rawValue) == Web3Response<EthereumValue>.Status.ok.rawValue
+                        }
+                        it("should not be nil") {
+                            expect(response.rpcResponse).toNot(beNil())
+                        }
+                        it("should be a string response") {
+                            expect(response.rpcResponse?.result?.string).toNot(beNil())
+                        }
+
+                        // Tests done
+                        done()
+                    }
+                }
+            }
         }
     }
 }

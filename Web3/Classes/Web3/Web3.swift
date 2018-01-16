@@ -13,7 +13,6 @@ public struct Web3 {
     public typealias Web3ResponseCompletion<Result: Codable> = (_ resp: Web3Response<Result>) -> Void
     public typealias BasicWeb3ResponseCompletion = Web3ResponseCompletion<EthereumValue>
 
-
     public static let jsonrpc = "2.0"
 
     // MARK: - Properties
