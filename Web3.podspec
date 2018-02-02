@@ -43,4 +43,5 @@ TODO: Add long description of the pod here.
   s.dependency 'CryptoSwift', '~> 0.8'
   s.dependency 'secp256k1_ios', '~> 0.1'
   s.dependency 'Alamofire', '~> 4.6'
+  s.dependency 'VaporBytes', '~> 1.0'
 end
