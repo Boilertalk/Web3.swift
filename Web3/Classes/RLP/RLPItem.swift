@@ -68,13 +68,13 @@ extension RLPItem: ExpressibleByStringLiteral {
 
 extension RLPItem: ExpressibleByIntegerLiteral {
 
-    public static func int(_ int: Int) -> RLPItem {
+    public static func uint(_ int: UInt) -> RLPItem {
         return RLPItem(integerLiteral: int)
     }
 
-    public typealias IntegerLiteralType = Int
+    public typealias IntegerLiteralType = UInt
 
-    public init(integerLiteral value: Int) {
+    public init(integerLiteral value: UInt) {
         self.init(valueType: .bytes(value.makeBytes().trimLeadingZeros()))
     }
 }
@@ -100,6 +100,35 @@ public extension RLPItem {
             return nil
         }
         return value
+    }
+
+    /**
+     * Returns the string representation of this item iff `self.valueType` is .bytes. Returns nil otherwise.
+     */
+    public var string: String? {
+        guard case .bytes(let value) = valueType else {
+            return nil
+        }
+        return value.makeString()
+    }
+
+    /**
+     * Returns the uint representation of this item (big endian represented) iff `self.valueType` is .bytes.
+     * Returns nil otherwise.
+     */
+    public var uint: UInt? {
+        guard case .bytes(var value) = valueType else {
+            return nil
+        }
+        guard value.count <= MemoryLayout<Int>.size else {
+            return nil
+        }
+        var number: UInt = 0
+        for i in (0 ..< value.count).reversed() {
+            number = number | (UInt(value[i]) << (i * 8))
+        }
+
+        return number
     }
 
     /**

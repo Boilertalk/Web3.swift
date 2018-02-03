@@ -1,5 +1,5 @@
 //
-//  Int+BytesRepresentableTests.swift
+//  UInt+BytesRepresentableTests.swift
 //  Web3_Tests
 //
 //  Created by Koray Koska on 01.02.18.
@@ -10,13 +10,13 @@ import Quick
 import Nimble
 @testable import Web3
 
-class IntBytesRepresentableTests: QuickSpec {
+class UIntBytesRepresentableTests: QuickSpec {
 
     override func spec() {
         describe("int bytes representable") {
             context("special cases") {
                 it("should be zero") {
-                    let zero = 0.makeBytes()
+                    let zero = UInt(0).makeBytes()
 
                     expect(zero.count) == MemoryLayout<Int>.size
 
@@ -31,7 +31,7 @@ class IntBytesRepresentableTests: QuickSpec {
                 }
 
                 it("should be int max") {
-                    let max = Int.max.makeBytes()
+                    let max = UInt.max.makeBytes()
 
                     expect(max.count) == MemoryLayout<Int>.size
 
@@ -39,9 +39,8 @@ class IntBytesRepresentableTests: QuickSpec {
                         return
                     }
 
-                    // For int max value is 0111 1111 ....
-                    expect(max[0]) == 0x7f
-                    for i in 1 ..< MemoryLayout<Int>.size {
+                    // For uint max value is 1111 1111 ....
+                    for i in 0 ..< MemoryLayout<Int>.size {
                         expect(max[i]) == 0xff
                     }
                 }
@@ -49,7 +48,7 @@ class IntBytesRepresentableTests: QuickSpec {
 
             context("two bytes") {
                 it("should be 0x0400") {
-                    let two = 1024.makeBytes()
+                    let two = UInt(1024).makeBytes()
 
                     expect(two.count) == MemoryLayout<Int>.size
 

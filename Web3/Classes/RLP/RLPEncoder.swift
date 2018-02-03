@@ -8,11 +8,32 @@
 import Foundation
 import VaporBytes
 
+/**
+ * The default RLP Encoder which takes `RLPItem`'s and rlp encodes them as documented on Github:
+ *
+ * https://github.com/ethereum/wiki/wiki/RLP
+ */
 open class RLPEncoder {
 
+    // MARK: - Initialization
+
+    /**
+     * Initializes a new instance of RLPEncoder. Currently there are no options you can pass
+     * to the initializer. This may change in future releases.
+     */
     public init() {
     }
 
+    // MARK: - Encoding
+
+    /**
+     * Encodes the given `RLPItem` and returns a byte array which is the rlp encoded
+     * representation of it.
+     *
+     * - parameter value: The RLPItem you want to encode.
+     *
+     * - returns: The rlp encoded `value` as a byte array.
+     */
     open func encode(_ value: RLPItem) throws -> Bytes {
         switch value.valueType {
         case .array(let elements):
@@ -35,7 +56,7 @@ open class RLPEncoder {
                 // a single byte with value 0xf7 plus the length in bytes of the length of the payload
                 // in binary form, followed by the length of the payload, followed by the concatenation of
                 // the RLP encodings of the items.
-                let length = bytes.count.makeBytes().trimLeadingZeros()
+                let length = UInt(bytes.count).makeBytes().trimLeadingZeros()
 
                 let lengthCount = length.count
                 guard lengthCount <= 0xff - 0xf7 else {
@@ -69,7 +90,7 @@ open class RLPEncoder {
                 // If a string is more than 55 bytes long, the RLP encoding consists of a single byte
                 // with value 0xb7 plus the length in bytes of the length of the string in binary form,
                 // followed by the length of the string, followed by the string.
-                let length = bytes.count.makeBytes().trimLeadingZeros()
+                let length = UInt(bytes.count).makeBytes().trimLeadingZeros()
 
                 let lengthCount = length.count
                 guard lengthCount <= 0xbf - 0xb7 else {
@@ -94,7 +115,7 @@ open class RLPEncoder {
 
     // MARK: - Errors
 
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
 
         case inputTooLong
     }
