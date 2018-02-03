@@ -35,7 +35,7 @@ open class RLPEncoder {
                 // a single byte with value 0xf7 plus the length in bytes of the length of the payload
                 // in binary form, followed by the length of the payload, followed by the concatenation of
                 // the RLP encodings of the items.
-                let length = (try bytes.count.makeBytes()).trimLeadingZeros()
+                let length = bytes.count.makeBytes().trimLeadingZeros()
 
                 let lengthCount = length.count
                 guard lengthCount <= 0xff - 0xf7 else {
@@ -69,7 +69,7 @@ open class RLPEncoder {
                 // If a string is more than 55 bytes long, the RLP encoding consists of a single byte
                 // with value 0xb7 plus the length in bytes of the length of the string in binary form,
                 // followed by the length of the string, followed by the string.
-                let length = (try bytes.count.makeBytes()).trimLeadingZeros()
+                let length = bytes.count.makeBytes().trimLeadingZeros()
 
                 let lengthCount = length.count
                 guard lengthCount <= 0xbf - 0xb7 else {
