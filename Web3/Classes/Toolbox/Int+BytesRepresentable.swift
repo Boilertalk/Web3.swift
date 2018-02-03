@@ -10,7 +10,7 @@ import VaporBytes
 
 extension Int: BytesRepresentable {
 
-    public func makeBytes() throws -> Bytes {
+    public func makeBytes() -> Bytes {
         var bytes: Bytes = Bytes()
 
         var tmpInt = self

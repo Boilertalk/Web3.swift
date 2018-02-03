@@ -44,7 +44,7 @@ public struct RLPItem {
 
 public extension RLPItem {
 
-    public static func bytes(_ bytes: Bytes) -> RLPItem {
+    public static func bytes(_ bytes: Byte...) -> RLPItem {
         return RLPItem(bytes: bytes)
     }
 
@@ -63,6 +63,19 @@ extension RLPItem: ExpressibleByStringLiteral {
 
     public init(stringLiteral value: String) {
         self.init(valueType: .bytes(value.makeBytes()))
+    }
+}
+
+extension RLPItem: ExpressibleByIntegerLiteral {
+
+    public static func int(_ int: Int) -> RLPItem {
+        return RLPItem(integerLiteral: int)
+    }
+
+    public typealias IntegerLiteralType = Int
+
+    public init(integerLiteral value: Int) {
+        self.init(valueType: .bytes(value.makeBytes().trimLeadingZeros()))
     }
 }
 

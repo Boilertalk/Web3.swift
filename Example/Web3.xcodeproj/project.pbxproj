@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E6AAFDC20252AF900517802 /* RLPEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */; };
 		0E6C78CE2023CDC3007A9993 /* Int+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CD2023CDC3007A9993 /* Int+BytesRepresentableTests.swift */; };
 		0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */; };
 		0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPEncoderTests.swift; sourceTree = "<group>"; };
 		0E6C78CD2023CDC3007A9993 /* Int+BytesRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+BytesRepresentableTests.swift"; sourceTree = "<group>"; };
 		0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCRequestJsonTests.swift; sourceTree = "<group>"; };
 		0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HttpTests.swift; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E6AAFDA20252AE700517802 /* RLP */ = {
+			isa = PBXGroup;
+			children = (
+				0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */,
+			);
+			path = RLP;
+			sourceTree = "<group>";
+		};
 		0E6C78CC2023CDAE007A9993 /* ToolboxTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +95,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				0E6AAFDA20252AE700517802 /* RLP */,
 				0E6C78CC2023CDAE007A9993 /* ToolboxTests */,
 				0EBFAE50200AD29B00223E3F /* Web3Tests */,
 				0E9C48C31FFC32FA00541E6F /* JsonTests */,
@@ -272,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E6C78CE2023CDC3007A9993 /* Int+BytesRepresentableTests.swift in Sources */,
+				0E6AAFDC20252AF900517802 /* RLPEncoderTests.swift in Sources */,
 				0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */,
 				0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */,
 			);
