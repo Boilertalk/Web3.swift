@@ -15,7 +15,7 @@ extension UInt: BytesRepresentable {
 
         var tmpInt = self
 
-        for _ in 0 ..< MemoryLayout<Int>.size {
+        for _ in 0 ..< MemoryLayout<UInt>.size {
             bytes.insert(UInt8(tmpInt & 0xff), at: 0)
             tmpInt = tmpInt >> 8
         }

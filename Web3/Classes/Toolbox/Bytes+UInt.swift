@@ -1,0 +1,24 @@
+//
+//  Bytes+UInt.swift
+//  Web3
+//
+//  Created by Koray Koska on 03.02.18.
+//
+
+import Foundation
+import VaporBytes
+
+extension Array where Element == Byte {
+
+    public var bigEndianUInt: UInt? {
+        guard self.count <= MemoryLayout<UInt>.size else {
+            return nil
+        }
+        var number: UInt = 0
+        for i in (0 ..< self.count).reversed() {
+            number = number | (UInt(self[i]) << (i * 8))
+        }
+
+        return number
+    }
+}

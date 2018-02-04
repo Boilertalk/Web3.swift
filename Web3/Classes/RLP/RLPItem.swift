@@ -44,6 +44,10 @@ public struct RLPItem {
 
 public extension RLPItem {
 
+    public static func bytes(_ bytes: Bytes) -> RLPItem {
+        return RLPItem(bytes: bytes)
+    }
+
     public static func bytes(_ bytes: Byte...) -> RLPItem {
         return RLPItem(bytes: bytes)
     }
@@ -81,6 +85,14 @@ extension RLPItem: ExpressibleByIntegerLiteral {
 
 extension RLPItem: ExpressibleByArrayLiteral {
 
+    public static func array(_ array: [RLPItem]) -> RLPItem {
+        return self.init(valueType: .array(array))
+    }
+
+    public static func array(_ array: RLPItem...) -> RLPItem {
+        return self.init(valueType: .array(array))
+    }
+
     public typealias ArrayLiteralElement = RLPItem
 
     public init(arrayLiteral elements: RLPItem...) {
@@ -117,18 +129,10 @@ public extension RLPItem {
      * Returns nil otherwise.
      */
     public var uint: UInt? {
-        guard case .bytes(var value) = valueType else {
+        guard case .bytes(let value) = valueType else {
             return nil
         }
-        guard value.count <= MemoryLayout<Int>.size else {
-            return nil
-        }
-        var number: UInt = 0
-        for i in (0 ..< value.count).reversed() {
-            number = number | (UInt(value[i]) << (i * 8))
-        }
-
-        return number
+        return value.bigEndianUInt
     }
 
     /**
