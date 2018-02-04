@@ -72,8 +72,8 @@ extension RLPItem: ExpressibleByStringLiteral {
 
 extension RLPItem: ExpressibleByIntegerLiteral {
 
-    public static func uint(_ int: UInt) -> RLPItem {
-        return RLPItem(integerLiteral: int)
+    public static func uint(_ uint: UInt) -> RLPItem {
+        return RLPItem(integerLiteral: uint)
     }
 
     public typealias IntegerLiteralType = UInt

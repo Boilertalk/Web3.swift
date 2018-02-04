@@ -16,7 +16,7 @@ extension Array where Element == Byte {
         }
         var number: UInt = 0
         for i in (0 ..< self.count).reversed() {
-            number = number | (UInt(self[i]) << (i * 8))
+            number = number | (UInt(self[self.count - i - 1]) << (i * 8))
         }
 
         return number
