@@ -8,11 +8,33 @@
 import Foundation
 import VaporBytes
 
+/**
+ * The default RLP Decoder which takes rlp encoded `Bytes` and creates their representing `RLPItem`
+ * as documented on Github:
+ *
+ * https://github.com/ethereum/wiki/wiki/RLP
+ */
 open class RLPDecoder {
 
+    // MARK: - Initialization
+
+    /**
+     * Initializes a new instance of `RLPDecoder`. Currently there are no options you can pass
+     * to the initializer. This may change in future releases.
+     */
     public init() {
     }
 
+    // MARK: - Decoding
+
+    /**
+     * Decodes the given rlp encoded `Byte` array and returns a new instance of `RLPItem`
+     * representing the given rlp.
+     *
+     * - parameter rlp: The rlp encoded `Byte` array.
+     *
+     * - returns: A new instance of `RLPItem` which represents the given rlp encoded `Byte` array.
+     */
     open func decode(_ rlp: Bytes) throws -> RLPItem {
         guard rlp.count > 0 else {
             throw Error.inputEmpty
@@ -105,6 +127,8 @@ open class RLPDecoder {
         }
     }
 
+    // MARK: - Errors
+
     public enum Error: Swift.Error {
 
         case inputEmpty
@@ -113,6 +137,8 @@ open class RLPDecoder {
 
         case lengthPrefixBad
     }
+
+    // MARK: - Helper methods
 
     private func getCount(rlp: Bytes) throws -> Int {
         guard rlp.count > 0 else {

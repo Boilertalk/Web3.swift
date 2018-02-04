@@ -18,7 +18,7 @@ open class RLPEncoder {
     // MARK: - Initialization
 
     /**
-     * Initializes a new instance of RLPEncoder. Currently there are no options you can pass
+     * Initializes a new instance of `RLPEncoder`. Currently there are no options you can pass
      * to the initializer. This may change in future releases.
      */
     public init() {
@@ -30,7 +30,7 @@ open class RLPEncoder {
      * Encodes the given `RLPItem` and returns a byte array which is the rlp encoded
      * representation of it.
      *
-     * - parameter value: The RLPItem you want to encode.
+     * - parameter value: The RLPItem to encode.
      *
      * - returns: The rlp encoded `value` as a byte array.
      */
