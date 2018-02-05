@@ -73,6 +73,37 @@ public struct EthereumAddress {
         }
     }
 
+    public func stringAddress(eip55: Bool) -> String {
+        var hex = "0x"
+        if !eip55 {
+            hex += String(rawAddress, radix: 16).lowercased()
+        } else {
+            let address = String(rawAddress, radix: 16).lowercased()
+            let hash = SHA3(variant: .keccak256).calculate(for: Array(address.utf8))
+
+            for i in 0..<address.count {
+                let charString = String(address[address.index(address.startIndex, offsetBy: i)])
+
+                if charString.rangeOfCharacter(from: CharacterSet.hexadecimalNumbers) != nil {
+                    hex += charString
+                    continue
+                }
+
+                let bytePos = (4 * i) / 8
+                let bitPos = (4 * i) % 8
+                let bit = (hash[bytePos] >> (7 - UInt8(bitPos))) & 0x01
+
+                if bit == 1 {
+                    hex += charString.uppercased()
+                } else {
+                    hex += charString.lowercased()
+                }
+            }
+        }
+
+        return hex
+    }
+
     public enum Error: Swift.Error {
 
         case addressMalformed
