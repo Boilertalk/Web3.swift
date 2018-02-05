@@ -145,3 +145,32 @@ public extension RLPItem {
         return elements
     }
 }
+
+// MARK: - CustomStringConvertible
+
+extension RLPItem: CustomStringConvertible {
+
+    public var description: String {
+        var str = ""
+        switch valueType {
+        case .bytes(let bytes):
+            str = bytes.map({ "0x\(String($0, radix: 16))" }).description
+        case .array(let array):
+            /*
+             str = "["
+             for el in array {
+             str += "\n"
+             str += el.description
+             str += ", "
+             }
+             if array.count > 0 {
+             str += "\n"
+             }
+             str += "]"
+             */
+            str = array.description
+        }
+
+        return str
+    }
+}

@@ -107,7 +107,8 @@ open class RLPDecoder {
             }
             var items = [RLPItem]()
 
-            var pointer = 1
+            // We start after the length defining bytes (and the first byte)
+            var pointer = Int(byteCount) + 1
             while pointer < rlp.count {
                 let count = try getCount(rlp: Array(rlp[pointer...]))
 
