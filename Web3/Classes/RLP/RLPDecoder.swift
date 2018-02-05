@@ -43,13 +43,13 @@ open class RLPDecoder {
 
         if sign >= 0x00 && sign <= 0x7f {
             guard rlp.count == 1 else {
-                throw Error.inputBad
+                throw Error.inputMalformed
             }
             return .bytes(sign)
         } else if sign >= 0x80 && sign <= 0xb7 {
             let count = sign - 0x80
             guard rlp.count == count + 1 else {
-                throw Error.inputBad
+                throw Error.inputMalformed
             }
             let bytes = Array(rlp[1..<rlp.count])
             return .bytes(bytes)
@@ -63,7 +63,7 @@ open class RLPDecoder {
 
             let rlpCount = stringCount + Int(byteCount) + 1
             guard rlp.count == rlpCount else {
-                throw Error.inputBad
+                throw Error.inputMalformed
             }
 
             let bytes = Array(rlp[(Int(byteCount) + 1) ..< Int(rlpCount)])
@@ -71,7 +71,7 @@ open class RLPDecoder {
         } else if sign >= 0xc0 && sign <= 0xf7 {
             let totalCount = sign - 0xc0
             guard rlp.count == totalCount + 1 else {
-                throw Error.inputBad
+                throw Error.inputMalformed
             }
             if totalCount == 0 {
                 return []
@@ -83,7 +83,7 @@ open class RLPDecoder {
                 let count = try getCount(rlp: Array(rlp[pointer...]))
 
                 guard rlp.count >= (pointer + count + 1) else {
-                    throw Error.inputBad
+                    throw Error.inputMalformed
                 }
 
                 let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
@@ -103,7 +103,7 @@ open class RLPDecoder {
 
             let rlpCount = totalCount + Int(byteCount) + 1
             guard rlp.count == rlpCount else {
-                throw Error.inputBad
+                throw Error.inputMalformed
             }
             var items = [RLPItem]()
 
@@ -113,7 +113,7 @@ open class RLPDecoder {
                 let count = try getCount(rlp: Array(rlp[pointer...])) + Int(getLengthByteCount(sign: rlp[pointer]))
 
                 guard rlp.count >= (pointer + count + 1) else {
-                    throw Error.inputBad
+                    throw Error.inputMalformed
                 }
 
                 let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
@@ -124,7 +124,7 @@ open class RLPDecoder {
 
             return .array(items)
         } else {
-            throw Error.lengthPrefixBad
+            throw Error.lengthPrefixMalformed
         }
     }
 
@@ -133,10 +133,10 @@ open class RLPDecoder {
     public enum Error: Swift.Error {
 
         case inputEmpty
-        case inputBad
+        case inputMalformed
         case inputTooLong
 
-        case lengthPrefixBad
+        case lengthPrefixMalformed
     }
 
     // MARK: - Helper methods
@@ -152,7 +152,7 @@ open class RLPDecoder {
      */
     private func getCount(rlp: Bytes) throws -> Int {
         guard rlp.count > 0 else {
-            throw Error.inputBad
+            throw Error.inputMalformed
         }
         let sign = rlp[0]
         let count: UInt
@@ -163,7 +163,7 @@ open class RLPDecoder {
         } else if sign >= 0xb8 && sign <= 0xbf {
             let byteCount = sign - 0xb7
             guard rlp.count >= (Int(byteCount) + 1) else {
-                throw Error.inputBad
+                throw Error.inputMalformed
             }
             guard let c = Array(rlp[1..<(Int(byteCount) + 1)]).bigEndianUInt else {
                 throw Error.inputTooLong
@@ -174,14 +174,14 @@ open class RLPDecoder {
         } else if sign >= 0xf8 && sign <= 0xff {
             let byteCount = sign - 0xf7
             guard rlp.count >= (Int(byteCount) + 1) else {
-                throw Error.inputBad
+                throw Error.inputMalformed
             }
             guard let c = Array(rlp[1..<(Int(byteCount) + 1)]).bigEndianUInt else {
                 throw Error.inputTooLong
             }
             count = c
         } else {
-            throw Error.lengthPrefixBad
+            throw Error.lengthPrefixMalformed
         }
 
         guard count <= Int.max else {
