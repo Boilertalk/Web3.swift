@@ -8,6 +8,7 @@
 
 import Quick
 import Nimble
+import BigInt
 @testable import Web3
 
 class RLPItemTests: QuickSpec {
@@ -42,6 +43,40 @@ class RLPItemTests: QuickSpec {
 
                 it("should be int 4_294_967_297") {
                     self.expectNumber(4_294_967_297)
+                }
+
+                it("should be int 4 as big endian bytes") {
+                    let i: RLPItem = .uint(0x8f2c6d9b)
+                    expect(i.bytes) == [0x8f, 0x2c, 0x6d, 0x9b]
+                }
+
+                it("should be bigint 2 to the power of 156") {
+                    let big = BigUInt(integerLiteral: 2).power(156)
+                    let i: RLPItem = .bigUInt(big)
+
+                    expect(i.bytes) == [
+                        0x10, 0x00, 0x00, 0x00,
+                        0x00, 0x00, 0x00, 0x00,
+                        0x00, 0x00, 0x00, 0x00,
+                        0x00, 0x00, 0x00, 0x00,
+                        0x00, 0x00, 0x00, 0x00
+                    ]
+
+                    expect(i.bigUInt) == big
+                    expect(i.uint).to(beNil())
+                }
+
+                it("should be a big bigint") {
+                    let big: BigUInt = (0x10f000000000 << (6 * 8)) | (0xa0800402e00c)
+                    let i: RLPItem = .bigUInt(big)
+
+                    expect(i.bytes) == [
+                        0x10, 0xf0, 0x00, 0x00,
+                        0x00, 0x00, 0xa0, 0x80,
+                        0x04, 0x02, 0xe0, 0x0c
+                    ]
+                    expect(i.bigUInt) == big
+                    expect(i.uint).to(beNil())
                 }
             }
         }

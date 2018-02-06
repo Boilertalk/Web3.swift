@@ -7,6 +7,7 @@
 
 import Foundation
 import VaporBytes
+import BigInt
 
 /**
  * An RLP encodable item. Either a byte array or a list of RLP items.
@@ -72,6 +73,17 @@ extension RLPItem: ExpressibleByStringLiteral {
 
 extension RLPItem: ExpressibleByIntegerLiteral {
 
+    public static func bigUInt(_ uint: BigUInt) -> RLPItem {
+        var bytes: [UInt8] = []
+        for w in uint.words {
+            let wordBytes = w.makeBytes()
+            for i in (0..<wordBytes.count).reversed() {
+                bytes.insert(wordBytes[i], at: 0)
+            }
+        }
+        return RLPItem(bytes: bytes.trimLeadingZeros())
+    }
+
     public static func uint(_ uint: UInt) -> RLPItem {
         return RLPItem(integerLiteral: uint)
     }
@@ -133,6 +145,31 @@ public extension RLPItem {
             return nil
         }
         return value.bigEndianUInt
+    }
+
+    /**
+     * Returns the `BigUInt` representation of this item (big endian represented) iff `self.valueType` is .bytes.
+     * Returns nil otherwise.
+     */
+    public var bigUInt: BigUInt? {
+        guard case .bytes(var value) = valueType else {
+            return nil
+        }
+
+        var words: [BigUInt.Word] = []
+
+        let wordSize = MemoryLayout<BigUInt.Word>.size
+        let paddingNeeded = (wordSize - (value.count % wordSize)) % wordSize
+        for _ in 0..<paddingNeeded {
+            value.insert(0x00, at: 0)
+        }
+
+        for i in stride(from: 0, to: value.count, by: wordSize) {
+            let word = BigUInt.Word(bytes: Array(value[i..<(i + wordSize)]))
+            words.insert(word, at: 0)
+        }
+
+        return BigUInt(words: words)
     }
 
     /**
