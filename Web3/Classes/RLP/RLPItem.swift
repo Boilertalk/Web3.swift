@@ -74,14 +74,7 @@ extension RLPItem: ExpressibleByStringLiteral {
 extension RLPItem: ExpressibleByIntegerLiteral {
 
     public static func bigUInt(_ uint: BigUInt) -> RLPItem {
-        var bytes: [UInt8] = []
-        for w in uint.words {
-            let wordBytes = w.makeBytes()
-            for i in (0..<wordBytes.count).reversed() {
-                bytes.insert(wordBytes[i], at: 0)
-            }
-        }
-        return RLPItem(bytes: bytes.trimLeadingZeros())
+        return self.init(valueType: .bytes(uint.makeBytes().trimLeadingZeros()))
     }
 
     public static func uint(_ uint: UInt) -> RLPItem {
@@ -152,24 +145,10 @@ public extension RLPItem {
      * Returns nil otherwise.
      */
     public var bigUInt: BigUInt? {
-        guard case .bytes(var value) = valueType else {
+        guard case .bytes(let value) = valueType else {
             return nil
         }
-
-        var words: [BigUInt.Word] = []
-
-        let wordSize = MemoryLayout<BigUInt.Word>.size
-        let paddingNeeded = (wordSize - (value.count % wordSize)) % wordSize
-        for _ in 0..<paddingNeeded {
-            value.insert(0x00, at: 0)
-        }
-
-        for i in stride(from: 0, to: value.count, by: wordSize) {
-            let word = BigUInt.Word(bytes: Array(value[i..<(i + wordSize)]))
-            words.insert(word, at: 0)
-        }
-
-        return BigUInt(words: words)
+        return BigUInt(bytes: value)
     }
 
     /**
