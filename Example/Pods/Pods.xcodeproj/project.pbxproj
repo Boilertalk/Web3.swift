@@ -20,6 +20,7 @@
 		0C9F76EAB3D5C99ED2EAD2C422D53856 /* Floating Point Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362F3D7C093281D2EDD2648113D38D33 /* Floating Point Conversion.swift */; };
 		0E1C49B02029E3C900806321 /* RLPItemConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49AF2029E3C900806321 /* RLPItemConvertible.swift */; };
 		0E1C49B22029E72800806321 /* Types+RLPItemConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B12029E72800806321 /* Types+RLPItemConvertible.swift */; };
+		0E1C49B42029F44E00806321 /* EthereumPrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B32029F44E00806321 /* EthereumPrivateKey.swift */; };
 		0E48AA062026115E00F558C8 /* RLPDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48AA052026115E00F558C8 /* RLPDecoder.swift */; };
 		0E48AA0A2026764100F558C8 /* Bytes+UInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48AA092026764100F558C8 /* Bytes+UInt.swift */; };
 		0E6C78CB2023CC03007A9993 /* UInt+BytesRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CA2023CC03007A9993 /* UInt+BytesRepresentable.swift */; };
@@ -488,6 +489,7 @@
 		0E169D04559470717557D46BD278745C /* Behavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Behavior.swift; path = Sources/Quick/Behavior.swift; sourceTree = "<group>"; };
 		0E1C49AF2029E3C900806321 /* RLPItemConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPItemConvertible.swift; sourceTree = "<group>"; };
 		0E1C49B12029E72800806321 /* Types+RLPItemConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Types+RLPItemConvertible.swift"; sourceTree = "<group>"; };
+		0E1C49B32029F44E00806321 /* EthereumPrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKey.swift; sourceTree = "<group>"; };
 		0E48AA052026115E00F558C8 /* RLPDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPDecoder.swift; sourceTree = "<group>"; };
 		0E48AA092026764100F558C8 /* Bytes+UInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bytes+UInt.swift"; sourceTree = "<group>"; };
 		0E6C78CA2023CC03007A9993 /* UInt+BytesRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentable.swift"; sourceTree = "<group>"; };
@@ -978,6 +980,7 @@
 			children = (
 				0E8C91202028029100563B6E /* Transaction.swift */,
 				0EECEE8E202891390070544B /* EthereumAddress.swift */,
+				0E1C49B32029F44E00806321 /* EthereumPrivateKey.swift */,
 			);
 			name = Transaction;
 			path = Web3/Classes/Transaction;
@@ -2146,6 +2149,7 @@
 				090E3FD205EC142CC6ED2690321C6BA3 /* EthereumBlock.swift in Sources */,
 				0EECEE96202938470070544B /* BigUInt+BytesConvertible.swift in Sources */,
 				B2EF6EF360939ACDA1FD4031BC944D0B /* EthereumLog.swift in Sources */,
+				0E1C49B42029F44E00806321 /* EthereumPrivateKey.swift in Sources */,
 				66DB4EF8A01D497E9DA3C63FCF46DB2D /* EthereumSyncStatus.swift in Sources */,
 				0E1C49B22029E72800806321 /* Types+RLPItemConvertible.swift in Sources */,
 				0EECEE8F202891390070544B /* EthereumAddress.swift in Sources */,

@@ -33,6 +33,14 @@ class EthereumAddressTests: QuickSpec {
                     )
                     expect(randomMixedCase).toNot(beNil())
                     expect(randomMixedCase?.stringAddress(eip55: false)) == "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d"
+
+                    let zero = try? EthereumAddress(hex: "0x0000000000000000000000000000000000000000", eip55: false)
+                    expect(zero).toNot(beNil())
+                    expect(zero?.stringAddress(eip55: false)) == "0x0000000000000000000000000000000000000000"
+                    expect(zero?.rawAddress) == [
+                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+                    ]
                 }
 
                 it("should be invalid ethereum addresses") {

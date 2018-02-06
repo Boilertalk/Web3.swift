@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import BigInt
 import CryptoSwift
+import VaporBytes
 
 public struct EthereumAddress {
 
-    public let rawAddress: BigUInt
+    public let rawAddress: Bytes
 
     public init(hex: String, eip55: Bool) throws {
         // Check length
@@ -40,11 +40,18 @@ public struct EthereumAddress {
             throw Error.addressMalformed
         }
 
-        // Create address int
-        guard let a = BigUInt(hex, radix: 16) else {
-            throw Error.addressMalformed
+        // Create address bytes
+        var addressBytes = Bytes()
+        for i in stride(from: 0, to: hex.count, by: 2) {
+            let s = hex.index(hex.startIndex, offsetBy: i)
+            let e = hex.index(hex.startIndex, offsetBy: i + 2)
+
+            guard let b = Byte(String(hex[s..<e]), radix: 16) else {
+                throw Error.addressMalformed
+            }
+            addressBytes.append(b)
         }
-        rawAddress = a
+        self.rawAddress = addressBytes
 
         // EIP 55 checksum
         // See: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md
@@ -76,9 +83,14 @@ public struct EthereumAddress {
     public func stringAddress(eip55: Bool) -> String {
         var hex = "0x"
         if !eip55 {
-            hex += String(rawAddress, radix: 16).lowercased()
+            for b in rawAddress {
+                hex += String(format: "%02x", b)
+            }
         } else {
-            let address = String(rawAddress, radix: 16).lowercased()
+            var address = ""
+            for b in rawAddress {
+                address += String(format: "%02x", b)
+            }
             let hash = SHA3(variant: .keccak256).calculate(for: Array(address.utf8))
 
             for i in 0..<address.count {
