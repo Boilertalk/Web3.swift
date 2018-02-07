@@ -20,6 +20,11 @@ public class EthereumPrivateKey {
     /// The public key associated with this private key
     public let publicKey: EthereumPublicKey
 
+    /// Returns the ethereum address representing the public key associated with this private key.
+    public var address: EthereumAddress {
+        return publicKey.address
+    }
+
     /// Internal context for secp256k1 library calls
     private let ctx: OpaquePointer
 
@@ -157,15 +162,6 @@ public class EthereumPrivateKey {
     }
 
     // MARK: - Convenient functions
-
-    /**
-     * Returns the ethereum address representing the public key associated with this private key.
-     *
-     * - returns: The generated instance of `EthereumAddress`.
-     */
-    public func address() throws -> EthereumAddress {
-        return try publicKey.address()
-    }
 
     /**
      * Returns this private key serialized as a hex string.

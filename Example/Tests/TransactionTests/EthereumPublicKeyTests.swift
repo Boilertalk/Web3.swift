@@ -54,6 +54,17 @@ class EthereumPublicKeyTests: QuickSpec {
                         .to(throwError(EthereumPublicKey.Error.keyMalformed))
                 }
             }
+
+            context("ethereum address verification") {
+
+                it("should generate a valid ethereum address") {
+                    let hex = "0x5872ec8b7f69bebfd6104d5eb19a339e9316afcc84864c98bbb3d5e10f0eea21b361d2cb1890113c85c5fc633fd0897223b69823a9c59341dd2981b0fb978671"
+                    let pub = try? EthereumPublicKey(hexPublicKey: hex)
+
+                    expect(pub?.address.hex(eip55: false)) == "0xb54c5e59124546034bf1b8a07b52e35b34cb5ff8"
+                    expect(pub?.address.hex(eip55: true)) == "0xB54C5E59124546034BF1b8a07b52e35b34cb5Ff8"
+                }
+            }
         }
     }
 }
