@@ -7,31 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01367CCB60777EEEEE2DFD9740F93ECC /* EthereumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD17FC06FD69037863876AA233DDCC6 /* EthereumValue.swift */; };
 		02CC68F520962581ACB4279E4B47EAFD /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89DD8982BE2BB68CC22EB5E0A9B7816F /* Alamofire.framework */; };
 		04056851010D25CFD03211572FEAEF64 /* Primitive Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = E31ECC516E0135BDD196FB641487F1B3 /* Primitive Types.swift */; };
 		04ED4CBE1683A039945AE21E71657DCE /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0DF0CECB3262E41664DDF3FD00EDA7 /* SHA1.swift */; };
 		06AC8D858D5BBF5FF33FACC5E893FAE6 /* secp256k1_recovery.h in Headers */ = {isa = PBXBuildFile; fileRef = BD9A96FC05E918E46E69C5DC30DBFDDF /* secp256k1_recovery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08C450BB03BE7BFD888431D1751132F8 /* RandomAccessBlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112219FB38BF951FE2792A00481B707E /* RandomAccessBlockModeWorker.swift */; };
-		090E3FD205EC142CC6ED2690321C6BA3 /* EthereumBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8D177E8D83725DE698BD1B4D113605 /* EthereumBlock.swift */; };
 		0970A726DA5FFD0385FBBE87C32D157F /* ecdsa.h in Headers */ = {isa = PBXBuildFile; fileRef = EC0C4B2782647974EBFBD1BE4DADA93C /* ecdsa.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0A2CA8B0DD7E300ABFCF1956E6B58248 /* Nimble.h in Headers */ = {isa = PBXBuildFile; fileRef = EB8B357895D25F23DABE4C681CEEF96C /* Nimble.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A6040F9E15FAC318C4DFC2179D10DCB /* BigUInt+BytesConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6EBAE730D4D29B39FDE48A7924FCA4 /* BigUInt+BytesConvertible.swift */; };
+		0B07E5106F76713FE063CA8F148EA5A1 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFA41F30A0D3ECED0726061009D6574 /* Transaction.swift */; };
 		0BA947E1F26E164BFC78D9F6192D6B51 /* main_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 269F6B4C1EEF9CCC93C4264A2E717347 /* main_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0C9F76EAB3D5C99ED2EAD2C422D53856 /* Floating Point Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362F3D7C093281D2EDD2648113D38D33 /* Floating Point Conversion.swift */; };
-		0E1C49B02029E3C900806321 /* RLPItemConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49AF2029E3C900806321 /* RLPItemConvertible.swift */; };
-		0E1C49B22029E72800806321 /* Types+RLPItemConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B12029E72800806321 /* Types+RLPItemConvertible.swift */; };
-		0E1C49B42029F44E00806321 /* EthereumPrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B32029F44E00806321 /* EthereumPrivateKey.swift */; };
-		0E1C49B8202A9AE600806321 /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B7202A9AE600806321 /* EthereumPublicKey.swift */; };
-		0E48AA062026115E00F558C8 /* RLPDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48AA052026115E00F558C8 /* RLPDecoder.swift */; };
-		0E48AA0A2026764100F558C8 /* Bytes+UInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48AA092026764100F558C8 /* Bytes+UInt.swift */; };
-		0E6C78CB2023CC03007A9993 /* UInt+BytesRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CA2023CC03007A9993 /* UInt+BytesRepresentable.swift */; };
-		0E6C78D02023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CF2023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift */; };
+		0DD3F836435134FEBFC89A69400F82AB /* EthereumSyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12881F1D52F9354ACC99E5E85C47B290 /* EthereumSyncStatus.swift */; };
 		0E80C84C9C4809F4D9E1CA756D928B6C /* num_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD2E0EBAEBD74DECA0B3FBEAE6F2319 /* num_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		0E8C91212028029100563B6E /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C91202028029100563B6E /* Transaction.swift */; };
-		0EECEE8F202891390070544B /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EECEE8E202891390070544B /* EthereumAddress.swift */; };
-		0EECEE912028A9820070544B /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EECEE902028A9820070544B /* CharacterSet+Hex.swift */; };
-		0EECEE96202938470070544B /* BigUInt+BytesConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EECEE95202938470070544B /* BigUInt+BytesConvertible.swift */; };
 		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D168112FBA2A6FD0653ABC0EB10F5EE /* Timeline.swift */; };
+		11DBC3CA287D052D4D7360B41FD6B63C /* EthereumAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E9947420870942A5BB18F7DA114F4D /* EthereumAddress.swift */; };
+		12FA37CADC30AC4B35FC87C405470513 /* Web3HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6703501FAD3C09E77530D0010E9D8AC8 /* Web3HttpProvider.swift */; };
 		13319D017D26653501E0FA331833EC3C /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A373AA2551481DC9219795677BEDB /* Random.swift */; };
 		152BA68678A9161227766CE6A75C19D4 /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D7F01CCB9CBFE5249E71A6805B345 /* NoPadding.swift */; };
 		173CF29C619F010C4841A9BEBE7A12C0 /* ecmult_gen.h in Headers */ = {isa = PBXBuildFile; fileRef = 392B77681DD5537D9011D923E904EE42 /* ecmult_gen.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -40,7 +31,6 @@
 		185BD8EDF19CA3C4BE0B4743B120BD59 /* ecmult_const_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 757105B320D1139562B18B30E9E844E4 /* ecmult_const_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		19606EB689113EC1EB9AC750BE3733F1 /* NSBundle+CurrentTestBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D009645D01514936060B9F20AEBF9D /* NSBundle+CurrentTestBundle.swift */; };
 		19F209E95649F61A5101303CA297098B /* UInt8+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E19C883432DB9C1A8AE6180DA4FC12 /* UInt8+Extension.swift */; };
-		1A1B427B7122490F558FD90C6F6FD4F2 /* EthereumTransactionReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45257E3DA9E7499630E16A5CECF7BAAA /* EthereumTransactionReceipt.swift */; };
 		1A34DEDCC36B9DA2A96ED89F5B9A0F40 /* secp256k1.c in Sources */ = {isa = PBXBuildFile; fileRef = C07603E899AA48C2CD2B6C13F9DE8B29 /* secp256k1.c */; };
 		1A3E19B9F5EEB773C3BB61CA42F8BF62 /* DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558153C4E5842D494FC34A5BCBFE4F6D /* DSL.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		1B9EDEDC964E6B08F78920B4F4B9DB84 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F36143212FE6C7AE653E2993E178E46 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,10 +40,12 @@
 		1D0578185B1E764BC61EC316C3D29B02 /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFED86E6F57834F4136A207C58299C0F /* Utils+Foundation.swift */; };
 		1E0C12AEEFB4F46520FCA8B5A2F1564D /* secp256k1_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA24BF8BAC7820A8212AD3D0BB91E786 /* secp256k1_ios.framework */; };
 		1E1CE28FFCCD7499620B47C910E9B9E9 /* BeLogical.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F338E77375A55DD86ABD5F9F638B472 /* BeLogical.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		216EB92443FCF67D1B4126ED75AE4D61 /* RPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AF64BA9ABD7330BC3EC3C00CC25463 /* RPCRequest.swift */; };
 		21E4186AAD4197053084A5913EC5E28D /* Pods-Web3_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 27B10C0FE542003E94567DA143A657A7 /* Pods-Web3_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		21FC473BA2F86FA2B27BACAA3FC71E1B /* field.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E0BB49E1B4FF634E707E90618DDD316 /* field.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		22E9F6FA56858A5F7A5D664E5968ECB0 /* NMBExceptionCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F47CE64529698146BB48F47B845DFFF /* NMBExceptionCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2379F4E36274F3F63182BAD468973914 /* field_10x26.h in Headers */ = {isa = PBXBuildFile; fileRef = 132368EA938DCB27B710DD9CEDCA25C6 /* field_10x26.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		23C291A9B7A530AD38319E694D7C0E95 /* RPCResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870D9C0A901B109975F0A662D05802F8 /* RPCResponse.swift */; };
 		25D1805055756CAA69A167CA03B2465C /* ContainElementSatisfying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4562787097DB98081F07153D859A34F6 /* ContainElementSatisfying.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		2683AC2729614C1642C0D11D0591E60C /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6E4BDFAB8FB6316DB2BF7993D4CA40 /* World.swift */; };
 		26AEDECB9A1019DFA1BFA13C0F34C0C4 /* QuickSelectedTestSuiteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D24D9D3AA86B1140317D03C55C85295 /* QuickSelectedTestSuiteBuilder.swift */; };
@@ -62,10 +54,10 @@
 		2B6AEC2328D5C7204F03D3A477089C5D /* SipHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CBB0FCE6F34B5E50EEA5FFF8C8C60AB /* SipHashable.swift */; };
 		2DC344BC76550F546299454C6980DAEC /* Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93169F71964FACF1146BF3EC34FED3A2 /* Hashable.swift */; };
 		2EBE8AEFC4BFC515C2F2400C34CFC16D /* HexEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD1FDEEB6095DF9B72E94808417FE1 /* HexEncoder.swift */; };
-		2FC5CCFF87B8B19700C7F28022E4AC50 /* Web3-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 09091B4F989B812E7DA194C858BC0A89 /* Web3-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2FC5CCFF87B8B19700C7F28022E4AC50 /* Web3-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 120C5F65DD338B4DEC6C9E4BEC1F595D /* Web3-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30409E9FFE04A500D1E438E2725AF92E /* Types+RLPItemConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6251C6FD99C1F74BBA0E3BD556710DC5 /* Types+RLPItemConvertible.swift */; };
 		304D2273D21D66E0AB8A15C2E7C68CDB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D646458A2CFC74EC690FFCB91D29F59 /* XCTest.framework */; };
 		307257D1F3F37D40843FF84E7ECCB7EC /* XCTestSuite+QuickTestSuiteBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = A76C5F1CCEA195CE6BFA445C188383A4 /* XCTestSuite+QuickTestSuiteBuilder.m */; };
-		30B1BA1E8EE394028C6115F2DA3B9FEC /* Web3HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31969D1B194EEB4686BFF51790BD47D /* Web3HttpProvider.swift */; };
 		3199C9193095D74FB8BF28C039229EDC /* num_gmp.h in Headers */ = {isa = PBXBuildFile; fileRef = E8EB1F8D84132F9D29E4AA4A7AF4BFA1 /* num_gmp.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		31C39ED8CB1C9317F1F2840FC919662D /* PostNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6785047453702374589C38C28595691F /* PostNotification.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		31DDC633BC0C59570B39634500D710AC /* Data+BytesConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9D0CBA7005501C9341EDB4B0E1A987 /* Data+BytesConvertible.swift */; };
@@ -105,17 +97,19 @@
 		4D9B96263243AEF43FD303DFBE6EDB11 /* scalar_low_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E76186FDB028401CE5EE1CDD9B1AF49 /* scalar_low_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4F6E160613069EA8B12B6352CA0748E4 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912C337A06F8E851A03DB81604B6F94E /* Filter.swift */; };
 		4FABBF5CA8F735F48035BE4144613CB7 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99239B60B1A7F0321664FE36933C30D5 /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		501A15C03DC5B729A69AFA1BC7E04620 /* DataRequest+CodableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F560D572D25FFEDDE82BAA1D1C561 /* DataRequest+CodableResponse.swift */; };
 		50698F14E7847E18B907E9373FBF4C21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC54617358EA105E4D41657930D59D2E /* Foundation.framework */; };
-		51AE288A7A204E29D3F3B88D25B2B54D /* RPCResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3451A42B0391AC8B6345B5CBFCD768D /* RPCResponse.swift */; };
 		5387216E723A3C68E851CA15573CDD71 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EFDF450BB7EDA1DDC54D47ACF927F /* Request.swift */; };
 		5390A9E53E04655F9799C14C13E6E15E /* Bytes+Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF34F25047DAB14FD0C2146F271DCF21 /* Bytes+Percent.swift */; };
 		54CC2049C937561A469575AF9E6A6FE9 /* NimbleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F73F7285D82A7038DF3689EBFC80162F /* NimbleEnvironment.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		554D4BA19F351D44056C37036C639704 /* QuickSpecBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 492FAFC0C83AC73E1AECC4F477C37821 /* QuickSpecBase.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		555FCD10A14FA4E4314E7CB076BDC553 /* Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E27F05491C2CE8752CBD1647430B2 /* Closures.swift */; };
 		56FAF62E27B4754D4C80D249CF932846 /* Exponentiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21B7617A71763264C60FE2649C108E3 /* Exponentiation.swift */; };
+		578E31249DE6DA2381C43A0A1F859A4E /* Bytes+UInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9755AAC12F56C0AA1527BCED01D6071E /* Bytes+UInt.swift */; };
 		58C0125D796A97541FDE3414001D8A92 /* BeEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645D0C37C5F2174336E1629E4A7529F0 /* BeEmpty.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		58D964317DFBB10F54A273CB12843017 /* BeGreaterThanOrEqualTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336F14CD881210C597838888E68BDC8E /* BeGreaterThanOrEqualTo.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		58DA1DD966DC183DA9C845E12E7D672A /* Prime Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA35B97716DE8CF3004A3DC6A100FF /* Prime Test.swift */; };
+		59406D3F8AD25463C7A9A94753DE0EF0 /* UInt+BytesRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FEA321BF6C88C5D08F136017DE5541F /* UInt+BytesRepresentable.swift */; };
 		5AB9DB61D62D8BF7B1C734B373F361E7 /* CurrentTestCaseTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 114A60626368CC53408653382CCF9BAC /* CurrentTestCaseTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5B487A0816E57928F6954F8BB1015152 /* Byte+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C56D95D3B67F8671215EE556E84184C /* Byte+Random.swift */; };
 		5BF274C2DEF332ED79B1CD15CFEC3498 /* ThrowError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290C4EE04F7C872EE52127BB72D3284 /* ThrowError.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -127,6 +121,7 @@
 		6045F1812F0E870DB08A2879ADC7C5C3 /* VaporBytes-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 04297DF0CFA324303A200385E603950C /* VaporBytes-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60DD3FDE6F25F9072D0578B0F064AE2E /* Shifts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469D5987D39A5530CFA34E861409A60F /* Shifts.swift */; };
 		61200D01A1855D7920CEF835C8BE00B0 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B56F79A46A6543DB51968A07CDF3069 /* DispatchQueue+Alamofire.swift */; };
+		61A17BA09F4DCEF25566D69FA148F04A /* EthereumBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60254B95B54D2ED41B52B519B4E70EF6 /* EthereumBlock.swift */; };
 		624A7C419F8C76D8608FACCB7C5EFA20 /* Byte+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A17C6F9E9771C2A8CB2DD2B3A4F67 /* Byte+Convenience.swift */; };
 		62D26CE7BA3AEDB4E5E87218FDCBBA90 /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAA2933A400E18EC1B04D60BB872E89 /* Functional.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		62F65AD8DC4F0F9610F4B8B4738EC094 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA25C441E71F8B68410CD293BBF2F5C8 /* ServerTrustPolicy.swift */; };
@@ -136,7 +131,6 @@
 		65CE0DEA8C98CC5B162226CDB7F3D653 /* QCKDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B8E418ADFAEB3F025A90E474982F06 /* QCKDSL.m */; };
 		65D826FD61BD6BD47FECFFA148216844 /* Blowfish.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55314DFE760FA782FC78E165CED3407 /* Blowfish.swift */; };
 		66555AB99741AA57232E26C5A20EC756 /* VaporBytes-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D865EC0AB9A8075CAB0EC9300C13A4F4 /* VaporBytes-dummy.m */; };
-		66DB4EF8A01D497E9DA3C63FCF46DB2D /* EthereumSyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529C6845EF92AF50A80DE43A3B80DFC /* EthereumSyncStatus.swift */; };
 		68E38A929A0A44F1F719D8B6B0FEECC1 /* secp256k1_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = F2E07CE0848C76E3DE3FDF336CD191DF /* secp256k1_ios.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		68E94B5B022061C991859A853335906D /* QuickSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = D6799049581240CA9DBCFF4461D6AFE7 /* QuickSpec.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		68FD03C72D719117929696B62038B3D7 /* NMBExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432E0AB964BA08AAC44868F8D20E7651 /* NMBExpectation.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -147,6 +141,7 @@
 		6C715228EFC892AD90E07CE6517BC9D4 /* Checksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE191ECBA61693DE3EE248467194EE0 /* Checksum.swift */; };
 		6CB4890B9BF5F846E980634AFE83917D /* NMBExceptionCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 25521E919F510675AC8EF7214EC0B359 /* NMBExceptionCapture.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		6DA29C93E48559F5C662B80AA3F6C9C0 /* group.h in Headers */ = {isa = PBXBuildFile; fileRef = 148205D3F2B4B25922D6CBFCF3B8319E /* group.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6EF6A430AA811CA43BFA9A4872EC25DA /* EthereumTransactionReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33360D6ADF91FDA76C3FBCEAEAB58A0A /* EthereumTransactionReceipt.swift */; };
 		6F1B338E3DF84718C1A2C653917F7A9F /* BigInt-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 92123CC4FFC6A036E53C2CF6EF46BEDA /* BigInt-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6F5501B927A46CCF4F52A4CD7C1E33EC /* SHA3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817010ED83B5B1F9E61761D87FB12AAE /* SHA3.swift */; };
 		7073740DBB60483C88302F708F2F0039 /* CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCBE86226F7AF66BAD02AC2B32E9F41 /* CBC.swift */; };
@@ -155,8 +150,10 @@
 		73BC5AC2ECDB8722E085F14B53E0D24E /* AssertionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB87A811459DD746DD5738ABE5778575 /* AssertionRecorder.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		746EBF1A7F07C0EB5AFEBA31CDD30874 /* Quick-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 339F4EDC308BEDD59813E3297D5998F2 /* Quick-dummy.m */; };
 		74DE9C0DBED7C14ED409BFAA17158E73 /* CryptoSwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BDFD57952F265A31C8E515865E84C5D /* CryptoSwift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7519D6FEDA4CE5D1F6F31F4D2A1C3D99 /* Web3-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E518ED5FCBD9FA59BFD59D32BF67F7E /* Web3-dummy.m */; };
 		75538A8B20C7A20AF3D54BBF35D56FFE /* BeLessThanOrEqual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747417281CE676FE5A059988A3AC452B /* BeLessThanOrEqual.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		7599C011C8CB365D0C2638B55A3BFA30 /* QuickSpecBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 91EC0BEAFA904A9002468AAE2EB642FC /* QuickSpecBase.m */; };
+		75A71B2CC261A708A9A2E4D5430F349C /* Bytes+TrimLeadingZeros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1587A31855560E1C4A6DC550B587A92C /* Bytes+TrimLeadingZeros.swift */; };
 		75ABB48E3C30C2D736C3D05D6FD566A8 /* BeNil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE3E05FE25DF9D2BA1F3EDE5CA19A3C /* BeNil.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		779811AAB014C57EAB3A43BB83A42F9E /* Rabbit+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D709B32D30EB55DC9147D0D45CB6F0 /* Rabbit+Foundation.swift */; };
 		78BEB5D0BC89A216CE64624050A7328F /* SipHash-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E2C1F3160EA94AC2E13571696AB64A91 /* SipHash-dummy.m */; };
@@ -175,13 +172,12 @@
 		7E0C9AE6468A5DF91F0F4C7A387D725C /* BeAKindOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D54E6D95FCE7F183AE27C22B525D79C /* BeAKindOf.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		7E38C53CC00067C7A5FA953B9261BF29 /* CryptoSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E7EE2BBCCA06ADADEA36B8630628A4 /* CryptoSwift-dummy.m */; };
 		7F34D9CEECA7C9E75D7E63DF0B420759 /* num_gmp_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A5C081C95029A50E1BF456441D0E764 /* num_gmp_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		80169820273F886C857730000F7FA3FF /* DataRequest+CodableResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95089B5B93A23346E3F74B882E9FCAC0 /* DataRequest+CodableResponse.swift */; };
 		80763ECA711BA3777C09B81B21E288C8 /* ChaCha20.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3816A1931F097596633234BE83D0FD /* ChaCha20.swift */; };
 		80A810BC8207A5DE44E7CFBD4A4F2B04 /* SipHash-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 50223566B86DF44AB023457F740692A9 /* SipHash-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8101EDCBF0515FE2355097B75EACF81B /* Data Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B204098751855F50EF8BA038D4A5A784 /* Data Conversion.swift */; };
 		8131E626B940699512588EDA2CAEBD34 /* UInt64+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771EBE6A2A180D94603AFFF48D84FD8 /* UInt64+Extension.swift */; };
 		8170866E2ACE0ACFBC6D90081354EC65 /* Stringers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65AA6C6165D8EE990695862F9ADCBD8 /* Stringers.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		82D90662FC33F955806AFA8A6CD691F3 /* EthereumTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26752068B5D3768F3C14EBDEE33B8910 /* EthereumTransaction.swift */; };
+		818EBC15DD1D89D8DE348A397352113C /* RLPItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C2A0498041863AD2ABA9757EB81D2B /* RLPItem.swift */; };
 		831BC3B714334BA8B7A01A8C727CEBB5 /* field_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 28943A9294209FEC0CDE46984DB0843B /* field_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		8332D992987F89DC6483D6EB53DB96D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC54617358EA105E4D41657930D59D2E /* Foundation.framework */; };
 		8474956AF631D2D8BFDA6B1649C49DAE /* Bytes+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A3719147DEFC75ABAC24621E201283 /* Bytes+Hex.swift */; };
@@ -199,17 +195,19 @@
 		8E9D8397BA554CE359B42FBAE1BCBD08 /* SHA2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD540A597EC05FBF1AC3C6C51D6B8B8 /* SHA2.swift */; };
 		8F175E58E49A2C412A6F9257E1F237DB /* Square Root.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCFB613B4896A50A768E98A8118B086 /* Square Root.swift */; };
 		917156EE7602AC13A673BA34927F33E5 /* scratch.h in Headers */ = {isa = PBXBuildFile; fileRef = 02E973EB4725E02B6EBD8869F33DCD42 /* scratch.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		91D1B34C8D511BA75E3EF3EEC5191D62 /* RLPEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403A13C9FB52351CF6B7218C605BBDB /* RLPEncoder.swift */; };
 		932740186C8A6B221619C0ABA8A22043 /* ecmult_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = F57715F7BE13CBC14A0BB7B63D258D6B /* ecmult_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		934B3EA778B62DB2D5D8F0B02777E3F5 /* BlockModeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F4941904A22D1902F5113460A81BA2 /* BlockModeWorker.swift */; };
+		93B51D23E6031A6220905FD9111EE74E /* EthereumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA32AAA6DBA8B8DB57D0E23BF3277E1 /* EthereumValue.swift */; };
 		94DA4265D2AF0A4CA879A7F6D5B5A820 /* BlockMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED0D946856964FA2144527F2DD9375C /* BlockMode.swift */; };
 		954372D657F55C73F684913BA6CD641A /* hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 925AA91707051B7024DD51AC9A3F9C74 /* hash.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		960978CE23EE23DC0AF7E5954D6CB2A3 /* CFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76501CE66A9C86E5FC774CB158A7C59 /* CFB.swift */; };
 		96132E7432F8DD315A88A07C6B4F9C72 /* NMBStringify.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F83AABD23E0BD50D82FF506151474E /* NMBStringify.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		967C0A3A1BDDB70B92D309BCA5C7CEDD /* Byte+Alphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE983EBB3BEB72ADC97C6C00E76084 /* Byte+Alphabet.swift */; };
 		96A911688463D1209A5F103F56F366A4 /* World.h in Headers */ = {isa = PBXBuildFile; fileRef = 2EBEEF5897F949D2C8C9ACA377A4F220 /* World.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		971685515305FAE56B2CB2E4B8D47504 /* RLPDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B02C3B716BD4F7581B3BE0FECA26DF0 /* RLPDecoder.swift */; };
 		9752448285E9F5F8C7A509A0017261AB /* scalar_4x64_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = ABA5F3338E37CF80305B656D258A90F2 /* scalar_4x64_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		97B2B4AFFA86BA7E0F85F53DC0F0B466 /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095B5E50D165694F992F31CBFA10FA8C /* Collection+Extension.swift */; };
+		97B69C31B27879E82056C8170D54177D /* RLPItemConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42498221F1187D0B9EC290B536970FB0 /* RLPItemConvertible.swift */; };
 		981C6325809117D1D7536E35A1BB0C82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC54617358EA105E4D41657930D59D2E /* Foundation.framework */; };
 		9888512C1C6D00A46D240F6A5BE85F31 /* ecmult_static_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 25137CCEF29320ACA6FD620F42E09076 /* ecmult_static_context.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		988EED125395950177DC14AF9BC87D8D /* HaveCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C14EF2DE602547E218CC632FA78E998 /* HaveCount.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -245,10 +243,10 @@
 		B2535CCB22906C50EA10F50B0FEB4F8E /* group_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 868CA8FE068096915438C06C47E23CC4 /* group_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B290E7FF95523C84381FBB2B6A64BAFB /* num.h in Headers */ = {isa = PBXBuildFile; fileRef = BB30BC2490BEE554565B2604CACDB1F5 /* num.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B2C151B20635A480E1937E3D2B509BB4 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F86730B6B8A72B57CAE0C9EAFAB963 /* Async.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		B2EF6EF360939ACDA1FD4031BC944D0B /* EthereumLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E6268E0434384187E0C7CB08998ABE /* EthereumLog.swift */; };
 		B2F16B6F4D5D5944929BF9B416772565 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D083723F18ADA3792ECE65B6124BE6 /* Utils.swift */; };
 		B36D3871DD7C14E7C5B4194F95CE37FA /* Byte+UTF8Numbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5813B4B9E74197CAB644C79FBF71F7D6 /* Byte+UTF8Numbers.swift */; };
 		B421A8823D0F761AE089B45AEA81D969 /* ecmult_const.h in Headers */ = {isa = PBXBuildFile; fileRef = D3239BD9F97A071986AE4B1607F79DBB /* ecmult_const.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B4734321973BB7BB1F1D472A1D5D0A18 /* EthereumLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31133E64F3966F712CF82CA5053F94BE /* EthereumLog.swift */; };
 		B65FCF589DA398C3EFE0128064E510EC /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FE75B38C559C0F9D01DFDFCEF2F025 /* MultipartFormData.swift */; };
 		B7697FDF576258601C539145B305F66B /* scalar_8x32.h in Headers */ = {isa = PBXBuildFile; fileRef = 0876AA873C78843CA752871416728821 /* scalar_8x32.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B856B5034004C190E8B2B8A2F038527D /* UInt32+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3908D84FF776E06649FBF93FAB5259A7 /* UInt32+Extension.swift */; };
@@ -302,12 +300,14 @@
 		DA6750824721ECF2395513AADB12B143 /* secp256k1_ios-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 669799D1322CFA36BBEDDED3388842A3 /* secp256k1_ios-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DADB149520BA9B4E1C6DE4998629D224 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC54617358EA105E4D41657930D59D2E /* Foundation.framework */; };
 		DBBC0B3E2A77C465F817B4CB91C7CA6E /* RandomBytesSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45736FED32129159045734908858D2BD /* RandomBytesSequence.swift */; };
-		DE4E17E5063C9625ECDB5B5E0AA69518 /* Web3-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DE72E0A9074AA10B85444AFA2E171D8 /* Web3-dummy.m */; };
+		DC60C5A6D67853239A27CE72F9F4F97E /* EthereumTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C090E5310F9DA5AA65BEE47035E5BF55 /* EthereumTransaction.swift */; };
 		DE7CC4778BA0CFB736CAA934A41CA0A3 /* Division.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426D09E6D59771398B36FD90E1AE4D42 /* Division.swift */; };
 		DF026F6F406A4FB6CEA63B0A4B9E27DD /* AllPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9522B5E157E02224C0A1041A97052707 /* AllPass.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		DF3DFB74883D64AE1843B3619B983A83 /* UnsignedInteger+Shifting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EED877C7C0E06C01CF89EC7C9D05DBE /* UnsignedInteger+Shifting.swift */; };
+		DFFB677541AE919483DE29486D8D8DDD /* Web3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554AD8815D0A59EC68A39009C5EB4AD6 /* Web3.swift */; };
 		E039B801D197986FE25FD3011D2A324D /* PBKDF2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41340DA736E99568603934AE034961E2 /* PBKDF2.swift */; };
 		E1D7EAEDF4998D5D35F1B91DEC735C22 /* Base64Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F7172427D36C15038C87EAF64F9F59 /* Base64Encoder.swift */; };
+		E2A146E18A32D9F204FA6CE408BA1BA1 /* Web3Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2473D4F27B468368217D07B488449C8 /* Web3Provider.swift */; };
 		E453C8E1D4964306F4018C2AF2AE441D /* Strideable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8DEF85927912A546798BDBB9496BA25 /* Strideable.swift */; };
 		E472E08D7C1E98D7FFAAAE372C688B30 /* scalar.h in Headers */ = {isa = PBXBuildFile; fileRef = CCA4C2C797BE0E6F421F2EB40518B281 /* scalar.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E4EE5D46B9CEEE6B92540FEBFF689D55 /* VaporBytes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2632DC395A23A44EE25573383AA718AA /* VaporBytes.framework */; };
@@ -315,6 +315,7 @@
 		E60F40B7A24C0171491D9722C4171586 /* World+DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 5945AD9E82BAE27FB1AB911911C52473 /* World+DSL.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E6DF9C66E90FE91CBC0328B2875C2C8B /* field_10x26_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 068A67357E872A09D021B91E02C63CE5 /* field_10x26_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E780BDD3E588068FF869701FDC2D6BBE /* OFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE652F430231CE239F4A61C41E9AD56D /* OFB.swift */; };
+		E79B9B4104AE8AE48DF11140C25E2A54 /* EthereumPrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC86EFC578C35D6087AD604812E9DFDC /* EthereumPrivateKey.swift */; };
 		E99E9C0D8889E1ABED1BB66EA5E26F6B /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725A70BC15A60A8956B02CF4E5D6F7F9 /* AES.swift */; };
 		E9DDCBC12D0C48E9072371632E2EE354 /* BlockModeOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD0CDD23FED28817505E0FE66F3304A /* BlockModeOptions.swift */; };
 		E9F1727D87D1A8EFDA815CB8F6AC5F6F /* QuickSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 35252316845828B466962F880ECAA096 /* QuickSpec.m */; };
@@ -326,21 +327,19 @@
 		EE458D858A8ACFB9A607CEB7F8FC6B15 /* lax_der_privatekey_parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 251A27E813C67D835E4A18272834270B /* lax_der_privatekey_parsing.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EEBE924BD06D6681AAA6003C3A6DBB33 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A6968DAEA1DAF801BE78C90829DC56 /* MD5.swift */; };
 		EEC95E134BF6663B52A72D8B53375C00 /* PKCS7Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D5149DF9A8D6D77D76478A97CE62D8 /* PKCS7Padding.swift */; };
-		EF6949B0F86C5600BC8B2DED629F9E70 /* Web3Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF749DAEBA4F5DD590EED7510AD21B3B /* Web3Provider.swift */; };
 		EF8548E0C37E8888D9DDC11ED89D3568 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5793FB0D6A7EE79F2EED37B81184385 /* Predicate.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		EFD264FC408EBF3BA2528E70B08DDD94 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5748BF8F27B155F3CE1675F52F13F119 /* Notifications.swift */; };
 		F00E0A525E3DE6595C077FA7D896E050 /* scratch_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = C1CD65671530B0F84C9D3701B9E69423 /* scratch_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F0A8671FB8E3FB36612B23EC19F7DEC3 /* Callsite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1786B1F44E3D95F5B873D531D2AB7F10 /* Callsite.swift */; };
-		F107FB09B6272751366938742097A5D1 /* Web3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3580BDE4BFD7765492708578638688C1 /* Web3.swift */; };
+		F23B97F49DAE8F6B9D294292569E4ACD /* CharacterSet+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6ADBC776E6877915E0119B55AA9F767 /* CharacterSet+Hex.swift */; };
 		F28003B228B82B7E1497D4F41F55A31E /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111809DF751CFAEBE8464443B7115115 /* Match.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		F292F75D512B9395C417A26E1990C7F8 /* RLPEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BF872ACA41737BC75D2D82978C90A /* RLPEncoder.swift */; };
 		F3BAA36614ABDBC0538B0DEA99CF80A0 /* SourceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1393BA00D10BF10D967E7EB605500B /* SourceLocation.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		F4BD249C60F21F5E0F7C1FAC8A5BC2AF /* BeIdenticalTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A337FB5C2175A0736D9C1C21B56A8E52 /* BeIdenticalTo.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		F525BC8A522436CDE6B4794F9BF2CD60 /* RPCRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C191602063BA16503B3100A4857D1099 /* RPCRequest.swift */; };
 		F6BECD98B97CBFEBE2C96F0E9E72A6C0 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B080859879359C0CD2CB6AC36D22C1 /* ResponseSerialization.swift */; };
 		F6CF75B4DB96B6233B5A930C3C7EA997 /* BytesConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A41AD9BFD2C604D521FFD39EC7A642 /* BytesConvertible.swift */; };
 		F8B3D3092ED0417E8CDF32033F6122F5 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43C459CED7CC3B247B1ADD97F7050C7 /* Alamofire.swift */; };
 		F9649DD59BAEE88C6864EEFE73ECA88C /* AdapterProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EFD8C4ACBDC2E6882943A38EAFDEA0 /* AdapterProtocols.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		FA1399159ECAC5EE461BE4D642E49ADB /* RLPItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DEBBE9EC8D9CAD7EC12DA922569AA /* RLPItem.swift */; };
 		FAB24FA12B39E87E61EEE9DDC6212D68 /* scalar_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 346E023A15F5390C2FC36EECF29C51DF /* scalar_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FB35ED94702C78904AC61E53F86B7B5A /* ecmult.h in Headers */ = {isa = PBXBuildFile; fileRef = DD3FBC60EECC762D47015F67DC57D92F /* ecmult.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FB433A84B0A557CD5E5948A8B6705024 /* DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 00EDDAE6E37EA82C589774E9813F7749 /* DSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -349,6 +348,7 @@
 		FD5631FDAFB077AEC96D8D4BDFC64253 /* hash_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DC81F3157942EE818AC4A9E1D06EF5B /* hash_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FFB174C546B4030441F46BB3E8D76318 /* BigInt-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD88AA70631E080467C02F928B77385 /* BigInt-dummy.m */; };
 		FFEFA357A2ECFD2C8696A7D9B6559CAC /* Cipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373EBAFC0D707BC7EB58C8DD3F478E4 /* Cipher.swift */; };
+		FFF2AA610E008949AA1ED964EAB21610 /* EthereumPublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DB1D70239A46D5CC408C8733F9285B /* EthereumPublicKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -469,47 +469,36 @@
 /* Begin PBXFileReference section */
 		00EDDAE6E37EA82C589774E9813F7749 /* DSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DSL.h; path = Sources/NimbleObjectiveC/DSL.h; sourceTree = "<group>"; };
 		01AAD0457740CCA46B41419D68AC7A64 /* CwlCatchException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlCatchException.h; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/include/CwlCatchException.h; sourceTree = "<group>"; };
-		02347B4C1571E82DFF76101A5026A48F /* mach_excServer.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = mach_excServer.c; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/mach_excServer.c; sourceTree = "<group>"; };
+		02347B4C1571E82DFF76101A5026A48F /* mach_excServer.c */ = {isa = PBXFileReference; includeInIndex = 1; name = mach_excServer.c; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/mach_excServer.c; sourceTree = "<group>"; };
 		02E973EB4725E02B6EBD8869F33DCD42 /* scratch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scratch.h; path = secp256k1_ios/src/scratch.h; sourceTree = "<group>"; };
-		0403A13C9FB52351CF6B7218C605BBDB /* RLPEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RLPEncoder.swift; sourceTree = "<group>"; };
 		04297DF0CFA324303A200385E603950C /* VaporBytes-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "VaporBytes-umbrella.h"; sourceTree = "<group>"; };
 		05D083723F18ADA3792ECE65B6124BE6 /* Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Sources/CryptoSwift/Utils.swift; sourceTree = "<group>"; };
-		066DEBBE9EC8D9CAD7EC12DA922569AA /* RLPItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RLPItem.swift; sourceTree = "<group>"; };
 		068A67357E872A09D021B91E02C63CE5 /* field_10x26_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_10x26_impl.h; path = secp256k1_ios/src/field_10x26_impl.h; sourceTree = "<group>"; };
 		068B0E17EE140FA4F583B94A063ADF33 /* SuiteHooks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SuiteHooks.swift; path = Sources/Quick/Hooks/SuiteHooks.swift; sourceTree = "<group>"; };
 		0771EBE6A2A180D94603AFFF48D84FD8 /* UInt64+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt64+Extension.swift"; path = "Sources/CryptoSwift/UInt64+Extension.swift"; sourceTree = "<group>"; };
 		07B3FC8F83E10741C946AA141FBC878E /* HKDF.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HKDF.swift; path = Sources/CryptoSwift/HKDF.swift; sourceTree = "<group>"; };
 		0876AA873C78843CA752871416728821 /* scalar_8x32.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_8x32.h; path = secp256k1_ios/src/scalar_8x32.h; sourceTree = "<group>"; };
 		08A3719147DEFC75ABAC24621E201283 /* Bytes+Hex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bytes+Hex.swift"; path = "Sources/Bits/Bytes+Hex.swift"; sourceTree = "<group>"; };
-		09091B4F989B812E7DA194C858BC0A89 /* Web3-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Web3-umbrella.h"; sourceTree = "<group>"; };
 		095B5E50D165694F992F31CBFA10FA8C /* Collection+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Collection+Extension.swift"; path = "Sources/CryptoSwift/Collection+Extension.swift"; sourceTree = "<group>"; };
 		0AB85CAC3450A37CBA65F846E240078B /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
 		0AE3E05FE25DF9D2BA1F3EDE5CA19A3C /* BeNil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeNil.swift; path = Sources/Nimble/Matchers/BeNil.swift; sourceTree = "<group>"; };
 		0D24D9D3AA86B1140317D03C55C85295 /* QuickSelectedTestSuiteBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuickSelectedTestSuiteBuilder.swift; path = Sources/Quick/QuickSelectedTestSuiteBuilder.swift; sourceTree = "<group>"; };
 		0E0BB49E1B4FF634E707E90618DDD316 /* field.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field.h; path = secp256k1_ios/src/field.h; sourceTree = "<group>"; };
 		0E169D04559470717557D46BD278745C /* Behavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Behavior.swift; path = Sources/Quick/Behavior.swift; sourceTree = "<group>"; };
-		0E1C49AF2029E3C900806321 /* RLPItemConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPItemConvertible.swift; sourceTree = "<group>"; };
-		0E1C49B12029E72800806321 /* Types+RLPItemConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Types+RLPItemConvertible.swift"; sourceTree = "<group>"; };
-		0E1C49B32029F44E00806321 /* EthereumPrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKey.swift; sourceTree = "<group>"; };
-		0E1C49B7202A9AE600806321 /* EthereumPublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPublicKey.swift; sourceTree = "<group>"; };
-		0E48AA052026115E00F558C8 /* RLPDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPDecoder.swift; sourceTree = "<group>"; };
-		0E48AA092026764100F558C8 /* Bytes+UInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bytes+UInt.swift"; sourceTree = "<group>"; };
-		0E6C78CA2023CC03007A9993 /* UInt+BytesRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentable.swift"; sourceTree = "<group>"; };
-		0E6C78CF2023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bytes+TrimLeadingZeros.swift"; sourceTree = "<group>"; };
-		0E8C91202028029100563B6E /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		0EECEE8E202891390070544B /* EthereumAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumAddress.swift; sourceTree = "<group>"; };
-		0EECEE902028A9820070544B /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
-		0EECEE95202938470070544B /* BigUInt+BytesConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigUInt+BytesConvertible.swift"; sourceTree = "<group>"; };
 		0EED877C7C0E06C01CF89EC7C9D05DBE /* UnsignedInteger+Shifting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsignedInteger+Shifting.swift"; path = "Sources/Bits/UnsignedInteger+Shifting.swift"; sourceTree = "<group>"; };
+		0F6EBAE730D4D29B39FDE48A7924FCA4 /* BigUInt+BytesConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "BigUInt+BytesConvertible.swift"; sourceTree = "<group>"; };
 		111809DF751CFAEBE8464443B7115115 /* Match.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Match.swift; path = Sources/Nimble/Matchers/Match.swift; sourceTree = "<group>"; };
 		112219FB38BF951FE2792A00481B707E /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomAccessBlockModeWorker.swift; path = Sources/CryptoSwift/BlockMode/RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
 		114A60626368CC53408653382CCF9BAC /* CurrentTestCaseTracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CurrentTestCaseTracker.h; path = Sources/NimbleObjectiveC/CurrentTestCaseTracker.h; sourceTree = "<group>"; };
 		11F7F935B42D1C76AED0ACB4F5AA4BAB /* AssertionDispatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AssertionDispatcher.swift; path = Sources/Nimble/Adapters/AssertionDispatcher.swift; sourceTree = "<group>"; };
+		120C5F65DD338B4DEC6C9E4BEC1F595D /* Web3-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Web3-umbrella.h"; sourceTree = "<group>"; };
+		12881F1D52F9354ACC99E5E85C47B290 /* EthereumSyncStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumSyncStatus.swift; sourceTree = "<group>"; };
 		128FBBC79F7884E65B4933417FA3BB01 /* PCBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCBC.swift; path = Sources/CryptoSwift/BlockMode/PCBC.swift; sourceTree = "<group>"; };
 		132368EA938DCB27B710DD9CEDCA25C6 /* field_10x26.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_10x26.h; path = secp256k1_ios/src/field_10x26.h; sourceTree = "<group>"; };
 		1373C9AAD142EC70EFDA89885EF38181 /* ecmult_gen_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_gen_impl.h; path = secp256k1_ios/src/ecmult_gen_impl.h; sourceTree = "<group>"; };
 		148205D3F2B4B25922D6CBFCF3B8319E /* group.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = group.h; path = secp256k1_ios/src/group.h; sourceTree = "<group>"; };
 		156D68EFC154540D9D6E6C03D75003E0 /* ExampleMetadata.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExampleMetadata.swift; path = Sources/Quick/ExampleMetadata.swift; sourceTree = "<group>"; };
+		1587A31855560E1C4A6DC550B587A92C /* Bytes+TrimLeadingZeros.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bytes+TrimLeadingZeros.swift"; sourceTree = "<group>"; };
 		1786B1F44E3D95F5B873D531D2AB7F10 /* Callsite.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Callsite.swift; path = Sources/Quick/Callsite.swift; sourceTree = "<group>"; };
 		179B2499A9F3A4788F34C15A03195AB6 /* Array+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Array+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Array+Foundation.swift"; sourceTree = "<group>"; };
 		17F8682879E6E78DC04399A09E74A81F /* ExampleGroup.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExampleGroup.swift; path = Sources/Quick/ExampleGroup.swift; sourceTree = "<group>"; };
@@ -518,21 +507,22 @@
 		1AA0BD4E7F5516FF9A39BF7D6E144EB3 /* RaisesException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RaisesException.swift; path = Sources/Nimble/Matchers/RaisesException.swift; sourceTree = "<group>"; };
 		1AC26F02615BFF54DDFF7D5E9E7146E0 /* lax_der_parsing.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = lax_der_parsing.h; path = secp256k1_ios/contrib/lax_der_parsing.h; sourceTree = "<group>"; };
 		1B67B9554C3F20AF5291C13840471227 /* Words and Bits.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Words and Bits.swift"; path = "sources/Words and Bits.swift"; sourceTree = "<group>"; };
-		1BAC00157CA91021BF7243181C6B12AC /* BigInt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = BigInt.modulemap; sourceTree = "<group>"; };
+		1BAC00157CA91021BF7243181C6B12AC /* BigInt.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = BigInt.modulemap; sourceTree = "<group>"; };
 		1BDFD57952F265A31C8E515865E84C5D /* CryptoSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-umbrella.h"; sourceTree = "<group>"; };
 		1CAE983EBB3BEB72ADC97C6C00E76084 /* Byte+Alphabet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Byte+Alphabet.swift"; path = "Sources/Bits/Byte+Alphabet.swift"; sourceTree = "<group>"; };
 		1D168112FBA2A6FD0653ABC0EB10F5EE /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
 		1DD60E324551A7ED17CEF6A34066F8D3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E518ED5FCBD9FA59BFD59D32BF67F7E /* Web3-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Web3-dummy.m"; sourceTree = "<group>"; };
 		1ED5B5824CBF57B8C84EDBC2033E166D /* CwlCatchBadInstruction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CwlCatchBadInstruction.swift; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlCatchBadInstruction.swift; sourceTree = "<group>"; };
 		1FBE6AB03EFFA701A2ED05228A319D87 /* basic-config.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "basic-config.h"; path = "secp256k1_ios/src/basic-config.h"; sourceTree = "<group>"; };
 		212331D48086FC95394E4F89C62F9CD4 /* CwlCatchException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CwlCatchException.m; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchExceptionSupport/CwlCatchException.m; sourceTree = "<group>"; };
+		23B4CD6B08A8DAFFD620BDD5B7355733 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25137CCEF29320ACA6FD620F42E09076 /* ecmult_static_context.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_static_context.h; path = secp256k1_ios/src/ecmult_static_context.h; sourceTree = "<group>"; };
 		251A27E813C67D835E4A18272834270B /* lax_der_privatekey_parsing.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = lax_der_privatekey_parsing.h; path = secp256k1_ios/contrib/lax_der_privatekey_parsing.h; sourceTree = "<group>"; };
 		25521E919F510675AC8EF7214EC0B359 /* NMBExceptionCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NMBExceptionCapture.m; path = Sources/NimbleObjectiveC/NMBExceptionCapture.m; sourceTree = "<group>"; };
 		25B53F16CAB4202BC6256B62DA70B793 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/CryptoSwift/Operators.swift; sourceTree = "<group>"; };
 		2632DC395A23A44EE25573383AA718AA /* VaporBytes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VaporBytes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2660DFE80395ECEEBF8555DB29C8BDC6 /* Nimble-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nimble-dummy.m"; sourceTree = "<group>"; };
-		26752068B5D3768F3C14EBDEE33B8910 /* EthereumTransaction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumTransaction.swift; sourceTree = "<group>"; };
 		269F6B4C1EEF9CCC93C4264A2E717347 /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1_ios/src/modules/recovery/main_impl.h; sourceTree = "<group>"; };
 		26FC84B1164BF4F9988F24EBDDB49859 /* String+BytesConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+BytesConvertible.swift"; path = "Sources/Bits/String+BytesConvertible.swift"; sourceTree = "<group>"; };
 		27B10C0FE542003E94567DA143A657A7 /* Pods-Web3_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Web3_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -542,34 +532,37 @@
 		28943A9294209FEC0CDE46984DB0843B /* field_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_impl.h; path = secp256k1_ios/src/field_impl.h; sourceTree = "<group>"; };
 		28DFD11B7505301906E2C1409321DCED /* HMAC+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "HMAC+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/HMAC+Foundation.swift"; sourceTree = "<group>"; };
 		299634FD69F407726CD846C138A8D891 /* CwlBadInstructionException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CwlBadInstructionException.swift; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlBadInstructionException.swift; sourceTree = "<group>"; };
+		2A0BF872ACA41737BC75D2D82978C90A /* RLPEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RLPEncoder.swift; sourceTree = "<group>"; };
 		2AD2E0EBAEBD74DECA0B3FBEAE6F2319 /* num_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_impl.h; path = secp256k1_ios/src/num_impl.h; sourceTree = "<group>"; };
+		2B02C3B716BD4F7581B3BE0FECA26DF0 /* RLPDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RLPDecoder.swift; sourceTree = "<group>"; };
 		2B969A87D7A4F6D56E91975F1069F95E /* scalar_low.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_low.h; path = secp256k1_ios/src/scalar_low.h; sourceTree = "<group>"; };
-		2C8D177E8D83725DE698BD1B4D113605 /* EthereumBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumBlock.swift; sourceTree = "<group>"; };
 		2CB12EBF608BFE8896D8E7C581797F1B /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
 		2CB7D11777227F7238DCF20B6454DF3C /* BigInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BigInt.swift; path = sources/BigInt.swift; sourceTree = "<group>"; };
 		2DCFB613B4896A50A768E98A8118B086 /* Square Root.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Square Root.swift"; path = "sources/Square Root.swift"; sourceTree = "<group>"; };
 		2DF73ECD8A515D2654EB23139BE42B9C /* Pods-Web3_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Web3_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		2E0C96DE274A388C74209A9833ED6BBF /* Pods-Web3_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Web3_Tests.modulemap"; sourceTree = "<group>"; };
+		2E0C96DE274A388C74209A9833ED6BBF /* Pods-Web3_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Web3_Tests.modulemap"; sourceTree = "<group>"; };
 		2EBEEF5897F949D2C8C9ACA377A4F220 /* World.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = World.h; path = Sources/QuickObjectiveC/World.h; sourceTree = "<group>"; };
 		2ED0025C01226593C46E8C6F5774C072 /* Blowfish+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Blowfish+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Blowfish+Foundation.swift"; sourceTree = "<group>"; };
 		2F9D540D8D665ACFF957D62FD0ABBC8B /* BigInt.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BigInt.xcconfig; sourceTree = "<group>"; };
 		300C5C82BA1FB5EA7546A61EAE798595 /* Array+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Array+Extensions.swift"; path = "Sources/CryptoSwift/Array+Extensions.swift"; sourceTree = "<group>"; };
 		30FE75B38C559C0F9D01DFDFCEF2F025 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
+		31133E64F3966F712CF82CA5053F94BE /* EthereumLog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumLog.swift; sourceTree = "<group>"; };
 		31AE017B145156315C1DF1229AB0C49F /* ecdsa_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdsa_impl.h; path = secp256k1_ios/src/ecdsa_impl.h; sourceTree = "<group>"; };
+		33360D6ADF91FDA76C3FBCEAEAB58A0A /* EthereumTransactionReceipt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumTransactionReceipt.swift; sourceTree = "<group>"; };
 		336F14CD881210C597838888E68BDC8E /* BeGreaterThanOrEqualTo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeGreaterThanOrEqualTo.swift; path = Sources/Nimble/Matchers/BeGreaterThanOrEqualTo.swift; sourceTree = "<group>"; };
 		339F4EDC308BEDD59813E3297D5998F2 /* Quick-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Quick-dummy.m"; sourceTree = "<group>"; };
 		3407976088634D19DD8BD7936B080EB8 /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		343F560D572D25FFEDDE82BAA1D1C561 /* DataRequest+CodableResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DataRequest+CodableResponse.swift"; sourceTree = "<group>"; };
 		346E023A15F5390C2FC36EECF29C51DF /* scalar_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_impl.h; path = secp256k1_ios/src/scalar_impl.h; sourceTree = "<group>"; };
 		35252316845828B466962F880ECAA096 /* QuickSpec.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QuickSpec.m; path = Sources/QuickObjectiveC/QuickSpec.m; sourceTree = "<group>"; };
-		3580BDE4BFD7765492708578638688C1 /* Web3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Web3.swift; sourceTree = "<group>"; };
 		35A6968DAEA1DAF801BE78C90829DC56 /* MD5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MD5.swift; path = Sources/CryptoSwift/MD5.swift; sourceTree = "<group>"; };
 		362F3D7C093281D2EDD2648113D38D33 /* Floating Point Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Floating Point Conversion.swift"; path = "sources/Floating Point Conversion.swift"; sourceTree = "<group>"; };
 		3690D9A4ED5FA713C887A3D8843C5892 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		36D30E71FDDDD1BEDB045179335887A6 /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
 		3710FCC60905CEDCC681FB67CCFB32C1 /* World+DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "World+DSL.swift"; path = "Sources/Quick/DSL/World+DSL.swift"; sourceTree = "<group>"; };
-		37A9855BBD4F80EE75711DB895850AF6 /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37A9855BBD4F80EE75711DB895850AF6 /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Quick.framework; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		388363C7F92A719F0C990B721BF2AD12 /* ToSucceed.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ToSucceed.swift; path = Sources/Nimble/Matchers/ToSucceed.swift; sourceTree = "<group>"; };
-		388F2008973F04B05DD02373B3A5B83C /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		388F2008973F04B05DD02373B3A5B83C /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		390155F6BED0A55870C6E075AE9EDCC1 /* Quick.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Quick.h; path = Sources/QuickObjectiveC/Quick.h; sourceTree = "<group>"; };
 		3908D84FF776E06649FBF93FAB5259A7 /* UInt32+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt32+Extension.swift"; path = "Sources/CryptoSwift/UInt32+Extension.swift"; sourceTree = "<group>"; };
 		392B77681DD5537D9011D923E904EE42 /* ecmult_gen.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_gen.h; path = secp256k1_ios/src/ecmult_gen.h; sourceTree = "<group>"; };
@@ -584,18 +577,19 @@
 		41340DA736E99568603934AE034961E2 /* PBKDF2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF2.swift; path = Sources/CryptoSwift/PKCS/PBKDF2.swift; sourceTree = "<group>"; };
 		417A7C5A2F633D20D5AF8CB2EA792BDB /* BigUInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BigUInt.swift; path = sources/BigUInt.swift; sourceTree = "<group>"; };
 		41929C5DF62A9263D9E2AC67229FF084 /* EndWith.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EndWith.swift; path = Sources/Nimble/Matchers/EndWith.swift; sourceTree = "<group>"; };
+		42498221F1187D0B9EC290B536970FB0 /* RLPItemConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RLPItemConvertible.swift; sourceTree = "<group>"; };
 		426D09E6D59771398B36FD90E1AE4D42 /* Division.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Division.swift; path = sources/Division.swift; sourceTree = "<group>"; };
 		432E0AB964BA08AAC44868F8D20E7651 /* NMBExpectation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NMBExpectation.swift; path = Sources/Nimble/Adapters/NMBExpectation.swift; sourceTree = "<group>"; };
 		43AF8DDAB5601B0A0721D8184D5D3E6D /* SipHasher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SipHasher.swift; path = SipHash/SipHasher.swift; sourceTree = "<group>"; };
-		43BE1FDE0499FB2CC9E5C9DD28CF2BBE /* Pods_Web3_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BE1FDE0499FB2CC9E5C9DD28CF2BBE /* Pods_Web3_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Web3_Tests.framework; path = "Pods-Web3_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43F61C67690A9F0694A27285C8A91BCD /* Result.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
 		4465F3AE7E7CFBA5C0324ACC34D2B2A8 /* DigestType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DigestType.swift; path = Sources/CryptoSwift/DigestType.swift; sourceTree = "<group>"; };
-		4497AE2B7BD5EBA90800FAF95E451726 /* Web3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Web3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4497AE2B7BD5EBA90800FAF95E451726 /* Web3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Web3.framework; path = Web3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		450E27F05491C2CE8752CBD1647430B2 /* Closures.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Closures.swift; path = Sources/Quick/Hooks/Closures.swift; sourceTree = "<group>"; };
-		45257E3DA9E7499630E16A5CECF7BAAA /* EthereumTransactionReceipt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumTransactionReceipt.swift; sourceTree = "<group>"; };
-		452FD80CA94B77D679E2C42FE124873F /* secp256k1_ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = secp256k1_ios.modulemap; sourceTree = "<group>"; };
+		452FD80CA94B77D679E2C42FE124873F /* secp256k1_ios.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = secp256k1_ios.modulemap; sourceTree = "<group>"; };
 		4562787097DB98081F07153D859A34F6 /* ContainElementSatisfying.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContainElementSatisfying.swift; path = Sources/Nimble/Matchers/ContainElementSatisfying.swift; sourceTree = "<group>"; };
 		45736FED32129159045734908858D2BD /* RandomBytesSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomBytesSequence.swift; path = Sources/CryptoSwift/RandomBytesSequence.swift; sourceTree = "<group>"; };
+		45E9947420870942A5BB18F7DA114F4D /* EthereumAddress.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumAddress.swift; sourceTree = "<group>"; };
 		45EB0117D67AE34C6A3342B87ABAFB5C /* MatcherFunc.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatcherFunc.swift; path = Sources/Nimble/Matchers/MatcherFunc.swift; sourceTree = "<group>"; };
 		462179A5D9AA06C550ED3D1C3C19E760 /* ExpectationMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpectationMessage.swift; path = Sources/Nimble/ExpectationMessage.swift; sourceTree = "<group>"; };
 		465772495389762BB22EDEA09592D3D7 /* CwlMachBadInstructionHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CwlMachBadInstructionHandler.m; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/CwlMachBadInstructionHandler.m; sourceTree = "<group>"; };
@@ -605,15 +599,18 @@
 		492FAFC0C83AC73E1AECC4F477C37821 /* QuickSpecBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QuickSpecBase.h; path = Sources/QuickSpecBase/include/QuickSpecBase.h; sourceTree = "<group>"; };
 		4976EDC04E4BDE570417C5BE72A21E05 /* Quick-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Quick-prefix.pch"; sourceTree = "<group>"; };
 		4AD540A597EC05FBF1AC3C6C51D6B8B8 /* SHA2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA2.swift; path = Sources/CryptoSwift/SHA2.swift; sourceTree = "<group>"; };
-		4C6306E2EE760734AE165F7A87E15BAD /* Web3.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Web3.modulemap; sourceTree = "<group>"; };
 		4CBB0FCE6F34B5E50EEA5FFF8C8C60AB /* SipHashable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SipHashable.swift; path = SipHash/SipHashable.swift; sourceTree = "<group>"; };
 		4DCBE86226F7AF66BAD02AC2B32E9F41 /* CBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBC.swift; path = Sources/CryptoSwift/BlockMode/CBC.swift; sourceTree = "<group>"; };
-		4EE972B8436893C329ECEB40A8A63051 /* VaporBytes.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = VaporBytes.modulemap; sourceTree = "<group>"; };
+		4EE972B8436893C329ECEB40A8A63051 /* VaporBytes.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = VaporBytes.modulemap; sourceTree = "<group>"; };
+		4FEA321BF6C88C5D08F136017DE5541F /* UInt+BytesRepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentable.swift"; sourceTree = "<group>"; };
 		50223566B86DF44AB023457F740692A9 /* SipHash-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SipHash-umbrella.h"; sourceTree = "<group>"; };
 		52B68CE147579FA0F5424117E0758FE9 /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = Sources/Nimble/Utils/Errors.swift; sourceTree = "<group>"; };
-		547A30017D3DA5665255AE3E29E8D52F /* SipHash.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SipHash.modulemap; sourceTree = "<group>"; };
+		547A30017D3DA5665255AE3E29E8D52F /* SipHash.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SipHash.modulemap; sourceTree = "<group>"; };
+		54DB1D70239A46D5CC408C8733F9285B /* EthereumPublicKey.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumPublicKey.swift; sourceTree = "<group>"; };
+		554AD8815D0A59EC68A39009C5EB4AD6 /* Web3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Web3.swift; sourceTree = "<group>"; };
 		558153C4E5842D494FC34A5BCBFE4F6D /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Nimble/DSL.swift; sourceTree = "<group>"; };
 		5660CB9E63D3BEE458761E3F88C76E97 /* Int+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Int+Extension.swift"; path = "Sources/CryptoSwift/Int+Extension.swift"; sourceTree = "<group>"; };
+		56866E2768261FDEB23791497DBE5A04 /* Web3-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Web3-prefix.pch"; sourceTree = "<group>"; };
 		572ED3E2A99048DAE10AA3199FE0CEAE /* Bit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bit.swift; path = Sources/CryptoSwift/Bit.swift; sourceTree = "<group>"; };
 		5748BF8F27B155F3CE1675F52F13F119 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
 		5813B4B9E74197CAB644C79FBF71F7D6 /* Byte+UTF8Numbers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Byte+UTF8Numbers.swift"; path = "Sources/Bits/Byte+UTF8Numbers.swift"; sourceTree = "<group>"; };
@@ -627,23 +624,27 @@
 		5EDE9F66389C9D2CB3D4C6F66A8ADD47 /* field_5x52.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52.h; path = secp256k1_ios/src/field_5x52.h; sourceTree = "<group>"; };
 		5FB25D5F7DE4EF9E69FA14A830200E3B /* Integer Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Integer Conversion.swift"; path = "sources/Integer Conversion.swift"; sourceTree = "<group>"; };
 		60173949A22F098CC778F912790DAA07 /* Subtraction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Subtraction.swift; path = sources/Subtraction.swift; sourceTree = "<group>"; };
+		60254B95B54D2ED41B52B519B4E70EF6 /* EthereumBlock.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumBlock.swift; sourceTree = "<group>"; };
 		608D2575D0F2C0F67CBFBA1456E1F91B /* VaporBytes-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "VaporBytes-prefix.pch"; sourceTree = "<group>"; };
 		6145FF9A9392AB2C843AD0283567D182 /* field_5x52_int128_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52_int128_impl.h; path = secp256k1_ios/src/field_5x52_int128_impl.h; sourceTree = "<group>"; };
-		61C77DD791E3D18F41825879786714C0 /* lax_der_privatekey_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = lax_der_privatekey_parsing.c; path = secp256k1_ios/contrib/lax_der_privatekey_parsing.c; sourceTree = "<group>"; };
+		61C77DD791E3D18F41825879786714C0 /* lax_der_privatekey_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; name = lax_der_privatekey_parsing.c; path = secp256k1_ios/contrib/lax_der_privatekey_parsing.c; sourceTree = "<group>"; };
+		6251C6FD99C1F74BBA0E3BD556710DC5 /* Types+RLPItemConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Types+RLPItemConvertible.swift"; sourceTree = "<group>"; };
+		62C2A0498041863AD2ABA9757EB81D2B /* RLPItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RLPItem.swift; sourceTree = "<group>"; };
 		63F83AABD23E0BD50D82FF506151474E /* NMBStringify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NMBStringify.h; path = Sources/NimbleObjectiveC/NMBStringify.h; sourceTree = "<group>"; };
 		6420BAD33ECC5EE236B311EC236DBF19 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		642531E1B8F0D9AF30A6A503513CB8C0 /* VaporBytes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VaporBytes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		642531E1B8F0D9AF30A6A503513CB8C0 /* VaporBytes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = VaporBytes.framework; path = VaporBytes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		645D0C37C5F2174336E1629E4A7529F0 /* BeEmpty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeEmpty.swift; path = Sources/Nimble/Matchers/BeEmpty.swift; sourceTree = "<group>"; };
 		64CD1FDEEB6095DF9B72E94808417FE1 /* HexEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HexEncoder.swift; path = Sources/Bits/HexEncoder.swift; sourceTree = "<group>"; };
-		65DAE95594976F8B1C4602487C835D63 /* CryptoSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = CryptoSwift.modulemap; sourceTree = "<group>"; };
+		65DAE95594976F8B1C4602487C835D63 /* CryptoSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = CryptoSwift.modulemap; sourceTree = "<group>"; };
 		661BDE0CE71B55956C390FD58ABEF67C /* Example.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Example.swift; path = Sources/Quick/Example.swift; sourceTree = "<group>"; };
 		6690499567FD244FCE1FAAAF56D3295C /* Pods-Web3_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Web3_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		669799D1322CFA36BBEDDED3388842A3 /* secp256k1_ios-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "secp256k1_ios-umbrella.h"; sourceTree = "<group>"; };
+		6703501FAD3C09E77530D0010E9D8AC8 /* Web3HttpProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Web3HttpProvider.swift; sourceTree = "<group>"; };
 		675D3C6E8ADF6F0CCD4E48EFB5D598F3 /* ThrowAssertion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThrowAssertion.swift; path = Sources/Nimble/Matchers/ThrowAssertion.swift; sourceTree = "<group>"; };
 		6785047453702374589C38C28595691F /* PostNotification.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PostNotification.swift; path = Sources/Nimble/Matchers/PostNotification.swift; sourceTree = "<group>"; };
 		6822C233B531EEF9A8059A5A5B81977A /* Byte+ControlCharacters.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Byte+ControlCharacters.swift"; path = "Sources/Bits/Byte+ControlCharacters.swift"; sourceTree = "<group>"; };
 		687E45A5CD8441C3A179F4A1A2A0D72E /* MatcherProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatcherProtocols.swift; path = Sources/Nimble/Matchers/MatcherProtocols.swift; sourceTree = "<group>"; };
-		689F1FD80AD6600B08573F8C8683A960 /* Nimble.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Nimble.modulemap; sourceTree = "<group>"; };
+		689F1FD80AD6600B08573F8C8683A960 /* Nimble.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Nimble.modulemap; sourceTree = "<group>"; };
 		6939E60FB1236B1CEB3C453198B9A04E /* Pods-Web3_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Web3_Tests-dummy.m"; sourceTree = "<group>"; };
 		6A69F65A4DC02A04B0FF1C3891E43E8F /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD0CDD23FED28817505E0FE66F3304A /* BlockModeOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockModeOptions.swift; path = Sources/CryptoSwift/BlockMode/BlockModeOptions.swift; sourceTree = "<group>"; };
@@ -669,7 +670,6 @@
 		7C3278CB116D2EF25FBC1B28EE5F1EC2 /* RandomUInt64.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomUInt64.swift; path = SipHash/RandomUInt64.swift; sourceTree = "<group>"; };
 		7F338E77375A55DD86ABD5F9F638B472 /* BeLogical.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeLogical.swift; path = Sources/Nimble/Matchers/BeLogical.swift; sourceTree = "<group>"; };
 		7F47CE64529698146BB48F47B845DFFF /* NMBExceptionCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NMBExceptionCapture.h; path = Sources/NimbleObjectiveC/NMBExceptionCapture.h; sourceTree = "<group>"; };
-		803A9DBF753B6DFC58D6D65EAE48D44E /* Web3-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Web3-prefix.pch"; sourceTree = "<group>"; };
 		817010ED83B5B1F9E61761D87FB12AAE /* SHA3.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SHA3.swift; path = Sources/CryptoSwift/SHA3.swift; sourceTree = "<group>"; };
 		81720E72B696A43A76707473DDC5F647 /* SatisfyAnyOf.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SatisfyAnyOf.swift; path = Sources/Nimble/Matchers/SatisfyAnyOf.swift; sourceTree = "<group>"; };
 		826664C3CB1345282754004DE4451D71 /* BeginWith.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeginWith.swift; path = Sources/Nimble/Matchers/BeginWith.swift; sourceTree = "<group>"; };
@@ -678,10 +678,11 @@
 		83FBAF259D614D1BF659EEE67B9FBCC2 /* Updatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Updatable.swift; path = Sources/CryptoSwift/Updatable.swift; sourceTree = "<group>"; };
 		846A819E719FF0AE6040DCA1FCDFE102 /* field_5x52_asm_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52_asm_impl.h; path = secp256k1_ios/src/field_5x52_asm_impl.h; sourceTree = "<group>"; };
 		868CA8FE068096915438C06C47E23CC4 /* group_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = group_impl.h; path = secp256k1_ios/src/group_impl.h; sourceTree = "<group>"; };
-		87223E786621CD1D0DE86F32AE925740 /* secp256k1_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = secp256k1_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		870D9C0A901B109975F0A662D05802F8 /* RPCResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RPCResponse.swift; sourceTree = "<group>"; };
+		87223E786621CD1D0DE86F32AE925740 /* secp256k1_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = secp256k1_ios.framework; path = secp256k1_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		872543F31E1176A31A39C004B6E7FACC /* CryptoSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CryptoSwift-prefix.pch"; sourceTree = "<group>"; };
 		88941383766FD1B07FD39CA4DD856A18 /* Quick.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Quick.xcconfig; sourceTree = "<group>"; };
-		88DDE9BB2E383B788157E6099F9A1E10 /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		88DDE9BB2E383B788157E6099F9A1E10 /* BigInt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BigInt.framework; path = BigInt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89DD8982BE2BB68CC22EB5E0A9B7816F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B478C0564E14F70028B39A3C89E018D /* scalar_4x64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_4x64.h; path = secp256k1_ios/src/scalar_4x64.h; sourceTree = "<group>"; };
 		8C7B17FE365487791881F3BB546B8A59 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -689,7 +690,8 @@
 		8D78189CF412E2F83418F7CB34F15496 /* BigInt-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BigInt-prefix.pch"; sourceTree = "<group>"; };
 		8DC81F3157942EE818AC4A9E1D06EF5B /* hash_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hash_impl.h; path = secp256k1_ios/src/hash_impl.h; sourceTree = "<group>"; };
 		8F36143212FE6C7AE653E2993E178E46 /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
-		9039A2F288EE1004B1CC3417302797A8 /* Quick.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Quick.modulemap; sourceTree = "<group>"; };
+		8FA32AAA6DBA8B8DB57D0E23BF3277E1 /* EthereumValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumValue.swift; sourceTree = "<group>"; };
+		9039A2F288EE1004B1CC3417302797A8 /* Quick.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Quick.modulemap; sourceTree = "<group>"; };
 		912C337A06F8E851A03DB81604B6F94E /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = Sources/Quick/Filter.swift; sourceTree = "<group>"; };
 		91EC0BEAFA904A9002468AAE2EB642FC /* QuickSpecBase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QuickSpecBase.m; path = Sources/QuickSpecBase/QuickSpecBase.m; sourceTree = "<group>"; };
 		92123CC4FFC6A036E53C2CF6EF46BEDA /* BigInt-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BigInt-umbrella.h"; sourceTree = "<group>"; };
@@ -697,36 +699,32 @@
 		929C606B31499B0EF2F1FA3A0A6F5F7C /* BeLessThan.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeLessThan.swift; path = Sources/Nimble/Matchers/BeLessThan.swift; sourceTree = "<group>"; };
 		93169F71964FACF1146BF3EC34FED3A2 /* Hashable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Hashable.swift; path = sources/Hashable.swift; sourceTree = "<group>"; };
 		9373EBAFC0D707BC7EB58C8DD3F478E4 /* Cipher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cipher.swift; path = Sources/CryptoSwift/Cipher.swift; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94BACA19E2536549186D1C2E33FA5804 /* Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Codable.swift; path = sources/Codable.swift; sourceTree = "<group>"; };
-		95089B5B93A23346E3F74B882E9FCAC0 /* DataRequest+CodableResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "DataRequest+CodableResponse.swift"; sourceTree = "<group>"; };
 		9522B5E157E02224C0A1041A97052707 /* AllPass.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AllPass.swift; path = Sources/Nimble/Matchers/AllPass.swift; sourceTree = "<group>"; };
 		952CAE7F3CFFC74B666667CA178324A1 /* secp256k1_ios-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "secp256k1_ios-dummy.m"; sourceTree = "<group>"; };
 		96ACC5F2728425E73EBC95E6BD41C1FA /* Pods-Web3_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Web3_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		96F7172427D36C15038C87EAF64F9F59 /* Base64Encoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Base64Encoder.swift; path = Sources/Bits/Base64Encoder.swift; sourceTree = "<group>"; };
-		9864273A40BEC540BFA9D62A05B470E4 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9755AAC12F56C0AA1527BCED01D6071E /* Bytes+UInt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Bytes+UInt.swift"; sourceTree = "<group>"; };
+		9864273A40BEC540BFA9D62A05B470E4 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CryptoSwift.framework; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98E2D45A9E590A68476B933707D942C8 /* Aliases.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Aliases.swift; path = Sources/Bits/Aliases.swift; sourceTree = "<group>"; };
 		99239B60B1A7F0321664FE36933C30D5 /* Expression.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Expression.swift; path = Sources/Nimble/Expression.swift; sourceTree = "<group>"; };
 		995704B66E2AF346598B6F7FB6C41CE9 /* MatchError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatchError.swift; path = Sources/Nimble/Matchers/MatchError.swift; sourceTree = "<group>"; };
 		99D009645D01514936060B9F20AEBF9D /* NSBundle+CurrentTestBundle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSBundle+CurrentTestBundle.swift"; path = "Sources/Quick/NSBundle+CurrentTestBundle.swift"; sourceTree = "<group>"; };
-		99E6268E0434384187E0C7CB08998ABE /* EthereumLog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumLog.swift; sourceTree = "<group>"; };
 		9B4F30201D5133B7E2753D2EDE8E500F /* eckey.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = eckey.h; path = secp256k1_ios/src/eckey.h; sourceTree = "<group>"; };
 		9B718718FFA04C8DF49379523F678A2C /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/Bits/Operators.swift; sourceTree = "<group>"; };
-		9DE72E0A9074AA10B85444AFA2E171D8 /* Web3-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Web3-dummy.m"; sourceTree = "<group>"; };
 		9E3A1ACDF00489995659782F45D04C27 /* CryptoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ED0D946856964FA2144527F2DD9375C /* BlockMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BlockMode.swift; path = Sources/CryptoSwift/BlockMode/BlockMode.swift; sourceTree = "<group>"; };
 		A0E4BE1960DC5AC66D55415B25023C86 /* URL+FileName.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "URL+FileName.swift"; path = "Sources/Quick/URL+FileName.swift"; sourceTree = "<group>"; };
-		A13209F4C58B0B30BB9EEF09AB16F0DB /* Web3.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Web3.xcconfig; sourceTree = "<group>"; };
 		A21B7617A71763264C60FE2649C108E3 /* Exponentiation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Exponentiation.swift; path = sources/Exponentiation.swift; sourceTree = "<group>"; };
 		A2558514F152186EA46AF52859786008 /* Quick-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Quick-umbrella.h"; sourceTree = "<group>"; };
 		A33020CA760E7F2A2985D6B04DBD67E3 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
 		A337FB5C2175A0736D9C1C21B56A8E52 /* BeIdenticalTo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeIdenticalTo.swift; path = Sources/Nimble/Matchers/BeIdenticalTo.swift; sourceTree = "<group>"; };
-		A3451A42B0391AC8B6345B5CBFCD768D /* RPCResponse.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RPCResponse.swift; sourceTree = "<group>"; };
 		A34E903E7D2A996E39C6873439CF8054 /* Digest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Digest.swift; path = Sources/CryptoSwift/Digest.swift; sourceTree = "<group>"; };
 		A41A17C6F9E9771C2A8CB2DD2B3A4F67 /* Byte+Convenience.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Byte+Convenience.swift"; path = "Sources/Bits/Byte+Convenience.swift"; sourceTree = "<group>"; };
 		A43EE9DC35431114DC1F9D1C8217DDB3 /* Authenticator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Authenticator.swift; path = Sources/CryptoSwift/Authenticator.swift; sourceTree = "<group>"; };
 		A5793FB0D6A7EE79F2EED37B81184385 /* Predicate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Nimble/Matchers/Predicate.swift; sourceTree = "<group>"; };
-		A5EA04CDB44DB2CB50CA235D83140128 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5EA04CDB44DB2CB50CA235D83140128 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74197DF64A382EC0E39BFF8C395CCE6 /* Response.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Response.swift; path = Source/Response.swift; sourceTree = "<group>"; };
 		A76C5F1CCEA195CE6BFA445C188383A4 /* XCTestSuite+QuickTestSuiteBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "XCTestSuite+QuickTestSuiteBuilder.m"; path = "Sources/QuickObjectiveC/XCTestSuite+QuickTestSuiteBuilder.m"; sourceTree = "<group>"; };
 		A7B8E418ADFAEB3F025A90E474982F06 /* QCKDSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QCKDSL.m; path = Sources/QuickObjectiveC/DSL/QCKDSL.m; sourceTree = "<group>"; };
@@ -737,18 +735,19 @@
 		AC3816A1931F097596633234BE83D0FD /* ChaCha20.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChaCha20.swift; path = Sources/CryptoSwift/ChaCha20.swift; sourceTree = "<group>"; };
 		AC54617358EA105E4D41657930D59D2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		ACBDE1601DE73F3B7515473260BDA1FE /* HMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HMAC.swift; path = Sources/CryptoSwift/HMAC.swift; sourceTree = "<group>"; };
-		ACD17FC06FD69037863876AA233DDCC6 /* EthereumValue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumValue.swift; sourceTree = "<group>"; };
 		ACFA35B97716DE8CF3004A3DC6A100FF /* Prime Test.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Prime Test.swift"; path = "sources/Prime Test.swift"; sourceTree = "<group>"; };
+		AEBBBF7D437B1188ECEE8C0A69F8FD09 /* Web3.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Web3.modulemap; sourceTree = "<group>"; };
 		AEE5BE3D9263540E7B7F29F3FA5CFF2D /* Configuration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = Sources/Quick/Configuration/Configuration.swift; sourceTree = "<group>"; };
 		AF8A373AA2551481DC9219795677BEDB /* Random.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Random.swift; path = sources/Random.swift; sourceTree = "<group>"; };
 		AFAA2933A400E18EC1B04D60BB872E89 /* Functional.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Functional.swift; path = Sources/Nimble/Utils/Functional.swift; sourceTree = "<group>"; };
 		AFED86E6F57834F4136A207C58299C0F /* Utils+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Utils+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/Utils+Foundation.swift"; sourceTree = "<group>"; };
+		AFFA41F30A0D3ECED0726061009D6574 /* Transaction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		B16C3BF24A1D0141A4F6B38E13B9BAE2 /* Multiplication.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Multiplication.swift; path = sources/Multiplication.swift; sourceTree = "<group>"; };
 		B204098751855F50EF8BA038D4A5A784 /* Data Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data Conversion.swift"; path = "sources/Data Conversion.swift"; sourceTree = "<group>"; };
+		B2473D4F27B468368217D07B488449C8 /* Web3Provider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Web3Provider.swift; sourceTree = "<group>"; };
 		B290C4EE04F7C872EE52127BB72D3284 /* ThrowError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThrowError.swift; path = Sources/Nimble/Matchers/ThrowError.swift; sourceTree = "<group>"; };
 		B45B7B3E7310E1782E7D88644FCC7DBF /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1_ios/src/modules/ecdh/main_impl.h; sourceTree = "<group>"; };
 		B500B4FDD9E6B11E866615F411EC16B1 /* BeVoid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeVoid.swift; path = Sources/Nimble/Matchers/BeVoid.swift; sourceTree = "<group>"; };
-		B529C6845EF92AF50A80DE43A3B80DFC /* EthereumSyncStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumSyncStatus.swift; sourceTree = "<group>"; };
 		B53B8A1CEA5E2952BFC3ED62CEEABE6D /* Nimble.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nimble.xcconfig; sourceTree = "<group>"; };
 		B5A57F02F9A5563B2E62DDDEF193F805 /* SecureBytes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SecureBytes.swift; path = Sources/CryptoSwift/SecureBytes.swift; sourceTree = "<group>"; };
 		B65AA6C6165D8EE990695862F9ADCBD8 /* Stringers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Stringers.swift; path = Sources/Nimble/Utils/Stringers.swift; sourceTree = "<group>"; };
@@ -765,16 +764,15 @@
 		BD38875861F1778C898A6E63D3BFC28F /* ErrorUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorUtility.swift; path = Sources/Quick/ErrorUtility.swift; sourceTree = "<group>"; };
 		BD9A96FC05E918E46E69C5DC30DBFDDF /* secp256k1_recovery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_recovery.h; path = secp256k1_ios/include/secp256k1_recovery.h; sourceTree = "<group>"; };
 		C00BD147790231284183406DF3BFCFC9 /* UInt16+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UInt16+Extension.swift"; path = "Sources/CryptoSwift/UInt16+Extension.swift"; sourceTree = "<group>"; };
-		C07603E899AA48C2CD2B6C13F9DE8B29 /* secp256k1.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = secp256k1.c; path = secp256k1_ios/src/secp256k1.c; sourceTree = "<group>"; };
+		C07603E899AA48C2CD2B6C13F9DE8B29 /* secp256k1.c */ = {isa = PBXFileReference; includeInIndex = 1; name = secp256k1.c; path = secp256k1_ios/src/secp256k1.c; sourceTree = "<group>"; };
+		C090E5310F9DA5AA65BEE47035E5BF55 /* EthereumTransaction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumTransaction.swift; sourceTree = "<group>"; };
 		C0FD5808C8B6B530C730A56D443DB231 /* Padding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Padding.swift; path = Sources/CryptoSwift/Padding.swift; sourceTree = "<group>"; };
-		C191602063BA16503B3100A4857D1099 /* RPCRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RPCRequest.swift; sourceTree = "<group>"; };
 		C1C7C50D4F6B46856F69C20ED21F4450 /* BeGreaterThan.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeGreaterThan.swift; path = Sources/Nimble/Matchers/BeGreaterThan.swift; sourceTree = "<group>"; };
 		C1CD65671530B0F84C9D3701B9E69423 /* scratch_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scratch_impl.h; path = secp256k1_ios/src/scratch_impl.h; sourceTree = "<group>"; };
 		C1F86730B6B8A72B57CAE0C9EAFAB963 /* Async.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Async.swift; path = Sources/Nimble/Utils/Async.swift; sourceTree = "<group>"; };
 		C2B080859879359C0CD2CB6AC36D22C1 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
-		C31969D1B194EEB4686BFF51790BD47D /* Web3HttpProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Web3HttpProvider.swift; sourceTree = "<group>"; };
 		C3368FA233663987A23A22CBE7D38A98 /* PKCS5.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKCS5.swift; path = Sources/CryptoSwift/PKCS/PKCS5.swift; sourceTree = "<group>"; };
-		C472BC4497BF34EF8B1198B80C8C2071 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C472BC4497BF34EF8B1198B80C8C2071 /* Nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Nimble.framework; path = Nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49823EE55EEFB082952AA738CF88DBC /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
 		C5AA5C7A0B268450AADA76A0C462F13D /* Pods-Web3_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Web3_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		C6E984A2AFF9968BACF2E60203EDE4D7 /* CwlMachBadInstructionHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlMachBadInstructionHandler.h; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/include/CwlMachBadInstructionHandler.h; sourceTree = "<group>"; };
@@ -794,7 +792,6 @@
 		D2FCE5E466C17481F5CC448C301A90ED /* ByteSequence+Conversions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ByteSequence+Conversions.swift"; path = "Sources/Bits/ByteSequence+Conversions.swift"; sourceTree = "<group>"; };
 		D3239BD9F97A071986AE4B1607F79DBB /* ecmult_const.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_const.h; path = secp256k1_ios/src/ecmult_const.h; sourceTree = "<group>"; };
 		D366BC543D16302CDE3FFE7F37366691 /* String Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String Conversion.swift"; path = "sources/String Conversion.swift"; sourceTree = "<group>"; };
-		D3ABE2565B59DAAAF58200C6B747A6D8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3EAC0E5F61F0384F85021D3F8E1198B /* NMBObjCMatcher.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NMBObjCMatcher.swift; path = Sources/Nimble/Adapters/NMBObjCMatcher.swift; sourceTree = "<group>"; };
 		D5AF03E66E8364D1D775A7DE102C08B8 /* secp256k1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1.h; path = secp256k1_ios/include/secp256k1.h; sourceTree = "<group>"; };
 		D6799049581240CA9DBCFF4461D6AFE7 /* QuickSpec.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QuickSpec.h; path = Sources/QuickObjectiveC/QuickSpec.h; sourceTree = "<group>"; };
@@ -804,11 +801,12 @@
 		D8698D96EB7D8D509131FBBEFEC84D80 /* ZeroPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZeroPadding.swift; path = Sources/CryptoSwift/ZeroPadding.swift; sourceTree = "<group>"; };
 		D97003D9E63146D13621851E7E6D6DEB /* BatchedCollection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BatchedCollection.swift; path = Sources/CryptoSwift/BatchedCollection.swift; sourceTree = "<group>"; };
 		D9F8CE886E1D4F491DA60BEBD1A45E31 /* eckey_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = eckey_impl.h; path = secp256k1_ios/src/eckey_impl.h; sourceTree = "<group>"; };
+		DC86EFC578C35D6087AD604812E9DFDC /* EthereumPrivateKey.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKey.swift; sourceTree = "<group>"; };
 		DD3D8DB139620065273BDD8EFB64FAAE /* NSString+C99ExtendedIdentifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSString+C99ExtendedIdentifier.swift"; path = "Sources/Quick/NSString+C99ExtendedIdentifier.swift"; sourceTree = "<group>"; };
 		DD3FBC60EECC762D47015F67DC57D92F /* ecmult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult.h; path = secp256k1_ios/src/ecmult.h; sourceTree = "<group>"; };
 		DD6E79F6386843D8214B9D259F0C79B6 /* scalar_8x32_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalar_8x32_impl.h; path = secp256k1_ios/src/scalar_8x32_impl.h; sourceTree = "<group>"; };
 		DDFFFCB210286A410BD5552E209A895B /* String+Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Sources/CryptoSwift/String+Extension.swift"; sourceTree = "<group>"; };
-		DE131F2CA0B33F608E7A4E919AEE2004 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE131F2CA0B33F608E7A4E919AEE2004 /* SipHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SipHash.framework; path = SipHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF028FCF54DB4DAB801B22D18DB961DA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF9211ABE6E548CF365A592B0B8E828D /* Pods-Web3_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Web3_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E03D09B30234861C60F436BC5E68EBA3 /* Contain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Contain.swift; path = Sources/Nimble/Matchers/Contain.swift; sourceTree = "<group>"; };
@@ -823,7 +821,7 @@
 		E607CFE941802B94870CC59DCB341261 /* secp256k1_ecdh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_ecdh.h; path = secp256k1_ios/include/secp256k1_ecdh.h; sourceTree = "<group>"; };
 		E6E8C0F2EFF18349FE755E52E387F48F /* Rabbit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Rabbit.swift; path = Sources/CryptoSwift/Rabbit.swift; sourceTree = "<group>"; };
 		E6EACDE38F713B4B55F7902D256110D6 /* XCTestObservationCenter+Register.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "XCTestObservationCenter+Register.m"; path = "Sources/NimbleObjectiveC/XCTestObservationCenter+Register.m"; sourceTree = "<group>"; };
-		E781D6CF9A54B17BB4C999984D094FD2 /* lax_der_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = lax_der_parsing.c; path = secp256k1_ios/contrib/lax_der_parsing.c; sourceTree = "<group>"; };
+		E781D6CF9A54B17BB4C999984D094FD2 /* lax_der_parsing.c */ = {isa = PBXFileReference; includeInIndex = 1; name = lax_der_parsing.c; path = secp256k1_ios/contrib/lax_der_parsing.c; sourceTree = "<group>"; };
 		E81EA719365BDA8BABA0E4407C040FFA /* ChaCha20+Foundation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ChaCha20+Foundation.swift"; path = "Sources/CryptoSwift/Foundation/ChaCha20+Foundation.swift"; sourceTree = "<group>"; };
 		E8EB1F8D84132F9D29E4AA4A7AF4BFA1 /* num_gmp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = num_gmp.h; path = secp256k1_ios/src/num_gmp.h; sourceTree = "<group>"; };
 		E9B704267FCBD5029EF5263BBE98AC04 /* libsecp256k1-config.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "libsecp256k1-config.h"; path = "secp256k1_ios/libsecp256k1-config.h"; sourceTree = "<group>"; };
@@ -831,9 +829,9 @@
 		EB8B357895D25F23DABE4C681CEEF96C /* Nimble.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Nimble.h; path = Sources/Nimble/Nimble.h; sourceTree = "<group>"; };
 		EC0C4B2782647974EBFBD1BE4DADA93C /* ecdsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdsa.h; path = secp256k1_ios/src/ecdsa.h; sourceTree = "<group>"; };
 		EC869401063B1586B9B014FD3EC58D2F /* field_5x52_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field_5x52_impl.h; path = secp256k1_ios/src/field_5x52_impl.h; sourceTree = "<group>"; };
-		EF749DAEBA4F5DD590EED7510AD21B3B /* Web3Provider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Web3Provider.swift; sourceTree = "<group>"; };
 		EFF2E7A37F9C4C919EC3F7D857B906AA /* CwlDarwinDefinitions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CwlDarwinDefinitions.swift; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlDarwinDefinitions.swift; sourceTree = "<group>"; };
 		F01A94EE33E88E8B143197088C585F4E /* SipHash-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SipHash-prefix.pch"; sourceTree = "<group>"; };
+		F0AF64BA9ABD7330BC3EC3C00CC25463 /* RPCRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = RPCRequest.swift; sourceTree = "<group>"; };
 		F137153FFCBF1471154361F9643B1799 /* CwlCatchException.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CwlCatchException.swift; path = Carthage/Checkouts/CwlCatchException/Sources/CwlCatchException/CwlCatchException.swift; sourceTree = "<group>"; };
 		F18473C6E5F5D2830B82AB3E89FD69BD /* DSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DSL.m; path = Sources/NimbleObjectiveC/DSL.m; sourceTree = "<group>"; };
 		F20D7F01CCB9CBFE5249E71A6805B345 /* NoPadding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NoPadding.swift; path = Sources/CryptoSwift/NoPadding.swift; sourceTree = "<group>"; };
@@ -844,9 +842,11 @@
 		F55314DFE760FA782FC78E165CED3407 /* Blowfish.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Blowfish.swift; path = Sources/CryptoSwift/Blowfish.swift; sourceTree = "<group>"; };
 		F57715F7BE13CBC14A0BB7B63D258D6B /* ecmult_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecmult_impl.h; path = secp256k1_ios/src/ecmult_impl.h; sourceTree = "<group>"; };
 		F5F528BC338FD9AD9A3F97A171045C41 /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Source/SessionDelegate.swift; sourceTree = "<group>"; };
+		F6ADBC776E6877915E0119B55AA9F767 /* CharacterSet+Hex.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Hex.swift"; sourceTree = "<group>"; };
 		F73F7285D82A7038DF3689EBFC80162F /* NimbleEnvironment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NimbleEnvironment.swift; path = Sources/Nimble/Adapters/NimbleEnvironment.swift; sourceTree = "<group>"; };
 		F7D56DCF296F18A4B955572908DCA4DC /* util.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = util.h; path = secp256k1_ios/src/util.h; sourceTree = "<group>"; };
 		F8DEF85927912A546798BDBB9496BA25 /* Strideable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Strideable.swift; path = sources/Strideable.swift; sourceTree = "<group>"; };
+		F956AF994AC48E78521EEF9EF855E0EA /* Web3.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Web3.xcconfig; sourceTree = "<group>"; };
 		FA7EFDF450BB7EDA1DDC54D47ACF927F /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
 		FC3AA52258BD0AA058B1569233D7641F /* Bytes+Base64.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bytes+Base64.swift"; path = "Sources/Bits/Bytes+Base64.swift"; sourceTree = "<group>"; };
 		FCE191ECBA61693DE3EE248467194EE0 /* Checksum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Checksum.swift; path = Sources/CryptoSwift/Checksum.swift; sourceTree = "<group>"; };
@@ -948,19 +948,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0541C6BC001786BB1A05FBA0E4827E18 /* Web3 */ = {
+		01D39E63BE15663463DB0A090BF6BD06 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				67772083F8793689FF4452070826E90A /* Json */,
-				1636E68B1657A2FB6AF74B5ECAB82992 /* Providers */,
-				266CAE50C9B5867F15CA367EF8818F02 /* RLP */,
-				94C960FE7DEB3E8DE4632DDE4CD9B019 /* Support Files */,
-				F009387FAEA9318DFC95E4E99EB238D2 /* Toolbox */,
-				0E8C911D2027F72E00563B6E /* Transaction */,
-				1CCA55E68F7357C2B3594FA953A55A90 /* Web3 */,
+				47A26A210C0F2C0834F820CEC070887C /* Web3 */,
 			);
-			name = Web3;
-			path = ../..;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		0DC2FA70F9EF9C0128F00250E61B718E /* Support Files */ = {
@@ -975,28 +968,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Nimble";
-			sourceTree = "<group>";
-		};
-		0E8C911D2027F72E00563B6E /* Transaction */ = {
-			isa = PBXGroup;
-			children = (
-				0E8C91202028029100563B6E /* Transaction.swift */,
-				0EECEE8E202891390070544B /* EthereumAddress.swift */,
-				0E1C49B32029F44E00806321 /* EthereumPrivateKey.swift */,
-				0E1C49B7202A9AE600806321 /* EthereumPublicKey.swift */,
-			);
-			name = Transaction;
-			path = Web3/Classes/Transaction;
-			sourceTree = "<group>";
-		};
-		1636E68B1657A2FB6AF74B5ECAB82992 /* Providers */ = {
-			isa = PBXGroup;
-			children = (
-				C31969D1B194EEB4686BFF51790BD47D /* Web3HttpProvider.swift */,
-				EF749DAEBA4F5DD590EED7510AD21B3B /* Web3Provider.swift */,
-			);
-			name = Providers;
-			path = Web3/Classes/Providers;
 			sourceTree = "<group>";
 		};
 		168C8292C9494C68F2763FBE20848858 /* Targets Support Files */ = {
@@ -1076,6 +1047,7 @@
 				D8698D96EB7D8D509131FBBEFEC84D80 /* ZeroPadding.swift */,
 				33D99E248D6184ED4B7C93B9CA2EF979 /* Support Files */,
 			);
+			name = CryptoSwift;
 			path = CryptoSwift;
 			sourceTree = "<group>";
 		};
@@ -1088,15 +1060,6 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		1CCA55E68F7357C2B3594FA953A55A90 /* Web3 */ = {
-			isa = PBXGroup;
-			children = (
-				3580BDE4BFD7765492708578638688C1 /* Web3.swift */,
-			);
-			name = Web3;
-			path = Web3/Classes/Web3;
-			sourceTree = "<group>";
-		};
 		1E886562F78C6674628C61B44009EF76 /* SipHash */ = {
 			isa = PBXGroup;
 			children = (
@@ -1106,6 +1069,7 @@
 				43AF8DDAB5601B0A0721D8184D5D3E6D /* SipHasher.swift */,
 				277D7BE65EDEF6FA347A3242C7989DF7 /* Support Files */,
 			);
+			name = SipHash;
 			path = SipHash;
 			sourceTree = "<group>";
 		};
@@ -1121,19 +1085,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Quick";
-			sourceTree = "<group>";
-		};
-		266CAE50C9B5867F15CA367EF8818F02 /* RLP */ = {
-			isa = PBXGroup;
-			children = (
-				0403A13C9FB52351CF6B7218C605BBDB /* RLPEncoder.swift */,
-				0E48AA052026115E00F558C8 /* RLPDecoder.swift */,
-				066DEBBE9EC8D9CAD7EC12DA922569AA /* RLPItem.swift */,
-				0E1C49AF2029E3C900806321 /* RLPItemConvertible.swift */,
-				0E1C49B12029E72800806321 /* Types+RLPItemConvertible.swift */,
-			);
-			name = RLP;
-			path = Web3/Classes/RLP;
 			sourceTree = "<group>";
 		};
 		277D7BE65EDEF6FA347A3242C7989DF7 /* Support Files */ = {
@@ -1238,7 +1189,37 @@
 				E6EACDE38F713B4B55F7902D256110D6 /* XCTestObservationCenter+Register.m */,
 				0DC2FA70F9EF9C0128F00250E61B718E /* Support Files */,
 			);
+			name = Nimble;
 			path = Nimble;
+			sourceTree = "<group>";
+		};
+		432ED9CEC00B07AB3BE1B4A9D177199C /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				23B4CD6B08A8DAFFD620BDD5B7355733 /* Info.plist */,
+				AEBBBF7D437B1188ECEE8C0A69F8FD09 /* Web3.modulemap */,
+				F956AF994AC48E78521EEF9EF855E0EA /* Web3.xcconfig */,
+				1E518ED5FCBD9FA59BFD59D32BF67F7E /* Web3-dummy.m */,
+				56866E2768261FDEB23791497DBE5A04 /* Web3-prefix.pch */,
+				120C5F65DD338B4DEC6C9E4BEC1F595D /* Web3-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "Example/Pods/Target Support Files/Web3";
+			sourceTree = "<group>";
+		};
+		47A26A210C0F2C0834F820CEC070887C /* Web3 */ = {
+			isa = PBXGroup;
+			children = (
+				B3C866B36FF71CEC3FE4CE49779732FD /* Json */,
+				8AB5BC5C1224F5FED28C2A214DF020FD /* Providers */,
+				656515641D6C50E456B895F966B17282 /* RLP */,
+				432ED9CEC00B07AB3BE1B4A9D177199C /* Support Files */,
+				7641F923C65860212EFB7FF7C3E647E1 /* Toolbox */,
+				CD5D0D5C28E110E5D8512217B3BA364E /* Transaction */,
+				818659845993B96721227FCE36EAA5CE /* Web3 */,
+			);
+			name = Web3;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		4E41082CC0B0B9A0F7251BCAB76E7F54 /* Alamofire */ = {
@@ -1263,6 +1244,7 @@
 				7416824C0A36D44EB171A09788127854 /* Validation.swift */,
 				63E801E1DAAEEADF23AAB307248BE174 /* Support Files */,
 			);
+			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1312,40 +1294,52 @@
 			path = "../Target Support Files/Alamofire";
 			sourceTree = "<group>";
 		};
-		67772083F8793689FF4452070826E90A /* Json */ = {
+		656515641D6C50E456B895F966B17282 /* RLP */ = {
 			isa = PBXGroup;
 			children = (
-				2C8D177E8D83725DE698BD1B4D113605 /* EthereumBlock.swift */,
-				99E6268E0434384187E0C7CB08998ABE /* EthereumLog.swift */,
-				B529C6845EF92AF50A80DE43A3B80DFC /* EthereumSyncStatus.swift */,
-				26752068B5D3768F3C14EBDEE33B8910 /* EthereumTransaction.swift */,
-				45257E3DA9E7499630E16A5CECF7BAAA /* EthereumTransactionReceipt.swift */,
-				ACD17FC06FD69037863876AA233DDCC6 /* EthereumValue.swift */,
-				C191602063BA16503B3100A4857D1099 /* RPCRequest.swift */,
-				A3451A42B0391AC8B6345B5CBFCD768D /* RPCResponse.swift */,
+				2B02C3B716BD4F7581B3BE0FECA26DF0 /* RLPDecoder.swift */,
+				2A0BF872ACA41737BC75D2D82978C90A /* RLPEncoder.swift */,
+				62C2A0498041863AD2ABA9757EB81D2B /* RLPItem.swift */,
+				42498221F1187D0B9EC290B536970FB0 /* RLPItemConvertible.swift */,
+				6251C6FD99C1F74BBA0E3BD556710DC5 /* Types+RLPItemConvertible.swift */,
 			);
-			name = Json;
-			path = Web3/Classes/Json;
+			name = RLP;
+			path = Web3/Classes/RLP;
 			sourceTree = "<group>";
 		};
-		6801091251673F4EA5EF9DA336F5502F /* Development Pods */ = {
+		7641F923C65860212EFB7FF7C3E647E1 /* Toolbox */ = {
 			isa = PBXGroup;
 			children = (
-				0541C6BC001786BB1A05FBA0E4827E18 /* Web3 */,
+				0F6EBAE730D4D29B39FDE48A7924FCA4 /* BigUInt+BytesConvertible.swift */,
+				1587A31855560E1C4A6DC550B587A92C /* Bytes+TrimLeadingZeros.swift */,
+				9755AAC12F56C0AA1527BCED01D6071E /* Bytes+UInt.swift */,
+				F6ADBC776E6877915E0119B55AA9F767 /* CharacterSet+Hex.swift */,
+				343F560D572D25FFEDDE82BAA1D1C561 /* DataRequest+CodableResponse.swift */,
+				4FEA321BF6C88C5D08F136017DE5541F /* UInt+BytesRepresentable.swift */,
 			);
-			name = "Development Pods";
+			name = Toolbox;
+			path = Web3/Classes/Toolbox;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				6801091251673F4EA5EF9DA336F5502F /* Development Pods */,
+				01D39E63BE15663463DB0A090BF6BD06 /* Development Pods */,
 				BB1F99C4887FB026A3F7E5C5A84C2246 /* Frameworks */,
 				B12006F281CB80BAEB15E9B28A09FB71 /* Pods */,
 				9CC3E5FD3CDB129B514D2E43CD4A1103 /* Products */,
 				168C8292C9494C68F2763FBE20848858 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		818659845993B96721227FCE36EAA5CE /* Web3 */ = {
+			isa = PBXGroup;
+			children = (
+				554AD8815D0A59EC68A39009C5EB4AD6 /* Web3.swift */,
+			);
+			name = Web3;
+			path = Web3/Classes/Web3;
 			sourceTree = "<group>";
 		};
 		837EF4BD91E5D6CC6586D1CCA141AA51 /* Default */ = {
@@ -1374,18 +1368,14 @@
 			name = Default;
 			sourceTree = "<group>";
 		};
-		94C960FE7DEB3E8DE4632DDE4CD9B019 /* Support Files */ = {
+		8AB5BC5C1224F5FED28C2A214DF020FD /* Providers */ = {
 			isa = PBXGroup;
 			children = (
-				D3ABE2565B59DAAAF58200C6B747A6D8 /* Info.plist */,
-				4C6306E2EE760734AE165F7A87E15BAD /* Web3.modulemap */,
-				A13209F4C58B0B30BB9EEF09AB16F0DB /* Web3.xcconfig */,
-				9DE72E0A9074AA10B85444AFA2E171D8 /* Web3-dummy.m */,
-				803A9DBF753B6DFC58D6D65EAE48D44E /* Web3-prefix.pch */,
-				09091B4F989B812E7DA194C858BC0A89 /* Web3-umbrella.h */,
+				6703501FAD3C09E77530D0010E9D8AC8 /* Web3HttpProvider.swift */,
+				B2473D4F27B468368217D07B488449C8 /* Web3Provider.swift */,
 			);
-			name = "Support Files";
-			path = "Example/Pods/Target Support Files/Web3";
+			name = Providers;
+			path = Web3/Classes/Providers;
 			sourceTree = "<group>";
 		};
 		98CC334612883BFC9B3E454FE002110D /* BigInt */ = {
@@ -1415,6 +1405,7 @@
 				1B67B9554C3F20AF5291C13840471227 /* Words and Bits.swift */,
 				EF9475F4AEE406D04ABA36CD5D1FEA41 /* Support Files */,
 			);
+			name = BigInt;
 			path = BigInt;
 			sourceTree = "<group>";
 		};
@@ -1455,6 +1446,7 @@
 				A76C5F1CCEA195CE6BFA445C188383A4 /* XCTestSuite+QuickTestSuiteBuilder.m */,
 				205A804377ACE9E30545524A736F04E3 /* Support Files */,
 			);
+			name = Quick;
 			path = Quick;
 			sourceTree = "<group>";
 		};
@@ -1481,6 +1473,7 @@
 				837EF4BD91E5D6CC6586D1CCA141AA51 /* Default */,
 				F85BE483C2D99F3559D5B8AEAA6D2B37 /* Support Files */,
 			);
+			name = VaporBytes;
 			path = VaporBytes;
 			sourceTree = "<group>";
 		};
@@ -1555,7 +1548,24 @@
 				F7D56DCF296F18A4B955572908DCA4DC /* util.h */,
 				51CFE40AAB195FB986BBF5C38C72432E /* Support Files */,
 			);
+			name = secp256k1_ios;
 			path = secp256k1_ios;
+			sourceTree = "<group>";
+		};
+		B3C866B36FF71CEC3FE4CE49779732FD /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				60254B95B54D2ED41B52B519B4E70EF6 /* EthereumBlock.swift */,
+				31133E64F3966F712CF82CA5053F94BE /* EthereumLog.swift */,
+				12881F1D52F9354ACC99E5E85C47B290 /* EthereumSyncStatus.swift */,
+				C090E5310F9DA5AA65BEE47035E5BF55 /* EthereumTransaction.swift */,
+				33360D6ADF91FDA76C3FBCEAEAB58A0A /* EthereumTransactionReceipt.swift */,
+				8FA32AAA6DBA8B8DB57D0E23BF3277E1 /* EthereumValue.swift */,
+				F0AF64BA9ABD7330BC3EC3C00CC25463 /* RPCRequest.swift */,
+				870D9C0A901B109975F0A662D05802F8 /* RPCResponse.swift */,
+			);
+			name = Json;
+			path = Web3/Classes/Json;
 			sourceTree = "<group>";
 		};
 		BB1F99C4887FB026A3F7E5C5A84C2246 /* Frameworks */ = {
@@ -1572,6 +1582,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CD5D0D5C28E110E5D8512217B3BA364E /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				45E9947420870942A5BB18F7DA114F4D /* EthereumAddress.swift */,
+				DC86EFC578C35D6087AD604812E9DFDC /* EthereumPrivateKey.swift */,
+				54DB1D70239A46D5CC408C8733F9285B /* EthereumPublicKey.swift */,
+				AFFA41F30A0D3ECED0726061009D6574 /* Transaction.swift */,
+			);
+			name = Transaction;
+			path = Web3/Classes/Transaction;
+			sourceTree = "<group>";
+		};
 		EF9475F4AEE406D04ABA36CD5D1FEA41 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1584,20 +1606,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/BigInt";
-			sourceTree = "<group>";
-		};
-		F009387FAEA9318DFC95E4E99EB238D2 /* Toolbox */ = {
-			isa = PBXGroup;
-			children = (
-				95089B5B93A23346E3F74B882E9FCAC0 /* DataRequest+CodableResponse.swift */,
-				0E6C78CA2023CC03007A9993 /* UInt+BytesRepresentable.swift */,
-				0E6C78CF2023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift */,
-				0E48AA092026764100F558C8 /* Bytes+UInt.swift */,
-				0EECEE902028A9820070544B /* CharacterSet+Hex.swift */,
-				0EECEE95202938470070544B /* BigUInt+BytesConvertible.swift */,
-			);
-			name = Toolbox;
-			path = Web3/Classes/Toolbox;
 			sourceTree = "<group>";
 		};
 		F85BE483C2D99F3559D5B8AEAA6D2B37 /* Support Files */ = {
@@ -1931,7 +1939,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96279B197A8F60B5B965D325C09DC95D /* Build configuration list for PBXNativeTarget "Web3" */;
 			buildPhases = (
-				3EF836CF8FBA6C87D8418CA4BAB7C464 /* Sources */,
+				3E32573A94F60C2F6BC42A78CB437EA9 /* Sources */,
 				30B8B8260A37ACC40B3F101C8F4D3FFA /* Frameworks */,
 				21FB3D99E04E927BEEADA34D1AD1412E /* Headers */,
 			);
@@ -2142,37 +2150,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3EF836CF8FBA6C87D8418CA4BAB7C464 /* Sources */ = {
+		3E32573A94F60C2F6BC42A78CB437EA9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E6C78CB2023CC03007A9993 /* UInt+BytesRepresentable.swift in Sources */,
-				80169820273F886C857730000F7FA3FF /* DataRequest+CodableResponse.swift in Sources */,
-				0E6C78D02023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift in Sources */,
-				090E3FD205EC142CC6ED2690321C6BA3 /* EthereumBlock.swift in Sources */,
-				0EECEE96202938470070544B /* BigUInt+BytesConvertible.swift in Sources */,
-				B2EF6EF360939ACDA1FD4031BC944D0B /* EthereumLog.swift in Sources */,
-				0E1C49B8202A9AE600806321 /* EthereumPublicKey.swift in Sources */,
-				0E1C49B42029F44E00806321 /* EthereumPrivateKey.swift in Sources */,
-				66DB4EF8A01D497E9DA3C63FCF46DB2D /* EthereumSyncStatus.swift in Sources */,
-				0E1C49B22029E72800806321 /* Types+RLPItemConvertible.swift in Sources */,
-				0EECEE8F202891390070544B /* EthereumAddress.swift in Sources */,
-				82D90662FC33F955806AFA8A6CD691F3 /* EthereumTransaction.swift in Sources */,
-				1A1B427B7122490F558FD90C6F6FD4F2 /* EthereumTransactionReceipt.swift in Sources */,
-				01367CCB60777EEEEE2DFD9740F93ECC /* EthereumValue.swift in Sources */,
-				91D1B34C8D511BA75E3EF3EEC5191D62 /* RLPEncoder.swift in Sources */,
-				0E48AA0A2026764100F558C8 /* Bytes+UInt.swift in Sources */,
-				FA1399159ECAC5EE461BE4D642E49ADB /* RLPItem.swift in Sources */,
-				0E48AA062026115E00F558C8 /* RLPDecoder.swift in Sources */,
-				F525BC8A522436CDE6B4794F9BF2CD60 /* RPCRequest.swift in Sources */,
-				0E8C91212028029100563B6E /* Transaction.swift in Sources */,
-				0EECEE912028A9820070544B /* CharacterSet+Hex.swift in Sources */,
-				51AE288A7A204E29D3F3B88D25B2B54D /* RPCResponse.swift in Sources */,
-				DE4E17E5063C9625ECDB5B5E0AA69518 /* Web3-dummy.m in Sources */,
-				F107FB09B6272751366938742097A5D1 /* Web3.swift in Sources */,
-				0E1C49B02029E3C900806321 /* RLPItemConvertible.swift in Sources */,
-				30B1BA1E8EE394028C6115F2DA3B9FEC /* Web3HttpProvider.swift in Sources */,
-				EF6949B0F86C5600BC8B2DED629F9E70 /* Web3Provider.swift in Sources */,
+				0A6040F9E15FAC318C4DFC2179D10DCB /* BigUInt+BytesConvertible.swift in Sources */,
+				75A71B2CC261A708A9A2E4D5430F349C /* Bytes+TrimLeadingZeros.swift in Sources */,
+				578E31249DE6DA2381C43A0A1F859A4E /* Bytes+UInt.swift in Sources */,
+				F23B97F49DAE8F6B9D294292569E4ACD /* CharacterSet+Hex.swift in Sources */,
+				501A15C03DC5B729A69AFA1BC7E04620 /* DataRequest+CodableResponse.swift in Sources */,
+				11DBC3CA287D052D4D7360B41FD6B63C /* EthereumAddress.swift in Sources */,
+				61A17BA09F4DCEF25566D69FA148F04A /* EthereumBlock.swift in Sources */,
+				B4734321973BB7BB1F1D472A1D5D0A18 /* EthereumLog.swift in Sources */,
+				E79B9B4104AE8AE48DF11140C25E2A54 /* EthereumPrivateKey.swift in Sources */,
+				FFF2AA610E008949AA1ED964EAB21610 /* EthereumPublicKey.swift in Sources */,
+				0DD3F836435134FEBFC89A69400F82AB /* EthereumSyncStatus.swift in Sources */,
+				DC60C5A6D67853239A27CE72F9F4F97E /* EthereumTransaction.swift in Sources */,
+				6EF6A430AA811CA43BFA9A4872EC25DA /* EthereumTransactionReceipt.swift in Sources */,
+				93B51D23E6031A6220905FD9111EE74E /* EthereumValue.swift in Sources */,
+				971685515305FAE56B2CB2E4B8D47504 /* RLPDecoder.swift in Sources */,
+				F292F75D512B9395C417A26E1990C7F8 /* RLPEncoder.swift in Sources */,
+				818EBC15DD1D89D8DE348A397352113C /* RLPItem.swift in Sources */,
+				97B69C31B27879E82056C8170D54177D /* RLPItemConvertible.swift in Sources */,
+				216EB92443FCF67D1B4126ED75AE4D61 /* RPCRequest.swift in Sources */,
+				23C291A9B7A530AD38319E694D7C0E95 /* RPCResponse.swift in Sources */,
+				0B07E5106F76713FE063CA8F148EA5A1 /* Transaction.swift in Sources */,
+				30409E9FFE04A500D1E438E2725AF92E /* Types+RLPItemConvertible.swift in Sources */,
+				59406D3F8AD25463C7A9A94753DE0EF0 /* UInt+BytesRepresentable.swift in Sources */,
+				7519D6FEDA4CE5D1F6F31F4D2A1C3D99 /* Web3-dummy.m in Sources */,
+				DFFB677541AE919483DE29486D8D8DDD /* Web3.swift in Sources */,
+				12FA37CADC30AC4B35FC87C405470513 /* Web3HttpProvider.swift in Sources */,
+				E2A146E18A32D9F204FA6CE408BA1BA1 /* Web3Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2525,6 +2533,37 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/CryptoSwift/CryptoSwift.modulemap";
 				PRODUCT_NAME = CryptoSwift;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2372ECB3F54D91AF2E0931D28D307196 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F956AF994AC48E78521EEF9EF855E0EA /* Web3.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/Web3/Web3-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Web3/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Web3/Web3.modulemap";
+				PRODUCT_NAME = Web3;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -2901,38 +2940,6 @@
 			};
 			name = Debug;
 		};
-		98166124F545BB06EED77404D6DBFE42 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A13209F4C58B0B30BB9EEF09AB16F0DB /* Web3.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Web3/Web3-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Web3/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Web3/Web3.modulemap";
-				PRODUCT_NAME = Web3;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		A25E8761F549D123958515C830575D00 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF9211ABE6E548CF365A592B0B8E828D /* Pods-Web3_Tests.release.xcconfig */;
@@ -2999,9 +3006,9 @@
 			};
 			name = Release;
 		};
-		A75FD12CF37436A75447E32E5AB198F3 /* Debug */ = {
+		A5F0EF4CC2CE2776A8F2E64FDC3BCA5E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A13209F4C58B0B30BB9EEF09AB16F0DB /* Web3.xcconfig */;
+			baseConfigurationReference = F956AF994AC48E78521EEF9EF855E0EA /* Web3.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -3015,20 +3022,21 @@
 				GCC_PREFIX_HEADER = "Target Support Files/Web3/Web3-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/Web3/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/Web3/Web3.modulemap";
 				PRODUCT_NAME = Web3;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		AC054FEE42E5037F64F000D08D8E0044 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3225,8 +3233,8 @@
 		96279B197A8F60B5B965D325C09DC95D /* Build configuration list for PBXNativeTarget "Web3" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A75FD12CF37436A75447E32E5AB198F3 /* Debug */,
-				98166124F545BB06EED77404D6DBFE42 /* Release */,
+				2372ECB3F54D91AF2E0931D28D307196 /* Debug */,
+				A5F0EF4CC2CE2776A8F2E64FDC3BCA5E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
