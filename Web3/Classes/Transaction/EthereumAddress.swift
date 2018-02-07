@@ -11,8 +11,23 @@ import VaporBytes
 
 public struct EthereumAddress {
 
+    /// The raw address bytes
     public let rawAddress: Bytes
 
+    /**
+     * Initializes this instance of `EthereumAddress` with the given `hex` String.
+     *
+     * `hex` must be either 40 characters (20 bytes) or 42 characters (with the 0x hex prefix) long.
+     *
+     * If `eip55` is set to `true`, a checksum check will be done over the given hex string as described
+     * in https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md
+     *
+     * - parameter hex: The ethereum address as a hex string. Case sensitive iff `eip55` is set to true.
+     * - parameter eip55: Whether to check the checksum as described in eip 55 or not.
+     *
+     * - throws: EthereumAddress.Error.addressMalformed if the given hex string doesn't fulfill the conditions described above.
+     *           EthereumAddress.Error.checksumWrong iff `eip55` is set to true and the checksum is wrong.
+     */
     public init(hex: String, eip55: Bool) throws {
         // Check length
         guard hex.count == 40 || hex.count == 42 else {
@@ -80,7 +95,33 @@ public struct EthereumAddress {
         }
     }
 
-    public func stringAddress(eip55: Bool) -> String {
+    /**
+     * Initializes a new instance of `EthereumAddress` with the given raw Bytes array.
+     *
+     * `rawAddress` must be exactly 20 bytes long.
+     *
+     * - parameter rawAddress: The raw address as a byte array.
+     *
+     * - throws: EthereumAddress.Error.addressMalformed if the rawAddress array is not 20 bytes long.
+     */
+    public init(rawAddress: Bytes) throws {
+        guard rawAddress.count == 20 else {
+            throw Error.addressMalformed
+        }
+        self.rawAddress = rawAddress
+    }
+
+    /**
+     * Returns this ethereum address as a hex string.
+     *
+     * Adds the EIP 55 mixed case checksum if `eip55` is set to true.
+     *
+     * - parameter eip55: Whether to add the mixed case checksum as described in eip 55.
+     *
+     * - returns: The hex string representing this `EthereumAddress`.
+     *            Either lowercased or mixed case (checksumed) depending on the parameter `eip55`.
+     */
+    public func hex(eip55: Bool) -> String {
         var hex = "0x"
         if !eip55 {
             for b in rawAddress {

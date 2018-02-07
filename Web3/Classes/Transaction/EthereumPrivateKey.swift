@@ -14,12 +14,40 @@ public class EthereumPrivateKey {
 
     // MARK: - Properties
 
+    /// The raw private key bytes
     public let rawPrivateKey: Bytes
 
+    /// The public key associated with this private key
+    public let publicKey: EthereumPublicKey
+
+    /// Internal context for secp256k1 library calls
     private let ctx: OpaquePointer
 
     // MARK: - Initialization
 
+    /**
+     * Initializes a new instance of `EthereumPrivateKey` with the given `privateKey` Bytes.
+     *
+     * `privateKey` must be exactly a big endian 32 Byte array representing the private key.
+     *
+     * The number must be in the secp256k1 range as described in: https://en.bitcoin.it/wiki/Private_key
+     *
+     * So any number between
+     *
+     * 0x0000000000000000000000000000000000000000000000000000000000000001
+     *
+     * and
+     *
+     * 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140
+     *
+     * is considered to be a valid secp256k1 private key.
+     *
+     * - parameter privateKey: The private key bytes.
+     *
+     * - throws: EthereumPrivateKey.Error.keyMalformed if the restrictions described above are not met.
+     *           EthereumPrivateKey.Error.internalError if a secp256k1 library call or another internal call fails.
+     *           EthereumPrivateKey.Error.pubKeyGenerationFailed if the public key extraction from the private key fails.
+     */
     public init(privateKey: Bytes) throws {
         guard privateKey.count == 32 else {
             throw Error.keyMalformed
@@ -41,10 +69,59 @@ public class EthereumPrivateKey {
         }
         self.ctx = ctx
 
+        // *** Generate public key ***
+        guard let pubKey = malloc(MemoryLayout<secp256k1_pubkey>.size)?.assumingMemoryBound(to: secp256k1_pubkey.self) else {
+            throw Error.internalError
+        }
+        // Cleanup
+        defer {
+            free(pubKey)
+        }
+        var secret = privateKey
+        if secp256k1_ec_pubkey_create(ctx, pubKey, &secret) != 1 {
+            throw Error.pubKeyGenerationFailed
+        }
+
+        var pubOut = Bytes(repeating: 0, count: 65)
+        var pubOutLen = 65
+        _ = secp256k1_ec_pubkey_serialize(ctx, &pubOut, &pubOutLen, pubKey, UInt32(SECP256K1_EC_UNCOMPRESSED))
+        guard pubOutLen == 65 else {
+            throw Error.pubKeyGenerationFailed
+        }
+
+        // First byte is header byte 0x04
+        pubOut.remove(at: 0)
+
+        self.publicKey = try EthereumPublicKey(publicKey: pubOut)
+        // *** End Generate public key ***
+
         // Verify private key
         try verifyPrivateKey()
     }
 
+    /**
+     * Initializes a new instance of `EthereumPrivateKey` with the given `hexPrivateKey` hex string.
+     *
+     * `hexPrivateKey` must be either 64 characters long or 66 characters (with the hex prefix 0x).
+     *
+     * The number must be in the secp256k1 range as described in: https://en.bitcoin.it/wiki/Private_key
+     *
+     * So any number between
+     *
+     * 0x0000000000000000000000000000000000000000000000000000000000000001
+     *
+     * and
+     *
+     * 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364140
+     *
+     * is considered to be a valid secp256k1 private key.
+     *
+     * - parameter hexPrivateKey: The private key bytes.
+     *
+     * - throws: EthereumPrivateKey.Error.keyMalformed if the restrictions described above are not met.
+     *           EthereumPrivateKey.Error.internalError if a secp256k1 library call or another internal call fails.
+     *           EthereumPrivateKey.Error.pubKeyGenerationFailed if the public key extraction from the private key fails.
+     */
     public convenience init(hexPrivateKey: String) throws {
         guard hexPrivateKey.count == 64 || hexPrivateKey.count == 66 else {
             throw Error.keyMalformed
@@ -81,35 +158,25 @@ public class EthereumPrivateKey {
 
     // MARK: - Convenient functions
 
-    public func publicKey() throws -> Bytes {
-        guard let pubKey = malloc(MemoryLayout<secp256k1_pubkey>.size)?.assumingMemoryBound(to: secp256k1_pubkey.self) else {
-            throw Error.internalError
+    /**
+     * Returns the ethereum address representing the public key associated with this private key.
+     *
+     * - returns: The generated instance of `EthereumAddress`.
+     */
+    public func address() throws -> EthereumAddress {
+        return try publicKey.address()
+    }
+
+    /**
+     * Returns this private key serialized as a hex string.
+     */
+    public func hex() -> String {
+        var h = "0x"
+        for b in rawPrivateKey {
+            h += String(format: "%02x", b)
         }
 
-        // Cleanup
-        defer {
-            free(pubKey)
-        }
-
-        var secret = rawPrivateKey
-
-        let result = secp256k1_ec_pubkey_create(ctx, pubKey, &secret)
-
-        if result != 1 {
-            throw Error.pubKeyGenerationFailed
-        }
-
-        var pubOut = Bytes(repeating: 0, count: 65)
-        var pubOutLen = 65
-        _ = secp256k1_ec_pubkey_serialize(ctx, &pubOut, &pubOutLen, pubKey, UInt32(SECP256K1_EC_UNCOMPRESSED))
-        guard pubOutLen == 65 else {
-            throw Error.pubKeyGenerationFailed
-        }
-
-        // First byte is 0x04
-        pubOut.remove(at: 0)
-
-        return pubOut
+        return h
     }
 
     // MARK: - Helper functions
