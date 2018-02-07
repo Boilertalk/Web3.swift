@@ -42,7 +42,12 @@ class RLPItemTests: QuickSpec {
                 }
 
                 it("should be int 4_294_967_297") {
-                    self.expectNumber(4_294_967_297)
+                    if MemoryLayout<UInt>.size == MemoryLayout<UInt64>.size {
+                        self.expectNumber(4_294_967_297)
+                    } else {
+                        // 32 bit platform
+                        self.expectNumber(4_294_967_295)
+                    }
                 }
 
                 it("should be int 4 as big endian bytes") {
