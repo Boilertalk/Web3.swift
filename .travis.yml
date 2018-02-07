@@ -9,6 +9,7 @@ language: objective-c
 # podfile: Example/Podfile
 before_install:
   - gem install cocoapods # Since Travis is not always on latest version
+  - pod repo update
   - pod install --project-directory=Example
 script:
   - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.2 ONLY_ACTIVE_ARCH=NO | xcpretty
