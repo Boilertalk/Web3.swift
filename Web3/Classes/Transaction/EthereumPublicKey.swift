@@ -15,12 +15,26 @@ public class EthereumPublicKey {
 
     // MARK: - Properties
 
+    /// The raw public key bytes
     public let rawPublicKey: Bytes
 
+    /// Internal context for secp256k1 library calls
     private let ctx: OpaquePointer
 
     // MARK: - Initialization
 
+    /**
+     * Initializes a new instance of `EthereumPublicKey` with the given raw uncompressed public key Bytes.
+     *
+     * `publicKey` must be either a 64 Byte array (containing the uncompressed public key)
+     * or a 65 byte array where the first byte must be the uncompressed header byte 0x04
+     * and the following 64 bytes must be the uncompressed public key.
+     *
+     * - parameter publicKey: The uncompressed public key either with the header byte 0x04 or without.
+     *
+     * - throws: EthereumPublicKey.Error.keyMalformed if the given `publicKey` does not fulfill the requirements from above.
+     *           EthereumPublicKey.Error.internalError if a secp256k1 library call or another internal call fails.
+     */
     public init(publicKey: Bytes) throws {
         guard publicKey.count == 64 || publicKey.count == 65 else {
             throw Error.keyMalformed
@@ -53,6 +67,18 @@ public class EthereumPublicKey {
         try verifyPublicKey()
     }
 
+    /**
+     * Initializes a new instance of `EthereumPublicKey` with the given uncompressed hex string.
+     *
+     * `hexPublicKey` must have either 128 characters (containing the uncompressed public key)
+     * or 130 characters in which case the first two characters must be the hex prefix 0x
+     * and the following 128 characters must be the uncompressed public key.
+     *
+     * - parameter hexPublicKey: The uncompressed hex public key either with the hex prefix 0x or without.
+     *
+     * - throws: EthereumPublicKey.Error.keyMalformed if the given `hexPublicKey` does not fulfill the requirements from above.
+     *           EthereumPublicKey.Error.internalError if a secp256k1 library call or another internal call fails.
+     */
     public convenience init(hexPublicKey: String) throws {
         guard hexPublicKey.count == 128 || hexPublicKey.count == 130 else {
             throw Error.keyMalformed
@@ -89,6 +115,9 @@ public class EthereumPublicKey {
 
     // MARK: - Convenient functions
 
+    /**
+     * Returns the `EthereumAddress` associated with this public key.
+     */
     public func address() throws -> EthereumAddress {
         var hash = SHA3(variant: .keccak256).calculate(for: rawPublicKey)
         guard hash.count == 32 else {
@@ -100,6 +129,9 @@ public class EthereumPublicKey {
         return try EthereumAddress(rawAddress: hash)
     }
 
+    /**
+     * Returns this public key serialized as a hex string.
+     */
     public func hex() -> String {
         var h = "0x"
         for b in rawPublicKey {
