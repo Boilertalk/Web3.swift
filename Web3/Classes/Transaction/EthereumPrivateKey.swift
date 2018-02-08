@@ -9,6 +9,7 @@ import Foundation
 import VaporBytes
 import secp256k1_ios
 import Security
+import CryptoSwift
 
 public class EthereumPrivateKey {
 
@@ -162,6 +163,36 @@ public class EthereumPrivateKey {
     }
 
     // MARK: - Convenient functions
+
+    public func sign(message: Bytes) throws -> (v: UInt, r: Bytes, s: Bytes) {
+        var hash = SHA3(variant: .keccak256).calculate(for: message)
+        guard hash.count == 32 else {
+            throw Error.internalError
+        }
+        guard let sig = malloc(MemoryLayout<secp256k1_ecdsa_recoverable_signature>.size)?.assumingMemoryBound(to: secp256k1_ecdsa_recoverable_signature.self) else {
+            throw Error.internalError
+        }
+        defer {
+            free(sig)
+        }
+
+        var seckey = rawPrivateKey
+
+        guard secp256k1_ecdsa_sign_recoverable(ctx, sig, &hash, &seckey, nil, nil) == 1 else {
+            throw Error.internalError
+        }
+
+        var output64 = Bytes(repeating: 0, count: 64)
+        var recid: Int32 = 0
+        secp256k1_ecdsa_recoverable_signature_serialize_compact(ctx, &output64, &recid, sig)
+
+        guard recid == 0 || recid == 1 else {
+            // Well I guess this one should never happen but to avoid bigger problems...
+            throw Error.internalError
+        }
+
+        return (v: UInt(recid), r: Array(output64[0..<32]), s: Array(output64[32..<64]))
+    }
 
     /**
      * Returns this private key serialized as a hex string.
