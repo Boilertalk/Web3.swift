@@ -37,7 +37,7 @@ class RPCRequestJsonTests: QuickSpec {
                     expect(rawClientVersion).toNot(beNil())
                 }
 
-                let req: RPCRequest! = try? self.decoder.decode(RPCRequest.self, from: rawClientVersion!)
+                let req: RPCRequest! = try? self.decoder.decode(BasicRPCRequest.self, from: rawClientVersion!)
                 it("should decode successfully") {
                     expect(req).toNot(beNil())
                 }

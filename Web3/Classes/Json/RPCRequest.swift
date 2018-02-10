@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RPCRequest: Codable {
+public struct RPCRequest<Params: Codable>: Codable {
 
     /// The rpc id
     public let id: Int
@@ -19,5 +19,7 @@ public struct RPCRequest: Codable {
     public let method: String
 
     /// The jsonrpc parameters
-    public let params: EthereumValue
+    public let params: Params
 }
+
+public typealias BasicRPCRequest = RPCRequest<EthereumValue>
