@@ -19,6 +19,11 @@
 		0BA947E1F26E164BFC78D9F6192D6B51 /* main_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 269F6B4C1EEF9CCC93C4264A2E717347 /* main_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0C9F76EAB3D5C99ED2EAD2C422D53856 /* Floating Point Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362F3D7C093281D2EDD2648113D38D33 /* Floating Point Conversion.swift */; };
 		0DD3F836435134FEBFC89A69400F82AB /* EthereumSyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12881F1D52F9354ACC99E5E85C47B290 /* EthereumSyncStatus.swift */; };
+		0E1C9C77202F402E0022FEEA /* EthereumQuantityTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C9C76202F402E0022FEEA /* EthereumQuantityTag.swift */; };
+		0E1C9C79202F40680022FEEA /* EthereumValueConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C9C78202F40680022FEEA /* EthereumValueConvertible.swift */; };
+		0E1C9C7B202F503F0022FEEA /* String+HexBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C9C7A202F503F0022FEEA /* String+HexBytes.swift */; };
+		0E1C9C7D202F54EB0022FEEA /* Bytes+HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C9C7C202F54EB0022FEEA /* Bytes+HexString.swift */; };
+		0E1C9C7F202FAEDB0022FEEA /* EthereumQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C9C7E202FAEDB0022FEEA /* EthereumQuantity.swift */; };
 		0E80C84C9C4809F4D9E1CA756D928B6C /* num_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD2E0EBAEBD74DECA0B3FBEAE6F2319 /* num_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0ECBB443202D15C9003347D2 /* UInt+ETH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECBB442202D15C9003347D2 /* UInt+ETH.swift */; };
 		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D168112FBA2A6FD0653ABC0EB10F5EE /* Timeline.swift */; };
@@ -486,6 +491,11 @@
 		0D24D9D3AA86B1140317D03C55C85295 /* QuickSelectedTestSuiteBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuickSelectedTestSuiteBuilder.swift; path = Sources/Quick/QuickSelectedTestSuiteBuilder.swift; sourceTree = "<group>"; };
 		0E0BB49E1B4FF634E707E90618DDD316 /* field.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = field.h; path = secp256k1_ios/src/field.h; sourceTree = "<group>"; };
 		0E169D04559470717557D46BD278745C /* Behavior.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Behavior.swift; path = Sources/Quick/Behavior.swift; sourceTree = "<group>"; };
+		0E1C9C76202F402E0022FEEA /* EthereumQuantityTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTag.swift; sourceTree = "<group>"; };
+		0E1C9C78202F40680022FEEA /* EthereumValueConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumValueConvertible.swift; sourceTree = "<group>"; };
+		0E1C9C7A202F503F0022FEEA /* String+HexBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HexBytes.swift"; sourceTree = "<group>"; };
+		0E1C9C7C202F54EB0022FEEA /* Bytes+HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bytes+HexString.swift"; sourceTree = "<group>"; };
+		0E1C9C7E202FAEDB0022FEEA /* EthereumQuantity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumQuantity.swift; sourceTree = "<group>"; };
 		0ECBB442202D15C9003347D2 /* UInt+ETH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+ETH.swift"; sourceTree = "<group>"; };
 		0EED877C7C0E06C01CF89EC7C9D05DBE /* UnsignedInteger+Shifting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsignedInteger+Shifting.swift"; path = "Sources/Bits/UnsignedInteger+Shifting.swift"; sourceTree = "<group>"; };
 		0F6EBAE730D4D29B39FDE48A7924FCA4 /* BigUInt+BytesConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "BigUInt+BytesConvertible.swift"; sourceTree = "<group>"; };
@@ -1315,6 +1325,8 @@
 				343F560D572D25FFEDDE82BAA1D1C561 /* DataRequest+CodableResponse.swift */,
 				4FEA321BF6C88C5D08F136017DE5541F /* UInt+BytesRepresentable.swift */,
 				0ECBB442202D15C9003347D2 /* UInt+ETH.swift */,
+				0E1C9C7A202F503F0022FEEA /* String+HexBytes.swift */,
+				0E1C9C7C202F54EB0022FEEA /* Bytes+HexString.swift */,
 			);
 			name = Toolbox;
 			path = Web3/Classes/Toolbox;
@@ -1556,8 +1568,11 @@
 				C090E5310F9DA5AA65BEE47035E5BF55 /* EthereumTransaction.swift */,
 				33360D6ADF91FDA76C3FBCEAEAB58A0A /* EthereumTransactionReceipt.swift */,
 				8FA32AAA6DBA8B8DB57D0E23BF3277E1 /* EthereumValue.swift */,
+				0E1C9C78202F40680022FEEA /* EthereumValueConvertible.swift */,
 				F0AF64BA9ABD7330BC3EC3C00CC25463 /* RPCRequest.swift */,
 				870D9C0A901B109975F0A662D05802F8 /* RPCResponse.swift */,
+				0E1C9C76202F402E0022FEEA /* EthereumQuantityTag.swift */,
+				0E1C9C7E202FAEDB0022FEEA /* EthereumQuantity.swift */,
 			);
 			name = Json;
 			path = Web3/Classes/Json;
@@ -2167,15 +2182,20 @@
 				F292F75D512B9395C417A26E1990C7F8 /* RLPEncoder.swift in Sources */,
 				818EBC15DD1D89D8DE348A397352113C /* RLPItem.swift in Sources */,
 				97B69C31B27879E82056C8170D54177D /* RLPItemConvertible.swift in Sources */,
+				0E1C9C7F202FAEDB0022FEEA /* EthereumQuantity.swift in Sources */,
+				0E1C9C7B202F503F0022FEEA /* String+HexBytes.swift in Sources */,
 				216EB92443FCF67D1B4126ED75AE4D61 /* RPCRequest.swift in Sources */,
+				0E1C9C77202F402E0022FEEA /* EthereumQuantityTag.swift in Sources */,
 				23C291A9B7A530AD38319E694D7C0E95 /* RPCResponse.swift in Sources */,
 				0B07E5106F76713FE063CA8F148EA5A1 /* Transaction.swift in Sources */,
 				0ECBB443202D15C9003347D2 /* UInt+ETH.swift in Sources */,
 				30409E9FFE04A500D1E438E2725AF92E /* Types+RLPItemConvertible.swift in Sources */,
 				59406D3F8AD25463C7A9A94753DE0EF0 /* UInt+BytesRepresentable.swift in Sources */,
 				7519D6FEDA4CE5D1F6F31F4D2A1C3D99 /* Web3-dummy.m in Sources */,
+				0E1C9C79202F40680022FEEA /* EthereumValueConvertible.swift in Sources */,
 				DFFB677541AE919483DE29486D8D8DDD /* Web3.swift in Sources */,
 				12FA37CADC30AC4B35FC87C405470513 /* Web3HttpProvider.swift in Sources */,
+				0E1C9C7D202F54EB0022FEEA /* Bytes+HexString.swift in Sources */,
 				E2A146E18A32D9F204FA6CE408BA1BA1 /* Web3Provider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
