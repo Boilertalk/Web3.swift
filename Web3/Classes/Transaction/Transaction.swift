@@ -133,7 +133,18 @@ public struct Transaction {
     }
 
     public func verifySignature() -> Bool {
-        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp(forSigning: true)), v: v, r: r, s: s) {
+        let recId: UInt
+        if v >= 35 + (2 * chainId) {
+            recId = v - 35 - (2 * chainId)
+        } else {
+            if v >= 27 {
+                recId = v - 27
+            } else {
+                recId = v
+            }
+        }
+
+        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp(forSigning: true)), v: recId, r: r, s: s) {
             return true
         }
 
