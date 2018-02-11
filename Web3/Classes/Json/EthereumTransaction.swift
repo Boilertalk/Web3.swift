@@ -10,35 +10,35 @@ import Foundation
 public struct EthereumTransaction: Codable {
 
     /// 32 Bytes - hash of the transaction.
-    public let hash: String
+    public let hash: EthereumData
 
     /// The number of transactions made by the sender prior to this one.
-    public let nonce: String
+    public let nonce: EthereumQuantity
 
     /// 32 Bytes - hash of the block where this transaction was in. null when its pending.
-    public let blockHash: String
+    public let blockHash: EthereumData?
 
     /// Block number where this transaction was in. null when its pending.
-    public let blockNumber: String
+    public let blockNumber: EthereumQuantity?
 
     /// Integer of the transactions index position in the block. nil when its pending.
-    public let transactionIndex: String?
+    public let transactionIndex: EthereumQuantity?
 
     /// 20 Bytes - address of the sender.
-    public let from: String
+    public let from: EthereumAddress
 
     /// 20 Bytes - address of the receiver. nil when its a contract creation transaction.
-    public let to: String?
+    public let to: EthereumAddress?
 
     /// Value transferred in Wei.
-    public let value: String
+    public let value: EthereumQuantity
 
     /// Gas price provided by the sender in Wei.
-    public let gasPrice: String
+    public let gasPrice: EthereumQuantity
 
     /// Gas provided by the sender.
-    public let gas: String
+    public let gas: EthereumQuantity
 
     /// The data send along with the transaction.
-    public let input: String
+    public let input: EthereumData
 }
