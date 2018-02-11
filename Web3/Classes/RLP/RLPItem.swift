@@ -162,6 +162,22 @@ public extension RLPItem {
     }
 }
 
+// MARK: - EthereumValueConvertible
+
+extension RLPItem: EthereumValueConvertible {
+
+    public init(ethereumValue: EthereumValue) throws {
+        let data = try EthereumData(ethereumValue: ethereumValue)
+        try self.init(bytes: data.makeBytes())
+    }
+
+    public func ethereumValue() -> EthereumValue {
+        let encoder = RLPEncoder()
+        let string = try? encoder.encode(self).hexString(prefix: true)
+        return .string(string ?? "0x")
+    }
+}
+
 // MARK: - CustomStringConvertible
 
 extension RLPItem: CustomStringConvertible {

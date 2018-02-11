@@ -254,6 +254,20 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
 
+        public func sendRawTransaction(
+            transaction: Transaction,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_sendRawTransaction",
+                params: [transaction.rlp(forSigning: false)]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
         public func call(
             call: EthereumCall,
             block: EthereumQuantityTag,
@@ -290,6 +304,109 @@ public struct Web3 {
                 jsonrpc: Web3.jsonrpc,
                 method: "eth_getBlockByHash",
                 params: [blockHash, fullTransactionObjects]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getBlockByNumber(
+            block: EthereumQuantityTag,
+            fullTransactionObjects: Bool,
+            response: @escaping Web3ResponseCompletion<EthereumBlock>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getBlockByNumber",
+                params: [block, fullTransactionObjects]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getTransactionByHash(
+            blockHash: EthereumData,
+            response: @escaping Web3ResponseCompletion<EthereumTransaction>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getTransactionByHash",
+                params: [blockHash]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getTransactionByBlockHashAndIndex(
+            blockHash: EthereumData,
+            transactionIndex: EthereumQuantity,
+            response: @escaping Web3ResponseCompletion<EthereumTransaction>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getTransactionByBlockHashAndIndex",
+                params: [blockHash, transactionIndex]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getTransactionByBlockNumberAndIndex(
+            block: EthereumQuantityTag,
+            transactionIndex: EthereumQuantity,
+            response: @escaping Web3ResponseCompletion<EthereumTransaction>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getTransactionByBlockNumberAndIndex",
+                params: [block, transactionIndex]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getTransactionReceipt(
+            transactionHash: EthereumData,
+            response: @escaping Web3ResponseCompletion<EthereumTransactionReceipt>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getTransactionReceipt",
+                params: [transactionHash]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getUncleByBlockHashAndIndex(
+            blockHash: EthereumData,
+            uncleIndex: EthereumQuantity,
+            response: @escaping Web3ResponseCompletion<EthereumBlock>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getUncleByBlockHashAndIndex",
+                params: [blockHash, uncleIndex]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getUncleByBlockNumberAndIndex(
+            block: EthereumQuantityTag,
+            uncleIndex: EthereumQuantity,
+            response: @escaping Web3ResponseCompletion<EthereumBlock>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getUncleByBlockNumberAndIndex",
+                params: [block, uncleIndex]
             )
 
             properties.provider.send(request: req, response: response)
