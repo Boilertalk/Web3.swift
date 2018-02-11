@@ -72,10 +72,10 @@ public struct Web3 {
             properties.provider.basicSend(request: req, response: response)
         }
 
-        public func peerCount(response: @escaping BasicWeb3ResponseCompletion) {
+        public func peerCount(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_peerCount", params: [])
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
     }
 
@@ -108,25 +108,25 @@ public struct Web3 {
             properties.provider.basicSend(request: req, response: response)
         }
 
-        public func hashrate(response: @escaping BasicWeb3ResponseCompletion) {
+        public func hashrate(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_hashrate", params: [])
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
-        public func gasPrice(response: @escaping BasicWeb3ResponseCompletion) {
+        public func gasPrice(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_gasPrice", params: [])
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
-        public func accounts(response: @escaping BasicWeb3ResponseCompletion) {
+        public func accounts(response: @escaping Web3ResponseCompletion<[EthereumAddress]>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_accounts", params: [])
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
-        public func blockNumber(response: @escaping BasicWeb3ResponseCompletion) {
+        public func blockNumber(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
@@ -134,13 +134,13 @@ public struct Web3 {
                 params: []
             )
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
         public func getBalance(
             address: EthereumAddress,
             block: EthereumQuantityTag,
-            response: @escaping BasicWeb3ResponseCompletion
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -149,14 +149,14 @@ public struct Web3 {
                 params: [address, block]
             )
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
         public func getStorageAt(
             address: EthereumAddress,
             position: EthereumQuantity,
             block: EthereumQuantityTag,
-            response: @escaping BasicWeb3ResponseCompletion
+            response: @escaping Web3ResponseCompletion<EthereumData>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -165,7 +165,36 @@ public struct Web3 {
                 params: [address, position, block]
             )
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getTransactionCount(
+            address: EthereumAddress,
+            block: EthereumQuantityTag,
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+            ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getTransactionCount",
+                params: [address, block]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getBlockTransactionCountByHash(
+            blockHash: EthereumData,
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getBlockTransactionCountByHash",
+                params: [blockHash]
+            )
+
+            properties.provider.send(request: req, response: response)
         }
     }
 }

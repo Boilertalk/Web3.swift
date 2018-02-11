@@ -38,10 +38,17 @@ extension EthereumQuantity: EthereumValueConvertible {
             throw EthereumValueInitializableError.notInitializable
         }
 
-        try self.init(quantity: BigUInt(bytes: str.hexBytes()))
+        try self.init(quantity: BigUInt(bytes: str.quantityHexBytes()))
     }
 
     public func ethereumValue() -> EthereumValue {
         return .init(stringLiteral: quantity.makeBytes().quantityHexString(prefix: true))
+    }
+}
+
+public extension EthereumValue {
+
+    public var ethereumQuantity: EthereumQuantity? {
+        return try? EthereumQuantity(ethereumValue: self)
     }
 }
