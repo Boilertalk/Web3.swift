@@ -258,12 +258,38 @@ public struct Web3 {
             call: EthereumCall,
             block: EthereumQuantityTag,
             response: @escaping Web3ResponseCompletion<EthereumData>
-            ) {
+        ) {
             let req = RPCRequest<EthereumCallParams>(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
                 method: "eth_call",
                 params: EthereumCallParams(call: call, block: block)
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func estimateGas(call: EthereumCall, response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
+            let req = RPCRequest<[EthereumCall]>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_estimateGas",
+                params: [call]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getBlockByHash(
+            blockHash: EthereumData,
+            fullTransactionObjects: Bool,
+            response: @escaping Web3ResponseCompletion<EthereumBlock>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getBlockByHash",
+                params: [blockHash, fullTransactionObjects]
             )
 
             properties.provider.send(request: req, response: response)
