@@ -1,5 +1,5 @@
 //
-//  Transaction.swift
+//  EthereumTransaction.swift
 //  Web3
 //
 //  Created by Koray Koska on 05.02.18.
@@ -9,7 +9,7 @@ import Foundation
 import BigInt
 import VaporBytes
 
-public struct Transaction {
+public struct EthereumTransaction {
 
     // MARK: - Properties
 
@@ -46,7 +46,7 @@ public struct Transaction {
     // MARK: - Initialization
 
     /**
-     * Initializes a new instance of `Transaction` with the given values.
+     * Initializes a new instance of `EthereumTransaction` with the given values.
      *
      * - parameter nonce: The nonce of this transaction.
      * - parameter gasPrice: The gas price for this transaction in wei.
@@ -102,7 +102,7 @@ public struct Transaction {
      * - parameter privateKey: The private key for the new signature.
      */
     @discardableResult
-    public mutating func sign(with privateKey: EthereumPrivateKey) throws -> Transaction {
+    public mutating func sign(with privateKey: EthereumPrivateKey) throws -> EthereumTransaction {
         let rawRlp = try RLPEncoder().encode(rlp(forSigning: true))
         let signature = try privateKey.sign(message: rawRlp)
 
@@ -116,7 +116,7 @@ public struct Transaction {
         let r = BigUInt(bytes: signature.r)
         let s = BigUInt(bytes: signature.s)
 
-        self = Transaction(
+        self = EthereumTransaction(
             nonce: self.nonce,
             gasPrice: self.gasPrice,
             gasLimit: self.gasLimit,
@@ -161,7 +161,7 @@ public struct Transaction {
     }
 }
 
-extension Transaction: RLPItemConvertible {
+extension EthereumTransaction: RLPItemConvertible {
 
     public init(rlp: RLPItem) throws {
         guard let array = rlp.array, array.count == 9 else {

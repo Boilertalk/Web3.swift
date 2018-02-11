@@ -27,7 +27,7 @@ class TransactionTests: QuickSpec {
                         return
                     }
 
-                    var tx = Transaction(nonce: 0, gasPrice: 21.gwei, gasLimit: 21000, to: to, value: 1.eth, chainId: 3)
+                    var tx = EthereumTransaction(nonce: 0, gasPrice: 21.gwei, gasLimit: 21000, to: to, value: 1.eth, chainId: 3)
 
                     // Signature must not be valid now
                     expect(tx.verifySignature()) == false

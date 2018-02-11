@@ -1,5 +1,5 @@
 //
-//  EthereumTransaction.swift
+//  EthereumTransactionObject.swift
 //  Alamofire
 //
 //  Created by Koray Koska on 30.12.17.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EthereumTransaction: Codable {
+public struct EthereumTransactionObject: Codable {
 
     /// 32 Bytes - hash of the transaction.
     public let hash: EthereumData
