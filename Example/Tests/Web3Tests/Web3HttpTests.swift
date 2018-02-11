@@ -30,7 +30,7 @@ class Web3HttpTests: QuickSpec {
                             expect(response.rpcResponse).toNot(beNil())
                         }
                         it("should be a string response") {
-                            expect(response.rpcResponse?.result?.string).toNot(beNil())
+                            expect(response.rpcResponse?.result).toNot(beNil())
                         }
 
                         // Tests done
@@ -49,8 +49,8 @@ class Web3HttpTests: QuickSpec {
                         it("should not be nil") {
                             expect(response.rpcResponse).toNot(beNil())
                         }
-                        it("should be a string response") {
-                            expect(response.rpcResponse?.result?.string).toNot(beNil())
+                        it("should be mainnet chain id") {
+                            expect(response.rpcResponse?.result) == "1"
                         }
 
                         // Tests done

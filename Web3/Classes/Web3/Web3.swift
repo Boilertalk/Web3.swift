@@ -54,10 +54,10 @@ public struct Web3 {
 
     // MARK: - Web3 methods
 
-    public func clientVersion(response: @escaping BasicWeb3ResponseCompletion) {
+    public func clientVersion(response: @escaping Web3ResponseCompletion<String>) {
         let req = BasicRPCRequest(id: rpcId, jsonrpc: type(of: self).jsonrpc, method: "web3_clientVersion", params: [])
 
-        provider.basicSend(request: req, response: response)
+        provider.send(request: req, response: response)
     }
 
     // MARK: - Net methods
@@ -66,10 +66,10 @@ public struct Web3 {
 
         let properties: Properties
 
-        public func version(response: @escaping BasicWeb3ResponseCompletion) {
+        public func version(response: @escaping Web3ResponseCompletion<String>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_version", params: [])
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
         public func peerCount(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
@@ -85,7 +85,7 @@ public struct Web3 {
 
         let properties: Properties
 
-        public func protocolVersion(response: @escaping BasicWeb3ResponseCompletion) {
+        public func protocolVersion(response: @escaping Web3ResponseCompletion<String>) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
@@ -93,7 +93,7 @@ public struct Web3 {
                 params: []
             )
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
         public func syncing(response: @escaping Web3ResponseCompletion<EthereumSyncStatus>) {
@@ -102,10 +102,10 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
 
-        public func mining(response: @escaping BasicWeb3ResponseCompletion) {
+        public func mining(response: @escaping Web3ResponseCompletion<Bool>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_mining", params: [])
 
-            properties.provider.basicSend(request: req, response: response)
+            properties.provider.send(request: req, response: response)
         }
 
         public func hashrate(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
