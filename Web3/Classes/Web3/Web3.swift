@@ -196,5 +196,62 @@ public struct Web3 {
 
             properties.provider.send(request: req, response: response)
         }
+
+        public func getBlockTransactionCountByNumber(
+            block: EthereumQuantityTag,
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getBlockTransactionCountByNumber",
+                params: [block]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getUncleCountByBlockHash(
+            blockHash: EthereumData,
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getUncleCountByBlockHash",
+                params: [blockHash]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getUncleCountByBlockNumber(
+            block: EthereumQuantityTag,
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getUncleCountByBlockNumber",
+                params: [block]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
+        public func getCode(
+            address: EthereumAddress,
+            block: EthereumQuantityTag,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getCode",
+                params: [address, block]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
     }
 }

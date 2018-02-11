@@ -8,12 +8,13 @@
 import Foundation
 import VaporBytes
 import CryptoSwift
+import BigInt
 
 public struct EthereumQuantityTag {
 
     public enum TagType {
 
-        case block(UInt)
+        case block(BigUInt)
         case latest
         case earliest
         case pending
@@ -40,8 +41,8 @@ public extension EthereumQuantityTag {
         return self.init(tagType: .pending)
     }
 
-    public static func block(_ uint: UInt) -> EthereumQuantityTag {
-        return self.init(tagType: .block(uint))
+    public static func block(_ bigUInt: BigUInt) -> EthereumQuantityTag {
+        return self.init(tagType: .block(bigUInt))
     }
 }
 
@@ -59,7 +60,7 @@ extension EthereumQuantityTag: EthereumValueConvertible {
         } else if str == "pending" {
             tagType = .pending
         } else {
-            guard let h = try? str.quantityHexBytes().bigEndianUInt, let hex = h else {
+            guard let hex = try? BigUInt(bytes: str.quantityHexBytes()) else {
                 throw EthereumValueInitializableError.notInitializable
             }
             tagType = .block(hex)
@@ -74,8 +75,8 @@ extension EthereumQuantityTag: EthereumValueConvertible {
             return "earliest"
         case .pending:
             return "pending"
-        case .block(let uint):
-            return EthereumValue(stringLiteral: uint.makeBytes().quantityHexString(prefix: true))
+        case .block(let bigUInt):
+            return EthereumValue(stringLiteral: bigUInt.makeBytes().quantityHexString(prefix: true))
         }
     }
 }
