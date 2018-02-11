@@ -253,5 +253,20 @@ public struct Web3 {
 
             properties.provider.send(request: req, response: response)
         }
+
+        public func call(
+            call: EthereumCall,
+            block: EthereumQuantityTag,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+            ) {
+            let req = RPCRequest<EthereumCallParams>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_call",
+                params: EthereumCallParams(call: call, block: block)
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
     }
 }
