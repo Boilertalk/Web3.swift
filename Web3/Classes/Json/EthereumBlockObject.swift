@@ -119,10 +119,10 @@ public struct EthereumBlockObject: Codable {
                 try container.encode(object)
             } else if let hash = hash {
                 try container.encode(hash)
+            } else {
+                // This will never happen, but to be consistent...
+                try container.encodeNil()
             }
-
-            // This will never happen, but to be consistent...
-            try container.encodeNil()
         }
 
         /// Encoding and Decoding errors specific to EthereumValue

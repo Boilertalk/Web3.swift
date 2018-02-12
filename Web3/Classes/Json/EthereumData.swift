@@ -23,6 +23,10 @@ public struct EthereumData: BytesConvertible {
 
 extension EthereumData: EthereumValueConvertible {
 
+    public static func string(_ string: String) throws -> EthereumData {
+        return try self.init(ethereumValue: .string(string))
+    }
+
     public init(ethereumValue: EthereumValue) throws {
         guard let str = ethereumValue.string else {
             throw EthereumValueInitializableError.notInitializable
