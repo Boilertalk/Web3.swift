@@ -163,6 +163,74 @@ class EthereumValueTests: QuickSpec {
                     expect(ethereumValue.bool) == true
                 }
             }
+
+            context("types ethereum value convertible") {
+
+                it("should initialize and return bool") {
+                    let value = true.ethereumValue()
+                    let value2 = false.ethereumValue()
+
+                    expect(value.bool) == true
+                    expect(value2.bool) == false
+
+                    let returnValue = try? Bool(ethereumValue: value)
+                    let returnValue2 = try? Bool(ethereumValue: value2)
+
+                    expect(returnValue).toNot(beNil())
+                    expect(returnValue) == true
+
+                    expect(returnValue2).toNot(beNil())
+                    expect(returnValue2) == false
+
+                    expect{ try Bool(ethereumValue: 28) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try Bool(ethereumValue: [true, false]) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try Bool(ethereumValue: "haha,lol") }.to(throwError(EthereumValueInitializableError.notInitializable))
+                }
+
+                it("should initialize and return string") {
+                    let value = "xD".ethereumValue()
+                    let value2 = "0x0123456789abcdef".ethereumValue()
+
+                    expect(value.string) == "xD"
+                    expect(value2.string) == "0x0123456789abcdef"
+
+                    let returnValue = try? String(ethereumValue: value)
+                    let returnValue2 = try? String(ethereumValue: value2)
+
+                    expect(returnValue).toNot(beNil())
+                    expect(returnValue) == "xD"
+
+                    expect(returnValue2).toNot(beNil())
+                    expect(returnValue2) == "0x0123456789abcdef"
+
+                    expect{ try String(ethereumValue: 97) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try String(ethereumValue: [true, false]) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try String(ethereumValue: true) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try String(ethereumValue: false) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                }
+
+                it("should initialize and return int") {
+                    let value = 19.ethereumValue()
+                    let value2 = 22.ethereumValue()
+
+                    expect(value.int) == 19
+                    expect(value2.int) == 22
+
+                    let returnValue = try? Int(ethereumValue: value)
+                    let returnValue2 = try? Int(ethereumValue: value2)
+
+                    expect(returnValue).toNot(beNil())
+                    expect(returnValue) == 19
+
+                    expect(returnValue2).toNot(beNil())
+                    expect(returnValue2) == 22
+
+                    expect{ try Int(ethereumValue: "...-/-...") }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try Int(ethereumValue: [true, false]) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try Int(ethereumValue: true) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                    expect{ try Int(ethereumValue: false) }.to(throwError(EthereumValueInitializableError.notInitializable))
+                }
+            }
         }
     }
 }
