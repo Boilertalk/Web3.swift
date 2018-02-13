@@ -524,7 +524,9 @@ SOFTWARE.
 
 ## Web3
 
-Copyright (c) 2018 Koray Koska <koray@koska.at>
+The MIT License (MIT)
+
+Copyright (c) 2018 Boilertalk Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
