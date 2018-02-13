@@ -43,8 +43,8 @@ public struct EthereumSyncStatusObject: Codable {
     }
 
     public init(from decoder: Decoder) throws {
-        if let container = try? decoder.singleValueContainer() {
-            self.syncing = try container.decode(Bool.self)
+        if let container = try? decoder.singleValueContainer(), let syncing = try? container.decode(Bool.self) {
+            self.syncing = syncing
             self.startingBlock = nil
             self.currentBlock = nil
             self.highestBlock = nil
