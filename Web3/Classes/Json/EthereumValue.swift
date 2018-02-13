@@ -33,15 +33,19 @@ public struct EthereumValue: Codable {
         case `nil`
     }
 
+    public init(valueType: ValueType) {
+        self.valueType = valueType
+    }
+
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
 
         if let str = try? container.decode(String.self) {
             valueType = .string(str)
-        } else if let int = try? container.decode(Int.self) {
-            valueType = .int(int)
         } else if let bool = try? container.decode(Bool.self) {
             valueType = .bool(bool)
+        } else if let int = try? container.decode(Int.self) {
+            valueType = .int(int)
         } else if let array = try? container.decode([EthereumValue].self) {
             valueType = .array(array)
         } else if container.decodeNil() {
