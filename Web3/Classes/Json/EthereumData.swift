@@ -16,7 +16,7 @@ public struct EthereumData: BytesConvertible {
         self.bytes = bytes
     }
 
-    public func makeBytes() throws -> Bytes {
+    public func makeBytes() -> Bytes {
         return bytes
     }
 
