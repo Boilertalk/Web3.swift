@@ -168,7 +168,7 @@ extension RLPItem: EthereumValueConvertible {
 
     public init(ethereumValue: EthereumValue) throws {
         let data = try EthereumData(ethereumValue: ethereumValue)
-        try self.init(bytes: data.makeBytes())
+        self.init(bytes: data.makeBytes())
     }
 
     public func ethereumValue() -> EthereumValue {
