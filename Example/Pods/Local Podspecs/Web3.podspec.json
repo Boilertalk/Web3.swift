@@ -18,22 +18,36 @@
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "Web3/Classes/**/*",
-  "dependencies": {
-    "BigInt": [
-      "~> 3.0"
-    ],
-    "CryptoSwift": [
-      "~> 0.8"
-    ],
-    "secp256k1.swift": [
-      "~> 0.1"
-    ],
-    "Alamofire": [
-      "~> 4.6"
-    ],
-    "VaporBytes": [
-      "~> 1.0"
-    ]
-  }
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "Web3/Classes/Core/**/*",
+      "dependencies": {
+        "BigInt": [
+          "~> 3.0"
+        ],
+        "CryptoSwift": [
+          "~> 0.8"
+        ],
+        "secp256k1.swift": [
+          "~> 0.1"
+        ],
+        "VaporBytes": [
+          "~> 1.0"
+        ]
+      }
+    },
+    {
+      "name": "AlamofireHTTP",
+      "source_files": "Web3/Classes/AlamofireHTTP/**/*",
+      "dependencies": {
+        "Web3/Core": [
+
+        ],
+        "Alamofire": [
+          "~> 4.6"
+        ]
+      }
+    }
+  ]
 }
