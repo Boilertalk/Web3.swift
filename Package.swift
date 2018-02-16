@@ -28,20 +28,20 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
+            name: "VaporBytes",
             path: "Web3/Classes",
             sources: ["VaporBytes"],
-            name: "VaporBytes",
             dependencies: ["Bits"]),
         .target(
+            name: "Web3",
             path: "Web3/Classes",
             sources: ["Core"],
-            name: "Web3",
             dependencies: ["VaporBytes", "BigInt", "CryptoSwift", "secp256k1"]),
         .testTarget(
+            name: "Web3Tests",
             path: "Example/Tests",
             exclude: ["LinuxMain.swift"],
             sources: ".",
-            name: "Web3Tests",
             dependencies: ["Web3", "Quick"]),
     ]
 )
