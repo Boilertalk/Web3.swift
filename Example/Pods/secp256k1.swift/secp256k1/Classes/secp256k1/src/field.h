@@ -18,9 +18,7 @@
  *    normality.
  */
 
-#if defined HAVE_CONFIG_H
-#include "libsecp256k1-config.h"
-#endif
+#include "../../secp256k1-config.h"
 
 #if defined(USE_FIELD_10X26)
 #include "field_10x26.h"

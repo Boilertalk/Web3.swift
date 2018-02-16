@@ -9,9 +9,7 @@
 
 #ifndef USE_NUM_NONE
 
-#if defined HAVE_CONFIG_H
-#include "libsecp256k1-config.h"
-#endif
+#include "../../secp256k1-config.h"
 
 #if defined(USE_NUM_GMP)
 #include "num_gmp.h"

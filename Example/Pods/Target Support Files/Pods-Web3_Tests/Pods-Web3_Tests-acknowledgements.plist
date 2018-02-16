@@ -608,7 +608,9 @@ THE SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright (c) 2017 shamatar &lt;alex.m.vlasov@gmail.com&gt;
+			<string>The MIT License (MIT)
+
+Copyright (c) 2018 Boilertalk Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -626,11 +628,12 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.</string>
+THE SOFTWARE.
+</string>
 			<key>License</key>
 			<string>MIT</string>
 			<key>Title</key>
-			<string>secp256k1_ios</string>
+			<string>secp256k1.swift</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

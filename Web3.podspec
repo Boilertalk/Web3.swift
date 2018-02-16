@@ -44,7 +44,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
 
   s.dependency 'BigInt', '~> 3.0'
   s.dependency 'CryptoSwift', '~> 0.8'
-  s.dependency 'secp256k1_ios', '~> 0.1'
+  s.dependency 'secp256k1.swift', '~> 0.1'
   s.dependency 'Alamofire', '~> 4.6'
   s.dependency 'VaporBytes', '~> 1.0'
 end

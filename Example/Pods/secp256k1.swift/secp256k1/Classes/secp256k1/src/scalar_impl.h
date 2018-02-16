@@ -10,9 +10,7 @@
 #include "group.h"
 #include "scalar.h"
 
-#if defined HAVE_CONFIG_H
-#include "libsecp256k1-config.h"
-#endif
+#include "../../secp256k1-config.h"
 
 #if defined(EXHAUSTIVE_TEST_ORDER)
 #include "scalar_low_impl.h"
