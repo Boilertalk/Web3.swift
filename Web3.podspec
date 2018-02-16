@@ -26,7 +26,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.dependency 'BigInt', '~> 3.0'
     ss.dependency 'CryptoSwift', '~> 0.8'
     ss.dependency 'secp256k1.swift', '~> 0.1'
-    ss.dependency 'VaporBytes', '~> 1.0'
+    ss.dependency 'VaporBytes', '~> 1.1'
   end
 
   s.subspec 'AlamofireHTTP' do |ss|
