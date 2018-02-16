@@ -29,19 +29,19 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "VaporBytes",
+            dependencies: ["Bits"],
             path: "Web3/Classes",
-            sources: ["VaporBytes"],
-            dependencies: ["Bits"]),
+            sources: ["VaporBytes"]),
         .target(
             name: "Web3",
+            dependencies: ["VaporBytes", "BigInt", "CryptoSwift", "secp256k1"],
             path: "Web3/Classes",
-            sources: ["Core"],
-            dependencies: ["VaporBytes", "BigInt", "CryptoSwift", "secp256k1"]),
+            sources: ["Core"]),
         .testTarget(
             name: "Web3Tests",
+            dependencies: ["Web3", "Quick"],
             path: "Example/Tests",
             exclude: ["LinuxMain.swift"],
-            sources: ".",
-            dependencies: ["Web3", "Quick"]),
+            sources: ["."]),
     ]
 )
