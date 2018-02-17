@@ -44,9 +44,9 @@ class EthereumBlockObjectTests: QuickSpec {
                                 object: EthereumTransactionObject(
                                     hash: .string("0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb"),
                                     nonce: 0x7ec,
-                                    blockHash: .string("0x5413f2348b6669b9ec9cb4798800fbadedf1f1da890b472234fb82fc3154eba9"),
-                                    blockNumber: 0x4d6c68,
-                                    transactionIndex: 0x0,
+                                    blockHash: .some(.string("0x5413f2348b6669b9ec9cb4798800fbadedf1f1da890b472234fb82fc3154eba9")),
+                                    blockNumber: .some(0x4d6c68),
+                                    transactionIndex: .some(0x0),
                                     from: EthereumAddress(hex: "0x2607660f7922d2d651bc4ac45df7d3a310160cae", eip55: false),
                                     to: EthereumAddress(hex: "0x8d12a197cb00d4747a1fe03395095ce2a5cc6819", eip55: false),
                                     value: 0x0,

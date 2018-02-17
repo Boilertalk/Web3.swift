@@ -14,7 +14,8 @@ import Quick
 
 QCKMain([
     RLPEncoderTests.self,
-    RLPDecoderTests.self
+    RLPDecoderTests.self,
+    RLPItemTests.self
 ])
 
 #endif
