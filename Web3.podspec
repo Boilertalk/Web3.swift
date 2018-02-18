@@ -17,7 +17,10 @@ HTTP RPC interface provided by this library or a custom RPC interface
   s.source           = { :git => 'https://github.com/Boilertalk/Web3.swift.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.10'
+  s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '2.0'
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Web3/Classes/Core/**/*'
