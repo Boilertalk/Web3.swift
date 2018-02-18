@@ -49,7 +49,7 @@ let package = Package(
             name: "Web3Tests",
             dependencies: ["Web3", "Quick", "Nimble"],
             path: "Example/Tests",
-            exclude: ["InternalTests"],
-            sources: ["."]),
+            exclude: ["Web3/InternalTests"],
+            sources: ["Web3"]),
     ]
 )

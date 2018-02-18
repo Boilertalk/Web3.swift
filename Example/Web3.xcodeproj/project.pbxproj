@@ -7,47 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E1C49B6202A485400806321 /* EthereumPrivateKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B5202A485400806321 /* EthereumPrivateKeyTests.swift */; };
-		0E1C49BA202A9B5F00806321 /* EthereumPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B9202A9B5F00806321 /* EthereumPublicKeyTests.swift */; };
-		0E1C9C85202FEE120022FEEA /* EthereumCallParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C9C84202FEE120022FEEA /* EthereumCallParamsTests.swift */; };
-		0E22391A2030E1DC00612590 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2239192030E1DC00612590 /* TransactionTests.swift */; };
-		0E22391C20311E5700612590 /* EthereumBlockObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E22391B20311E5700612590 /* EthereumBlockObjectTests.swift */; };
-		0E307D25203277C100314BF8 /* EthereumValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E307D24203277C100314BF8 /* EthereumValueTests.swift */; };
-		0E38BB4520338F4300C33C12 /* EthereumSyncStatusObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E38BB4420338F4300C33C12 /* EthereumSyncStatusObjectTests.swift */; };
-		0E48AA082026304B00F558C8 /* RLPItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48AA072026304B00F558C8 /* RLPItemTests.swift */; };
-		0E6AAFDC20252AF900517802 /* RLPEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */; };
-		0E6C78CE2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */; };
-		0E785FD1203358E10046645A /* EthereumDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E785FD0203358E10046645A /* EthereumDataTests.swift */; };
-		0E785FD320335C510046645A /* EthereumQuantityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E785FD220335C510046645A /* EthereumQuantityTests.swift */; };
-		0E785FD52033654A0046645A /* EthereumQuantityTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E785FD42033654A0046645A /* EthereumQuantityTagTests.swift */; };
-		0E8C911C20278A9900563B6E /* RLPDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */; };
-		0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */; };
-		0EA5D39C2038F1B40037C2BE /* BytesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D39B2038F1B40037C2BE /* BytesExtensions.swift */; };
-		0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */; };
-		0EECEE942028AC950070544B /* EthereumAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EECEE932028AC950070544B /* EthereumAddressTests.swift */; };
+		0EA5D3A720390D180037C2BE /* BytesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3A620390D180037C2BE /* BytesExtensions.swift */; };
+		0EA5D3B220390D7D0037C2BE /* EthereumQuantityTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3AA20390D7C0037C2BE /* EthereumQuantityTagTests.swift */; };
+		0EA5D3B320390D7D0037C2BE /* EthereumQuantityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3AB20390D7C0037C2BE /* EthereumQuantityTests.swift */; };
+		0EA5D3B420390D7D0037C2BE /* EthereumValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3AC20390D7C0037C2BE /* EthereumValueTests.swift */; };
+		0EA5D3B520390D7D0037C2BE /* EthereumBlockObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3AD20390D7D0037C2BE /* EthereumBlockObjectTests.swift */; };
+		0EA5D3B620390D7D0037C2BE /* EthereumCallParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3AE20390D7D0037C2BE /* EthereumCallParamsTests.swift */; };
+		0EA5D3B720390D7D0037C2BE /* EthereumDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3AF20390D7D0037C2BE /* EthereumDataTests.swift */; };
+		0EA5D3B820390D7D0037C2BE /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3B020390D7D0037C2BE /* RPCRequestJsonTests.swift */; };
+		0EA5D3B920390D7D0037C2BE /* EthereumSyncStatusObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3B120390D7D0037C2BE /* EthereumSyncStatusObjectTests.swift */; };
+		0EA5D3BE20390DA80037C2BE /* RLPDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3BB20390DA80037C2BE /* RLPDecoderTests.swift */; };
+		0EA5D3BF20390DA80037C2BE /* RLPEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3BC20390DA80037C2BE /* RLPEncoderTests.swift */; };
+		0EA5D3C020390DA80037C2BE /* RLPItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3BD20390DA80037C2BE /* RLPItemTests.swift */; };
+		0EA5D3C320390DC60037C2BE /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3C220390DC60037C2BE /* UInt+BytesRepresentableTests.swift */; };
+		0EA5D3C920390DDF0037C2BE /* EthereumPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3C520390DDF0037C2BE /* EthereumPublicKeyTests.swift */; };
+		0EA5D3CA20390DDF0037C2BE /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3C620390DDF0037C2BE /* TransactionTests.swift */; };
+		0EA5D3CB20390DDF0037C2BE /* EthereumPrivateKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3C720390DDF0037C2BE /* EthereumPrivateKeyTests.swift */; };
+		0EA5D3CC20390DDF0037C2BE /* EthereumAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3C820390DDF0037C2BE /* EthereumAddressTests.swift */; };
+		0EA5D3CF20390DF90037C2BE /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3CE20390DF90037C2BE /* Web3HttpTests.swift */; };
 		E54BAE94B0A9A8565CD31D93 /* Pods_Web3_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E1C49B5202A485400806321 /* EthereumPrivateKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKeyTests.swift; sourceTree = "<group>"; };
-		0E1C49B9202A9B5F00806321 /* EthereumPublicKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPublicKeyTests.swift; sourceTree = "<group>"; };
-		0E1C9C84202FEE120022FEEA /* EthereumCallParamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumCallParamsTests.swift; sourceTree = "<group>"; };
-		0E2239192030E1DC00612590 /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
-		0E22391B20311E5700612590 /* EthereumBlockObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumBlockObjectTests.swift; sourceTree = "<group>"; };
 		0E24F0A5203761140019F214 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
-		0E307D24203277C100314BF8 /* EthereumValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumValueTests.swift; sourceTree = "<group>"; };
-		0E38BB4420338F4300C33C12 /* EthereumSyncStatusObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumSyncStatusObjectTests.swift; sourceTree = "<group>"; };
-		0E48AA072026304B00F558C8 /* RLPItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPItemTests.swift; sourceTree = "<group>"; };
-		0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPEncoderTests.swift; sourceTree = "<group>"; };
-		0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentableTests.swift"; sourceTree = "<group>"; };
-		0E785FD0203358E10046645A /* EthereumDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumDataTests.swift; sourceTree = "<group>"; };
-		0E785FD220335C510046645A /* EthereumQuantityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTests.swift; sourceTree = "<group>"; };
-		0E785FD42033654A0046645A /* EthereumQuantityTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTagTests.swift; sourceTree = "<group>"; };
-		0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPDecoderTests.swift; sourceTree = "<group>"; };
-		0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCRequestJsonTests.swift; sourceTree = "<group>"; };
-		0EA5D39B2038F1B40037C2BE /* BytesExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BytesExtensions.swift; sourceTree = "<group>"; };
-		0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HttpTests.swift; sourceTree = "<group>"; };
-		0EECEE932028AC950070544B /* EthereumAddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumAddressTests.swift; sourceTree = "<group>"; };
+		0EA5D3A620390D180037C2BE /* BytesExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BytesExtensions.swift; sourceTree = "<group>"; };
+		0EA5D3AA20390D7C0037C2BE /* EthereumQuantityTagTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTagTests.swift; sourceTree = "<group>"; };
+		0EA5D3AB20390D7C0037C2BE /* EthereumQuantityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTests.swift; sourceTree = "<group>"; };
+		0EA5D3AC20390D7C0037C2BE /* EthereumValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumValueTests.swift; sourceTree = "<group>"; };
+		0EA5D3AD20390D7D0037C2BE /* EthereumBlockObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumBlockObjectTests.swift; sourceTree = "<group>"; };
+		0EA5D3AE20390D7D0037C2BE /* EthereumCallParamsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumCallParamsTests.swift; sourceTree = "<group>"; };
+		0EA5D3AF20390D7D0037C2BE /* EthereumDataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumDataTests.swift; sourceTree = "<group>"; };
+		0EA5D3B020390D7D0037C2BE /* RPCRequestJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCRequestJsonTests.swift; sourceTree = "<group>"; };
+		0EA5D3B120390D7D0037C2BE /* EthereumSyncStatusObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumSyncStatusObjectTests.swift; sourceTree = "<group>"; };
+		0EA5D3BB20390DA80037C2BE /* RLPDecoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLPDecoderTests.swift; sourceTree = "<group>"; };
+		0EA5D3BC20390DA80037C2BE /* RLPEncoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLPEncoderTests.swift; sourceTree = "<group>"; };
+		0EA5D3BD20390DA80037C2BE /* RLPItemTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLPItemTests.swift; sourceTree = "<group>"; };
+		0EA5D3C220390DC60037C2BE /* UInt+BytesRepresentableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentableTests.swift"; sourceTree = "<group>"; };
+		0EA5D3C520390DDF0037C2BE /* EthereumPublicKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPublicKeyTests.swift; sourceTree = "<group>"; };
+		0EA5D3C620390DDF0037C2BE /* TransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
+		0EA5D3C720390DDF0037C2BE /* EthereumPrivateKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKeyTests.swift; sourceTree = "<group>"; };
+		0EA5D3C820390DDF0037C2BE /* EthereumAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddressTests.swift; sourceTree = "<group>"; };
+		0EA5D3CE20390DF90037C2BE /* Web3HttpTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web3HttpTests.swift; sourceTree = "<group>"; };
 		2823EF66D329567217458073 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		363401ACDEDC2B8D29D107CB /* Pods-Web3_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BC29B1E862FC7EC18CDE5FA /* Pods-Web3_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -70,71 +70,85 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E6AAFDA20252AE700517802 /* RLP */ = {
+		0EA5D3A420390CDD0037C2BE /* Web3 */ = {
 			isa = PBXGroup;
 			children = (
-				0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */,
-				0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */,
-				0E48AA072026304B00F558C8 /* RLPItemTests.swift */,
+				0EA5D3A520390CF10037C2BE /* Helpers */,
+				0EA5D3A820390D1F0037C2BE /* InternalTests */,
+				0EA5D3A920390D570037C2BE /* JsonTests */,
+				0EA5D3BA20390D820037C2BE /* RLP */,
+				0EA5D3C120390DAB0037C2BE /* ToolboxTests */,
+				0EA5D3C420390DCA0037C2BE /* TransactionTests */,
+				0EA5D3CD20390DE60037C2BE /* Web3Tests */,
 			);
-			path = RLP;
+			path = Web3;
 			sourceTree = "<group>";
 		};
-		0E6C78CC2023CDAE007A9993 /* ToolboxTests */ = {
+		0EA5D3A520390CF10037C2BE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */,
-			);
-			path = ToolboxTests;
-			sourceTree = "<group>";
-		};
-		0E9C48C31FFC32FA00541E6F /* JsonTests */ = {
-			isa = PBXGroup;
-			children = (
-				0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */,
-				0E22391B20311E5700612590 /* EthereumBlockObjectTests.swift */,
-				0E1C9C84202FEE120022FEEA /* EthereumCallParamsTests.swift */,
-				0E307D24203277C100314BF8 /* EthereumValueTests.swift */,
-				0E785FD0203358E10046645A /* EthereumDataTests.swift */,
-				0E785FD220335C510046645A /* EthereumQuantityTests.swift */,
-				0E785FD42033654A0046645A /* EthereumQuantityTagTests.swift */,
-				0E38BB4420338F4300C33C12 /* EthereumSyncStatusObjectTests.swift */,
-			);
-			path = JsonTests;
-			sourceTree = "<group>";
-		};
-		0EA5D39A2038F1A70037C2BE /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				0EA5D39B2038F1B40037C2BE /* BytesExtensions.swift */,
+				0EA5D3A620390D180037C2BE /* BytesExtensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		0EA5D39D2038F1DE0037C2BE /* InternalTests */ = {
+		0EA5D3A820390D1F0037C2BE /* InternalTests */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = InternalTests;
 			sourceTree = "<group>";
 		};
-		0EBFAE50200AD29B00223E3F /* Web3Tests */ = {
+		0EA5D3A920390D570037C2BE /* JsonTests */ = {
 			isa = PBXGroup;
 			children = (
-				0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */,
+				0EA5D3AD20390D7D0037C2BE /* EthereumBlockObjectTests.swift */,
+				0EA5D3AE20390D7D0037C2BE /* EthereumCallParamsTests.swift */,
+				0EA5D3AF20390D7D0037C2BE /* EthereumDataTests.swift */,
+				0EA5D3AA20390D7C0037C2BE /* EthereumQuantityTagTests.swift */,
+				0EA5D3AB20390D7C0037C2BE /* EthereumQuantityTests.swift */,
+				0EA5D3B120390D7D0037C2BE /* EthereumSyncStatusObjectTests.swift */,
+				0EA5D3AC20390D7C0037C2BE /* EthereumValueTests.swift */,
+				0EA5D3B020390D7D0037C2BE /* RPCRequestJsonTests.swift */,
 			);
-			path = Web3Tests;
+			path = JsonTests;
 			sourceTree = "<group>";
 		};
-		0EECEE922028AC740070544B /* TransactionTests */ = {
+		0EA5D3BA20390D820037C2BE /* RLP */ = {
 			isa = PBXGroup;
 			children = (
-				0EECEE932028AC950070544B /* EthereumAddressTests.swift */,
-				0E1C49B5202A485400806321 /* EthereumPrivateKeyTests.swift */,
-				0E1C49B9202A9B5F00806321 /* EthereumPublicKeyTests.swift */,
-				0E2239192030E1DC00612590 /* TransactionTests.swift */,
+				0EA5D3BB20390DA80037C2BE /* RLPDecoderTests.swift */,
+				0EA5D3BC20390DA80037C2BE /* RLPEncoderTests.swift */,
+				0EA5D3BD20390DA80037C2BE /* RLPItemTests.swift */,
+			);
+			path = RLP;
+			sourceTree = "<group>";
+		};
+		0EA5D3C120390DAB0037C2BE /* ToolboxTests */ = {
+			isa = PBXGroup;
+			children = (
+				0EA5D3C220390DC60037C2BE /* UInt+BytesRepresentableTests.swift */,
+			);
+			path = ToolboxTests;
+			sourceTree = "<group>";
+		};
+		0EA5D3C420390DCA0037C2BE /* TransactionTests */ = {
+			isa = PBXGroup;
+			children = (
+				0EA5D3C820390DDF0037C2BE /* EthereumAddressTests.swift */,
+				0EA5D3C720390DDF0037C2BE /* EthereumPrivateKeyTests.swift */,
+				0EA5D3C520390DDF0037C2BE /* EthereumPublicKeyTests.swift */,
+				0EA5D3C620390DDF0037C2BE /* TransactionTests.swift */,
 			);
 			path = TransactionTests;
+			sourceTree = "<group>";
+		};
+		0EA5D3CD20390DE60037C2BE /* Web3Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0EA5D3CE20390DF90037C2BE /* Web3HttpTests.swift */,
+			);
+			path = Web3Tests;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -159,13 +173,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				0EA5D39D2038F1DE0037C2BE /* InternalTests */,
-				0EA5D39A2038F1A70037C2BE /* Helpers */,
-				0E6AAFDA20252AE700517802 /* RLP */,
-				0E6C78CC2023CDAE007A9993 /* ToolboxTests */,
-				0EECEE922028AC740070544B /* TransactionTests */,
-				0EBFAE50200AD29B00223E3F /* Web3Tests */,
-				0E9C48C31FFC32FA00541E6F /* JsonTests */,
+				0EA5D3A420390CDD0037C2BE /* Web3 */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				0E24F0A5203761140019F214 /* LinuxMain.swift */,
 			);
@@ -242,7 +250,7 @@
 				TargetAttributes = {
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0920;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 				};
@@ -350,24 +358,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E6C78CE2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift in Sources */,
-				0E6AAFDC20252AF900517802 /* RLPEncoderTests.swift in Sources */,
-				0E785FD320335C510046645A /* EthereumQuantityTests.swift in Sources */,
-				0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */,
-				0E307D25203277C100314BF8 /* EthereumValueTests.swift in Sources */,
-				0E1C49BA202A9B5F00806321 /* EthereumPublicKeyTests.swift in Sources */,
-				0E785FD52033654A0046645A /* EthereumQuantityTagTests.swift in Sources */,
-				0EECEE942028AC950070544B /* EthereumAddressTests.swift in Sources */,
-				0E8C911C20278A9900563B6E /* RLPDecoderTests.swift in Sources */,
-				0E22391A2030E1DC00612590 /* TransactionTests.swift in Sources */,
-				0E1C9C85202FEE120022FEEA /* EthereumCallParamsTests.swift in Sources */,
-				0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */,
-				0E22391C20311E5700612590 /* EthereumBlockObjectTests.swift in Sources */,
-				0E1C49B6202A485400806321 /* EthereumPrivateKeyTests.swift in Sources */,
-				0E38BB4520338F4300C33C12 /* EthereumSyncStatusObjectTests.swift in Sources */,
-				0E785FD1203358E10046645A /* EthereumDataTests.swift in Sources */,
-				0E48AA082026304B00F558C8 /* RLPItemTests.swift in Sources */,
-				0EA5D39C2038F1B40037C2BE /* BytesExtensions.swift in Sources */,
+				0EA5D3B220390D7D0037C2BE /* EthereumQuantityTagTests.swift in Sources */,
+				0EA5D3C020390DA80037C2BE /* RLPItemTests.swift in Sources */,
+				0EA5D3A720390D180037C2BE /* BytesExtensions.swift in Sources */,
+				0EA5D3BF20390DA80037C2BE /* RLPEncoderTests.swift in Sources */,
+				0EA5D3CA20390DDF0037C2BE /* TransactionTests.swift in Sources */,
+				0EA5D3B520390D7D0037C2BE /* EthereumBlockObjectTests.swift in Sources */,
+				0EA5D3C920390DDF0037C2BE /* EthereumPublicKeyTests.swift in Sources */,
+				0EA5D3CC20390DDF0037C2BE /* EthereumAddressTests.swift in Sources */,
+				0EA5D3B420390D7D0037C2BE /* EthereumValueTests.swift in Sources */,
+				0EA5D3B620390D7D0037C2BE /* EthereumCallParamsTests.swift in Sources */,
+				0EA5D3BE20390DA80037C2BE /* RLPDecoderTests.swift in Sources */,
+				0EA5D3B720390D7D0037C2BE /* EthereumDataTests.swift in Sources */,
+				0EA5D3C320390DC60037C2BE /* UInt+BytesRepresentableTests.swift in Sources */,
+				0EA5D3B920390D7D0037C2BE /* EthereumSyncStatusObjectTests.swift in Sources */,
+				0EA5D3CF20390DF90037C2BE /* Web3HttpTests.swift in Sources */,
+				0EA5D3B320390D7D0037C2BE /* EthereumQuantityTests.swift in Sources */,
+				0EA5D3CB20390DDF0037C2BE /* EthereumPrivateKeyTests.swift in Sources */,
+				0EA5D3B820390D7D0037C2BE /* RPCRequestJsonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +485,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 363401ACDEDC2B8D29D107CB /* Pods-Web3_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -489,6 +498,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -498,6 +508,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4BC29B1E862FC7EC18CDE5FA /* Pods-Web3_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

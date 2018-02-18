@@ -20,7 +20,7 @@ PODS:
     - BigInt (~> 3.0)
     - CryptoSwift (~> 0.8)
     - secp256k1.swift (~> 0.1)
-    - VaporBytes (~> 1.0)
+    - VaporBytes (~> 1.1)
 
 DEPENDENCIES:
   - Nimble (~> 7.0.2)
@@ -40,7 +40,7 @@ SPEC CHECKSUMS:
   secp256k1.swift: c4734a8c5597de8ff4af5db24624d6dd883eede0
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
   VaporBytes: 628752235bc16d69800b52355de7118762a9009f
-  Web3: 6a868cfba233a02df130996c699b906bb30798c6
+  Web3: d89d1e64ce9073c7d6a1b43c990258c2a41998df
 
 PODFILE CHECKSUM: 6187d63273cbe49465a8ccc30c3bfdf2efc80482
 
