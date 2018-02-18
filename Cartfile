@@ -1,3 +1,4 @@
 github "attaswift/BigInt" ~> 3.0
 github "krzyzanowskim/CryptoSwift" ~> 0.8
 github "Boilertalk/secp256k1.swift" ~> 0.1
+github "Alamofire/Alamofire" ~> 4.6
