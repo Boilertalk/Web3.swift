@@ -32,6 +32,9 @@ before_install:
     fi
   - swiftenv install $(cat .swift-version) # Install swift with swiftenv
 script:
+  # Output something every 10 minutes or Travis kills the job
+  - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
+  # Actual script
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.2 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.2' ONLY_ACTIVE_ARCH=NO | xcpretty;
       pod lib lint --allow-warnings;
@@ -39,5 +42,7 @@ script:
   - swift build
   - swift build -c release
   - swift test
+  # Kill background echo job
+  - kill %1
 after_success:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then bash <(curl -s https://codecov.io/bash); fi
