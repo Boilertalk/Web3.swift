@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E9C6B4C2039E32F000E7225 /* EthereumPrivateKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */; };
+		0E9C6B4D2039E32F000E7225 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B492039E32F000E7225 /* TransactionTests.swift */; };
+		0E9C6B4E2039E32F000E7225 /* EthereumAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B4A2039E32F000E7225 /* EthereumAddressTests.swift */; };
+		0E9C6B4F2039E32F000E7225 /* EthereumPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B4B2039E32F000E7225 /* EthereumPublicKeyTests.swift */; };
 		0EA5D3D7203911A80037C2BE /* BytesExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3D6203911A80037C2BE /* BytesExtensions.swift */; };
 		0EA5D3E22039120A0037C2BE /* EthereumQuantityTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3DA203912090037C2BE /* EthereumQuantityTagTests.swift */; };
 		0EA5D3E32039120A0037C2BE /* EthereumBlockObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3DB203912090037C2BE /* EthereumBlockObjectTests.swift */; };
@@ -25,6 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKeyTests.swift; sourceTree = "<group>"; };
+		0E9C6B492039E32F000E7225 /* TransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
+		0E9C6B4A2039E32F000E7225 /* EthereumAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddressTests.swift; sourceTree = "<group>"; };
+		0E9C6B4B2039E32F000E7225 /* EthereumPublicKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPublicKeyTests.swift; sourceTree = "<group>"; };
 		0EA5D3D6203911A80037C2BE /* BytesExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BytesExtensions.swift; sourceTree = "<group>"; };
 		0EA5D3DA203912090037C2BE /* EthereumQuantityTagTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTagTests.swift; sourceTree = "<group>"; };
 		0EA5D3DB203912090037C2BE /* EthereumBlockObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumBlockObjectTests.swift; sourceTree = "<group>"; };
@@ -112,6 +120,10 @@
 		0EA5D3F4203912470037C2BE /* TransactionTests */ = {
 			isa = PBXGroup;
 			children = (
+				0E9C6B4A2039E32F000E7225 /* EthereumAddressTests.swift */,
+				0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */,
+				0E9C6B4B2039E32F000E7225 /* EthereumPublicKeyTests.swift */,
+				0E9C6B492039E32F000E7225 /* TransactionTests.swift */,
 			);
 			path = TransactionTests;
 			sourceTree = "<group>";
@@ -339,12 +351,16 @@
 				0EA5D3E32039120A0037C2BE /* EthereumBlockObjectTests.swift in Sources */,
 				0EA5D3F02039121E0037C2BE /* RLPItemTests.swift in Sources */,
 				0EA5D3E52039120A0037C2BE /* EthereumSyncStatusObjectTests.swift in Sources */,
+				0E9C6B4F2039E32F000E7225 /* EthereumPublicKeyTests.swift in Sources */,
+				0E9C6B4C2039E32F000E7225 /* EthereumPrivateKeyTests.swift in Sources */,
 				0EA5D3EF2039121E0037C2BE /* RLPEncoderTests.swift in Sources */,
 				0EA5D3E22039120A0037C2BE /* EthereumQuantityTagTests.swift in Sources */,
 				0EA5D3E72039120A0037C2BE /* EthereumValueTests.swift in Sources */,
+				0E9C6B4E2039E32F000E7225 /* EthereumAddressTests.swift in Sources */,
 				0EA5D3D7203911A80037C2BE /* BytesExtensions.swift in Sources */,
 				0EA5D3EE2039121E0037C2BE /* RLPDecoderTests.swift in Sources */,
 				0EA5D3E62039120A0037C2BE /* EthereumCallParamsTests.swift in Sources */,
+				0E9C6B4D2039E32F000E7225 /* TransactionTests.swift in Sources */,
 				0EA5D3F32039123A0037C2BE /* UInt+BytesRepresentableTests.swift in Sources */,
 				0EA5D3F7203912790037C2BE /* Web3HttpTests.swift in Sources */,
 				0EA5D3E42039120A0037C2BE /* EthereumQuantityTests.swift in Sources */,
