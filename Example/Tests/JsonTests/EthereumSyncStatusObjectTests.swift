@@ -31,10 +31,13 @@ class EthereumSyncStatusObjectTests: QuickSpec {
 
                     let statusAlt = EthereumSyncStatusObject(startingBlock: 10000, currentBlock: 20000, highestBlock: 30000)
 
-                    let encodedAlt = try? self.encoder.encode(statusAlt)
+                    let encodedAlt = try? self.decoder.decode(EthereumSyncStatusObject.self, from: self.encoder.encode(statusAlt))
                     expect(encodedAlt).toNot(beNil())
 
-                    expect(encodedAlt?.makeBytes().makeString()) == "{\"startingBlock\":\"0x2710\",\"currentBlock\":\"0x4e20\",\"highestBlock\":\"0x7530\"}"
+                    expect(encodedAlt?.startingBlock?.quantity) == 10000
+                    expect(encodedAlt?.currentBlock?.quantity) == 20000
+                    expect(encodedAlt?.highestBlock?.quantity) == 30000
+                    expect(encodedAlt?.syncing) == true
                 }
             }
 
