@@ -48,8 +48,6 @@ let package = Package(
         .testTarget(
             name: "Web3Tests",
             dependencies: ["Web3", "Quick", "Nimble"],
-            path: "Tests",
-            exclude: ["Web3/InternalTests"],
-            sources: ["Web3"])
+            exclude: ["Web3Tests/InternalTests"])
     ]
 )
