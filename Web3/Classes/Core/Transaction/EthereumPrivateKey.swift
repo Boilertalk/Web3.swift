@@ -82,18 +82,7 @@ public class EthereumPrivateKey {
         }
         self.rawPrivateKey = privateKey
 
-        let c = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN) | UInt32(SECP256K1_CONTEXT_VERIFY))
-        guard let ctx = c else {
-            throw Error.internalError
-        }
-
-        guard var rand = Bytes.secureRandom(count: 32) else {
-            throw Error.internalError
-        }
-
-        guard secp256k1_context_randomize(ctx, &rand) == 1 else {
-            throw Error.internalError
-        }
+        let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
         self.ctx = ctx
 
         // *** Generate public key ***

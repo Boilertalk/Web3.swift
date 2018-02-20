@@ -24,6 +24,7 @@
 		0C9F76EAB3D5C99ED2EAD2C422D53856 /* Floating Point Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E079FD072451AA8071DF79E255B9FA6D /* Floating Point Conversion.swift */; };
 		0DF5203F69D6681AEC93AA21CE5EBB47 /* Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6142E8B14257EAE0A45A50A2B1C8CA0 /* Closures.swift */; };
 		0EA5D3FA20391D6D0037C2BE /* Bytes+SecureRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3F820391AE70037C2BE /* Bytes+SecureRandom.swift */; };
+		0ECA6BB9203CE1E7001247F8 /* Secp256k1+CTXCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA6BB8203CE1E7001247F8 /* Secp256k1+CTXCreator.swift */; };
 		0FE6889B3EC5E5592CDF0610F881A0E4 /* num_gmp.h in Headers */ = {isa = PBXBuildFile; fileRef = B11A42095446EF5E38BA63B99FCB7A02 /* num_gmp.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B247DA8FCBCDB010F3419256730C9 /* Timeline.swift */; };
 		10F0ECCEC77EA78B9090CA5E025C3759 /* Bytes+Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F5CC7F4451ECA83613159A4F7B68C1 /* Bytes+Percent.swift */; };
@@ -510,6 +511,7 @@
 		0DBBB55A19E7A573C05FF05C4C29F570 /* Web3-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Web3-prefix.pch"; sourceTree = "<group>"; };
 		0EA5D3F820391AE70037C2BE /* Bytes+SecureRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bytes+SecureRandom.swift"; sourceTree = "<group>"; };
 		0EB89B0B72B65983506A13CBF2EA838F /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1/Classes/secp256k1/src/modules/recovery/main_impl.h; sourceTree = "<group>"; };
+		0ECA6BB8203CE1E7001247F8 /* Secp256k1+CTXCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Secp256k1+CTXCreator.swift"; sourceTree = "<group>"; };
 		0F28E6E1E5E1A3E219BFD686B5E3768B /* Pods_Web3_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F5C20DCA61E79321CB1CB1647D42648 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
 		0FBC7A1524D869B51F92D981092D8428 /* AES.Cryptors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES.Cryptors.swift; path = Sources/CryptoSwift/AES.Cryptors.swift; sourceTree = "<group>"; };
@@ -1382,6 +1384,7 @@
 				A6DEA5949D0A3B19EE43248C90772FD8 /* String+HexBytes.swift */,
 				77816C833502C89B125D58E962E91E4B /* UInt+BytesRepresentable.swift */,
 				0EA5D3F820391AE70037C2BE /* Bytes+SecureRandom.swift */,
+				0ECA6BB8203CE1E7001247F8 /* Secp256k1+CTXCreator.swift */,
 			);
 			name = Toolbox;
 			path = Web3/Classes/Core/Toolbox;
@@ -2130,6 +2133,7 @@
 				0212ACD258655EB82AF82820786B3E2A /* Web3+HTTPInitializer.swift in Sources */,
 				2292D7B64C1066619F3FFC659A1F6E8C /* Web3-dummy.m in Sources */,
 				AB0F245F4F5186A88D27AF4DCF1A706E /* Web3.swift in Sources */,
+				0ECA6BB9203CE1E7001247F8 /* Secp256k1+CTXCreator.swift in Sources */,
 				73DEC1CC64A5BF83E568A8EF530B5AA5 /* Web3HttpProvider.swift in Sources */,
 				314C8891BEF6604B4A9EA950D5FA0A0F /* Web3Provider.swift in Sources */,
 			);
