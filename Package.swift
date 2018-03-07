@@ -27,18 +27,13 @@ let package = Package(
             path: "Web3/Classes",
             sources: ["VaporBytes"]),
         .target(
-            name: "Web3HTTPExtension",
-            dependencies: ["Web3Core"],
-            path: "Web3/Classes",
-            sources: ["FoundationHTTP"]),
-        .target(
             name: "Web3Core",
             dependencies: ["VaporBytes", "BigInt", "CryptoSwift", "secp256k1"],
             path: "Web3/Classes",
-            sources: ["Core"]),
+            sources: ["Core", "FoundationHTTP"]),
         .target(
             name: "Web3",
-            dependencies: ["Web3Core", "Web3HTTPExtension"],
+            dependencies: ["Web3Core"],
             path: "Web3/Classes",
             sources: ["Web3DefaultExporter"]),
         .testTarget(
