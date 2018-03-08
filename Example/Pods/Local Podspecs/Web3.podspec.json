@@ -21,6 +21,9 @@
     "tvos": "9.0",
     "watchos": "2.0"
   },
+  "pod_target_xcconfig": {
+    "OTHER_SWIFT_FLAGS": "-DWeb3CocoaPods"
+  },
   "subspecs": [
     {
       "name": "Core",
@@ -37,6 +40,15 @@
         ],
         "VaporBytes": [
           "~> 1.1"
+        ]
+      }
+    },
+    {
+      "name": "PromiseKit",
+      "source_files": "Web3/Classes/PromiseKit/**/*",
+      "dependencies": {
+        "PromiseKit": [
+          "~> 6.0"
         ]
       }
     },
