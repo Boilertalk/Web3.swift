@@ -39,6 +39,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
   s.subspec 'PromiseKit' do |ss|
     ss.source_files = 'Web3/Classes/PromiseKit/**/*'
 
+    ss.dependency 'Web3/Core'
     # PromiseKit dependency
     ss.dependency 'PromiseKit', '~> 6.0'
   end
