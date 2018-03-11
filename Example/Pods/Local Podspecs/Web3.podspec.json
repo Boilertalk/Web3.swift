@@ -47,6 +47,9 @@
       "name": "PromiseKit",
       "source_files": "Web3/Classes/PromiseKit/**/*",
       "dependencies": {
+        "Web3/Core": [
+
+        ],
         "PromiseKit": [
           "~> 6.0"
         ]

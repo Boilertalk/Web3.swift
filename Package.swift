@@ -8,6 +8,9 @@ let package = Package(
         .library(
             name: "Web3",
             targets: ["Web3"]),
+        .library(
+            name: "Web3Promise",
+            targets: ["Web3PromiseKit"]),
     ],
     dependencies: [
         // Core dependencies
