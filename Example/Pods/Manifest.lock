@@ -21,7 +21,6 @@ PODS:
   - Web3 (0.1.0):
     - Web3/Core (= 0.1.0)
     - Web3/HTTPExtension (= 0.1.0)
-    - Web3/PromiseKit (= 0.1.0)
   - Web3/Core (0.1.0):
     - BigInt (~> 3.0)
     - CryptoSwift (~> 0.8)
@@ -37,6 +36,7 @@ DEPENDENCIES:
   - Nimble (~> 7.0.2)
   - Quick (~> 1.2.0)
   - Web3 (from `../`)
+  - Web3/PromiseKit (from `../`)
 
 EXTERNAL SOURCES:
   Web3:
@@ -51,8 +51,8 @@ SPEC CHECKSUMS:
   secp256k1.swift: f2dd50b7909e7d3d7527502619d061b85bd1c294
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
   VaporBytes: 628752235bc16d69800b52355de7118762a9009f
-  Web3: 58c4755c3f7e4ed4d5cdf38208ac475933d1df77
+  Web3: 739a68dcf07818786d2e19b7c1b9fbf890d40dd9
 
-PODFILE CHECKSUM: 6187d63273cbe49465a8ccc30c3bfdf2efc80482
+PODFILE CHECKSUM: 2f710184f832269e9555625936985a2bc3b69022
 
 COCOAPODS: 1.4.0

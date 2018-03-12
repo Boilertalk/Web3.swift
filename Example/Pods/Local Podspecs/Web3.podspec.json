@@ -24,6 +24,10 @@
   "pod_target_xcconfig": {
     "OTHER_SWIFT_FLAGS": "-DWeb3CocoaPods"
   },
+  "default_subspecs": [
+    "Core",
+    "HTTPExtension"
+  ],
   "subspecs": [
     {
       "name": "Core",
@@ -44,6 +48,15 @@
       }
     },
     {
+      "name": "HTTPExtension",
+      "source_files": "Web3/Classes/FoundationHTTP/**/*",
+      "dependencies": {
+        "Web3/Core": [
+
+        ]
+      }
+    },
+    {
       "name": "PromiseKit",
       "source_files": "Web3/Classes/PromiseKit/**/*",
       "dependencies": {
@@ -52,15 +65,6 @@
         ],
         "PromiseKit": [
           "~> 6.0"
-        ]
-      }
-    },
-    {
-      "name": "HTTPExtension",
-      "source_files": "Web3/Classes/FoundationHTTP/**/*",
-      "dependencies": {
-        "Web3/Core": [
-
         ]
       }
     }
