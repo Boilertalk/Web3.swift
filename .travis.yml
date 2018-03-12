@@ -34,9 +34,9 @@ before_install:
 before_script:
   # Download codeclimate test coverage reporter
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
-      chmod +x ./cc-test-reporter
-      ./cc-test-reporter before-build
+      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter;
+      chmod +x ./cc-test-reporter;
+      ./cc-test-reporter before-build;
     fi
 script:
   # Output something every 10 minutes or Travis kills the job
@@ -54,7 +54,7 @@ script:
 after_script:
   # Report back to codeclimate
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+      ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT;
     fi
 after_success:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then bash <(curl -s https://codecov.io/bash); fi
