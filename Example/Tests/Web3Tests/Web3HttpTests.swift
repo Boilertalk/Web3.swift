@@ -10,6 +10,9 @@ import Quick
 import Nimble
 @testable import Web3
 import BigInt
+#if !Web3CocoaPods
+    import Web3PromiseKit
+#endif
 
 class Web3HttpTests: QuickSpec {
 

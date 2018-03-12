@@ -49,7 +49,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
 
     ss.dependency 'Web3/Core'
     # PromiseKit dependency
-    ss.dependency 'PromiseKit', '~> 6.0'
+    ss.dependency 'PromiseKit/CorePromise', '~> 6.0'
   end
 
   # s.resource_bundles = {

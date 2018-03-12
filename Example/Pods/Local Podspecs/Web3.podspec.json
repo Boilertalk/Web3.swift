@@ -63,7 +63,7 @@
         "Web3/Core": [
 
         ],
-        "PromiseKit": [
+        "PromiseKit/CorePromise": [
           "~> 6.0"
         ]
       }
