@@ -22,7 +22,7 @@
 		0AFACF42147FBC7782958BD02ADC9467 /* VaporBytes-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F2646367723DC584BEA1FA37B91637A9 /* VaporBytes-dummy.m */; };
 		0B68F387D3ECE43BD53462ED9DE689D8 /* secp256k1.swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB108FE0F35B7448C05A4227639648A /* secp256k1.swift-dummy.m */; };
 		0C9F76EAB3D5C99ED2EAD2C422D53856 /* Floating Point Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522EC11E495E9830F45535B15462F69E /* Floating Point Conversion.swift */; };
-		0E21FAEC20580B7E00E48E01 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E21FAEB20580B7E00E48E01 /* Curry.swift */; };
+		0E537A7C2058543900694231 /* Equatable+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E537A7B2058543900694231 /* Equatable+Convenience.swift */; };
 		0F40B701D6AEFD243B421F358793E3C9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A120DE3A099B49136FDB3525C71D39AC /* Foundation.framework */; };
 		1059858505949FE795C6960DFEC12971 /* AnyPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BE63E95381FEAD8B29A0202075D0AFD /* AnyPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		11E632D212375A28391CA6AC1542F35F /* field.h in Headers */ = {isa = PBXBuildFile; fileRef = D2022AB876BDC121DC39DA7F9A6EB1FE /* field.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -503,7 +503,7 @@
 		08A7D6A59E06C765E189F508E5F48EB8 /* ExampleHooks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExampleHooks.swift; path = Sources/Quick/Hooks/ExampleHooks.swift; sourceTree = "<group>"; };
 		0909CEDFDB70FF4E80585C0FA0D0092D /* Comparable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Comparable.swift; path = sources/Comparable.swift; sourceTree = "<group>"; };
 		0C22236149F0D1392FFD28F3D766319D /* String Conversion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String Conversion.swift"; path = "sources/String Conversion.swift"; sourceTree = "<group>"; };
-		0E21FAEB20580B7E00E48E01 /* Curry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Curry.swift; sourceTree = "<group>"; };
+		0E537A7B2058543900694231 /* Equatable+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Equatable+Convenience.swift"; sourceTree = "<group>"; };
 		0EF60B5ECBE21166BDB8F39CA899A1EA /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomAccessBlockModeWorker.swift; path = Sources/CryptoSwift/BlockMode/RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
 		0F39547043FFB314C8C6DEE459F518C5 /* HKDF.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HKDF.swift; path = Sources/CryptoSwift/HKDF.swift; sourceTree = "<group>"; };
 		101EF0D46E35472FB810A1D185FBEE6D /* CwlMachBadInstructionHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CwlMachBadInstructionHandler.h; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/include/CwlMachBadInstructionHandler.h; sourceTree = "<group>"; };
@@ -1275,7 +1275,7 @@
 				4AC7BF1A0151E57139A8DC002F10A5F6 /* Secp256k1+CTXCreator.swift */,
 				81A95EA67E1C8ADF5C6C4A5565D18AC1 /* String+HexBytes.swift */,
 				9B00AD591201CEAD5BB9612B42A5B403 /* UInt+BytesRepresentable.swift */,
-				0E21FAEB20580B7E00E48E01 /* Curry.swift */,
+				0E537A7B2058543900694231 /* Equatable+Convenience.swift */,
 			);
 			name = Toolbox;
 			path = Web3/Classes/Core/Toolbox;
@@ -2166,8 +2166,8 @@
 				43072505725C0229B695DBB6FFB4DD1B /* Types+RLPItemConvertible.swift in Sources */,
 				537E9E7A2208F5F677F68CF32DF577F3 /* UInt+BytesRepresentable.swift in Sources */,
 				FA08DEFAB75BED9D18CDCCAADA6CC9E4 /* Web3+HTTPInitializer.swift in Sources */,
+				0E537A7C2058543900694231 /* Equatable+Convenience.swift in Sources */,
 				5EC8187564AF50E1BD662AFDE2B4D90B /* Web3+PromiseKit.swift in Sources */,
-				0E21FAEC20580B7E00E48E01 /* Curry.swift in Sources */,
 				F2F174927F78E9BFFF1EEE617325FC88 /* Web3-dummy.m in Sources */,
 				1FD8FFAC1A63C50295CBB4F5F3ED68DF /* Web3.swift in Sources */,
 				9A909B7BBBE58DC577128B5050C60FF3 /* Web3HttpProvider.swift in Sources */,

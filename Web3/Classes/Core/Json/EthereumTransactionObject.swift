@@ -42,3 +42,22 @@ public struct EthereumTransactionObject: Codable {
     /// The data send along with the transaction.
     public let input: EthereumData
 }
+
+// MARK: - Equatable
+
+extension EthereumTransactionObject: Equatable {
+
+    public static func ==(_ lhs: EthereumTransactionObject, _ rhs: EthereumTransactionObject) -> Bool {
+        return lhs.hash == rhs.hash
+            && lhs.nonce == rhs.nonce
+            && lhs.blockHash == rhs.blockHash
+            && lhs.blockNumber == rhs.blockNumber
+            && lhs.transactionIndex == rhs.transactionIndex
+            && lhs.from == rhs.from
+            && lhs.to == rhs.to
+            && lhs.value == rhs.value
+            && lhs.gasPrice == rhs.gasPrice
+            && lhs.gas == rhs.gas
+            && lhs.input == rhs.input
+    }
+}
