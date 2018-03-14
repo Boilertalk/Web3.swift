@@ -41,3 +41,20 @@ public struct EthereumLogObject: Codable {
      */
     public let topics: [EthereumData]
 }
+
+// MARK: - Equatable
+
+extension EthereumLogObject: Equatable {
+
+    public static func ==(_ lhs: EthereumLogObject, _ rhs: EthereumLogObject) -> Bool {
+        return lhs.removed == rhs.removed
+            && lhs.logIndex == rhs.logIndex
+            && lhs.transactionIndex == rhs.transactionIndex
+            && lhs.transactionHash == rhs.transactionHash
+            && lhs.blockHash == rhs.blockHash
+            && lhs.blockNumber == rhs.blockNumber
+            && lhs.address == rhs.address
+            && lhs.data == rhs.data
+            && lhs.topics == rhs.topics
+    }
+}

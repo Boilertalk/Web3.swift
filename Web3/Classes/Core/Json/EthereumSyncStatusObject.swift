@@ -71,3 +71,15 @@ public struct EthereumSyncStatusObject: Codable {
         }
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumSyncStatusObject: Equatable {
+
+    public static func ==(_ lhs: EthereumSyncStatusObject, _ rhs: EthereumSyncStatusObject) -> Bool {
+        return lhs.syncing == rhs.syncing
+            && lhs.startingBlock == rhs.startingBlock
+            && lhs.currentBlock == rhs.currentBlock
+            && lhs.highestBlock == rhs.highestBlock
+    }
+}
