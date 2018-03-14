@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E45033A2059CAA1005C7D42 /* Int+ETH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4503392059CAA1005C7D42 /* Int+ETH.swift */; };
 		0E93CCAD204EFD10000C5ED2 /* JsonInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E93CCAC204EFD10000C5ED2 /* JsonInitializers.swift */; };
 		0E9C6B4C2039E32F000E7225 /* EthereumPrivateKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */; };
 		0E9C6B4D2039E32F000E7225 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B492039E32F000E7225 /* TransactionTests.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E4503392059CAA1005C7D42 /* Int+ETH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+ETH.swift"; sourceTree = "<group>"; };
 		0E93CCAC204EFD10000C5ED2 /* JsonInitializers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonInitializers.swift; sourceTree = "<group>"; };
 		0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKeyTests.swift; sourceTree = "<group>"; };
 		0E9C6B492039E32F000E7225 /* TransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				0EA5D3F22039123A0037C2BE /* UInt+BytesRepresentableTests.swift */,
+				0E4503392059CAA1005C7D42 /* Int+ETH.swift */,
 			);
 			path = ToolboxTests;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				0EA5D3E32039120A0037C2BE /* EthereumBlockObjectTests.swift in Sources */,
 				0EA5D3F02039121E0037C2BE /* RLPItemTests.swift in Sources */,
 				0EA5D3E52039120A0037C2BE /* EthereumSyncStatusObjectTests.swift in Sources */,
+				0E45033A2059CAA1005C7D42 /* Int+ETH.swift in Sources */,
 				0E93CCAD204EFD10000C5ED2 /* JsonInitializers.swift in Sources */,
 				0E9C6B4F2039E32F000E7225 /* EthereumPublicKeyTests.swift in Sources */,
 				0E9C6B4C2039E32F000E7225 /* EthereumPrivateKeyTests.swift in Sources */,
