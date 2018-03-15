@@ -206,3 +206,30 @@ extension RLPItem: CustomStringConvertible {
         return str
     }
 }
+
+// MARK: - Equatable
+
+extension RLPItem.ValueType: Equatable {
+
+    public static func ==(_ lhs: RLPItem.ValueType, _ rhs: RLPItem.ValueType) -> Bool {
+        switch lhs {
+        case .array(let arr):
+            if case .array(let rArr) = rhs {
+                return arr == rArr
+            }
+        case .bytes(let bytes):
+            if case .bytes(let rBytes) = rhs {
+                return bytes == rBytes
+            }
+        }
+
+        return false
+    }
+}
+
+extension RLPItem: Equatable {
+
+    public static func ==(_ lhs: RLPItem, _ rhs: RLPItem) -> Bool {
+        return lhs.valueType == rhs.valueType
+    }
+}
