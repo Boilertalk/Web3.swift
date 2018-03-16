@@ -240,3 +240,13 @@ public class EthereumPrivateKey {
         secp256k1_context_destroy(ctx)
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumPrivateKey: Equatable {
+
+    public static func ==(_ lhs: EthereumPrivateKey, _ rhs: EthereumPrivateKey) -> Bool {
+        return lhs.rawPrivateKey == rhs.rawPrivateKey
+    }
+}
+
