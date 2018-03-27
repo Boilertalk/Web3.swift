@@ -168,3 +168,26 @@ extension EthereumBlockObject: Equatable {
             && lhs.uncles == rhs.uncles
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumBlockObject.Transaction: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(hash) ^ (object?.hashValue ?? 0)
+    }
+}
+
+extension EthereumBlockObject: Hashable {
+
+    public var hashValue: Int {
+        // As of now we don't include transactions and uncles into the hashValue. This should be sufficiently fast for
+        // the average case, which is enough for now. (Normally there are no block objects which have exact same values
+        // but different transactions and uncles unless they were requested to include only tx hashes/complete objects.
+        // We should test those cases and change this function if it makes a huge difference)
+        return hashValues(
+            number, hash, parentHash, nonce, sha3Uncles, logsBloom, transactionsRoot, stateRoot, receiptsRoot, miner,
+            difficulty, totalDifficulty, extraData, size, gasLimit, gasUsed, timestamp
+        )
+    }
+}

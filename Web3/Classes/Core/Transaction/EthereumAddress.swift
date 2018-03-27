@@ -197,3 +197,16 @@ extension EthereumAddress: Equatable {
         return lhs.rawAddress == rhs.rawAddress
     }
 }
+
+// MARK: - BytesConvertible
+
+extension EthereumAddress: BytesConvertible {
+
+    public init(bytes: Bytes) throws {
+        try self.init(rawAddress: bytes)
+    }
+
+    public func makeBytes() throws -> Bytes {
+        return rawAddress
+    }
+}
