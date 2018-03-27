@@ -83,3 +83,14 @@ extension EthereumSyncStatusObject: Equatable {
             && lhs.highestBlock == rhs.highestBlock
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumSyncStatusObject: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(
+            syncing ? UInt8(0x01) : UInt8(0x00), startingBlock, currentBlock, highestBlock
+        )
+    }
+}

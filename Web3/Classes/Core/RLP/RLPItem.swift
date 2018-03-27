@@ -233,3 +233,24 @@ extension RLPItem: Equatable {
         return lhs.valueType == rhs.valueType
     }
 }
+
+// MARK: - Hashable
+
+extension RLPItem.ValueType: Hashable {
+
+    public var hashValue: Int {
+        switch self {
+        case .array(let arr):
+            return hashValues(String(arr.reduce(0, { $0 ^ $1.hashValue })))
+        case .bytes(let bytes):
+            return hashValues(bytes)
+        }
+    }
+}
+
+extension RLPItem: Hashable {
+
+    public var hashValue: Int {
+        return valueType.hashValue
+    }
+}

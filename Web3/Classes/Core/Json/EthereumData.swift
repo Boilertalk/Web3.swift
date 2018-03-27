@@ -59,3 +59,14 @@ extension EthereumData: Equatable {
         return lhs.bytes == rhs.bytes
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumData: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(
+            bytes
+        )
+    }
+}

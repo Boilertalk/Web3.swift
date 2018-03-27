@@ -61,3 +61,15 @@ extension EthereumTransactionReceiptObject: Equatable {
             && lhs.status == rhs.status
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumTransactionReceiptObject: Hashable {
+
+    public var hashValue: Int {
+        // logs are not included as of now but it should be sufficient like that...
+        return hashValues(
+            transactionHash, transactionIndex, blockHash, cumulativeGasUsed, gasUsed, contractAddress, logsBloom, root, status
+        )
+    }
+}
