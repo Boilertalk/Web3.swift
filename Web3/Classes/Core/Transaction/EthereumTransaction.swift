@@ -239,3 +239,21 @@ extension EthereumTransaction: RLPItemConvertible {
         return item
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumTransaction: Equatable {
+
+    public static func ==(_ lhs: EthereumTransaction, _ rhs: EthereumTransaction) -> Bool {
+        return lhs.nonce == rhs.nonce
+            && lhs.gasPrice == rhs.gasPrice
+            && lhs.gasLimit == rhs.gasLimit
+            && lhs.to == rhs.to
+            && lhs.value == rhs.value
+            && lhs.data == rhs.data
+            && lhs.v == rhs.v
+            && lhs.r == rhs.r
+            && lhs.s == rhs.s
+            && lhs.chainId == rhs.chainId
+    }
+}
