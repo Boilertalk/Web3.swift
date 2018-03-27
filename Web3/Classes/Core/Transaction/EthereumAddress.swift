@@ -210,3 +210,12 @@ extension EthereumAddress: BytesConvertible {
         return rawAddress
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumAddress: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(self)
+    }
+}

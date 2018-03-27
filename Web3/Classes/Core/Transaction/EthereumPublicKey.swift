@@ -27,6 +27,13 @@ public class EthereumPublicKey {
     // MARK: - Initialization
 
     /**
+     * Convenient initializer for `init(publicKey:)`
+     */
+    public required convenience init(bytes: Bytes) throws {
+        try self.init(publicKey: bytes)
+    }
+
+    /**
      * Initializes a new instance of `EthereumPublicKey` with the given raw uncompressed public key Bytes.
      *
      * `publicKey` must be either a 64 Byte array (containing the uncompressed public key)
@@ -296,5 +303,23 @@ extension EthereumPublicKey: Equatable {
 
     public static func ==(_ lhs: EthereumPublicKey, _ rhs: EthereumPublicKey) -> Bool {
         return lhs.rawPublicKey == rhs.rawPublicKey
+    }
+}
+
+// MARK: - BytesConvertible
+
+extension EthereumPublicKey: BytesConvertible {
+
+    public func makeBytes() -> Bytes {
+        return rawPublicKey
+    }
+}
+
+// MARK: - Hashable
+
+extension EthereumPublicKey: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(self)
     }
 }

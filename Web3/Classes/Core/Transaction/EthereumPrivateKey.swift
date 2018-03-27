@@ -54,6 +54,13 @@ public class EthereumPrivateKey {
     }
 
     /**
+     * Convenient initializer for `init(privateKey:)`
+     */
+    public required convenience init(bytes: Bytes) throws {
+        try self.init(privateKey: bytes)
+    }
+
+    /**
      * Initializes a new instance of `EthereumPrivateKey` with the given `privateKey` Bytes.
      *
      * `privateKey` must be exactly a big endian 32 Byte array representing the private key.
@@ -247,5 +254,23 @@ extension EthereumPrivateKey: Equatable {
 
     public static func ==(_ lhs: EthereumPrivateKey, _ rhs: EthereumPrivateKey) -> Bool {
         return lhs.rawPrivateKey == rhs.rawPrivateKey
+    }
+}
+
+// MARK: - BytesConvertible
+
+extension EthereumPrivateKey: BytesConvertible {
+
+    public func makeBytes() -> Bytes {
+        return rawPrivateKey
+    }
+}
+
+// MARK: - Hashable
+
+extension EthereumPrivateKey: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(self)
     }
 }

@@ -257,3 +257,14 @@ extension EthereumTransaction: Equatable {
             && lhs.chainId == rhs.chainId
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumTransaction: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(
+            nonce, gasPrice, gasLimit, to, value, data, v, r, s, chainId
+        )
+    }
+}
