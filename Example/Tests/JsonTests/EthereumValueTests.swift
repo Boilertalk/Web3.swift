@@ -47,6 +47,11 @@ class EthereumValueTests: QuickSpec {
                     expect(decoded?.array?[safe: 2]?.int) == 0
                     expect(decoded?.array?[safe: 3]?.int) == 1
                 }
+
+                it("should produce correct hashValue") {
+                    let value: EthereumValue = 10
+                    expect(value.hashValue) == EthereumValue(integerLiteral: 10).hashValue
+                }
             }
 
             context("bool values") {
@@ -75,6 +80,14 @@ class EthereumValueTests: QuickSpec {
                     expect(decoded?.array?[safe: 0]?.array).to(beNil())
                     expect(decoded?.array?[safe: 0]?.string).to(beNil())
                 }
+
+                it("should produce correct hashValue") {
+                    let value: EthereumValue = true
+                    expect(value.hashValue) == EthereumValue(booleanLiteral: true).hashValue
+
+                    let value2: EthereumValue = false
+                    expect(value2.hashValue) == EthereumValue(booleanLiteral: false).hashValue
+                }
             }
 
             context("nil values") {
@@ -95,6 +108,11 @@ class EthereumValueTests: QuickSpec {
 
                     expect(decoded?.array?.count) == 2
                     // TODO: Add nil checking...
+                }
+
+                it("should produce correct hashValue") {
+                    let value = EthereumValue(valueType: .nil)
+                    expect(value.hashValue) == EthereumValue(valueType: .nil).hashValue
                 }
             }
 
@@ -149,6 +167,36 @@ class EthereumValueTests: QuickSpec {
 
                     expect(value?.array?[safe: 8]?.array).to(beNil())
                     expect(value?.array?[safe: 8]?.int) == 1
+                }
+
+                it("should produce correct hashValue") {
+                    let value: EthereumValue = .array(
+                        [
+                            [] as EthereumValue,
+                            [] as EthereumValue,
+                            [] as EthereumValue,
+                            ["hello"] as EthereumValue,
+                            [100] as EthereumValue,
+                            false,
+                            [true] as EthereumValue,
+                            0,
+                            1
+                        ]
+                    )
+                    let value2: EthereumValue = .array(
+                        [
+                            [] as EthereumValue,
+                            [] as EthereumValue,
+                            [] as EthereumValue,
+                            ["hello"] as EthereumValue,
+                            [100] as EthereumValue,
+                            false,
+                            [true] as EthereumValue,
+                            0,
+                            1
+                        ]
+                    )
+                    expect(value.hashValue) == value2.hashValue
                 }
             }
 

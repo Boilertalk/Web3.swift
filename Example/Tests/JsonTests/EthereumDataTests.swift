@@ -16,10 +16,20 @@ class EthereumDataTests: QuickSpec {
         describe("ethereum data tests") {
             context("initialization") {
 
+                let data = EthereumData(bytes: [0xab, 0xcf, 0x45, 0x01])
                 it("should initialize correctly") {
-                    let data = EthereumData(bytes: [0xab, 0xcf, 0x45, 0x01])
                     expect(data.bytes) == [0xab, 0xcf, 0x45, 0x01]
                     expect(data.makeBytes()) == [0xab, 0xcf, 0x45, 0x01]
+                }
+
+                let data2 = EthereumData(bytes: [0xab, 0xcf, 0x45, 0x01])
+
+                it("should be equatable") {
+                    expect(data == data2) == true
+                }
+
+                it("should produce correct hashValues") {
+                    expect(data.hashValue) == data2.hashValue
                 }
             }
 

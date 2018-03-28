@@ -71,6 +71,19 @@ class EthereumQuantityTests: QuickSpec {
                     expect(q4?.hex()) == "0xabcdef"
                 }
             }
+
+            context("hashable") {
+                it("should produce correct hashValues") {
+                    let q = EthereumQuantity.bytes([0x25, 0xcc, 0xe9, 0xf5])
+                    expect(q.hashValue) == EthereumQuantity.bytes([0x25, 0xcc, 0xe9, 0xf5]).hashValue
+
+                    let q2 = EthereumQuantity(quantity: BigUInt(100000000))
+                    expect(q2.hashValue) == EthereumQuantity(quantity: BigUInt(100000000)).hashValue
+
+                    let q3: EthereumQuantity = 2024
+                    expect(q3.hashValue) == EthereumQuantity(integerLiteral: 2024).hashValue
+                }
+            }
         }
     }
 }

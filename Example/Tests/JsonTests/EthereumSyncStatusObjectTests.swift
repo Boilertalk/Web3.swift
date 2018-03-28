@@ -21,23 +21,35 @@ class EthereumSyncStatusObjectTests: QuickSpec {
         describe("ethereum sync status object tests") {
             context("encoding") {
 
-                it("should encode successfully") {
-                    let status = EthereumSyncStatusObject()
+                let status = EthereumSyncStatusObject()
 
-                    let encoded = try? self.encoder.encode([status])
+                let encoded = try? self.encoder.encode([status])
+                it("should not be nil") {
                     expect(encoded).toNot(beNil())
+                }
 
+                it("should encode correctly") {
                     expect(encoded?.makeBytes().makeString()) == "[false]"
+                }
 
-                    let statusAlt = EthereumSyncStatusObject(startingBlock: 10000, currentBlock: 20000, highestBlock: 30000)
+                let statusAlt = EthereumSyncStatusObject(startingBlock: 10000, currentBlock: 20000, highestBlock: 30000)
 
-                    let encodedAlt = try? self.decoder.decode(EthereumSyncStatusObject.self, from: self.encoder.encode(statusAlt))
+                let encodedAlt = try? self.decoder.decode(EthereumSyncStatusObject.self, from: self.encoder.encode(statusAlt))
+                it("should not be nil") {
                     expect(encodedAlt).toNot(beNil())
+                }
 
+                it("should be equal") {
                     expect(encodedAlt?.startingBlock?.quantity) == 10000
                     expect(encodedAlt?.currentBlock?.quantity) == 20000
                     expect(encodedAlt?.highestBlock?.quantity) == 30000
                     expect(encodedAlt?.syncing) == true
+                }
+
+                it("should produce correct hashValues") {
+                    let eA2 = try? self.decoder.decode(EthereumSyncStatusObject.self, from: self.encoder.encode(statusAlt))
+
+                    expect(encodedAlt?.hashValue) == eA2?.hashValue
                 }
             }
 

@@ -62,16 +62,36 @@ class EthereumQuantityTagTests: QuickSpec {
             }
 
             context("equatable") {
-                expect(EthereumQuantityTag.TagType.latest == .latest) == true
-                expect(EthereumQuantityTag.TagType.earliest == .earliest) == true
-                expect(EthereumQuantityTag.TagType.pending == .pending) == true
-                expect(EthereumQuantityTag.TagType.block(1024) == .block(1024)) == true
+                it("should be equal") {
+                    expect(EthereumQuantityTag.TagType.latest == .latest) == true
+                    expect(EthereumQuantityTag.TagType.earliest == .earliest) == true
+                    expect(EthereumQuantityTag.TagType.pending == .pending) == true
+                    expect(EthereumQuantityTag.TagType.block(1024) == .block(1024)) == true
+                }
 
-                expect(EthereumQuantityTag.TagType.latest == .earliest) == false
-                expect(EthereumQuantityTag.TagType.earliest == .latest) == false
-                expect(EthereumQuantityTag.TagType.pending == .block(128)) == false
-                expect(EthereumQuantityTag.TagType.block(256) == .pending) == false
-                expect(EthereumQuantityTag.TagType.block(256) == .block(255)) == false
+                it("should not be equal") {
+                    expect(EthereumQuantityTag.TagType.latest == .earliest) == false
+                    expect(EthereumQuantityTag.TagType.earliest == .latest) == false
+                    expect(EthereumQuantityTag.TagType.pending == .block(128)) == false
+                    expect(EthereumQuantityTag.TagType.block(256) == .pending) == false
+                    expect(EthereumQuantityTag.TagType.block(256) == .block(255)) == false
+                }
+            }
+
+            context("hashable") {
+                it("should produce correct hashValues") {
+                    let t: EthereumQuantityTag = .latest
+                    expect(t.hashValue) == EthereumQuantityTag.latest.hashValue
+
+                    let t2: EthereumQuantityTag = .earliest
+                    expect(t2.hashValue) == EthereumQuantityTag.earliest.hashValue
+
+                    let t3: EthereumQuantityTag = .pending
+                    expect(t3.hashValue) == EthereumQuantityTag.pending.hashValue
+
+                    let t4: EthereumQuantityTag = .block(100)
+                    expect(t4.hashValue) == EthereumQuantityTag.block(100).hashValue
+                }
             }
         }
     }

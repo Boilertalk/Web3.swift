@@ -86,6 +86,15 @@ class EthereumAddressTests: QuickSpec {
                         .to(throwError(EthereumAddress.Error.checksumWrong))
                 }
             }
+
+            context("hashable") {
+                it("should produce correct hashValues") {
+                    let a = try? EthereumAddress(hex: "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d", eip55: false)
+                    let a2 = try? EthereumAddress(hex: "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d", eip55: false)
+
+                    expect(a?.hashValue) == a2?.hashValue
+                }
+            }
         }
     }
 }
