@@ -21,6 +21,9 @@ public class EthereumPublicKey {
     /// The `EthereumAddress` associated with this public key
     public let address: EthereumAddress
 
+    /// True iff ctx should not be freed on deinit
+    private let ctxSelfManaged: Bool
+
     /// Internal context for secp256k1 library calls
     private let ctx: OpaquePointer
 
@@ -42,10 +45,20 @@ public class EthereumPublicKey {
      *
      * - parameter publicKey: The uncompressed public key either with the header byte 0x04 or without.
      *
+     * - parameter ctx: An optional self managed context. If you have specific requirements and
+     *                  your app performs not as fast as you want it to, you can manage the
+     *                  `secp256k1_context` yourself with the public methods
+     *                  `secp256k1_default_ctx_create` and `secp256k1_default_ctx_destroy`.
+     *                  If you do this, we will not be able to free memory automatically and you
+     *                  __have__ to destroy the context yourself once your app is closed or
+     *                  you are sure it will not be used any longer. Only use this optional
+     *                  context management if you know exactly what you are doing and you really
+     *                  need it.
+     *
      * - throws: EthereumPublicKey.Error.keyMalformed if the given `publicKey` does not fulfill the requirements from above.
      *           EthereumPublicKey.Error.internalError if a secp256k1 library call or another internal call fails.
      */
-    public init(publicKey: Bytes) throws {
+    public init(publicKey: Bytes, ctx: OpaquePointer? = nil) throws {
         guard publicKey.count == 64 || publicKey.count == 65 else {
             throw Error.keyMalformed
         }
@@ -59,8 +72,16 @@ public class EthereumPublicKey {
         self.rawPublicKey = publicKey
 
         // Create context
-        let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
-        self.ctx = ctx
+        let finalCtx: OpaquePointer
+        if let ctx = ctx {
+            finalCtx = ctx
+            self.ctxSelfManaged = true
+        } else {
+            let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
+            finalCtx = ctx
+            self.ctxSelfManaged = false
+        }
+        self.ctx = finalCtx
 
         // Generate associated ethereum address
         var hash = SHA3(variant: .keccak256).calculate(for: publicKey)
@@ -84,13 +105,31 @@ public class EthereumPublicKey {
      * - parameter r: The r value of the signature.
      * - parameter s: The s value of the signature.
      *
+     * - parameter ctx: An optional self managed context. If you have specific requirements and
+     *                  your app performs not as fast as you want it to, you can manage the
+     *                  `secp256k1_context` yourself with the public methods
+     *                  `secp256k1_default_ctx_create` and `secp256k1_default_ctx_destroy`.
+     *                  If you do this, we will not be able to free memory automatically and you
+     *                  __have__ to destroy the context yourself once your app is closed or
+     *                  you are sure it will not be used any longer. Only use this optional
+     *                  context management if you know exactly what you are doing and you really
+     *                  need it.
+     *
      * - throws: EthereumPublicKey.Error.signatureMalformed if the signature is not valid or in other ways malformed.
      *           EthereumPublicKey.Error.internalError if a secp256k1 library call or another internal call fails.
      */
-    public init(message: Bytes, v: EthereumQuantity, r: EthereumQuantity, s: EthereumQuantity) throws {
+    public init(message: Bytes, v: EthereumQuantity, r: EthereumQuantity, s: EthereumQuantity, ctx: OpaquePointer? = nil) throws {
         // Create context
-        let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
-        self.ctx = ctx
+        let finalCtx: OpaquePointer
+        if let ctx = ctx {
+            finalCtx = ctx
+            self.ctxSelfManaged = true
+        } else {
+            let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
+            finalCtx = ctx
+            self.ctxSelfManaged = false
+        }
+        self.ctx = finalCtx
 
         // Create raw signature array
         var rawSig = Bytes()
@@ -122,7 +161,7 @@ public class EthereumPublicKey {
         defer {
             free(recsig)
         }
-        guard secp256k1_ecdsa_recoverable_signature_parse_compact(ctx, recsig, &rawSig, v) == 1 else {
+        guard secp256k1_ecdsa_recoverable_signature_parse_compact(finalCtx, recsig, &rawSig, v) == 1 else {
             throw Error.signatureMalformed
         }
 
@@ -137,14 +176,14 @@ public class EthereumPublicKey {
         guard hash.count == 32 else {
             throw Error.internalError
         }
-        guard secp256k1_ecdsa_recover(ctx, pubkey, recsig, &hash) == 1 else {
+        guard secp256k1_ecdsa_recover(finalCtx, pubkey, recsig, &hash) == 1 else {
             throw Error.signatureMalformed
         }
 
         // Generate uncompressed public key bytes
         var rawPubKey = Bytes(repeating: 0, count: 65)
         var outputlen = 65
-        guard secp256k1_ec_pubkey_serialize(ctx, &rawPubKey, &outputlen, pubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {
+        guard secp256k1_ec_pubkey_serialize(finalCtx, &rawPubKey, &outputlen, pubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {
             throw Error.internalError
         }
 
@@ -293,7 +332,9 @@ public class EthereumPublicKey {
     // MARK: - Deinitialization
 
     deinit {
-        secp256k1_context_destroy(ctx)
+        if !ctxSelfManaged {
+            secp256k1_context_destroy(ctx)
+        }
     }
 }
 
