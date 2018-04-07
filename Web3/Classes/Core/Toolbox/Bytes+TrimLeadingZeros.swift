@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VaporBytes
 
 extension Array where Element == Byte {
 

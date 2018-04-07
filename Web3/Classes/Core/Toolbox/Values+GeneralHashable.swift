@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VaporBytes
 import CryptoSwift
 
 func hashValues(_ values: [BytesRepresentable?]) -> Int {

@@ -8,7 +8,6 @@
 
 import Foundation
 import BigInt
-import VaporBytes
 
 extension String: RLPItemConvertible {
 

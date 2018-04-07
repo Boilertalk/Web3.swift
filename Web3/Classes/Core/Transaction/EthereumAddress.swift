@@ -8,7 +8,6 @@
 
 import Foundation
 import CryptoSwift
-import VaporBytes
 
 public struct EthereumAddress {
 
