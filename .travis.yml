@@ -45,4 +45,4 @@ script:
   # Kill background echo job
   - kill %1
 after_success:
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then bash <(curl -s https://codecov.io/bash); fi
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then bash <(curl -s https://codecov.io/bash) -X xcodellvm; fi
