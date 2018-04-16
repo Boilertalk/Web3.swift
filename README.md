@@ -122,7 +122,57 @@ import Web3
 
 ## Usage
 
-> TODO: Add usage examples
+With `Web3.swift` you can use an Ethereum node on a server to communicate with Ethereum.    
+You can send signed transactions, read contract data, call contract functions and much more.
+
+The base class for all available methods is `Web3`. You can, for example, instantiate it with
+an http provider:
+
+```Swift
+let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+```
+
+All `web3_` methods are available directly from the `Web3` struct. The `net_` methods are
+available under the `net` struct in the `web3` struct. The `eth_` methods are available
+under the `eth` struct in the `web3` struct.
+
+__*Please see the examples below*__
+
+### Request web3_clientVersion
+
+```Swift
+firstly {
+    web3.clientVersion()
+}.done { version in
+    print(version)
+}.catch { error in
+    print("Error")
+}
+```
+
+### Request net_version
+
+```Swift
+firstly {
+    web3.net.version()
+}.done { version in
+    print(version)
+}.catch { error in
+    print("Error")
+}
+```
+
+### Request net_PeerCount
+
+```Swift
+firstly {
+    web3.net.peerCount()
+}.done { ethereumQuantity in
+    print(ethereumQuantity.quantity)
+}.catch { error in
+    print("Error")
+}
+```
 
 ## Disclaimer
 
