@@ -40,7 +40,7 @@ Check the usage below or look through the repositories tests.
 ## Why?
 
 There are already some Web3 library out there written in Swift. We know their strengths and weaknesses and for our use case
-it they just didn't work.
+they just didn't work.
 
 `Web3.swift` was built with modularity, portability, speed and efficiency in mind.
 
