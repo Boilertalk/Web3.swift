@@ -37,6 +37,49 @@ Web3.swift supports iOS, macOS, tvOS and watchOS with CocoaPods and Carthage and
 
 Check the usage below or look through the repositories tests.
 
+## Why?
+
+There are already some Web3 library out there written in Swift. We know their strengths and weaknesses and for our use case
+it they just didn't work.
+
+`Web3.swift` was built with modularity, portability, speed and efficiency in mind.
+
+**Ok, thank you for the buzzwords. But what does this actually mean?**
+
+### :floppy_disk: Modularity
+
+`Web3.swift` was built to be modular. If you install/use the basic `Web3` subspec/SPM product, you get access to the most basic
+functions like transaction signing and interacting with an http rpc server.    
+If you want to add support for IPC rpc or something else, you can simple create a library which depends on `Web3` and implements
+this exact functionality. More about that later.    
+If you want to use [PromiseKit](https://github.com/mxcl/PromiseKit) extensions for the web3 calls, you can either use the
+provided PromiseKit subspec/SPM product or create your own.    
+If you want to conveniently parse JSON ABIs for Ethereum Smart Contracts, you can use the provided ABI Parsing subspec/SPM product
+which will be released in version 0.2.0.
+
+Finally, if you want to add functionality to `Web3.swift` which is not provided yet, you don't have to wait until it gets merged
+and released in a version bump. You can simple extend/update functionality within you own app as our APIs are made to be very open
+for changes.    
+For example, if you want to add a web3 method which is not provided yet by `Web3.swift` (we will only support Infura supported methods),
+you only have to add [some 3 lines of code](https://github.com/Boilertalk/Web3.swift/blob/master/Web3/Classes/Core/Web3/Web3.swift#L136)
+(depending on the input and output parameters of the method). Adding IPC rpc support would be only implementing a protocol and answering
+requests.
+
+Like you can see, everything is possible with `Web3.swift`.
+
+### :computer: Portability
+
+One of the main reasons we started working on this project is because we wanted to use it with CocoaPods and Swift Package Manager on
+different platforms.    
+Because of that, `Web3.swift` is available through [CocoaPods](https://cocoapods.org/), [Carthage](https://github.com/Carthage/Carthage)
+and [Swift Package Manager](https://swift.org/package-manager/) on iOS, macOS, tvOS, watchOS (with CocoaPods and Carthage)
+and macOS and Linux (with SPM).    
+> Note: For SPM we are only testing macOS and officially supported Linux distributions
+(currently Ubuntu 14.04 and 16.04) but it should be compatible with all little endian systems
+which are able to compile the Swift Compiler, Foundation and Glibc.
+
+###
+
 ## Installation
 
 ### CocoaPods
