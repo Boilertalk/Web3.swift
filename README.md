@@ -138,7 +138,19 @@ under the `eth` struct in the `web3` struct.
 
 __*Please see the examples below*__
 
+> Note: For the examples to work you need to import Web3 and PromiseKit first
+
 ### Request web3_clientVersion
+
+Returns the current client version.
+
+**Parameters**
+
+none
+
+**Returns**
+
+`String` - The current client version
 
 ```Swift
 firstly {
@@ -152,6 +164,16 @@ firstly {
 
 ### Request net_version
 
+Returns the current network id.
+
+**Parameters**
+
+none
+
+**Returns**
+
+`String` - The current network id
+
 ```Swift
 firstly {
     web3.net.version()
@@ -164,6 +186,16 @@ firstly {
 
 ### Request net_PeerCount
 
+Returns number of peers currently connected to the client.
+
+**Parameters**
+
+none
+
+**Returns**
+
+`EthereumQuantity` - BigInt of the number of connected peers.
+
 ```Swift
 firstly {
     web3.net.peerCount()
@@ -173,6 +205,105 @@ firstly {
     print("Error")
 }
 ```
+
+### Send raw transaction
+
+Creates new message call transaction or a contract creation for signed transactions.
+
+**Parameters**
+
+1. `EthereumTransaction`: The signed transaction
+
+**Returns**
+
+`EthereumData`, 32 Bytes - The transaction hash, or the zero hash if the transaction is not yet available
+
+To send some ETH you first need to get the current transaction count of the sender (nonce),
+create the transaction, sign it and then send it.
+
+```Swift
+let privateKey = try! EthereumPrivateKey(hexPrivateKey: "0xa26da69ed1df3ba4bb2a231d506b711eace012f1bd2571dfbfff9650b03375af")
+firstly {
+    web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
+}.then { nonce in
+    Promise { seal in
+        var tx = try EthereumTransaction(
+            nonce: nonce,
+            gasPrice: EthereumQuantity(quantity: 21.gwei),
+            gasLimit: 21000,
+            to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
+            value: EthereumQuantity(quantity: 1.eth),
+            chainId: 1
+        )
+        tx.sign(with: privateKey)
+        seal.resolve(tx, nil)
+    }
+}.then { tx in
+    web3.eth.sendRawTransaction(transaction: tx)
+}.done { hash in
+    print(hash)
+}.catch { error in
+    print(error)
+}
+```
+
+You can even add some promise extensions to `EthereumTransaction` like below:
+
+```Swift
+extension EthereumTransaction {
+
+    func promiseSign(with: EthereumPrivateKey) -> Promise<EthereumTransaction> {
+        return Promise { seal in
+            var tx = self
+            try tx.sign(with: with)
+            seal.resolve(tx, nil)
+        }
+    }
+}
+```
+
+And then chop the whole block down to the following:
+
+```Swift
+let privateKey = try! EthereumPrivateKey(hexPrivateKey: "0xa26da69ed1df3ba4bb2a231d506b711eace012f1bd2571dfbfff9650b03375af")
+
+firstly {
+    web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
+}.then { nonce in
+    try EthereumTransaction(
+        nonce: nonce,
+        gasPrice: EthereumQuantity(quantity: 21.gwei),
+        gasLimit: 21000,
+        to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
+        value: EthereumQuantity(quantity: 1.eth),
+        chainId: 1
+    ).promiseSign(with: privateKey)
+}.then { tx in
+    web3.eth.sendRawTransaction(transaction: tx)
+}.done { hash in
+    print(hash)
+}.catch { error in
+    print(error)
+}
+```
+
+### Request block transaction count by block number
+
+```Swift
+firstly {
+    web3.eth.getBlockTransactionCountByNumber(block: .block(5397389))
+}.done { count in
+    print(count) // 88
+}.catch { error in
+    print(error)
+}
+```
+
+### More examples
+
+For more examples either read through [our test cases](https://github.com/Boilertalk/Web3.swift/blob/master/Example/Tests/Web3Tests/Web3HttpTests.swift),
+[the Web3 struct](https://github.com/Boilertalk/Web3.swift/blob/master/Web3/Classes/Core/Web3/Web3.swift)
+or [the official Ethereum JSON RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC).
 
 ## Disclaimer
 
