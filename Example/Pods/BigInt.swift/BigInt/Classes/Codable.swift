@@ -9,7 +9,7 @@
 
 // Little-endian to big-endian
 struct Units<Unit: FixedWidthInteger, Words: RandomAccessCollection>: RandomAccessCollection
-where Words.Element: FixedWidthInteger, Words.Index == Int, Words.IndexDistance == Int {
+where Words.Element: FixedWidthInteger, Words.Index == Int {
     typealias Word = Words.Element
     let words: Words
     init(of type: Unit.Type, _ words: Words) {
