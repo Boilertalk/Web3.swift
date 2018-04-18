@@ -21,6 +21,9 @@
   <a href="https://codecov.io/gh/Boilertalk/Web3.swift">
     <img src="https://codecov.io/gh/Boilertalk/Web3.swift/branch/master/graph/badge.svg" alt="Code Coverage">
   </a>
+  <a href="https://gitter.im/Boilertalk/Web3.swift?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">  
+    <img src="https://badges.gitter.im/Boilertalk/Web3.swift.svg" alt="Gitter">
+  </a>
 </p>
 
 # :alembic: Web3
