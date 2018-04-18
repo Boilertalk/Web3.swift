@@ -197,44 +197,37 @@ extension EthereumTransaction: RLPItemConvertible {
 
     public func rlp(forSigning: Bool) -> RLPItem {
         let item: RLPItem
-        if forSigning {
-            if chainId.quantity == 0 {
-                item = [
-                    .bigUInt(nonce.quantity),
-                    .bigUInt(gasPrice.quantity),
-                    .bigUInt(gasLimit.quantity),
-                    .bytes(to.rawAddress),
-                    .bigUInt(value.quantity),
-                    .bytes(data.bytes)
-                ]
-            } else {
-                item = [
-                    .bigUInt(nonce.quantity),
-                    .bigUInt(gasPrice.quantity),
-                    .bigUInt(gasLimit.quantity),
-                    .bytes(to.rawAddress),
-                    .bigUInt(value.quantity),
-                    .bytes(data.bytes),
 
+        // Base rlp items
+        var rlpItems: [RLPItem] = [
+            .bigUInt(nonce.quantity),
+            .bigUInt(gasPrice.quantity),
+            .bigUInt(gasLimit.quantity),
+            .bytes(to.rawAddress),
+            .bigUInt(value.quantity),
+            .bytes(data.bytes)
+        ]
+        if forSigning && chainId.quantity != 0 {
+            // Add chain id for signing
+            rlpItems.append(
+                contentsOf: [
                     // EIP 155: For signing and recovering: replace v with chainId and r and s with 0
                     .bigUInt(chainId.quantity),
                     .bigUInt(0),
                     .bigUInt(0)
                 ]
-            }
+            )
         } else {
-            item = [
-                .bigUInt(nonce.quantity),
-                .bigUInt(gasPrice.quantity),
-                .bigUInt(gasLimit.quantity),
-                .bytes(to.rawAddress),
-                .bigUInt(value.quantity),
-                .bytes(data.bytes),
-                .bigUInt(v.quantity),
-                .bigUInt(r.quantity),
-                .bigUInt(s.quantity)
-            ]
+            // Add v, r and s values for already signed transactions
+            rlpItems.append(
+                contentsOf: [
+                    .bigUInt(v.quantity),
+                    .bigUInt(r.quantity),
+                    .bigUInt(s.quantity)
+                ]
+            )
         }
+        item = .array(rlpItems)
 
         return item
     }
