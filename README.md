@@ -92,7 +92,7 @@ All our APIs are thread safe and designed to be used in highly concurrent applic
 
 ### Using Xcode
 
-Ensure you have an Xcode Toolchain for Swift installed, available [here](https://swift.org/download/#releases)
+Ensure you have an Xcode Toolchain for Swift installed, available [here](https://swift.org/download/#releases).
 
 ## Installation
 
