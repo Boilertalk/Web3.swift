@@ -88,6 +88,12 @@ workflow such that you can focus on building great DAPPS instead of worrying abo
 
 All our APIs are thread safe and designed to be used in highly concurrent applications.
 
+## Development
+
+### Using Xcode
+
+Ensure you have an Xcode Toolchain for Swift installed, available [here](https://swift.org/download/#releases)
+
 ## Installation
 
 ### CocoaPods
