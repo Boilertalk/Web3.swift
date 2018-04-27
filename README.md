@@ -94,6 +94,8 @@ All our APIs are thread safe and designed to be used in highly concurrent applic
 
 Ensure you have an Xcode Toolchain for Swift installed, available [here](https://swift.org/download/#releases).
 
+open `Example/Web3.xcworkspace` to start editing the test case source files.
+
 ## Installation
 
 ### CocoaPods
