@@ -31,6 +31,10 @@ before_install:
 
       swiftenv install $(cat .swift-version);
     fi
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   # Output something every 10 minutes or Travis kills the job
   - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
@@ -44,5 +48,7 @@ script:
   - swift test
   # Kill background echo job
   - kill %1
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 after_success:
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then bash <(curl -s https://codecov.io/bash) -X xcodellvm; fi
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then bash <(curl -s https://codecov.io/bash); fi
