@@ -48,5 +48,6 @@ script:
 after_success:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       slather;
+      cat test-reports/cobertura.xml;
       bash <(curl -s https://codecov.io/bash) -f test-reports/cobertura.xml -X coveragepy -X gcov -X xcode;
     fi
