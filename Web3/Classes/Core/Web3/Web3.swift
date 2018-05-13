@@ -75,7 +75,7 @@ public struct Web3 {
 
     public struct Net {
 
-        let properties: Properties
+        public let properties: Properties
 
         /**
          * Returns the current network id (chain id).
@@ -108,7 +108,7 @@ public struct Web3 {
 
     public struct Eth {
 
-        let properties: Properties
+        public let properties: Properties
 
         public func protocolVersion(response: @escaping Web3ResponseCompletion<String>) {
             let req = BasicRPCRequest(

@@ -21,6 +21,13 @@ public struct RPCRequest<Params: Codable>: Codable {
 
     /// The jsonrpc parameters
     public let params: Params
+    
+    public init(id: Int, jsonrpc: String, method: String, params: Params) {
+        self.id = id
+        self.jsonrpc = jsonrpc
+        self.method = method
+        self.params = params
+    }
 }
 
 public typealias BasicRPCRequest = RPCRequest<EthereumValue>
