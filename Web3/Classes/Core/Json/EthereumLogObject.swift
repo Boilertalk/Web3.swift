@@ -11,10 +11,10 @@ import Foundation
 public struct EthereumLogObject: Codable {
 
     /// true when the log was removed, due to a chain reorganization. false if its a valid log.
-    public let removed: Bool
+    public let removed: Bool?
 
     /// Integer of the log index position in the block. nil when its pending log.
-    public let logIndex: EthereumQuantity
+    public let logIndex: EthereumQuantity?
 
     /// Integer of the transactions index position log was created from. nil when its pending log.
     public let transactionIndex: EthereumQuantity?
@@ -65,8 +65,12 @@ extension EthereumLogObject: Equatable {
 extension EthereumLogObject: Hashable {
 
     public var hashValue: Int {
+        var removedBytes: UInt8?
+        if let removed = self.removed {
+            removedBytes = removed ? UInt8(0x01) : UInt8(0x00)
+        }
         var arr: [BytesRepresentable?] = [
-            removed ? UInt8(0x01) : UInt8(0x00), logIndex, transactionIndex, transactionHash, blockHash, blockNumber,
+            removedBytes, logIndex, transactionIndex, transactionHash, blockHash, blockNumber,
             address, data
         ]
         for t in topics {
