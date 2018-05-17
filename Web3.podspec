@@ -51,6 +51,12 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.dependency 'PromiseKit/CorePromise', '~> 6.0'
   end
 
+  s.subspec 'ContractABI' do |ss|
+    ss.source_files = 'Web3/Classes/ContractABI/**/*'
+
+    ss.dependency 'Web3/Core'
+  end
+
   # s.resource_bundles = {
   #   'Web3' => ['Web3/Assets/*.png']
   # }

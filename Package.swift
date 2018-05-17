@@ -11,6 +11,9 @@ let package = Package(
         .library(
             name: "Web3PromiseKit",
             targets: ["Web3PromiseKit"]),
+        .library(
+            name: "Web3ContractABI",
+            targets: ["Web3ContractABI"]),
     ],
     dependencies: [
         // Core dependencies
@@ -36,8 +39,13 @@ let package = Package(
             dependencies: ["Web3", "PromiseKit"],
             path: "Web3/Classes",
             sources: ["PromiseKit"]),
+        .target(
+            name: "Web3ContractABI",
+            dependencies: ["Web3"],
+            path: "Web3/Classes",
+            sources: ["ContractABI"]),
         .testTarget(
             name: "Web3Tests",
-            dependencies: ["Web3", "Web3PromiseKit", "Quick", "Nimble"])
+            dependencies: ["Web3", "Web3PromiseKit", "Web3ContractABI", "Quick", "Nimble"])
     ]
 )

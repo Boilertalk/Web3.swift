@@ -5,16 +5,16 @@ PODS:
   - PromiseKit/CorePromise (6.2.4)
   - Quick (1.2.0)
   - secp256k1.swift (0.1.4)
-  - Web3 (0.1.0):
-    - Web3/Core (= 0.1.0)
-    - Web3/HTTPExtension (= 0.1.0)
-  - Web3/Core (0.1.0):
+  - Web3 (0.1.1):
+    - Web3/Core (= 0.1.1)
+    - Web3/HTTPExtension (= 0.1.1)
+  - Web3/Core (0.1.1):
     - BigInt.swift (~> 1.0)
     - CryptoSwift (~> 0.8)
     - secp256k1.swift (~> 0.1)
-  - Web3/HTTPExtension (0.1.0):
+  - Web3/HTTPExtension (0.1.1):
     - Web3/Core
-  - Web3/PromiseKit (0.1.0):
+  - Web3/PromiseKit (0.1.1):
     - PromiseKit/CorePromise (~> 6.0)
     - Web3/Core
 
@@ -35,7 +35,7 @@ SPEC CHECKSUMS:
   PromiseKit: 625b1fc69944fc839503748101c5968cf54b527b
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
-  Web3: c01e6cd637cafc9dc675c43252b3d4afc3f20f5b
+  Web3: 521b51d925f4278d45cb005a90fad7e1c85d6bb9
 
 PODFILE CHECKSUM: 2f710184f832269e9555625936985a2bc3b69022
 
