@@ -26,7 +26,7 @@ class Web3HttpTests: QuickSpec {
 
             context("web3 client version") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.clientVersion { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<EthereumValue>.Status.ok.rawValue
@@ -46,7 +46,7 @@ class Web3HttpTests: QuickSpec {
 
             context("net version") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.net.version { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<EthereumValue>.Status.ok.rawValue
@@ -66,7 +66,7 @@ class Web3HttpTests: QuickSpec {
 
             context("net peer count") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.net.peerCount { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<EthereumQuantity>.Status.ok.rawValue
@@ -86,7 +86,7 @@ class Web3HttpTests: QuickSpec {
 
             context("eth protocol version") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.protocolVersion { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -106,7 +106,7 @@ class Web3HttpTests: QuickSpec {
 
             context("eth syncing") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.syncing { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -136,7 +136,7 @@ class Web3HttpTests: QuickSpec {
 
             context("eth mining") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.mining { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -157,7 +157,7 @@ class Web3HttpTests: QuickSpec {
 
             context("eth hashrate") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.hashrate { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -178,7 +178,7 @@ class Web3HttpTests: QuickSpec {
 
             context("eth gas price") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.gasPrice { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -199,7 +199,7 @@ class Web3HttpTests: QuickSpec {
 
             context("eth accounts") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.accounts { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -220,7 +220,7 @@ class Web3HttpTests: QuickSpec {
 
             context("eth block number") {
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.blockNumber { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -248,7 +248,7 @@ class Web3HttpTests: QuickSpec {
                     return
                 }
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.getBalance(address: ethereumAddress, block: .block(4000000)) { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -276,7 +276,7 @@ class Web3HttpTests: QuickSpec {
                     return
                 }
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.getStorageAt(address: ethereumAddress, position: 0, block: .latest) { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -304,7 +304,7 @@ class Web3HttpTests: QuickSpec {
                     return
                 }
 
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     web3.eth.getTransactionCount(address: ethereumAddress, block: .block(4000000)) { response in
                         it("should be status ok") {
                             expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
@@ -323,7 +323,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth get transaction count by hash") {
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     do {
                         try web3.eth.getBlockTransactionCountByHash(blockHash: .string("0x596f2d863a893392c55b72b5ba29e9ba67bdaa13c31765f9119e850a62565960")) { response in
                             it("should be status ok") {
@@ -349,7 +349,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth get transaction count by number") {
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     firstly {
                         web3.eth.getBlockTransactionCountByNumber(block: .block(5397389))
                     }.done { count in
@@ -367,7 +367,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth get uncle count by block hash") {
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     firstly {
                         try web3.eth.getUncleCountByBlockHash(blockHash: .string("0xd8cdd624c5b4c5323f0cb8536ca31de046e3e4a798a07337489bab1bb3d822f0"))
                     }.done { count in
@@ -385,7 +385,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth get uncle count by block number") {
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     firstly {
                         web3.eth.getUncleCountByBlockNumber(block: .block(5397429))
                     }.done { count in
@@ -403,7 +403,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth get code") {
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     firstly {
                         try web3.eth.getCode(address: EthereumAddress(hex: "0x2e704bF506b96adaC7aD1df0db461344146a4657", eip55: true), block: .block(5397525))
                     }.done { code in
