@@ -253,16 +253,15 @@ firstly {
     web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
 }.then { nonce in
     Promise { seal in
-        var tx = try EthereumTransaction(
+        let tx = EthereumTransaction(
             nonce: nonce,
             gasPrice: EthereumQuantity(quantity: 21.gwei),
             gasLimit: 21000,
             to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
-            value: EthereumQuantity(quantity: 1.eth),
-            chainId: 1
+            value: EthereumQuantity(quantity: 1.eth)
         )
-        tx.sign(with: privateKey)
-        seal.resolve(tx, nil)
+        let signedTx = try tx.sign(with: privateKey, chainId: 1)
+        seal.resolve(signedTx, nil)
     }
 }.then { tx in
     web3.eth.sendRawTransaction(transaction: tx)
@@ -278,10 +277,9 @@ You can even add some promise extensions to `EthereumTransaction` like below:
 ```Swift
 extension EthereumTransaction {
 
-    func promiseSign(with: EthereumPrivateKey) -> Promise<EthereumTransaction> {
+    func promiseSign(with: EthereumPrivateKey, chainId: EthereumQuantity = 0) -> Promise<EthereumSignedTransaction> {
         return Promise { seal in
-            var tx = self
-            try tx.sign(with: with)
+            let tx = try self.sign(with: with, chainId: chainId)
             seal.resolve(tx, nil)
         }
     }
@@ -296,14 +294,13 @@ let privateKey = try! EthereumPrivateKey(hexPrivateKey: "0xa26da69ed1df3ba4bb2a2
 firstly {
     web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
 }.then { nonce in
-    try EthereumTransaction(
+    EthereumTransaction(
         nonce: nonce,
         gasPrice: EthereumQuantity(quantity: 21.gwei),
         gasLimit: 21000,
         to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
-        value: EthereumQuantity(quantity: 1.eth),
-        chainId: 1
-    ).promiseSign(with: privateKey)
+        value: EthereumQuantity(quantity: 1.eth)
+    ).promiseSign(with: privateKey, chainId: 1)
 }.then { tx in
     web3.eth.sendRawTransaction(transaction: tx)
 }.done { hash in
