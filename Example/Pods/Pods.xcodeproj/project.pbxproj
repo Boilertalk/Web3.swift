@@ -29,6 +29,7 @@
 		0D9B382F592E7F252CA0E22435BF6AD9 /* Web3HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A841F696B357A1F483D2A09FF2AA0CC5 /* Web3HttpProvider.swift */; };
 		0E2C48D8936BDE88153C68F1EDD808FC /* lax_der_privatekey_parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 696C7AA42DF0196D06B5267CD39CB197 /* lax_der_privatekey_parsing.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0E41689AB4415375A29B2672C107D188 /* group_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 12F90BF99DEF13740898D9064B3F925D /* group_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0E45D2A520BC268D0049D76B /* ContractABIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E45D2A420BC268D0049D76B /* ContractABIType.swift */; };
 		0EBCCBD220ADA00600E51964 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCCBD120ADA00600E51964 /* test.swift */; };
 		0EBD0CCC2AC440EAAD3CA0C1C8B48386 /* secp256k1_ec_mult_static_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C8815C05EA3DD3ABAAB07407798B141 /* secp256k1_ec_mult_static_context.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0F748CB31A8A6176FB97DE04CC09E45A /* Thenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F57E91A44A76B8202CBE2C1DA2549 /* Thenable.swift */; };
@@ -459,6 +460,7 @@
 		0D7037AB552DF839E466E80CA0B2AA76 /* World+DSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "World+DSL.h"; path = "Sources/QuickObjectiveC/DSL/World+DSL.h"; sourceTree = "<group>"; };
 		0DAA0BF7C70D1CCC78AD6AAC574A72B7 /* RandomBytesSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomBytesSequence.swift; path = Sources/CryptoSwift/RandomBytesSequence.swift; sourceTree = "<group>"; };
 		0E3774153AF9F332F06B8A9B4D2E0BA7 /* hang.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = hang.swift; path = Sources/hang.swift; sourceTree = "<group>"; };
+		0E45D2A420BC268D0049D76B /* ContractABIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractABIType.swift; sourceTree = "<group>"; };
 		0E7A873983F469CC921F7AD9DBAF1435 /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Quick/DSL/DSL.swift; sourceTree = "<group>"; };
 		0EBCCBD120ADA00600E51964 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		0EF41350370D319EA1F9ADA245B03E33 /* secp256k1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1.h; path = secp256k1/Classes/secp256k1/include/secp256k1.h; sourceTree = "<group>"; };
@@ -913,6 +915,7 @@
 			isa = PBXGroup;
 			children = (
 				0EBCCBD120ADA00600E51964 /* test.swift */,
+				0E45D2A420BC268D0049D76B /* ContractABIType.swift */,
 			);
 			name = ContractABI;
 			path = Web3/Classes/ContractABI;
@@ -1990,6 +1993,7 @@
 				28C91C5954E79D64F1172AAAEB068BC8 /* Bytes+TrimLeadingZeros.swift in Sources */,
 				6D252923E56ECF0BE49D88B664283B6A /* Bytes+UInt.swift in Sources */,
 				BA2124533FCCC481A42732586E598892 /* BytesConvertible.swift in Sources */,
+				0E45D2A520BC268D0049D76B /* ContractABIType.swift in Sources */,
 				66D01992D6402A895A23DC3B98A29A0D /* CharacterSet+Hex.swift in Sources */,
 				0EBCCBD220ADA00600E51964 /* test.swift in Sources */,
 				A2E8D64B48E8F51F174CED5C9F4E6975 /* Data+BytesConvertible.swift in Sources */,
