@@ -44,6 +44,9 @@ public enum ContractABIType: Codable {
     }
 
     public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+
+        try container.encode(functionSelector)
     }
 
     public enum Error: Swift.Error {
@@ -164,6 +167,7 @@ public enum ContractABIType: Codable {
                 }
                 tupleSelector += "\(t.functionSelector)"
             }
+            tupleSelector += ")"
             return tupleSelector
         }
     }

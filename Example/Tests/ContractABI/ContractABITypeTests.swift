@@ -99,7 +99,21 @@ class ContractABITypeTests: QuickSpec {
                     expect(types?[8]) == .array(type: .dynamicArray(type: .bytes(count: 32)), count: 10)
                     expect(types?[9]) == .dynamicString
                     expect(types?[10]) == .dynamicBytes
-                    expect(types?[11]) == ContractABIType.tuple(types: [.dynamicArray(type: .array(type: .dynamicArray(type: .bool), count: 10)), .dynamicArray(type: .array(type: .array(type: .dynamicBytes, count: 5), count: 10))])
+                    expect(types?[11]) == .tuple(types: [.dynamicArray(type: .array(type: .dynamicArray(type: .bool), count: 10)), .dynamicArray(type: .array(type: .array(type: .dynamicBytes, count: 5), count: 10))])
+                }
+            }
+
+            context("encodable") {
+
+                it("should encode types") {
+
+                    expect(try? self.encoder.encode([ContractABIType.uint(bits: 256)])) == "[\"uint256\"]".data(using: .utf8)
+                    expect(try? self.encoder.encode([ContractABIType.fixed(bits: 128, dividerExponent: 18)])) == "[\"fixed128x18\"]".data(using: .utf8)
+
+                    expect(try? self.encoder.encode([ContractABIType.array(type: .dynamicArray(type: .dynamicArray(type: .dynamicBytes)), count: 12)])) == "[\"bytes[][][12]\"]".data(using: .utf8)
+                    expect(try? self.encoder.encode([ContractABIType.array(type: .dynamicArray(type: .bytes(count: 32)), count: 10)])) == "[\"bytes32[][10]\"]".data(using: .utf8)
+
+                    expect(try? self.encoder.encode([ContractABIType.tuple(types: [.dynamicArray(type: .array(type: .dynamicArray(type: .bool), count: 10)), .dynamicArray(type: .array(type: .array(type: .dynamicBytes, count: 5), count: 10))])])) == "[\"(bool[][10][],bytes[5][10][])\"]".data(using: .utf8)
                 }
             }
         }
