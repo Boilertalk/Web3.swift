@@ -78,21 +78,28 @@ class ContractABITypeTests: QuickSpec {
 
             context("decodable") {
 
-                it("should decode static types") {
+                it("should decode types") {
 
-                    // let typesStr = "[\"uint256\",\"uint\",\"uint32\",\"int\",\"fixed\",\"fixed32x12\",\"ufixed16x6\",\"bytes[][][5]\",\"bytes[32][][10]\",\"string\",\"bytes\",\"(bool[][10][],bytes[5][10][])\"]".data(using: .utf8)
-                    let typesStr = "[\"uint256\",\"uint\",\"uint32\",\"int\",\"fixed\",\"fixed32x12\",\"ufixed16x6\",\"string\",\"bytes\"]".data(using: .utf8)
+                    let typesStr = "[\"uint256\",\"uint\",\"uint32\",\"int\",\"fixed\",\"fixed32x12\",\"ufixed16x6\",\"bytes[][][5]\",\"bytes32[][10]\",\"string\",\"bytes\",\"(bool[][10][],bytes[5][10][])\"]".data(using: .utf8)
                     expect(typesStr).toNot(beNil())
-                    do {
-                        let types = try self.decoder.decode([ContractABIType].self, from: typesStr!)
-                        expect(types).toNot(beNil())
 
-                        expect(types.count) == 12
+                    let types = try? self.decoder.decode([ContractABIType].self, from: typesStr!)
+                    expect(types).toNot(beNil())
 
-                        expect(types[0]) == .uint(bits: 256)
-                    } catch {
-                        print("ERROR: \(error)")
-                    }
+                    expect(types?.count) == 12
+
+                    expect(types?[0]) == .uint(bits: 256)
+                    expect(types?[1]) == .uint(bits: 256)
+                    expect(types?[2]) == .uint(bits: 32)
+                    expect(types?[3]) == .int(bits: 256)
+                    expect(types?[4]) == .fixed(bits: 128, dividerExponent: 18)
+                    expect(types?[5]) == .fixed(bits: 32, dividerExponent: 12)
+                    expect(types?[6]) == .ufixed(bits: 16, dividerExponent: 6)
+                    expect(types?[7]) == .array(type: .dynamicArray(type: .dynamicArray(type: .dynamicBytes)), count: 5)
+                    expect(types?[8]) == .array(type: .dynamicArray(type: .bytes(count: 32)), count: 10)
+                    expect(types?[9]) == .dynamicString
+                    expect(types?[10]) == .dynamicBytes
+                    expect(types?[11]) == ContractABIType.tuple(types: [.dynamicArray(type: .array(type: .dynamicArray(type: .bool), count: 10)), .dynamicArray(type: .array(type: .array(type: .dynamicBytes, count: 5), count: 10))])
                 }
             }
         }

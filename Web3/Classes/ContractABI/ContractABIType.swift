@@ -57,12 +57,16 @@ public enum ContractABIType: Codable {
         if selector.hasSuffix("[]") {
             self = .dynamicArray(type: try ContractABIType(functionSelector: String(selector.dropLast("[]".count))))
         } else if selector.hasSuffix("]") {
-            let lastOpen = selector.range(of: "[", options: .backwards)
-            let values = selector.split(separator: "[")
-            guard values.count == 2, let count = UInt(String(values[1].dropLast("]".count))) else {
+            guard let lastOpen = selector.range(of: "[", options: .backwards) else {
                 throw Error.unknownType
             }
-            let type = try ContractABIType(functionSelector: String(values[0]))
+            let typeStr = String(selector[selector.startIndex..<lastOpen.lowerBound])
+            let countStr = String(selector[lastOpen.lowerBound..<selector.endIndex].dropFirst("[".count).dropLast("]".count))
+
+            guard let count = UInt(countStr) else {
+                throw Error.unknownType
+            }
+            let type = try ContractABIType(functionSelector: typeStr)
 
             self = .array(type: type, count: count)
         } else if selector == "uint" {
