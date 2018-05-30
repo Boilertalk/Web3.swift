@@ -28,14 +28,11 @@ class Web3HttpTests: QuickSpec {
 
                 waitUntil(timeout: 2.0) { done in
                     web3.clientVersion { response in
-                        it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<EthereumValue>.Status.ok.rawValue
+                        it("should be status success") {
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
-                        }
-                        it("should be a string response") {
-                            expect(response.rpcResponse?.result).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
 
                         // Tests done
@@ -49,13 +46,13 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.net.version { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<EthereumValue>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be mainnet chain id") {
-                            expect(response.rpcResponse?.result) == "1"
+                            expect(response.result) == "1"
                         }
 
                         // Tests done
@@ -69,13 +66,13 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.net.peerCount { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<EthereumQuantity>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a quantity response") {
-                            expect(response.rpcResponse?.result?.quantity).toNot(beNil())
+                            expect(response.result?.quantity).toNot(beNil())
                         }
 
                         // Tests done
@@ -89,13 +86,10 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.protocolVersion { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
-                        }
-                        it("should be a string response") {
-                            expect(response.rpcResponse?.result).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
 
                         // Tests done
@@ -109,22 +103,22 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.syncing { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a valid response") {
-                            expect(response.rpcResponse?.result?.syncing).toNot(beNil())
+                            expect(response.result?.syncing).toNot(beNil())
 
-                            if let b = response.rpcResponse?.result?.syncing, b {
-                                expect(response.rpcResponse?.result?.startingBlock).toNot(beNil())
-                                expect(response.rpcResponse?.result?.currentBlock).toNot(beNil())
-                                expect(response.rpcResponse?.result?.highestBlock).toNot(beNil())
+                            if let b = response.result?.syncing, b {
+                                expect(response.result?.startingBlock).toNot(beNil())
+                                expect(response.result?.currentBlock).toNot(beNil())
+                                expect(response.result?.highestBlock).toNot(beNil())
                             } else {
-                                expect(response.rpcResponse?.result?.startingBlock).to(beNil())
-                                expect(response.rpcResponse?.result?.currentBlock).to(beNil())
-                                expect(response.rpcResponse?.result?.highestBlock).to(beNil())
+                                expect(response.result?.startingBlock).to(beNil())
+                                expect(response.result?.currentBlock).to(beNil())
+                                expect(response.result?.highestBlock).to(beNil())
                             }
                         }
 
@@ -139,14 +133,14 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.mining { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a bool response") {
                             // Infura won't mine at any time or something's gonna be wrong...
-                            expect(response.rpcResponse?.result) == false
+                            expect(response.result) == false
                         }
 
                         // Tests done
@@ -160,14 +154,14 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.hashrate { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a quantity response") {
                             // Infura won't mine at any time or something's gonna be wrong...
-                            expect(response.rpcResponse?.result?.quantity) == 0
+                            expect(response.result?.quantity) == 0
                         }
 
                         // Tests done
@@ -181,14 +175,14 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.gasPrice { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a quantity response") {
                             // Infura won't mine at any time or something's gonna be wrong...
-                            expect(response.rpcResponse?.result?.quantity).toNot(beNil())
+                            expect(response.result?.quantity).toNot(beNil())
                         }
 
                         // Tests done
@@ -202,14 +196,14 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.accounts { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be an array response") {
                             // Infura should not have any accounts...
-                            expect(response.rpcResponse?.result?.count) == 0
+                            expect(response.result?.count) == 0
                         }
 
                         // Tests done
@@ -223,13 +217,13 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.blockNumber { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a quantity response") {
-                            expect(response.rpcResponse?.result?.quantity).toNot(beNil())
+                            expect(response.result?.quantity).toNot(beNil())
                         }
 
                         // Tests done
@@ -251,13 +245,13 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.getBalance(address: ethereumAddress, block: .block(4000000)) { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a quantity response") {
-                            expect(response.rpcResponse?.result?.quantity) == BigUInt("1ea7ab3de3c2f1dc75", radix: 16)
+                            expect(response.result?.quantity) == BigUInt("1ea7ab3de3c2f1dc75", radix: 16)
                         }
 
                         // Tests done
@@ -279,13 +273,13 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.getStorageAt(address: ethereumAddress, position: 0, block: .latest) { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a data response") {
-                            expect(response.rpcResponse?.result?.hex()) == "0x000000000000000000000000af1e54b359b0897133f437fc961dd16f20c045e1"
+                            expect(response.result?.hex()) == "0x000000000000000000000000af1e54b359b0897133f437fc961dd16f20c045e1"
                         }
 
                         // Tests done
@@ -307,13 +301,13 @@ class Web3HttpTests: QuickSpec {
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.getTransactionCount(address: ethereumAddress, block: .block(4000000)) { response in
                         it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            expect(response.status.isSuccess) == true
                         }
                         it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
+                            expect(response.result).toNot(beNil())
                         }
                         it("should be a quantity response") {
-                            expect(response.rpcResponse?.result?.quantity) == 0xd8
+                            expect(response.result?.quantity) == 0xd8
                         }
 
                         // Tests done
@@ -327,13 +321,13 @@ class Web3HttpTests: QuickSpec {
                     do {
                         try web3.eth.getBlockTransactionCountByHash(blockHash: .string("0x596f2d863a893392c55b72b5ba29e9ba67bdaa13c31765f9119e850a62565960")) { response in
                             it("should be status ok") {
-                                expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                                expect(response.status.isSuccess) == true
                             }
                             it("should not be nil") {
-                                expect(response.rpcResponse).toNot(beNil())
+                                expect(response.result).toNot(beNil())
                             }
                             it("should be a quantity response") {
-                                expect(response.rpcResponse?.result?.quantity) == 0xaa
+                                expect(response.result?.quantity) == 0xaa
                             }
 
                             // Tests done
