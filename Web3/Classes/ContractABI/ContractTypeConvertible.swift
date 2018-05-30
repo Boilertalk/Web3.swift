@@ -85,11 +85,8 @@ public struct ContractTypeFixedSizeArray<Type: ContractTypeConvertible>: Contrac
 
     public let types: [Type]
 
-    public let count: UInt
-
-    public init(types: [Type], count: UInt) {
+    public init(types: [Type]) {
         self.types = types
-        self.count = count
 
         if types.count < 1 {
             self.isDynamic = false
@@ -124,49 +121,51 @@ public struct ContractTypeDynamicSizeArray<Type: ContractTypeConvertible>: Contr
     }
 }
 
-// MARK: - Conveniences
+public struct ContractTypeDynamicSizeBytes: ContractTypeConvertible {
 
-extension BigUInt: ContractTypeConvertible {
+    public let isDynamic = true
 
-    public var isDynamic: Bool {
-        return false
+    public let bytes: Bytes
+
+    public init(bytes: Bytes) {
+        self.bytes = bytes
     }
 
     public func encoding() -> Bytes {
-        var bytes = makeBytes()
-        if bytes.count < 32 {
-            bytes.insert(contentsOf: Bytes.init(repeating: 0, count: 32 - bytes.count), at: 0)
+        var bytes = Bytes()
+
+        bytes.append(contentsOf: BigUInt(integerLiteral: UInt64(bytes.count)).encoding())
+
+        var content = self.bytes
+        if content.count % 32 != 0 {
+            let padding = Bytes(repeating: 0, count: 32 - (content.count % 32))
+            content.append(contentsOf: padding)
         }
+
+        bytes.append(contentsOf: content)
+
         return bytes
     }
 }
 
-extension UInt: ContractTypeConvertible {
+public struct ContractTypeFixedSizeBytes: ContractTypeConvertible {
 
-    public var isDynamic: Bool {
-        return false
+    public let isDynamic = false
+
+    public let bytes: Bytes
+
+    public init(bytes: Bytes) {
+        self.bytes = bytes
     }
 
     public func encoding() -> Bytes {
-        var bytes = makeBytes()
+        var bytes = self.bytes
+
         if bytes.count < 32 {
-            bytes.insert(contentsOf: Bytes.init(repeating: 0, count: 32 - bytes.count), at: 0)
+            let padding = Bytes(repeating: 0, count: 32 - bytes.count)
+            bytes.append(contentsOf: padding)
         }
-        return bytes
-    }
-}
 
-extension UInt64: ContractTypeConvertible {
-
-    public var isDynamic: Bool {
-        return false
-    }
-
-    public func encoding() -> Bytes {
-        var bytes = makeBytes()
-        if bytes.count < 32 {
-            bytes.insert(contentsOf: Bytes.init(repeating: 0, count: 32 - bytes.count), at: 0)
-        }
         return bytes
     }
 }

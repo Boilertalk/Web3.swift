@@ -35,6 +35,7 @@
 		0E5F4EB820BF1A7200AE8437 /* ContractEventDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F4EB720BF1A7200AE8437 /* ContractEventDescription.swift */; };
 		0E5F4EBA20BF1F7600AE8437 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F4EB920BF1F7600AE8437 /* Contract.swift */; };
 		0E9C337820BF4CEC00C38B80 /* ContractTypeConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C337720BF4CEC00C38B80 /* ContractTypeConvertible.swift */; };
+		0E9C337A20BF66F400C38B80 /* ContractTypeConvertible+Conveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C337920BF66F400C38B80 /* ContractTypeConvertible+Conveniences.swift */; };
 		0EBD0CCC2AC440EAAD3CA0C1C8B48386 /* secp256k1_ec_mult_static_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C8815C05EA3DD3ABAAB07407798B141 /* secp256k1_ec_mult_static_context.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0F748CB31A8A6176FB97DE04CC09E45A /* Thenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F57E91A44A76B8202CBE2C1DA2549 /* Thenable.swift */; };
 		116FFA7E504C8011F8ED5E02F68C51FA /* field_10x26.h in Headers */ = {isa = PBXBuildFile; fileRef = 939118F18F5F4CCEEF73E0F09FBDD633 /* field_10x26.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -471,6 +472,7 @@
 		0E5F4EB920BF1F7600AE8437 /* Contract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
 		0E7A873983F469CC921F7AD9DBAF1435 /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Quick/DSL/DSL.swift; sourceTree = "<group>"; };
 		0E9C337720BF4CEC00C38B80 /* ContractTypeConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractTypeConvertible.swift; sourceTree = "<group>"; };
+		0E9C337920BF66F400C38B80 /* ContractTypeConvertible+Conveniences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContractTypeConvertible+Conveniences.swift"; sourceTree = "<group>"; };
 		0EF41350370D319EA1F9ADA245B03E33 /* secp256k1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1.h; path = secp256k1/Classes/secp256k1/include/secp256k1.h; sourceTree = "<group>"; };
 		109C0D573DA9FD810727135D29DFF286 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12C280E2D078940DEE97AF153642A213 /* secp256k1.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "secp256k1.swift-prefix.pch"; sourceTree = "<group>"; };
@@ -928,6 +930,7 @@
 				0E5F4EB520BF192000AE8437 /* ContractDescriptionElement.swift */,
 				0E5F4EB920BF1F7600AE8437 /* Contract.swift */,
 				0E9C337720BF4CEC00C38B80 /* ContractTypeConvertible.swift */,
+				0E9C337920BF66F400C38B80 /* ContractTypeConvertible+Conveniences.swift */,
 			);
 			name = ContractABI;
 			path = Web3/Classes/ContractABI;
@@ -2000,6 +2003,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A127281F6245FB8AB1206A9D02B8A06C /* BigUInt+BytesConvertible.swift in Sources */,
+				0E9C337A20BF66F400C38B80 /* ContractTypeConvertible+Conveniences.swift in Sources */,
 				CB4D93217468F6C1F5792D4546C1C6B7 /* Bytes+HexString.swift in Sources */,
 				EF6968B5250F1A7F392F8E3AD4B319BA /* Bytes+SecureRandom.swift in Sources */,
 				28C91C5954E79D64F1172AAAEB068BC8 /* Bytes+TrimLeadingZeros.swift in Sources */,
