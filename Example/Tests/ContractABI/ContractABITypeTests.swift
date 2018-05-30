@@ -50,7 +50,7 @@ class ContractABITypeTests: QuickSpec {
                     expect(ContractABIType.dynamicArray(type: .bool)) == .dynamicArray(type: .bool)
                     expect(ContractABIType.dynamicArray(type: .array(type: .dynamicArray(type: .dynamicString), count: 200))) == ContractABIType.dynamicArray(type: .array(type: .dynamicArray(type: .dynamicString), count: 200))
 
-                    expect(ContractABIType.tuple(types: [.tuple(types: [.tuple(types: [.address, .bool])]), .dynamicString])) == .tuple(types: [.tuple(types: [.tuple(types: [.address, .bool])]), .dynamicString])
+                    expect(ContractABIType.tuple) == .tuple
                 }
 
                 it("should not be equal dynamic types") {
@@ -72,7 +72,7 @@ class ContractABITypeTests: QuickSpec {
                     expect(ContractABIType.dynamicArray(type: .array(type: .dynamicArray(type: .dynamicString), count: 200))) != ContractABIType.dynamicArray(type: .array(type: .dynamicArray(type: .dynamicString), count: 100))
                     expect(ContractABIType.dynamicArray(type: .array(type: .dynamicArray(type: .dynamicString), count: 200))) != ContractABIType.dynamicArray(type: .array(type: .dynamicArray(type: .bool), count: 200))
 
-                    expect(ContractABIType.tuple(types: [.tuple(types: [.tuple(types: [.address, .bool])]), .dynamicString])) != .tuple(types: [.tuple(types: [.tuple(types: [.address, .address])]), .dynamicString])
+                    expect(ContractABIType.tuple) != .dynamicString
                 }
             }
 
@@ -80,7 +80,7 @@ class ContractABITypeTests: QuickSpec {
 
                 it("should decode types") {
 
-                    let typesStr = "[\"uint256\",\"uint\",\"uint32\",\"int\",\"fixed\",\"fixed32x12\",\"ufixed16x6\",\"bytes[][][5]\",\"bytes32[][10]\",\"string\",\"bytes\",\"(bool[][10][],bytes[5][10][])\"]".data(using: .utf8)
+                    let typesStr = "[\"uint256\",\"uint\",\"uint32\",\"int\",\"fixed\",\"fixed32x12\",\"ufixed16x6\",\"bytes[][][5]\",\"bytes32[][10]\",\"string\",\"bytes\",\"tuple\"]".data(using: .utf8)
                     expect(typesStr).toNot(beNil())
 
                     let types = try? self.decoder.decode([ContractABIType].self, from: typesStr!)
@@ -99,7 +99,7 @@ class ContractABITypeTests: QuickSpec {
                     expect(types?[8]) == .array(type: .dynamicArray(type: .bytes(count: 32)), count: 10)
                     expect(types?[9]) == .dynamicString
                     expect(types?[10]) == .dynamicBytes
-                    expect(types?[11]) == .tuple(types: [.dynamicArray(type: .array(type: .dynamicArray(type: .bool), count: 10)), .dynamicArray(type: .array(type: .array(type: .dynamicBytes, count: 5), count: 10))])
+                    expect(types?[11]) == .tuple
                 }
             }
 
@@ -113,7 +113,7 @@ class ContractABITypeTests: QuickSpec {
                     expect(try? self.encoder.encode([ContractABIType.array(type: .dynamicArray(type: .dynamicArray(type: .dynamicBytes)), count: 12)])) == "[\"bytes[][][12]\"]".data(using: .utf8)
                     expect(try? self.encoder.encode([ContractABIType.array(type: .dynamicArray(type: .bytes(count: 32)), count: 10)])) == "[\"bytes32[][10]\"]".data(using: .utf8)
 
-                    expect(try? self.encoder.encode([ContractABIType.tuple(types: [.dynamicArray(type: .array(type: .dynamicArray(type: .bool), count: 10)), .dynamicArray(type: .array(type: .array(type: .dynamicBytes, count: 5), count: 10))])])) == "[\"(bool[][10][],bytes[5][10][])\"]".data(using: .utf8)
+                    expect(try? self.encoder.encode([ContractABIType.tuple])) == "[\"tuple\"]".data(using: .utf8)
                 }
             }
         }

@@ -30,7 +30,10 @@
 		0E2C48D8936BDE88153C68F1EDD808FC /* lax_der_privatekey_parsing.h in Headers */ = {isa = PBXBuildFile; fileRef = 696C7AA42DF0196D06B5267CD39CB197 /* lax_der_privatekey_parsing.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0E41689AB4415375A29B2672C107D188 /* group_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 12F90BF99DEF13740898D9064B3F925D /* group_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0E45D2A520BC268D0049D76B /* ContractABIType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E45D2A420BC268D0049D76B /* ContractABIType.swift */; };
-		0EBCCBD220ADA00600E51964 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCCBD120ADA00600E51964 /* test.swift */; };
+		0E5F4EB420BF0E9200AE8437 /* ContractFunctionDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F4EB320BF0E9200AE8437 /* ContractFunctionDescription.swift */; };
+		0E5F4EB620BF192000AE8437 /* ContractDescriptionElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F4EB520BF192000AE8437 /* ContractDescriptionElement.swift */; };
+		0E5F4EB820BF1A7200AE8437 /* ContractEventDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F4EB720BF1A7200AE8437 /* ContractEventDescription.swift */; };
+		0E5F4EBA20BF1F7600AE8437 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F4EB920BF1F7600AE8437 /* Contract.swift */; };
 		0EBD0CCC2AC440EAAD3CA0C1C8B48386 /* secp256k1_ec_mult_static_context.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C8815C05EA3DD3ABAAB07407798B141 /* secp256k1_ec_mult_static_context.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0F748CB31A8A6176FB97DE04CC09E45A /* Thenable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F57E91A44A76B8202CBE2C1DA2549 /* Thenable.swift */; };
 		116FFA7E504C8011F8ED5E02F68C51FA /* field_10x26.h in Headers */ = {isa = PBXBuildFile; fileRef = 939118F18F5F4CCEEF73E0F09FBDD633 /* field_10x26.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -461,8 +464,11 @@
 		0DAA0BF7C70D1CCC78AD6AAC574A72B7 /* RandomBytesSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomBytesSequence.swift; path = Sources/CryptoSwift/RandomBytesSequence.swift; sourceTree = "<group>"; };
 		0E3774153AF9F332F06B8A9B4D2E0BA7 /* hang.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = hang.swift; path = Sources/hang.swift; sourceTree = "<group>"; };
 		0E45D2A420BC268D0049D76B /* ContractABIType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractABIType.swift; sourceTree = "<group>"; };
+		0E5F4EB320BF0E9200AE8437 /* ContractFunctionDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractFunctionDescription.swift; sourceTree = "<group>"; };
+		0E5F4EB520BF192000AE8437 /* ContractDescriptionElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractDescriptionElement.swift; sourceTree = "<group>"; };
+		0E5F4EB720BF1A7200AE8437 /* ContractEventDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractEventDescription.swift; sourceTree = "<group>"; };
+		0E5F4EB920BF1F7600AE8437 /* Contract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
 		0E7A873983F469CC921F7AD9DBAF1435 /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Quick/DSL/DSL.swift; sourceTree = "<group>"; };
-		0EBCCBD120ADA00600E51964 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		0EF41350370D319EA1F9ADA245B03E33 /* secp256k1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1.h; path = secp256k1/Classes/secp256k1/include/secp256k1.h; sourceTree = "<group>"; };
 		109C0D573DA9FD810727135D29DFF286 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12C280E2D078940DEE97AF153642A213 /* secp256k1.swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "secp256k1.swift-prefix.pch"; sourceTree = "<group>"; };
@@ -914,8 +920,11 @@
 		0EBCCBCE20AD9F8A00E51964 /* ContractABI */ = {
 			isa = PBXGroup;
 			children = (
-				0EBCCBD120ADA00600E51964 /* test.swift */,
 				0E45D2A420BC268D0049D76B /* ContractABIType.swift */,
+				0E5F4EB320BF0E9200AE8437 /* ContractFunctionDescription.swift */,
+				0E5F4EB720BF1A7200AE8437 /* ContractEventDescription.swift */,
+				0E5F4EB520BF192000AE8437 /* ContractDescriptionElement.swift */,
+				0E5F4EB920BF1F7600AE8437 /* Contract.swift */,
 			);
 			name = ContractABI;
 			path = Web3/Classes/ContractABI;
@@ -1995,7 +2004,6 @@
 				BA2124533FCCC481A42732586E598892 /* BytesConvertible.swift in Sources */,
 				0E45D2A520BC268D0049D76B /* ContractABIType.swift in Sources */,
 				66D01992D6402A895A23DC3B98A29A0D /* CharacterSet+Hex.swift in Sources */,
-				0EBCCBD220ADA00600E51964 /* test.swift in Sources */,
 				A2E8D64B48E8F51F174CED5C9F4E6975 /* Data+BytesConvertible.swift in Sources */,
 				C9D89BAB0540ABF7067467BA68AB2935 /* EthereumAddress.swift in Sources */,
 				74D9792F7DB95D592AF8AC5E16F0E379 /* EthereumBlockObject.swift in Sources */,
@@ -2017,20 +2025,24 @@
 				145D0F48293C529A82648D4D11D06BF0 /* RLPEncoder.swift in Sources */,
 				27EAE4E743AE3717EE9586DC8C593F26 /* RLPItem.swift in Sources */,
 				7CF7646AECC8E5DDD8A33C70C633CDC1 /* RLPItemConvertible.swift in Sources */,
+				0E5F4EBA20BF1F7600AE8437 /* Contract.swift in Sources */,
 				3C297EA3F1FEF9C0550256A04D4A2C2F /* RPCRequest.swift in Sources */,
 				58923B3AB3E7142F17B3C87FD7BF62D2 /* RPCResponse.swift in Sources */,
 				C3B8F613FE74F88919D07D7A149ED734 /* Secp256k1+CTXCreator.swift in Sources */,
 				03E2897020760A320581D5DEF0404CAF /* String+BytesConvertible.swift in Sources */,
 				4E45574E8F393B406EC6A18D6F398962 /* String+HexBytes.swift in Sources */,
 				20FBE6DD5D8ECFCBD6E1C707262D3373 /* Types+EthereumValueConvertible.swift in Sources */,
+				0E5F4EB620BF192000AE8437 /* ContractDescriptionElement.swift in Sources */,
 				94615B1A1254A87B7FF304911999DE32 /* Types+RLPItemConvertible.swift in Sources */,
 				687750AF9854EF5CB78564F60AA710C3 /* UInt+BytesRepresentable.swift in Sources */,
 				24CEBD609985E00561EE251EADE01161 /* UnsignedInteger+BytesConvertible.swift in Sources */,
 				82639F28645036E32F1ED190E6229525 /* UnsignedInteger+Shifting.swift in Sources */,
 				46AABFF0B40421B6D1D00349118A16D1 /* Values+GeneralHashable.swift in Sources */,
 				198B7D5BF8AC4085E31C19DB70C71307 /* Web3+HTTPInitializer.swift in Sources */,
+				0E5F4EB820BF1A7200AE8437 /* ContractEventDescription.swift in Sources */,
 				84F6218A6D8B171E139FDA514929A69C /* Web3+PromiseKit.swift in Sources */,
 				2707B8AAAAAFC8EF33144AD19743E0B6 /* Web3-dummy.m in Sources */,
+				0E5F4EB420BF0E9200AE8437 /* ContractFunctionDescription.swift in Sources */,
 				01921ECA48900F6B66C7CDB5537582E2 /* Web3.swift in Sources */,
 				0D9B382F592E7F252CA0E22435BF6AD9 /* Web3HttpProvider.swift in Sources */,
 				4C567C1ED11F9CC4DD2B1E8169182B2E /* Web3Provider.swift in Sources */,

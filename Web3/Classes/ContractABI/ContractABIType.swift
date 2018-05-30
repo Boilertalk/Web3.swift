@@ -33,7 +33,7 @@ public enum ContractABIType: Codable {
 
     indirect case dynamicArray(type: ContractABIType)
 
-    indirect case tuple(types: [ContractABIType])
+    case tuple
 
     // MARK: Codable
 
@@ -90,6 +90,8 @@ public enum ContractABIType: Codable {
             self = .dynamicString
         } else if selector == "function" {
             self = .bytes(count: 24)
+        } else if selector == "tuple" {
+            self = .tuple
         } else if selector.hasPrefix("uint") {
             guard let bits = UInt16(String(selector.dropFirst("uint".count))), bits > 0, bits <= 256, bits % 8 == 0 else {
                 throw Error.unknownType
@@ -119,14 +121,6 @@ public enum ContractABIType: Codable {
                 throw Error.unknownType
             }
             self = .bytes(count: count)
-        } else if selector.hasPrefix("(") && selector.hasSuffix(")") {
-            let strTypes = selector.dropFirst("(".count).dropLast(")".count).split(separator: ",")
-            var types: [ContractABIType] = []
-            for str in strTypes {
-                try types.append(ContractABIType(functionSelector: String(str)))
-            }
-
-            self = .tuple(types: types)
         } else {
             throw Error.unknownType
         }
@@ -156,19 +150,8 @@ public enum ContractABIType: Codable {
             return "string"
         case .dynamicArray(let type):
             return "\(type.functionSelector)[]"
-        case .tuple(let types):
-            var tupleSelector = "("
-            var first = true
-            for t in types {
-                if !first {
-                    tupleSelector += ","
-                } else {
-                    first = false
-                }
-                tupleSelector += "\(t.functionSelector)"
-            }
-            tupleSelector += ")"
-            return tupleSelector
+        case .tuple:
+            return "tuple"
         }
     }
 }
@@ -234,9 +217,9 @@ extension ContractABIType: Equatable {
                 return type == rType
             }
             return false
-        case .tuple(let types):
-            if case .tuple(let rTypes) = rhs {
-                return types == rTypes
+        case .tuple:
+            if case .tuple = rhs {
+                return true
             }
             return false
         }
