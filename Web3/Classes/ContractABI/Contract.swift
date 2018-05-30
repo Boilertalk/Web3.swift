@@ -19,16 +19,12 @@ public enum ContractCallError: Error {
 
     case functionMissing
     case inputsMalformed
-
-    var localizedDescription: String {
-        return ""
-    }
 }
 
 public extension Contract {
 
     public func createCall(name: String, inputs: [BytesRepresentable]) throws -> EthereumCall {
-        guard let description = contractDescriptionElements.findFunction(with: name) else {
+        guard let description = contractDescriptionElements.findFunctionDescription(with: name) else {
             throw ContractCallError.functionMissing
         }
         guard description.inputs.count == inputs.count else {
@@ -36,3 +32,17 @@ public extension Contract {
         }
     }
 }
+
+/*
+private extension Array where Element == Byte {
+
+    private func abiEnc(for parameter: ContractFunctionDescription.FunctionParameter) throws -> Bytes {
+        switch parameter.type {
+        case .tuple:
+
+        }
+    }
+
+    private func abiTupleHead()
+}
+*/

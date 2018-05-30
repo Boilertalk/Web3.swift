@@ -87,7 +87,7 @@ public extension ContractDescriptionElement {
 
 public extension Array where Element == ContractDescriptionElement {
 
-    public func findFunction(with name: String) -> ContractFunctionDescription? {
+    public func findFunctionDescription(with name: String) -> ContractFunctionDescription? {
         for element in self {
             if let description = element.functionDescription, description.name == name {
                 return description
@@ -95,5 +95,27 @@ public extension Array where Element == ContractDescriptionElement {
         }
 
         return nil
+    }
+
+    public var functionDescriptions: [ContractFunctionDescription] {
+        return self.compactMap { element in
+            switch element {
+            case .function(let description):
+                return description
+            case .event(_):
+                return nil
+            }
+        }
+    }
+
+    public var eventDescriptions: [ContractEventDescription] {
+        return self.compactMap { element in
+            switch element {
+            case .function(_):
+                return nil
+            case .event(let description):
+                return description
+            }
+        }
     }
 }
