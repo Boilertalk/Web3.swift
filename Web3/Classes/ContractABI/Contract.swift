@@ -35,15 +35,19 @@ public extension Contract {
 
         var signature = "\(name)("
         for i in description.inputs {
-            signature += "\(i.type.functionSelector),"
+            signature += "\(i.signatureTypeString),"
         }
-        signature = String(signature.dropLast())
+        if signature.hasSuffix(",") {
+            signature = String(signature.dropLast())
+        }
         signature += ")"
         let selectorHash = SHA3(variant: .keccak256).calculate(for: signature.data(using: .utf8)?.makeBytes() ?? [])
-        guard selectorHash.count >= 4 else {
-            throw ContractCallError.internalError
+        var selector = Array(selectorHash[0..<4])
+        for i in 0..<4 {
+            if selectorHash.count > i {
+                selector[i] = selectorHash[i]
+            }
         }
-        let selector = Array(selectorHash[0..<4])
 
         let encoding = ContractTypeTuple(types: inputs).encoding()
 

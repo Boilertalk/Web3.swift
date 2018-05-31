@@ -29,6 +29,24 @@ public struct ContractFunctionDescription: Codable {
             self.type = type
             self.components = components
         }
+
+        public var signatureTypeString: String {
+            switch type {
+            case .tuple:
+                var selector = "("
+                for c in components ?? [] {
+                    selector += "\(c.signatureTypeString),"
+                }
+                if selector.hasSuffix(",") {
+                    selector = String(selector.dropLast())
+                }
+                selector += ")"
+
+                return selector
+            default:
+                return type.string
+            }
+        }
     }
 
     public enum StateMutability: String, Codable {
@@ -51,7 +69,7 @@ public struct ContractFunctionDescription: Codable {
 
     public let payable: Bool
 
-    public let stateMutability: StateMutability
+    public let stateMutability: StateMutability?
 
     public let constant: Bool
 

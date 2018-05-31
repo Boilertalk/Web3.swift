@@ -40,13 +40,13 @@ public enum ContractABIType: Codable {
     public init(from decoder: Decoder) throws {
         let str = try decoder.singleValueContainer().decode(String.self)
 
-        try self.init(functionSelector: str)
+        try self.init(string: str)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
 
-        try container.encode(functionSelector)
+        try container.encode(string)
     }
 
     public enum Error: Swift.Error {
@@ -56,68 +56,68 @@ public enum ContractABIType: Codable {
 
     // MARK: - String conversion
 
-    public init(functionSelector selector: String) throws {
-        if selector.hasSuffix("[]") {
-            self = .dynamicArray(type: try ContractABIType(functionSelector: String(selector.dropLast("[]".count))))
-        } else if selector.hasSuffix("]") {
-            guard let lastOpen = selector.range(of: "[", options: .backwards) else {
+    public init(string type: String) throws {
+        if type.hasSuffix("[]") {
+            self = .dynamicArray(type: try ContractABIType(string: String(type.dropLast("[]".count))))
+        } else if type.hasSuffix("]") {
+            guard let lastOpen = type.range(of: "[", options: .backwards) else {
                 throw Error.unknownType
             }
-            let typeStr = String(selector[selector.startIndex..<lastOpen.lowerBound])
-            let countStr = String(selector[lastOpen.lowerBound..<selector.endIndex].dropFirst("[".count).dropLast("]".count))
+            let typeStr = String(type[type.startIndex..<lastOpen.lowerBound])
+            let countStr = String(type[lastOpen.lowerBound..<type.endIndex].dropFirst("[".count).dropLast("]".count))
 
             guard let count = UInt(countStr) else {
                 throw Error.unknownType
             }
-            let type = try ContractABIType(functionSelector: typeStr)
+            let type = try ContractABIType(string: typeStr)
 
             self = .array(type: type, count: count)
-        } else if selector == "uint" {
+        } else if type == "uint" {
             self = .uint(bits: 256)
-        } else if selector == "int" {
+        } else if type == "int" {
             self = .int(bits: 256)
-        } else if selector == "address" {
+        } else if type == "address" {
             self = .address
-        } else if selector == "bool" {
+        } else if type == "bool" {
             self = .bool
-        } else if selector == "fixed" {
+        } else if type == "fixed" {
             self = .fixed(bits: 128, dividerExponent: 18)
-        } else if selector == "ufixed" {
+        } else if type == "ufixed" {
             self = .ufixed(bits: 128, dividerExponent: 18)
-        } else if selector == "bytes" {
+        } else if type == "bytes" {
             self = .dynamicBytes
-        } else if selector == "string" {
+        } else if type == "string" {
             self = .dynamicString
-        } else if selector == "function" {
+        } else if type == "function" {
             self = .bytes(count: 24)
-        } else if selector == "tuple" {
+        } else if type == "tuple" {
             self = .tuple
-        } else if selector.hasPrefix("uint") {
-            guard let bits = UInt16(String(selector.dropFirst("uint".count))), bits > 0, bits <= 256, bits % 8 == 0 else {
+        } else if type.hasPrefix("uint") {
+            guard let bits = UInt16(String(type.dropFirst("uint".count))), bits > 0, bits <= 256, bits % 8 == 0 else {
                 throw Error.unknownType
             }
             self = .uint(bits: bits)
-        } else if selector.hasPrefix("int") {
-            guard let bits = UInt16(String(selector.dropFirst("int".count))), bits > 0, bits <= 256, bits % 8 == 0 else {
+        } else if type.hasPrefix("int") {
+            guard let bits = UInt16(String(type.dropFirst("int".count))), bits > 0, bits <= 256, bits % 8 == 0 else {
                 throw Error.unknownType
             }
             self = .int(bits: bits)
-        } else if selector.hasPrefix("fixed") {
-            let numbers = String(selector.dropFirst("fixed".count)).split(separator: "x")
+        } else if type.hasPrefix("fixed") {
+            let numbers = String(type.dropFirst("fixed".count)).split(separator: "x")
             guard numbers.count == 2, let bits = UInt16(numbers[0]), let dividerExponent = UInt8(numbers[1]),
                 bits >= 8, bits <= 256, bits % 8 == 0, dividerExponent > 0, dividerExponent <= 80 else {
                     throw Error.unknownType
             }
             self = .fixed(bits: bits, dividerExponent: dividerExponent)
-        } else if selector.hasPrefix("ufixed") {
-            let numbers = String(selector.dropFirst("ufixed".count)).split(separator: "x")
+        } else if type.hasPrefix("ufixed") {
+            let numbers = String(type.dropFirst("ufixed".count)).split(separator: "x")
             guard numbers.count == 2, let bits = UInt16(numbers[0]), let dividerExponent = UInt8(numbers[1]),
                 bits >= 8, bits <= 256, bits % 8 == 0, dividerExponent > 0, dividerExponent <= 80 else {
                     throw Error.unknownType
             }
             self = .ufixed(bits: bits, dividerExponent: dividerExponent)
-        } else if selector.hasPrefix("bytes") {
-            guard let count = UInt8(String(selector.dropFirst("bytes".count))), count > 0, count <= 32 else {
+        } else if type.hasPrefix("bytes") {
+            guard let count = UInt8(String(type.dropFirst("bytes".count))), count > 0, count <= 32 else {
                 throw Error.unknownType
             }
             self = .bytes(count: count)
@@ -126,7 +126,7 @@ public enum ContractABIType: Codable {
         }
     }
 
-    public var functionSelector: String {
+    public var string: String {
         switch self {
         case .uint(let bits):
             return "uint\(bits)"
@@ -143,13 +143,13 @@ public enum ContractABIType: Codable {
         case .bytes(let count):
             return "bytes\(count)"
         case .array(let type, let count):
-            return "\(type.functionSelector)[\(count)]"
+            return "\(type.string)[\(count)]"
         case .dynamicBytes:
             return "bytes"
         case .dynamicString:
             return "string"
         case .dynamicArray(let type):
-            return "\(type.functionSelector)[]"
+            return "\(type.string)[]"
         case .tuple:
             return "tuple"
         }
