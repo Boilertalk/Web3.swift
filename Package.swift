@@ -41,7 +41,7 @@ let package = Package(
             sources: ["PromiseKit"]),
         .target(
             name: "Web3ContractABI",
-            dependencies: ["Web3"],
+            dependencies: ["Web3", "BigInt", "CryptoSwift"],
             path: "Web3/Classes",
             sources: ["ContractABI"]),
         .testTarget(

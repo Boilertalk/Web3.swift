@@ -9,7 +9,11 @@
 import Quick
 import Nimble
 @testable import Web3
+import BigInt
 import Foundation
+#if canImport(Web3ContractABI)
+import Web3ContractABI
+#endif
 
 class ContractABITypeTests: QuickSpec {
 

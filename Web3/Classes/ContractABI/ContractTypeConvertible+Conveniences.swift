@@ -11,7 +11,7 @@ import BigInt
 import Web3
 #endif
 
-public extension ContractTypeConvertible {
+public struct ContractType {
 
     public static func tuple(_ types: [ContractTypeConvertible]) -> ContractTypeConvertible {
         return ContractTypeTuple(types: types)
