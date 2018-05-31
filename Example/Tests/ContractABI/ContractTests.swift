@@ -38,8 +38,8 @@ struct ERC20: Contract {
         return try createTransactionData(
             name: "transfer",
             inputs: [
-                ContractType.address(to),
-                ContractType.uint(value)
+                to,
+                value
             ]
         )
     }
