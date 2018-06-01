@@ -41,10 +41,10 @@ public extension Contract {
         return createTransactionData(name: name, inputs: newInputs)
     }*/
 
-    public func createTransactionData(name: String, inputs: [ContractTypeConvertible]) -> EthereumData {
+    public func createTransactionData(functionName: String, inputs: [ContractTypeConvertible]) -> EthereumData {
         let parameter = ContractFunctionDescription.FunctionParameter(name: "functionParameters", type: .tuple, components: inputs.map { $0.parameterType })
 
-        let signature = "\(name)\(parameter.signatureTypeString)"
+        let signature = "\(functionName)\(parameter.signatureTypeString)"
         let selector = SHA3(variant: .keccak256).functionSelector(for: signature.data(using: .utf8)?.makeBytes() ?? [])
 
         let encoding = ContractTypeTuple(types: inputs).encoding()
