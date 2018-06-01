@@ -25,7 +25,7 @@ public enum ContractCallError: Error {
 
 public extension Contract {
 
-    public func createTransactionData(name: String, inputs: [ContractTypeConvertible]) throws -> Bytes {
+    public func createTransactionData(name: String, inputs: [ContractTypeConvertible]) throws -> EthereumData {
         guard let description = contractDescriptionElements.findFunctionDescription(with: name) else {
             throw ContractCallError.functionMissing
         }
@@ -33,27 +33,40 @@ public extension Contract {
             throw ContractCallError.inputsMalformed
         }
 
-        var signature = "\(name)("
-        for i in description.inputs {
-            signature += "\(i.signatureTypeString),"
+        var newInputs: [(parameter: ContractFunctionDescription.FunctionParameter, data: ContractTypeConvertible)] = []
+        for i in 0..<inputs.count {
+            newInputs.append((parameter: description.inputs[i], data: inputs[i]))
         }
-        if signature.hasSuffix(",") {
-            signature = String(signature.dropLast())
-        }
-        signature += ")"
-        let selectorHash = SHA3(variant: .keccak256).calculate(for: signature.data(using: .utf8)?.makeBytes() ?? [])
-        var selector = Array(selectorHash[0..<4])
-        for i in 0..<4 {
-            if selectorHash.count > i {
-                selector[i] = selectorHash[i]
-            }
-        }
+        return createTransactionData(name: name, inputs: newInputs)
+    }
 
-        let encoding = ContractTypeTuple(types: inputs).encoding()
+    public func createTransactionData(name: String, inputs: [(parameter: ContractFunctionDescription.FunctionParameter, data: ContractTypeConvertible)]) -> EthereumData {
+        let components = inputs.map { $0.parameter }
+        let parameter = ContractFunctionDescription.FunctionParameter(name: "functionParameters", type: .tuple, components: components)
+
+        let signature = "\(name)\(parameter.signatureTypeString)"
+        let selector = SHA3(variant: .keccak256).functionSelector(for: signature.data(using: .utf8)?.makeBytes() ?? [])
+
+        let encoding = ContractTypeTuple(types: inputs.map { $0.data }).encoding()
 
         var data = selector
         data.append(contentsOf: encoding)
 
-        return data
+        return EthereumData(bytes: data)
+    }
+}
+
+private extension SHA3 {
+
+    func functionSelector(for bytes: Bytes) -> Bytes {
+        let hash = calculate(for: bytes)
+        var selector = Bytes(repeating: 0, count: 4)
+        for i in 0..<4 {
+            if hash.count > i {
+                selector[i] = hash[i]
+            }
+        }
+
+        return selector
     }
 }
