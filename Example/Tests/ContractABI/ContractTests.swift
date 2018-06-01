@@ -16,90 +16,6 @@ import Web3ContractABI
 
 struct ERC20: Contract {
 
-    var contractDescriptionElements: [ContractDescriptionElement] {
-        return [
-            .function(description: ContractFunctionDescription(
-                name: "name",
-                inputs: [],
-                outputs: [
-                    .init(name: "", type: .dynamicString)
-                ],
-                stateMutability: .view)
-            ),
-            .function(description: ContractFunctionDescription(
-                name: "approve",
-                inputs: [
-                    .init(name: "_spender", type: .address),
-                    .init(name: "_value", type: .uint(bits: 256))
-                ],
-                outputs: [
-                    .init(name: "success", type: .bool)
-                ],
-                stateMutability: .nonpayable)
-            ),
-            .function(description: ContractFunctionDescription(
-                name: "totalSupply",
-                inputs: [],
-                outputs: [
-                    .init(name: "", type: .uint(bits: 256))
-                ],
-                stateMutability: .view)
-            ),
-            .function(description: ContractFunctionDescription(
-                name: "transferFrom",
-                inputs: [
-                    .init(name: "_from", type: .address),
-                    .init(name: "_to", type: .address),
-                    .init(name: "_value", type: .uint(bits: 256))
-                ],
-                outputs: [
-                    .init(name: "success", type: .bool)
-                ],
-                stateMutability: .nonpayable)
-            ),
-            .function(description: ContractFunctionDescription(
-                name: "decimals",
-                inputs: [],
-                outputs: [
-                    .init(name: "", type: .uint(bits: 8))
-                ],
-                stateMutability: .view)
-            ),
-            .function(description: ContractFunctionDescription(
-                name: "balanceOf",
-                inputs: [
-                    .init(name: "_owner", type: .address)
-                ],
-                outputs: [
-                    .init(name: "balance", type: .uint(bits: 256))
-                ],
-                stateMutability: .view)
-            ),
-            .function(description: ContractFunctionDescription(
-                name: "transfer",
-                inputs: [
-                    .init(name: "_to", type: .address),
-                    .init(name: "_value", type: .uint(bits: 256))
-                ],
-                outputs: [
-                    .init(name: "success", type: .bool)
-                ],
-                stateMutability: .nonpayable)
-            ),
-            .function(description: ContractFunctionDescription(
-                name: "allowance",
-                inputs: [
-                    .init(name: "_owner", type: .address),
-                    .init(name: "_spender", type: .address)
-                ],
-                outputs: [
-                    .init(name: "remaining", type: .uint(bits: 256))
-                ],
-                stateMutability: .view)
-            )
-        ]
-    }
-
     let address: EthereumAddress
 
     var reading: Reading
@@ -109,32 +25,23 @@ struct ERC20: Contract {
         self.address = contractAddress
         self.reading = Reading(contractAddress: contractAddress)
         self.writing = Writing(contractAddress: contractAddress)
-
-        self.reading.contractDescriptionElements = contractDescriptionElements
-        self.writing.contractDescriptionElements = contractDescriptionElements
     }
 
     struct Reading: Contract {
 
-        var contractDescriptionElements: [ContractDescriptionElement]
-
         let contractAddress: EthereumAddress
 
-        init(contractAddress: EthereumAddress, contractDescriptionElements: [ContractDescriptionElement] = []) {
+        init(contractAddress: EthereumAddress) {
             self.contractAddress = contractAddress
-            self.contractDescriptionElements = contractDescriptionElements
         }
     }
 
     struct Writing: Contract {
 
-        var contractDescriptionElements: [ContractDescriptionElement]
-
         let contractAddress: EthereumAddress
 
-        init(contractAddress: EthereumAddress, contractDescriptionElements: [ContractDescriptionElement] = []) {
+        init(contractAddress: EthereumAddress) {
             self.contractAddress = contractAddress
-            self.contractDescriptionElements = contractDescriptionElements
         }
 
         func transfer(
@@ -144,10 +51,10 @@ struct ERC20: Contract {
             to: EthereumAddress,
             value: EthereumQuantity,
             chainId: EthereumQuantity
-        ) throws -> EthereumTransaction {
-            let data = try createTransactionData(name: "transfer", inputs: [
+        ) -> EthereumTransaction {
+            let data = createTransactionData(name: "transfer", inputs: [
                 to,
-                value.quantity
+                value.contractType(bits: 256)
             ])
 
             return EthereumTransaction(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: contractAddress, value: 0, data: data, chainId: chainId)
@@ -161,11 +68,11 @@ struct ERC20: Contract {
             to: EthereumAddress,
             value: EthereumQuantity,
             chainId: EthereumQuantity
-        ) throws -> EthereumTransaction {
-            let data = try createTransactionData(name: "transferFrom", inputs: [
+        ) -> EthereumTransaction {
+            let data = createTransactionData(name: "transferFrom", inputs: [
                 from,
                 to,
-                value.quantity
+                value.contractType(bits: 256)
             ])
 
             return EthereumTransaction(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: contractAddress, value: 0, data: data, chainId: chainId)
@@ -178,10 +85,10 @@ struct ERC20: Contract {
             spender: EthereumAddress,
             value: EthereumQuantity,
             chainId: EthereumQuantity
-        ) throws -> EthereumTransaction {
-            let data = try createTransactionData(name: "approve", inputs: [
+        ) -> EthereumTransaction {
+            let data = createTransactionData(name: "approve", inputs: [
                 spender,
-                value.quantity
+                value.contractType(bits: 256)
             ])
 
             return EthereumTransaction(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: contractAddress, value: 0, data: data, chainId: chainId)

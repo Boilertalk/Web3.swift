@@ -13,6 +13,8 @@ import Web3
 
 public protocol ContractTypeConvertible {
 
+    var parameterType: ContractFunctionDescription.FunctionParameter { get }
+
     var isDynamic: Bool { get }
 
     func encoding() -> Bytes
@@ -20,12 +22,15 @@ public protocol ContractTypeConvertible {
 
 public struct ContractTypeTuple: ContractTypeConvertible {
 
-    let types: [ContractTypeConvertible]
+    public let types: [ContractTypeConvertible]
+
+    public let parameterType: ContractFunctionDescription.FunctionParameter
 
     public let isDynamic: Bool
 
     public init(types: [ContractTypeConvertible]) {
         self.types = types
+        self.parameterType = .init(name: "", type: .tuple, components: types.map { $0.parameterType })
         self.isDynamic = types.contains { $0.isDynamic }
     }
 
@@ -58,7 +63,7 @@ public struct ContractTypeTuple: ContractTypeConvertible {
                         offset += BigUInt(integerLiteral: UInt64(t.encoding.count))
                     }
                 }
-                bytes.append(contentsOf: offset.encoding())
+                bytes.append(contentsOf: offset.contractType(bits: 256).encoding())
             } else {
                 bytes.append(contentsOf: type.encoding)
             }
@@ -81,12 +86,15 @@ public struct ContractTypeTuple: ContractTypeConvertible {
 
 public struct ContractTypeFixedSizeArray<Type: ContractTypeConvertible>: ContractTypeConvertible {
 
+    public let parameterType: ContractFunctionDescription.FunctionParameter
+
     public let isDynamic: Bool
 
     public let types: [Type]
 
-    public init(types: [Type]) {
+    public init(types: [Type], abiType: ContractABIType) {
         self.types = types
+        self.parameterType = .init(name: "", type: .array(type: abiType, count: UInt(types.count)))
 
         if types.count < 1 {
             self.isDynamic = false
@@ -102,19 +110,23 @@ public struct ContractTypeFixedSizeArray<Type: ContractTypeConvertible>: Contrac
 
 public struct ContractTypeDynamicSizeArray<Type: ContractTypeConvertible>: ContractTypeConvertible {
 
+    public let parameterType: ContractFunctionDescription.FunctionParameter
+
     public let isDynamic: Bool
 
     public let types: [Type]
 
-    public init(types: [Type]) {
+    public init(types: [Type], abiType: ContractABIType) {
         self.types = types
+        self.parameterType = .init(name: "", type: .dynamicArray(type: abiType))
+
         self.isDynamic = true
     }
 
     public func encoding() -> Bytes {
         var bytes = Bytes()
 
-        bytes.append(contentsOf: BigUInt(integerLiteral: UInt64(types.count)).encoding())
+        bytes.append(contentsOf: BigUInt(integerLiteral: UInt64(types.count)).contractType(bits: 256).encoding())
         bytes.append(contentsOf: ContractTypeTuple(types: types).encoding())
 
         return bytes
@@ -123,18 +135,21 @@ public struct ContractTypeDynamicSizeArray<Type: ContractTypeConvertible>: Contr
 
 public struct ContractTypeDynamicSizeBytes: ContractTypeConvertible {
 
+    public let parameterType: ContractFunctionDescription.FunctionParameter
+
     public let isDynamic = true
 
     public let bytes: Bytes
 
     public init(bytes: Bytes) {
         self.bytes = bytes
+        self.parameterType = .init(name: "", type: .dynamicBytes)
     }
 
     public func encoding() -> Bytes {
         var bytes = Bytes()
 
-        bytes.append(contentsOf: BigUInt(integerLiteral: UInt64(bytes.count)).encoding())
+        bytes.append(contentsOf: BigUInt(integerLiteral: UInt64(bytes.count)).contractType(bits: 256).encoding())
 
         var content = self.bytes
         if content.count % 32 != 0 {
@@ -150,12 +165,19 @@ public struct ContractTypeDynamicSizeBytes: ContractTypeConvertible {
 
 public struct ContractTypeFixedSizeBytes: ContractTypeConvertible {
 
+    public let parameterType: ContractFunctionDescription.FunctionParameter
+
     public let isDynamic = false
 
     public let bytes: Bytes
 
     public init(bytes: Bytes) {
+        var bytes = bytes
+        if bytes.count > 32 {
+            bytes = Array(bytes[0..<32])
+        }
         self.bytes = bytes
+        self.parameterType = .init(name: "", type: .bytes(count: UInt8(bytes.count)))
     }
 
     public func encoding() -> Bytes {

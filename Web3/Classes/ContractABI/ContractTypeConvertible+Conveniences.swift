@@ -17,12 +17,12 @@ public struct ContractType {
         return ContractTypeTuple(types: types)
     }
 
-    public static func fixedArray<Type: ContractTypeConvertible>(_ types: [Type]) -> ContractTypeConvertible {
-        return ContractTypeFixedSizeArray(types: types)
+    public static func fixedArray<Type: ContractTypeConvertible>(abiType: ContractABIType, _ types: [Type]) -> ContractTypeConvertible {
+        return ContractTypeFixedSizeArray(types: types, abiType: abiType)
     }
 
-    public static func dynamicArray<Type: ContractTypeConvertible>(_ types: [Type]) -> ContractTypeConvertible {
-        return ContractTypeDynamicSizeArray(types: types)
+    public static func dynamicArray<Type: ContractTypeConvertible>(abiType: ContractABIType, _ types: [Type]) -> ContractTypeConvertible {
+        return ContractTypeDynamicSizeArray(types: types, abiType: abiType)
     }
 
     public static func dynamicBytes(_ bytes: Bytes) -> ContractTypeConvertible {
@@ -37,8 +37,8 @@ public struct ContractType {
         return string
     }
 
-    public static func uint(_ bigint: BigUInt) -> ContractTypeConvertible {
-        return bigint
+    public static func uint(bits: UInt16, _ bigint: BigUInt) -> ContractTypeConvertible {
+        return bigint.contractType(bits: bits)
     }
 
     public static func address(_ address: EthereumAddress) -> ContractTypeConvertible {
@@ -52,14 +52,21 @@ public struct ContractType {
 
 // MARK: - Type extensions
 
-extension BigUInt: ContractTypeConvertible {
+public struct ContractTypeBigUInt: ContractTypeConvertible {
 
-    public var isDynamic: Bool {
-        return false
+    public let parameterType: ContractFunctionDescription.FunctionParameter
+
+    public let isDynamic = false
+
+    public let bigUInt: BigUInt
+
+    public init(bigUInt: BigUInt, bits: UInt16) {
+        self.bigUInt = bigUInt
+        self.parameterType = .init(name: "", type: .uint(bits: bits))
     }
 
     public func encoding() -> Bytes {
-        var bytes = makeBytes()
+        var bytes = bigUInt.makeBytes()
         if bytes.count < 32 {
             bytes.insert(contentsOf: Bytes(repeating: 0, count: 32 - bytes.count), at: 0)
         }
@@ -67,17 +74,27 @@ extension BigUInt: ContractTypeConvertible {
     }
 }
 
-extension BigInt: ContractTypeConvertible {
+public struct ContractTypeBigInt: ContractTypeConvertible {
 
-    public var isDynamic: Bool {
-        return false
+    public let parameterType: ContractFunctionDescription.FunctionParameter
+
+    public let isDynamic = false
+
+    public let bigInt: BigInt
+
+    let bits: UInt16
+
+    public init(bigInt: BigInt, bits: UInt16) {
+        self.bigInt = bigInt
+        self.bits = bits
+        self.parameterType = .init(name: "", type: .int(bits: bits))
     }
 
     public func encoding() -> Bytes {
-        if self >= 0 {
-            return magnitude.encoding()
+        if bigInt >= 0 {
+            return bigInt.magnitude.contractType(bits: bits).encoding()
         } else {
-            let twoComplement = (magnitude ^ BigUInt(bytes: Bytes(repeating: 0xff, count: 32))) + 1
+            let twoComplement = (bigInt.magnitude ^ BigUInt(bytes: Bytes(repeating: 0xff, count: 32))) + 1
             var bytes = twoComplement.makeBytes()
             if bytes.count < 32 {
                 bytes.append(contentsOf: Bytes(repeating: 0xff, count: 32 - bytes.count))
@@ -87,77 +104,60 @@ extension BigInt: ContractTypeConvertible {
     }
 }
 
-extension UInt: ContractTypeConvertible {
+public extension BigUInt {
 
-    public var isDynamic: Bool{
-        return false
-    }
-
-    public func encoding() -> Bytes {
-        var bytes = makeBytes()
-        if bytes.count < 32 {
-            bytes.insert(contentsOf: Bytes(repeating: 0, count: 32 - bytes.count), at: 0)
-        }
-        return bytes
+    public func contractType(bits: UInt16) -> ContractTypeBigUInt {
+        return ContractTypeBigUInt(bigUInt: self, bits: bits)
     }
 }
 
-extension UInt64: ContractTypeConvertible {
+public extension BigInt {
 
-    public var isDynamic: Bool {
-        return false
-    }
-
-    public func encoding() -> Bytes {
-        var bytes = makeBytes()
-        if bytes.count < 32 {
-            bytes.insert(contentsOf: Bytes(repeating: 0, count: 32 - bytes.count), at: 0)
-        }
-        return bytes
+    public func contractType(bits: UInt16) -> ContractTypeBigInt {
+        return ContractTypeBigInt(bigInt: self, bits: bits)
     }
 }
 
-extension Int: ContractTypeConvertible {
+public extension UInt {
 
-    public var isDynamic: Bool{
-        return false
-    }
-
-    public func encoding() -> Bytes {
-        if self >= 0 {
-            return UInt(self).encoding()
-        } else {
-            let twoComplement = (UInt(abs(self)) ^ UInt.max) + 1
-            var bytes = twoComplement.makeBytes()
-            if bytes.count < 32 {
-                bytes.append(contentsOf: Bytes(repeating: 0xff, count: 32 - bytes.count))
-            }
-            return bytes
-        }
+    public func contractType(bits: UInt16) -> ContractTypeBigUInt {
+        return ContractTypeBigUInt(bigUInt: BigUInt(self), bits: bits)
     }
 }
 
-extension Int64: ContractTypeConvertible {
+public extension UInt64 {
 
-    public var isDynamic: Bool{
-        return false
+    public func contractType(bits: UInt16) -> ContractTypeBigUInt {
+        return ContractTypeBigUInt(bigUInt: BigUInt(self), bits: bits)
     }
+}
 
-    public func encoding() -> Bytes {
-        if self >= 0 {
-            return UInt64(self).encoding()
-        } else {
-            let twoComplement = (UInt64(abs(self)) ^ UInt64.max) + 1
-            var bytes = twoComplement.makeBytes()
-            if bytes.count < 32 {
-                bytes.append(contentsOf: Bytes(repeating: 0xff, count: 32 - bytes.count))
-            }
-            return bytes
-        }
+public extension EthereumQuantity {
+
+    public func contractType(bits: UInt16) -> ContractTypeBigUInt {
+        return ContractTypeBigUInt(bigUInt: quantity, bits: bits)
+    }
+}
+
+public extension Int {
+
+    public func contractType(bits: UInt16) -> ContractTypeBigInt {
+        return ContractTypeBigInt(bigInt: BigInt(self), bits: bits)
+    }
+}
+
+public extension Int64 {
+
+    public func contractType(bits: UInt16) -> ContractTypeBigInt {
+        return ContractTypeBigInt(bigInt: BigInt(self), bits: bits)
     }
 }
 
 extension String: ContractTypeConvertible {
+
+    public var parameterType: ContractFunctionDescription.FunctionParameter {
+        return .init(name: "", type: .dynamicString)
+    }
 
     public var isDynamic: Bool {
         return true
@@ -172,16 +172,24 @@ extension String: ContractTypeConvertible {
 
 extension EthereumAddress: ContractTypeConvertible {
 
+    public var parameterType: ContractFunctionDescription.FunctionParameter {
+        return .init(name: "", type: .address)
+    }
+
     public var isDynamic: Bool {
         return false
     }
 
     public func encoding() -> Bytes {
-        return BigUInt(bytes: rawAddress).encoding()
+        return BigUInt(bytes: rawAddress).contractType(bits: 160).encoding()
     }
 }
 
 extension Bool: ContractTypeConvertible {
+
+    public var parameterType: ContractFunctionDescription.FunctionParameter {
+        return .init(name: "", type: .bool)
+    }
 
     public var isDynamic: Bool {
         return false
@@ -190,6 +198,6 @@ extension Bool: ContractTypeConvertible {
     public func encoding() -> Bytes {
         let bigInt: BigUInt = self ? 1 : 0
 
-        return bigInt.encoding()
+        return bigInt.contractType(bits: 8).encoding()
     }
 }

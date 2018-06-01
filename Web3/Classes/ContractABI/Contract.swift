@@ -13,7 +13,7 @@ import CryptoSwift
 
 public protocol Contract {
 
-    var contractDescriptionElements: [ContractDescriptionElement] { get }
+    // var contractDescriptionElements: [ContractDescriptionElement] { get }
 }
 
 public enum ContractCallError: Error {
@@ -25,6 +25,7 @@ public enum ContractCallError: Error {
 
 public extension Contract {
 
+    /*
     public func createTransactionData(name: String, inputs: [ContractTypeConvertible]) throws -> EthereumData {
         guard let description = contractDescriptionElements.findFunctionDescription(with: name) else {
             throw ContractCallError.functionMissing
@@ -38,16 +39,15 @@ public extension Contract {
             newInputs.append((parameter: description.inputs[i], data: inputs[i]))
         }
         return createTransactionData(name: name, inputs: newInputs)
-    }
+    }*/
 
-    public func createTransactionData(name: String, inputs: [(parameter: ContractFunctionDescription.FunctionParameter, data: ContractTypeConvertible)]) -> EthereumData {
-        let components = inputs.map { $0.parameter }
-        let parameter = ContractFunctionDescription.FunctionParameter(name: "functionParameters", type: .tuple, components: components)
+    public func createTransactionData(name: String, inputs: [ContractTypeConvertible]) -> EthereumData {
+        let parameter = ContractFunctionDescription.FunctionParameter(name: "functionParameters", type: .tuple, components: inputs.map { $0.parameterType })
 
         let signature = "\(name)\(parameter.signatureTypeString)"
         let selector = SHA3(variant: .keccak256).functionSelector(for: signature.data(using: .utf8)?.makeBytes() ?? [])
 
-        let encoding = ContractTypeTuple(types: inputs.map { $0.data }).encoding()
+        let encoding = ContractTypeTuple(types: inputs).encoding()
 
         var data = selector
         data.append(contentsOf: encoding)
