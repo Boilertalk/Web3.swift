@@ -222,7 +222,10 @@ extension EthereumValue.ValueType: Equatable {
             }
             return false
         case .nil:
-            return rhs == .nil
+            if case .nil = rhs {
+                return true
+            }
+            return false
         }
     }
 }
