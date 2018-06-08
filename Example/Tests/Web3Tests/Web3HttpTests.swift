@@ -416,7 +416,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth call") {
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     firstly {
                         Promise { seal in
                             let call = try EthereumCall(
@@ -449,7 +449,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth estimate gas") {
-                waitUntil { done in
+                waitUntil(timeout: 2.0) { done in
                     firstly {
                         Promise { seal in
                             let call = try EthereumCall(
