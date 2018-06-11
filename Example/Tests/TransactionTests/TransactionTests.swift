@@ -28,23 +28,10 @@ class TransactionTests: QuickSpec {
                     return
                 }
 
-                var tx = EthereumTransaction(nonce: 0, gasPrice: EthereumQuantity(quantity: 21.gwei), gasLimit: 21000, to: to, value: EthereumQuantity(quantity: 1.eth), chainId: 3)
-
-                // This one is for the `it` closures as this tx will be signed once they run...
-                let fixedTx = tx
-
-                it("should be a non valid tx") {
-                    // Signature must not be valid now
-                    expect(fixedTx.verifySignature()) == false
-                }
-
-                let beforeHashValue = fixedTx.hashValue
-                it("should create correct hashValues") {
-                    expect(beforeHashValue) == fixedTx.hashValue
-                }
+                let tx = EthereumTransaction(nonce: 0, gasPrice: EthereumQuantity(quantity: 21.gwei), gasLimit: 21000, to: to, value: EthereumQuantity(quantity: 1.eth))
 
                 // Sign transaction with private key
-                let newTx = try? tx.sign(with: privateKey)
+                let newTx = try? tx.sign(with: privateKey, chainId: 3)
                 it("should not be nil") {
                     expect(newTx).toNot(beNil())
                 }
@@ -52,19 +39,17 @@ class TransactionTests: QuickSpec {
                 let expectedTransaction = "0xf86c808504e3b2920082520894867aeeeed428ed9ba7f97fc7e16f16dfcf02f375880de0b6b3a76400008029a099060c9146c68716da3a79533866dc941a03b171911d675f518c97a73882f7a6a0019167adb26b602501c954e7793e798407836f524b9778f5be6ebece5fc998c6"
 
                 it("should produce the expected rlp encoding") {
-                    expect(try? RLPEncoder().encode(tx.rlp()).hexString(prefix: true)) == expectedTransaction
+                    expect(try? RLPEncoder().encode(newTx!.rlp()).hexString(prefix: true)) == expectedTransaction
                 }
 
                 // Check validity
                 it("should be a valid tx") {
-                    expect(tx.verifySignature()) == true
+                    expect(newTx!.verifySignature()) == true
                 }
 
-                let afterHashValue = tx.hashValue
+                let afterHashValue = newTx!.hashValue
                 it("should create a different hashValue") {
-                    expect(afterHashValue) == tx.hashValue
-
-                    expect(beforeHashValue) != afterHashValue
+                    expect(tx.hashValue) != afterHashValue
                 }
             }
         }

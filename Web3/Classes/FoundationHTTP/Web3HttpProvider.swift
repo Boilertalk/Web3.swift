@@ -34,14 +34,18 @@ public struct Web3HttpProvider: Web3Provider {
 
     public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {
         queue.async {
-            guard let body = try? self.encoder.encode(request) else {
-                let err = Web3Response<Result>(status: .requestFailed)
+            
+            let body: Data
+            do {
+                body = try self.encoder.encode(request)
+            } catch {
+                let err = Web3Response<Result>(error: .requestFailed(error))
                 response(err)
                 return
             }
 
             guard let url = URL(string: self.rpcURL) else {
-                let err = Web3Response<Result>(status: .requestFailed)
+                let err = Web3Response<Result>(error: .requestFailed(nil))
                 response(err)
                 return
             }
@@ -55,7 +59,7 @@ public struct Web3HttpProvider: Web3Provider {
 
             let task = self.session.dataTask(with: req) { data, urlResponse, error in
                 guard let urlResponse = urlResponse as? HTTPURLResponse, let data = data, error == nil else {
-                    let err = Web3Response<Result>(status: .serverError)
+                    let err = Web3Response<Result>(error: .serverError(error))
                     response(err)
                     return
                 }
@@ -63,21 +67,21 @@ public struct Web3HttpProvider: Web3Provider {
                 let status = urlResponse.statusCode
                 guard status >= 200 && status < 300 else {
                     // This is a non typical rpc error response and should be considered a server error.
-                    let err = Web3Response<Result>(status: .serverError)
+                    let err = Web3Response<Result>(error: .serverError(nil))
                     response(err)
                     return
                 }
-
-                guard let rpcResponse = try? self.decoder.decode(RPCResponse<Result>.self, from: data) else {
+                
+                do {
+                    let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data)
+                    // We got the Result object
+                    let res = Web3Response(rpcResponse: rpcResponse)
+                    response(res)
+                } catch {
                     // We don't have the response we expected...
-                    let err = Web3Response<Result>(status: .serverError)
+                    let err = Web3Response<Result>(error: .decodingError(error))
                     response(err)
-                    return
                 }
-
-                // We got the Result object
-                let res = Web3Response(status: .ok, rpcResponse: rpcResponse)
-                response(res)
             }
             task.resume()
         }
