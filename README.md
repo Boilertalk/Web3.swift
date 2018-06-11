@@ -338,7 +338,10 @@ That being said, we will try to minimize breaking changes. Most certainly there 
 
 ## Author
 
-The awesome guys at Boilertalk :alembic:
+The awesome guys at Boilertalk :alembic:    
+...and even more awesome members from the community :purple_heart:
+
+Check out the [contributors list](https://github.com/Boilertalk/Web3.swift/graphs/contributors) for a complete list.
 
 ## License
 
