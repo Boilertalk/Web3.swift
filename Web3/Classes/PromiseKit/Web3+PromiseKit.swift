@@ -12,12 +12,6 @@ import PromiseKit
     import Web3
 #endif
 
-extension RPCResponse.Error: Error {
-}
-
-extension Web3Response.Status: Error {
-}
-
 public extension Web3 {
 
     public func clientVersion() -> Promise<String> {
@@ -174,7 +168,7 @@ public extension Web3.Eth {
         }
     }
 
-    public func sendRawTransaction(transaction: EthereumTransaction) -> Promise<EthereumData> {
+    public func sendRawTransaction(transaction: EthereumSignedTransaction) -> Promise<EthereumData> {
         return Promise { seal in
             self.sendRawTransaction(transaction: transaction) { response in
                 response.sealPromise(seal: seal)
@@ -281,11 +275,6 @@ public extension Web3.Eth {
 fileprivate extension Web3Response {
 
     fileprivate func sealPromise(seal: Resolver<Result>) {
-        guard let rpc = rpcResponse, status == .ok else {
-            seal.reject(status)
-            return
-        }
-
-        seal.resolve(rpc.result, rpc.error)
+        seal.resolve(result, error)
     }
 }

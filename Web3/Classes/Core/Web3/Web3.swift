@@ -280,14 +280,14 @@ public struct Web3 {
         }
 
         public func sendRawTransaction(
-            transaction: EthereumTransaction,
+            transaction: EthereumSignedTransaction,
             response: @escaping Web3ResponseCompletion<EthereumData>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
                 method: "eth_sendRawTransaction",
-                params: [transaction.rlp(forSigning: false)]
+                params: [transaction.rlp()]
             )
 
             properties.provider.send(request: req, response: response)
