@@ -44,7 +44,7 @@ public struct EthereumTransaction: Codable {
      * - parameter value: The value to be sent by this transaction in wei.
      * - parameter data: Input data for this transaction. Defaults to [].
      */
-    init(
+    public init(
         nonce: EthereumQuantity? = nil,
         gasPrice: EthereumQuantity? = nil,
         gasLimit: EthereumQuantity? = nil,
