@@ -58,7 +58,7 @@ this exact functionality. More about that later.
 If you want to use [PromiseKit](https://github.com/mxcl/PromiseKit) extensions for the web3 calls, you can either use the
 provided PromiseKit subspec/SPM product or create your own.    
 If you want to conveniently parse JSON ABIs for Ethereum Smart Contracts, you can use the provided ABI Parsing subspec/SPM product
-which will be released in version 0.2.0.
+which will be released in version 0.3.0.
 
 Finally, if you want to add functionality to `Web3.swift` which is not provided yet, you don't have to wait until it gets merged
 and released in a version bump. You can simple extend/update functionality within you own app as our APIs are made to be very open

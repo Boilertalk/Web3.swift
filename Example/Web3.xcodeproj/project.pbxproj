@@ -204,7 +204,6 @@
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
 				67F87F474D45E971213C7DAB /* [CP] Embed Pods Frameworks */,
-				EB79E52C1FB4F309905951E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -307,21 +306,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB79E52C1FB4F309905951E6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
