@@ -1,6 +1,6 @@
 {
   "name": "Web3",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "summary": "Web3 library for Swift. Sign transactions and interact with Smart Contracts in the Ethereum Network.",
   "description": "Web3 library to sign transactions, interact with Smart Contracts, call\nSmart Contract methods and many things more, all through either a\nHTTP RPC interface provided by this library or a custom RPC interface\n(for example IPC,...).",
   "homepage": "https://github.com/Boilertalk/Web3.swift",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Boilertalk/Web3.swift.git",
-    "tag": "0.1.0"
+    "tag": "0.2.1"
   },
   "platforms": {
     "ios": "8.0",

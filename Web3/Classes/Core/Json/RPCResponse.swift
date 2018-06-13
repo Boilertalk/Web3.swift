@@ -22,13 +22,18 @@ public struct RPCResponse<Result: Codable>: Codable {
     /// The error
     public let error: Error?
 
-    public struct Error: Codable {
+    public struct Error: Swift.Error, Codable {
 
         /// The error code
         let code: Int
 
         /// The error message
         let message: String
+        
+        /// Description
+        public var localizedDescription: String {
+            return "RPC Error (\(code)) \(message)"
+        }
     }
 }
 

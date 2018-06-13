@@ -26,6 +26,7 @@
 		0EA5D3F32039123A0037C2BE /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3F22039123A0037C2BE /* UInt+BytesRepresentableTests.swift */; };
 		0EA5D3F7203912790037C2BE /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3F6203912790037C2BE /* Web3HttpTests.swift */; };
 		E54BAE94B0A9A8565CD31D93 /* Pods_Web3_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */; };
+		E88B614F20B88F2E00C12395 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B614E20B88F2E00C12395 /* String+Hex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		746C365C55131A708ACBAB71 /* Web3.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Web3.podspec; path = ../Web3.podspec; sourceTree = "<group>"; };
 		DA16060729F56349F6C9ADD3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E88B614E20B88F2E00C12395 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 			children = (
 				0EA5D3F22039123A0037C2BE /* UInt+BytesRepresentableTests.swift */,
 				0E4503392059CAA1005C7D42 /* Int+ETH.swift */,
+				E88B614E20B88F2E00C12395 /* String+Hex.swift */,
 			);
 			path = ToolboxTests;
 			sourceTree = "<group>";
@@ -201,7 +204,6 @@
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
 				67F87F474D45E971213C7DAB /* [CP] Embed Pods Frameworks */,
-				EB79E52C1FB4F309905951E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -306,21 +308,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EB79E52C1FB4F309905951E6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -340,6 +327,7 @@
 				0E9C6B4E2039E32F000E7225 /* EthereumAddressTests.swift in Sources */,
 				0EA5D3EE2039121E0037C2BE /* RLPDecoderTests.swift in Sources */,
 				0EA5D3E62039120A0037C2BE /* EthereumCallParamsTests.swift in Sources */,
+				E88B614F20B88F2E00C12395 /* String+Hex.swift in Sources */,
 				0E9C6B4D2039E32F000E7225 /* TransactionTests.swift in Sources */,
 				0EA5D3F32039123A0037C2BE /* UInt+BytesRepresentableTests.swift in Sources */,
 				0EA5D3F7203912790037C2BE /* Web3HttpTests.swift in Sources */,
