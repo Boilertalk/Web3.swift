@@ -250,3 +250,45 @@ public extension BigDecimal {
         lhs = lhs / rhs
     }
 }
+
+// MARK: - Equatable
+
+extension BigDecimal: Equatable {
+
+    public static func == (lhs: BigDecimal, rhs: BigDecimal) -> Bool {
+        let value = lhs - rhs
+        return value.significand == 0
+    }
+}
+
+// MARK: - Comparable
+
+extension BigDecimal: Comparable {
+
+    public static func < (lhs: BigDecimal, rhs: BigDecimal) -> Bool {
+        if lhs.sign != rhs.sign {
+            return lhs.sign == .minus ? true : false
+        } else if lhs == rhs {
+            return false
+        } else {
+            if lhs.sign == .minus {
+                // Both negative -> (abs(lhs) - (abs(rhs))): positive => return true, negative => return false
+                let value = lhs.magnitude - rhs.magnitude
+                return value.sign == .plus ? true : false
+            } else {
+                // Both positive, normal subtraction
+                let value = lhs - rhs
+                return value.sign == .plus ? false : true
+            }
+        }
+    }
+}
+
+// MARK: - Hashable
+
+extension BigDecimal: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(BigUInt(UInt(bitPattern: exponent)), significand, sign == .plus ? Byte(0x00) : Byte(0x01))
+    }
+}

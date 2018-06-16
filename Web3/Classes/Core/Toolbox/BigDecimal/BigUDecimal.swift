@@ -88,7 +88,12 @@ extension BigUDecimal {
     }
 
     public static func - (_ lhs: BigUDecimal, _ rhs: BigUDecimal) -> BigUDecimal {
-        return BigUDecimal(absolute: BigDecimal(from: lhs) - BigDecimal(from: rhs))
+        let value = BigDecimal(from: lhs) - BigDecimal(from: rhs)
+        if value.sign == .minus {
+            // Handling overflows by returning zero
+            return BigUDecimal(exponent: 0, significand: 0)
+        }
+        return BigUDecimal(absolute: value)
     }
 
     public static func += (_ lhs: inout BigUDecimal, _ rhs: BigUDecimal) {
@@ -105,5 +110,32 @@ extension BigUDecimal {
 
     public static func /= (_ lhs: inout BigUDecimal, _ rhs: BigUDecimal) {
         lhs = lhs / rhs
+    }
+}
+
+// MARK: - Equatable
+
+extension BigUDecimal: Equatable {
+
+    public static func == (lhs: BigUDecimal, rhs: BigUDecimal) -> Bool {
+        return BigDecimal(from: lhs) == BigDecimal(from: rhs)
+    }
+}
+
+// MARK: - Comparable
+
+extension BigUDecimal: Comparable {
+
+    public static func < (lhs: BigUDecimal, rhs: BigUDecimal) -> Bool {
+        return BigDecimal(from: lhs) < BigDecimal(from: rhs)
+    }
+}
+
+// MARK: - Hashable
+
+extension BigUDecimal: Hashable {
+
+    public var hashValue: Int {
+        return decimal.hashValue
     }
 }
