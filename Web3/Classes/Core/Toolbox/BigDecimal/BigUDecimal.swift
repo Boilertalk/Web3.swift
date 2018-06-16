@@ -9,6 +9,7 @@
 import Foundation
 import BigInt
 
+/// An unsigned version of `BigDecimal` which only allows positive numbers.
 public struct BigUDecimal {
 
     private var decimal: BigDecimal
@@ -33,12 +34,40 @@ public struct BigUDecimal {
         return decimal.significand
     }
 
+    /**
+     * Initializes this unsigned decimal with the given `exponent`, `significand` and optional `precision` for divisions.
+     *
+     * - parameter exponent: The exponent of this decimal.
+     * - parameter significand: The significand of this decimal.
+     * - parameter precision: The precision for decimal divisions, defaults to 10.
+     */
     public init(exponent: Int, significand: BigUInt, precision: UInt = 10) {
         self.decimal = BigDecimal(sign: .plus, exponent: exponent, significand: significand, precision: precision)
     }
 
+    /**
+     * Initializes this unsigned decimal with the given instance of `BigDecimal`. Takes the absolute value of it.
+     *
+     * - parameter absolute: The `BigDecimal` from which to initialize this instance of `BigUDecimal`.
+     */
     public init(absolute: BigDecimal) {
         self.decimal = absolute.magnitude
+    }
+}
+
+extension BigUDecimal: ExpressibleByIntegerLiteral {
+
+    public init(integerLiteral value: UInt) {
+        self.init(value)
+    }
+
+    /**
+     * Initializes a new decimal with the given UnsignedInteger.
+     *
+     * - parameter uint: The unsigned int from which to initialize this instance of `BigDecimal`.
+     */
+    public init<T: UnsignedInteger>(_ uint: T) {
+        self.init(exponent: 0, significand: BigUInt(uint))
     }
 }
 

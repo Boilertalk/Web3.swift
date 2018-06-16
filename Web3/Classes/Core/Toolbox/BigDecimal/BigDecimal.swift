@@ -34,6 +34,14 @@ public struct BigDecimal {
     /// The significand of this decimal
     let significand: BigUInt
 
+    /**
+     * Initializes this decimal with the given `sign`, `exponent`, `significand` and optional `precision` for divisions.
+     *
+     * - parameter sign: The sign of this decimal.
+     * - parameter exponent: The exponent of this decimal.
+     * - parameter significand: The significand of this decimal.
+     * - parameter precision: The precision for decimal divisions, defaults to 10.
+     */
     public init(sign: FloatingPointSign, exponent: Int, significand: BigUInt, precision: UInt = 10) {
         self.sign = sign
         self.exponent = exponent
@@ -41,6 +49,11 @@ public struct BigDecimal {
         self.precision = precision
     }
 
+    /**
+     * Initializes a `BigDecimal` from the given `BigUDecimal`.
+     *
+     * - parameter from: The unsigned decimal from which to initialize this instance of `BigDecimal`.
+     */
     public init(from: BigUDecimal) {
         self.init(sign: .plus, exponent: from.exponent, significand: from.significand, precision: from.precision)
     }
@@ -52,11 +65,21 @@ extension BigDecimal: ExpressibleByIntegerLiteral {
         self.init(value)
     }
 
+    /**
+     * Initializes a new decimal with the given SignedInteger.
+     *
+     * - parameter int: The int from which to initialize this instance of `BigDecimal`.
+     */
     public init<T: SignedInteger>(_ int: T) {
         let sign = int.signum() == -1 ? FloatingPointSign.minus : FloatingPointSign.plus
         self.init(sign: sign, exponent: 0, significand: BigUInt(abs(int)))
     }
 
+    /**
+     * Initializes a new decimal with the given UnsignedInteger.
+     *
+     * - parameter uint: The unsigned int from which to initialize this instance of `BigDecimal`.
+     */
     public init<T: UnsignedInteger>(_ uint: T) {
         self.init(sign: .plus, exponent: 0, significand: BigUInt(uint))
     }
@@ -68,6 +91,20 @@ extension BigDecimal: ExpressibleByFloatLiteral {
         self.init(Decimal(value))
     }
 
+    /**
+     * Initializes a new decimal with the given double.
+     *
+     * - parameter double: The double from which to initialize this instance of `BigDecimal`.
+     */
+    public init(_ double: Double) {
+        self.init(floatLiteral: double)
+    }
+
+    /**
+     * Initializes a new decimal with the given Swift decimal.
+     *
+     * - parameter decimal: The decimal from which to initialize this instance of `BigDecimal`.
+     */
     public init(_ decimal: Decimal) {
         self.init(sign: decimal.sign, exponent: decimal.exponent, significand: BigUInt(abs(NSDecimalNumber(decimal: decimal.significand).intValue)))
     }
@@ -77,10 +114,12 @@ extension BigDecimal: ExpressibleByFloatLiteral {
 
 public extension BigDecimal {
 
+    /// The magnitude of this decimal.
     public var magnitude: BigDecimal {
         return BigDecimal(sign: .plus, exponent: exponent, significand: significand)
     }
 
+    /// The negation of this decimal
     public var negate: BigDecimal {
         let newSign: FloatingPointSign = sign == .minus ? .plus : .minus
         return BigDecimal(sign: newSign, exponent: exponent, significand: significand)
