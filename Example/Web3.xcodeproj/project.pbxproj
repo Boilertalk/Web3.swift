@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E45033A2059CAA1005C7D42 /* Int+ETH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4503392059CAA1005C7D42 /* Int+ETH.swift */; };
+		0E494B6720D836B40095B356 /* BigDecimalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E494B6620D836B40095B356 /* BigDecimalTests.swift */; };
 		0E9C6B4C2039E32F000E7225 /* EthereumPrivateKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */; };
 		0E9C6B4D2039E32F000E7225 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B492039E32F000E7225 /* TransactionTests.swift */; };
 		0E9C6B4E2039E32F000E7225 /* EthereumAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C6B4A2039E32F000E7225 /* EthereumAddressTests.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0E4503392059CAA1005C7D42 /* Int+ETH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+ETH.swift"; sourceTree = "<group>"; };
+		0E494B6620D836B40095B356 /* BigDecimalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigDecimalTests.swift; sourceTree = "<group>"; };
 		0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKeyTests.swift; sourceTree = "<group>"; };
 		0E9C6B492039E32F000E7225 /* TransactionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
 		0E9C6B4A2039E32F000E7225 /* EthereumAddressTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumAddressTests.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				0EA5D3F22039123A0037C2BE /* UInt+BytesRepresentableTests.swift */,
 				0E4503392059CAA1005C7D42 /* Int+ETH.swift */,
 				E88B614E20B88F2E00C12395 /* String+Hex.swift */,
+				0E494B6620D836B40095B356 /* BigDecimalTests.swift */,
 			);
 			path = ToolboxTests;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				0E9C6B4D2039E32F000E7225 /* TransactionTests.swift in Sources */,
 				0EA5D3F32039123A0037C2BE /* UInt+BytesRepresentableTests.swift in Sources */,
 				0EA5D3F7203912790037C2BE /* Web3HttpTests.swift in Sources */,
+				0E494B6720D836B40095B356 /* BigDecimalTests.swift in Sources */,
 				0EA5D3E42039120A0037C2BE /* EthereumQuantityTests.swift in Sources */,
 				0EA5D3E92039120A0037C2BE /* EthereumDataTests.swift in Sources */,
 				0EA5D3E82039120A0037C2BE /* RPCRequestJsonTests.swift in Sources */,

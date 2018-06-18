@@ -66,6 +66,16 @@ extension BigDecimal: ExpressibleByIntegerLiteral {
     }
 
     /**
+     * Initializes a new decimal with the given BigInt.
+     *
+     * - parameter bigint: The BigInt from which to initialize this instance of `BigDecimal`.
+     */
+    public init(_ bigint: BigInt) {
+        let sign: FloatingPointSign = bigint.signum() == -1 ? .minus : .plus
+        self.init(sign: sign, exponent: 0, significand: bigint.magnitude)
+    }
+
+    /**
      * Initializes a new decimal with the given SignedInteger.
      *
      * - parameter int: The int from which to initialize this instance of `BigDecimal`.

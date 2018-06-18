@@ -62,6 +62,15 @@ extension BigUDecimal: ExpressibleByIntegerLiteral {
     }
 
     /**
+     * Initializes a new decimal with the given BigUInt.
+     *
+     * - parameter bigint: The BigUInt from which to initialize this instance of `BigUDecimal`.
+     */
+    public init(_ bigint: BigUInt) {
+        self.init(exponent: 0, significand: bigint)
+    }
+
+    /**
      * Initializes a new decimal with the given UnsignedInteger.
      *
      * - parameter uint: The unsigned int from which to initialize this instance of `BigDecimal`.
@@ -137,5 +146,14 @@ extension BigUDecimal: Hashable {
 
     public var hashValue: Int {
         return decimal.hashValue
+    }
+}
+
+// MARK: - CustomStringConvertible
+
+extension BigUDecimal: CustomStringConvertible {
+
+    public var description: String {
+        return BigDecimal(from: self).description
     }
 }
