@@ -292,3 +292,33 @@ extension BigDecimal: Hashable {
         return hashValues(BigUInt(UInt(bitPattern: exponent)), significand, sign == .plus ? Byte(0x00) : Byte(0x01))
     }
 }
+
+// MARK: - CustomStringConvertible
+
+extension BigDecimal: CustomStringConvertible {
+
+    public var description: String {
+        var desc = String(significand, radix: 10)
+
+        if exponent >= 0 {
+            let zeros = String(repeating: "0", count: exponent)
+            desc.append(zeros)
+        } else {
+            if desc.count <= abs(exponent) {
+                // We need leading zeros
+                let count = abs(exponent) - desc.count + 1
+                let zeros = String(repeating: "0", count: count)
+                desc.insert(contentsOf: zeros, at: desc.startIndex)
+            }
+
+            let pointIndex = desc.index(desc.endIndex, offsetBy: exponent)
+            desc.insert(".", at: pointIndex)
+        }
+
+        if sign == .minus {
+            desc.insert("-", at: desc.startIndex)
+        }
+
+        return desc
+    }
+}
