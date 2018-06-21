@@ -1,0 +1,46 @@
+{
+    "contractName": "TupleExample",
+    "abi": [
+        {
+          "name": "f",
+          "type": "function",
+          "stateMutability": "pure",
+          "inputs": [
+             {
+             "name": "t",
+             "type": "tuple",
+             "components": [
+                {
+                  "name": "x",
+                  "type": "uint256"
+                },
+                {
+                  "name": "y",
+                  "type": "uint256"
+                }
+              ]
+             },
+             {
+             "name": "a",
+             "type": "uint256"
+             }
+          ],
+          "outputs": [
+            {
+            "name": "t",
+            "type": "tuple",
+            "components": [
+               {
+                 "name": "x",
+                 "type": "uint256"
+               },
+               {
+                 "name": "y",
+                 "type": "uint256"
+               }
+            ]
+            }
+          ]
+        }
+    ]
+}
