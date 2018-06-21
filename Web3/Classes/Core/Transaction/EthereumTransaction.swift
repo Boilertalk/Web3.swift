@@ -17,7 +17,7 @@ public struct EthereumTransaction: Codable {
     public var gasPrice: EthereumQuantity?
     
     /// Gas limit provided
-    public var gasLimit: EthereumQuantity?
+    public var gas: EthereumQuantity?
     
     /// Address of the sender
     public var from: EthereumAddress?
@@ -47,7 +47,7 @@ public struct EthereumTransaction: Codable {
     public init(
         nonce: EthereumQuantity? = nil,
         gasPrice: EthereumQuantity? = nil,
-        gasLimit: EthereumQuantity? = nil,
+        gas: EthereumQuantity? = nil,
         from: EthereumAddress? = nil,
         to: EthereumAddress? = nil,
         value: EthereumQuantity? = nil,
@@ -55,7 +55,7 @@ public struct EthereumTransaction: Codable {
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
-        self.gasLimit = gasLimit
+        self.gas = gas
         self.from = from
         self.to = to
         self.value = value
@@ -73,7 +73,7 @@ public struct EthereumTransaction: Codable {
      */
     public func sign(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity = 0) throws -> EthereumSignedTransaction {
         // These values are required for signing
-        guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gasLimit, let value = value else {
+        guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gas, let value = value else {
             throw EthereumSignedTransaction.Error.transactionInvalid
         }
         let rlp = RLPItem(
@@ -331,7 +331,7 @@ extension EthereumTransaction: Equatable {
     public static func ==(_ lhs: EthereumTransaction, _ rhs: EthereumTransaction) -> Bool {
         return lhs.nonce == rhs.nonce
             && lhs.gasPrice == rhs.gasPrice
-            && lhs.gasLimit == rhs.gasLimit
+            && lhs.gas == rhs.gas
             && lhs.from == rhs.from
             && lhs.to == rhs.to
             && lhs.value == rhs.value
@@ -361,7 +361,7 @@ extension EthereumTransaction: Hashable {
 
     public var hashValue: Int {
         return hashValues(
-            nonce, gasPrice, gasLimit, from, to, value, data
+            nonce, gasPrice, gas, from, to, value, data
         )
     }
 }
