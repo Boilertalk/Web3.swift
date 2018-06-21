@@ -10,7 +10,7 @@ import Foundation
 import secp256k1
 import CryptoSwift
 
-public class EthereumPrivateKey {
+public final class EthereumPrivateKey {
 
     // MARK: - Properties
 
