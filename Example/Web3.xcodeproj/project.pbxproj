@@ -26,6 +26,23 @@
 		0EA5D3F32039123A0037C2BE /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3F22039123A0037C2BE /* UInt+BytesRepresentableTests.swift */; };
 		0EA5D3F7203912790037C2BE /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3F6203912790037C2BE /* Web3HttpTests.swift */; };
 		E54BAE94B0A9A8565CD31D93 /* Pods_Web3_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */; };
+		E85B782520D1ED3F0069E3B4 /* JSONContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B781620D1ED3E0069E3B4 /* JSONContractTests.swift */; };
+		E85B782720D1ED3F0069E3B4 /* ContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B781820D1ED3F0069E3B4 /* ContractTests.swift */; };
+		E85B782820D1ED3F0069E3B4 /* getBlock2.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B781A20D1ED3F0069E3B4 /* getBlock2.json */; };
+		E85B782920D1ED3F0069E3B4 /* getBlock3.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B781B20D1ED3F0069E3B4 /* getBlock3.json */; };
+		E85B782A20D1ED3F0069E3B4 /* call_tuple.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B781C20D1ED3F0069E3B4 /* call_tuple.json */; };
+		E85B782B20D1ED3F0069E3B4 /* sendTransaction.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B781D20D1ED3F0069E3B4 /* sendTransaction.json */; };
+		E85B782C20D1ED3F0069E3B4 /* ERC721.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B781E20D1ED3F0069E3B4 /* ERC721.json */; };
+		E85B782D20D1ED3F0069E3B4 /* call_getBalance.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B781F20D1ED3F0069E3B4 /* call_getBalance.json */; };
+		E85B782E20D1ED3F0069E3B4 /* LimitedMintableNonFungibleToken.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B782020D1ED3F0069E3B4 /* LimitedMintableNonFungibleToken.json */; };
+		E85B782F20D1ED3F0069E3B4 /* TupleExample.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B782120D1ED3F0069E3B4 /* TupleExample.json */; };
+		E85B783020D1ED3F0069E3B4 /* estimateGas.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B782220D1ED3F0069E3B4 /* estimateGas.json */; };
+		E85B783120D1ED3F0069E3B4 /* getTransactionReceipt.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B782320D1ED3F0069E3B4 /* getTransactionReceipt.json */; };
+		E85B783220D1ED3F0069E3B4 /* getBlock1.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B782420D1ED3F0069E3B4 /* getBlock1.json */; };
+		E85B783A20D1ED490069E3B4 /* ABIConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B783420D1ED490069E3B4 /* ABIConvertibleTests.swift */; };
+		E85B783C20D1ED490069E3B4 /* WrappedValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B783620D1ED490069E3B4 /* WrappedValueTests.swift */; };
+		E85B783D20D1ED490069E3B4 /* SolidityTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B783720D1ED490069E3B4 /* SolidityTypeTests.swift */; };
+		E85B783E20D1ED490069E3B4 /* ABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B783820D1ED490069E3B4 /* ABITests.swift */; };
 		E88B614F20B88F2E00C12395 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = E88B614E20B88F2E00C12395 /* String+Hex.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +70,25 @@
 		4BC29B1E862FC7EC18CDE5FA /* Pods-Web3_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Web3_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Web3_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		746C365C55131A708ACBAB71 /* Web3.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Web3.podspec; path = ../Web3.podspec; sourceTree = "<group>"; };
+		746C365C55131A708ACBAB71 /* Web3.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Web3.podspec; path = ../Web3.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DA16060729F56349F6C9ADD3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E85B781620D1ED3E0069E3B4 /* JSONContractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONContractTests.swift; sourceTree = "<group>"; };
+		E85B781820D1ED3F0069E3B4 /* ContractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractTests.swift; sourceTree = "<group>"; };
+		E85B781A20D1ED3F0069E3B4 /* getBlock2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getBlock2.json; sourceTree = "<group>"; };
+		E85B781B20D1ED3F0069E3B4 /* getBlock3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getBlock3.json; sourceTree = "<group>"; };
+		E85B781C20D1ED3F0069E3B4 /* call_tuple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = call_tuple.json; sourceTree = "<group>"; };
+		E85B781D20D1ED3F0069E3B4 /* sendTransaction.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sendTransaction.json; sourceTree = "<group>"; };
+		E85B781E20D1ED3F0069E3B4 /* ERC721.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ERC721.json; sourceTree = "<group>"; };
+		E85B781F20D1ED3F0069E3B4 /* call_getBalance.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = call_getBalance.json; sourceTree = "<group>"; };
+		E85B782020D1ED3F0069E3B4 /* LimitedMintableNonFungibleToken.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LimitedMintableNonFungibleToken.json; sourceTree = "<group>"; };
+		E85B782120D1ED3F0069E3B4 /* TupleExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TupleExample.json; sourceTree = "<group>"; };
+		E85B782220D1ED3F0069E3B4 /* estimateGas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = estimateGas.json; sourceTree = "<group>"; };
+		E85B782320D1ED3F0069E3B4 /* getTransactionReceipt.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getTransactionReceipt.json; sourceTree = "<group>"; };
+		E85B782420D1ED3F0069E3B4 /* getBlock1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getBlock1.json; sourceTree = "<group>"; };
+		E85B783420D1ED490069E3B4 /* ABIConvertibleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABIConvertibleTests.swift; sourceTree = "<group>"; };
+		E85B783620D1ED490069E3B4 /* WrappedValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrappedValueTests.swift; sourceTree = "<group>"; };
+		E85B783720D1ED490069E3B4 /* SolidityTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidityTypeTests.swift; sourceTree = "<group>"; };
+		E85B783820D1ED490069E3B4 /* ABITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABITests.swift; sourceTree = "<group>"; };
 		E88B614E20B88F2E00C12395 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -147,6 +181,9 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				E85B781920D1ED3F0069E3B4 /* Stubs */,
+				E85B781520D1ECBB0069E3B4 /* ContractTests */,
+				E85B781420D1ECA50069E3B4 /* ABITests */,
 				0EA5D3D9203911E30037C2BE /* JsonTests */,
 				0EA5D3EA2039120D0037C2BE /* RLPTests */,
 				0EA5D3F1203912290037C2BE /* ToolboxTests */,
@@ -181,6 +218,44 @@
 				FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E85B781420D1ECA50069E3B4 /* ABITests */ = {
+			isa = PBXGroup;
+			children = (
+				E85B783420D1ED490069E3B4 /* ABIConvertibleTests.swift */,
+				E85B783820D1ED490069E3B4 /* ABITests.swift */,
+				E85B783720D1ED490069E3B4 /* SolidityTypeTests.swift */,
+				E85B783620D1ED490069E3B4 /* WrappedValueTests.swift */,
+			);
+			path = ABITests;
+			sourceTree = "<group>";
+		};
+		E85B781520D1ECBB0069E3B4 /* ContractTests */ = {
+			isa = PBXGroup;
+			children = (
+				E85B781820D1ED3F0069E3B4 /* ContractTests.swift */,
+				E85B781620D1ED3E0069E3B4 /* JSONContractTests.swift */,
+			);
+			path = ContractTests;
+			sourceTree = "<group>";
+		};
+		E85B781920D1ED3F0069E3B4 /* Stubs */ = {
+			isa = PBXGroup;
+			children = (
+				E85B781A20D1ED3F0069E3B4 /* getBlock2.json */,
+				E85B781B20D1ED3F0069E3B4 /* getBlock3.json */,
+				E85B781C20D1ED3F0069E3B4 /* call_tuple.json */,
+				E85B781D20D1ED3F0069E3B4 /* sendTransaction.json */,
+				E85B781E20D1ED3F0069E3B4 /* ERC721.json */,
+				E85B781F20D1ED3F0069E3B4 /* call_getBalance.json */,
+				E85B782020D1ED3F0069E3B4 /* LimitedMintableNonFungibleToken.json */,
+				E85B782120D1ED3F0069E3B4 /* TupleExample.json */,
+				E85B782220D1ED3F0069E3B4 /* estimateGas.json */,
+				E85B782320D1ED3F0069E3B4 /* getTransactionReceipt.json */,
+				E85B782420D1ED3F0069E3B4 /* getBlock1.json */,
+			);
+			path = Stubs;
 			sourceTree = "<group>";
 		};
 		E900905BE4561C4E18714662 /* Pods */ = {
@@ -254,6 +329,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E85B782B20D1ED3F0069E3B4 /* sendTransaction.json in Resources */,
+				E85B782C20D1ED3F0069E3B4 /* ERC721.json in Resources */,
+				E85B782920D1ED3F0069E3B4 /* getBlock3.json in Resources */,
+				E85B783020D1ED3F0069E3B4 /* estimateGas.json in Resources */,
+				E85B783120D1ED3F0069E3B4 /* getTransactionReceipt.json in Resources */,
+				E85B782D20D1ED3F0069E3B4 /* call_getBalance.json in Resources */,
+				E85B782A20D1ED3F0069E3B4 /* call_tuple.json in Resources */,
+				E85B782820D1ED3F0069E3B4 /* getBlock2.json in Resources */,
+				E85B782E20D1ED3F0069E3B4 /* LimitedMintableNonFungibleToken.json in Resources */,
+				E85B783220D1ED3F0069E3B4 /* getBlock1.json in Resources */,
+				E85B782F20D1ED3F0069E3B4 /* TupleExample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,23 +401,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E85B783A20D1ED490069E3B4 /* ABIConvertibleTests.swift in Sources */,
 				0EA5D3E32039120A0037C2BE /* EthereumBlockObjectTests.swift in Sources */,
 				0EA5D3F02039121E0037C2BE /* RLPItemTests.swift in Sources */,
+				E85B783C20D1ED490069E3B4 /* WrappedValueTests.swift in Sources */,
 				0EA5D3E52039120A0037C2BE /* EthereumSyncStatusObjectTests.swift in Sources */,
 				0E45033A2059CAA1005C7D42 /* Int+ETH.swift in Sources */,
 				0E9C6B4F2039E32F000E7225 /* EthereumPublicKeyTests.swift in Sources */,
+				E85B782720D1ED3F0069E3B4 /* ContractTests.swift in Sources */,
 				0E9C6B4C2039E32F000E7225 /* EthereumPrivateKeyTests.swift in Sources */,
 				0EA5D3EF2039121E0037C2BE /* RLPEncoderTests.swift in Sources */,
 				0EA5D3E22039120A0037C2BE /* EthereumQuantityTagTests.swift in Sources */,
+				E85B783E20D1ED490069E3B4 /* ABITests.swift in Sources */,
 				0EA5D3E72039120A0037C2BE /* EthereumValueTests.swift in Sources */,
 				0E9C6B4E2039E32F000E7225 /* EthereumAddressTests.swift in Sources */,
 				0EA5D3EE2039121E0037C2BE /* RLPDecoderTests.swift in Sources */,
 				0EA5D3E62039120A0037C2BE /* EthereumCallParamsTests.swift in Sources */,
 				E88B614F20B88F2E00C12395 /* String+Hex.swift in Sources */,
+				E85B782520D1ED3F0069E3B4 /* JSONContractTests.swift in Sources */,
 				0E9C6B4D2039E32F000E7225 /* TransactionTests.swift in Sources */,
 				0EA5D3F32039123A0037C2BE /* UInt+BytesRepresentableTests.swift in Sources */,
 				0EA5D3F7203912790037C2BE /* Web3HttpTests.swift in Sources */,
 				0EA5D3E42039120A0037C2BE /* EthereumQuantityTests.swift in Sources */,
+				E85B783D20D1ED490069E3B4 /* SolidityTypeTests.swift in Sources */,
 				0EA5D3E92039120A0037C2BE /* EthereumDataTests.swift in Sources */,
 				0EA5D3E82039120A0037C2BE /* RPCRequestJsonTests.swift in Sources */,
 			);

@@ -175,6 +175,14 @@ public extension Web3.Eth {
             }
         }
     }
+    
+    public func sendTransaction(transaction: EthereumTransaction) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.sendTransaction(transaction: transaction) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
 
     public func call(call: EthereumCall, block: EthereumQuantityTag) -> Promise<EthereumData> {
         return Promise { seal in
@@ -270,6 +278,37 @@ public extension Web3.Eth {
             }
         }
     }
+}
+
+public extension SolidityInvocation {
+    
+    public func call(block: EthereumQuantityTag = .latest) -> Promise<[String: Any]> {
+        return Promise { seal in
+            self.call(block: block, completion: seal.resolve)
+        }
+    }
+    
+    public func send(nonce: EthereumQuantity? = nil, from: EthereumAddress, value: EthereumQuantity?, gas: EthereumQuantity, gasPrice: EthereumQuantity?) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.send(nonce: nonce, from: from, value: value, gas: gas, gasPrice: gasPrice, completion: seal.resolve)
+        }
+    }
+    
+    public func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, value: EthereumQuantity? = nil) -> Promise<EthereumQuantity> {
+        return Promise { seal in
+            self.estimateGas(from: from, gas: gas, value: value, completion: seal.resolve)
+        }
+    }
+}
+
+public extension SolidityConstructorInvocation {
+    
+    public func send(nonce: EthereumQuantity? = nil, from: EthereumAddress, value: EthereumQuantity = 0, gas: EthereumQuantity, gasPrice: EthereumQuantity?) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.send(nonce: nonce, from: from, value: value, gas: gas, gasPrice: gasPrice, completion: seal.resolve)
+        }
+    }
+    
 }
 
 fileprivate extension Web3Response {
