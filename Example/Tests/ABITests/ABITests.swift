@@ -269,6 +269,17 @@ class ABITests: QuickSpec {
                         }
                     }
                     
+                    it("should decode empty dynamic arrays") {
+                        do {
+                            let string = "00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000"
+                            let test = try ABI.decodeParameters(types: [.array(type: .string, length: nil)], from: string).first as? [String]
+                            let expected = [String]()
+                            expect(test).to(equal(expected))
+                        } catch {
+                            fail()
+                        }
+                    }
+                    
                 }
                 
                 context("when decoding fixed arrays") {
@@ -300,6 +311,17 @@ class ABITests: QuickSpec {
                             let string = "000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000050000000000000000000000000000000000000000000000000000000000000006"
                             let test = try ABI.decodeParameters(types: [.array(type: .array(type: .uint32, length: 3), length: 2)], from: string).first as? [[UInt32]]
                             let expected: [[UInt32]] = [[1,2,3], [4,5,6]]
+                            expect(test).to(equal(expected))
+                        } catch {
+                            fail()
+                        }
+                    }
+                    
+                    it("should decode empty arrays") {
+                        do {
+                            let string = ""
+                            let test = try ABI.decodeParameters(types: [.array(type: .uint, length: 0)], from: string).first as? [String]
+                            let expected = [String]()
                             expect(test).to(equal(expected))
                         } catch {
                             fail()
