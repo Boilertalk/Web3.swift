@@ -37,7 +37,7 @@ script:
   - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
   # Actual script
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.4 -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' ONLY_ACTIVE_ARCH=YES | xcpretty;
+      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.4 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.3' ONLY_ACTIVE_ARCH=YES | xcpretty;
       pod lib lint --allow-warnings;
     fi
   - swift build
