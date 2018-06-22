@@ -11,7 +11,7 @@ import secp256k1
 import CryptoSwift
 import BigInt
 
-public class EthereumPublicKey {
+public final class EthereumPublicKey {
 
     // MARK: - Properties
 
