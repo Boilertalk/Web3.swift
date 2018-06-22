@@ -13,6 +13,16 @@ import Quick
 @testable import Web3Tests
 
 QCKMain([
+    // ABITests
+    ABIConvertibleTests.self,
+    ABITests.self,
+    SolidityTypeTests.self,
+    SolidityWrappedValueTests.self,
+
+    // ContractTests
+    ContractTests.self,
+    DynamicContractTests.self,
+
     // JsonTests
     EthereumBlockObjectTests.self,
     EthereumCallParamsTests.self,
@@ -29,6 +39,8 @@ QCKMain([
     RLPItemTests.self,
 
     // ToolboxTests
+    IntETHTests.self,
+    StringBytesTests.self,
     UIntBytesRepresentableTests.self,
 
     // TransactionTests
