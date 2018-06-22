@@ -18,6 +18,7 @@ xcode_sdk: iphonesimulator11.4
 # cache: cocoapods
 # podfile: Example/Podfile
 before_install:
+  - instruments -s devices
   - gem install cocoapods # Since Travis is not always on latest version
   - pod repo update
   - pod install --project-directory=Example
