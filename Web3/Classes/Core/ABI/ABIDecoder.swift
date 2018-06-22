@@ -188,6 +188,7 @@ class ABIDecoder {
     }
     
     private class func decodeFixedArray(elementType: SolidityType, length: Int, from hexString: String) throws -> [Any] {
+        guard length > 0 else { return [] }
         let elementSize = hexString.count / length
         return try (0..<length).compactMap { n in
             if let elementString = hexString.substr(n * elementSize, elementSize) {
