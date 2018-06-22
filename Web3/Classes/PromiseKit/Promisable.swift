@@ -7,6 +7,9 @@
 //
 
 import PromiseKit
+#if !Web3CocoaPods
+    import Web3
+#endif
 
 public protocol Promisable {
 
