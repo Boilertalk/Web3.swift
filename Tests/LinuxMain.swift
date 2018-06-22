@@ -16,7 +16,7 @@ QCKMain([
     // ABITests
     ABIConvertibleTests.self,
     ABITests.self,
-    SolidityTypeTests.self,
+    // SolidityTypeTests.self, --> TODO: Switch to QuickSpec
     SolidityWrappedValueTests.self,
 
     // ContractTests
