@@ -7,6 +7,9 @@
 
 import Foundation
 import BigInt
+#if !Web3CocoaPods
+    import Web3
+#endif
 
 class ABIDecoder {
     

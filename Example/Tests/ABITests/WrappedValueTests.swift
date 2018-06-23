@@ -9,6 +9,9 @@
 import XCTest
 import BigInt
 import Web3
+#if canImport(Web3ContractABI)
+    @testable import Web3ContractABI
+#endif
 
 class SolidityWrappedValueTests: XCTestCase {
     
