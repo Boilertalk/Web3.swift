@@ -33,8 +33,8 @@
       "name": "Core",
       "source_files": "Web3/Classes/Core/**/*",
       "dependencies": {
-        "BigInt.swift": [
-          "~> 1.0"
+        "BigInt": [
+          "~> 3.1"
         ],
         "CryptoSwift": [
           "~> 0.8"
