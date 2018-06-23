@@ -57,8 +57,7 @@ If you want to add support for IPC rpc or something else, you can simple create 
 this exact functionality. More about that later.    
 If you want to use [PromiseKit](https://github.com/mxcl/PromiseKit) extensions for the web3 calls, you can either use the
 provided PromiseKit subspec/SPM product or create your own.    
-If you want to conveniently parse JSON ABIs for Ethereum Smart Contracts, you can use the provided ABI Parsing subspec/SPM product
-which will be released in version 0.3.0.
+If you want to conveniently parse JSON ABIs for Ethereum Smart Contracts, you can use the provided ABI Parsing subspec/SPM product.
 
 Finally, if you want to add functionality to `Web3.swift` which is not provided yet, you don't have to wait until it gets merged
 and released in a version bump. You can simple extend/update functionality within you own app as our APIs are made to be very open
@@ -106,6 +105,13 @@ to your `Podfile`:
 pod 'Web3/PromiseKit'
 ```
 
+If you want to use the ContractABI module, which makes it easy to interact with smart contracts by calling
+their functions and parsing their outputs automatically, also add the following line to your `Podfile`:
+
+```ruby
+pod 'Web3/ContractABI'
+```
+
 ### Carthage
 
 Web3 is compatible with [Carthage](https://github.com/Carthage/Carthage), a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To install it, simply add the following line to your `Cartfile`:
@@ -113,6 +119,8 @@ Web3 is compatible with [Carthage](https://github.com/Carthage/Carthage), a dece
 ```
 github "Boilertalk/Web3.swift"
 ```
+
+You will also have to install the dependencies, which can be found in our [Cartfile](Cartfile).
 
 ### Swift Package Manager
 
@@ -130,15 +138,15 @@ And then add it to your target dependencies:
 targets: [
     .target(
         name: "MyProject",
-        dependencies: ["Web3"]),
+        dependencies: ["Web3", "Web3PromiseKit", "Web3ContractABI"]),
     .testTarget(
         name: "MyProjectTests",
         dependencies: ["MyProject"])
 ]
 ```
 
-> Note: If you want to use PromiseKit extensions with SPM, you also have to add `Web3PromiseKit`
-to your target dependencies and also import it in your code.
+> Note: `Web3PromiseKit` and `Web3ContractABI` are optional and you only have to put them into
+your target dependencies (and later import them) if you want to use them.
 
 After the installation you can import `Web3` in your `.swift` files.
 
@@ -147,6 +155,8 @@ import Web3
 ```
 
 ## Usage
+
+### Interaction with an Ethereum node
 
 With `Web3.swift` you can use an Ethereum node on a server to communicate with Ethereum.    
 You can send signed transactions, read contract data, call contract functions and much more.
@@ -166,7 +176,7 @@ __*Please see the examples below*__
 
 > Note: For the examples to work you need to import Web3 and PromiseKit first
 
-### Request web3_clientVersion
+#### Request web3_clientVersion
 
 Returns the current client version.
 
@@ -188,7 +198,7 @@ firstly {
 }
 ```
 
-### Request net_version
+#### Request net_version
 
 Returns the current network id.
 
@@ -210,7 +220,7 @@ firstly {
 }
 ```
 
-### Request net_PeerCount
+#### Request net_PeerCount
 
 Returns number of peers currently connected to the client.
 
@@ -232,7 +242,7 @@ firstly {
 }
 ```
 
-### Send raw transaction
+#### Send raw transaction
 
 Creates new message call transaction or a contract creation for signed transactions.
 
@@ -252,55 +262,14 @@ let privateKey = try! EthereumPrivateKey(hexPrivateKey: "0xa26da69ed1df3ba4bb2a2
 firstly {
     web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
 }.then { nonce in
-    Promise { seal in
-        let tx = EthereumTransaction(
-            nonce: nonce,
-            gasPrice: EthereumQuantity(quantity: 21.gwei),
-            gasLimit: 21000,
-            to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
-            value: EthereumQuantity(quantity: 1.eth)
-        )
-        let signedTx = try tx.sign(with: privateKey, chainId: 1)
-        seal.resolve(signedTx, nil)
-    }
-}.then { tx in
-    web3.eth.sendRawTransaction(transaction: tx)
-}.done { hash in
-    print(hash)
-}.catch { error in
-    print(error)
-}
-```
-
-You can even add some promise extensions to `EthereumTransaction` like below:
-
-```Swift
-extension EthereumTransaction {
-
-    func promiseSign(with: EthereumPrivateKey, chainId: EthereumQuantity = 0) -> Promise<EthereumSignedTransaction> {
-        return Promise { seal in
-            let tx = try self.sign(with: with, chainId: chainId)
-            seal.resolve(tx, nil)
-        }
-    }
-}
-```
-
-And then chop the whole block down to the following:
-
-```Swift
-let privateKey = try! EthereumPrivateKey(hexPrivateKey: "0xa26da69ed1df3ba4bb2a231d506b711eace012f1bd2571dfbfff9650b03375af")
-
-firstly {
-    web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
-}.then { nonce in
-    EthereumTransaction(
+    let tx = try EthereumTransaction(
         nonce: nonce,
         gasPrice: EthereumQuantity(quantity: 21.gwei),
         gasLimit: 21000,
         to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
         value: EthereumQuantity(quantity: 1.eth)
-    ).promiseSign(with: privateKey, chainId: 1)
+    )
+    return try tx.sign(with: privateKey, chainId: 1).promise
 }.then { tx in
     web3.eth.sendRawTransaction(transaction: tx)
 }.done { hash in
@@ -310,7 +279,7 @@ firstly {
 }
 ```
 
-### Request block transaction count by block number
+#### Request block transaction count by block number
 
 ```Swift
 firstly {
@@ -322,11 +291,124 @@ firstly {
 }
 ```
 
-### More examples
+#### More examples
 
 For more examples either read through [our test cases](https://github.com/Boilertalk/Web3.swift/blob/master/Example/Tests/Web3Tests/Web3HttpTests.swift),
 [the Web3 struct](https://github.com/Boilertalk/Web3.swift/blob/master/Web3/Classes/Core/Web3/Web3.swift)
 or [the official Ethereum JSON RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC).
+
+### Contract ABI interaction
+
+We are providing an optional module for interaction with smart contracts. To use it you have to either add the corresponding subspec to your Podfile (for Cococapods) or you have to add `Web3ContractABI` to your target dependencies in your Podfile (for SPM). Make sure you check out the [installation instructions](#Installation) first.
+
+We are providing two different options to create contract abi interfaces in Swift. Either you define your functions and events manually (or use one of our provided interfaces like [ERC20](Web3/Classes/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Classes/ContractABI/Contract/ERC721.swift)). Or you parse them from the JSON ABI representation just like in web3.js.
+
+### Static Contracts
+
+Static contracts are classes implementing `StaticContract`. They provide a set of functions and events they want to use from the original smart contract. Check out our provided static contracts as a starting point ([ERC20](Web3/Classes/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Classes/ContractABI/Contract/ERC721.swift)).
+
+Our static ERC20 interface is called `GenericERC20Contract`, the ERC721 contract is called `GenericERC721Contract`. Both can be subclassed to add more functions for custom contracts.
+
+With those `StaticContract` types you can create and use your contract like in the following example (We are using PromiseKit again in our examples).
+
+```Swift
+let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+
+let contractAddress = try EthereumAddress(hex: "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", eip55: true)
+let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
+
+// Get balance of some address
+firstly {
+    try contract.balanceOf(address: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true)).call()
+}.done { outputs in
+    print(outputs["_balance"] as? BigUInt)
+}.catch { error in
+    print(error)
+}
+
+// Send some tokens to another address (locally signing the transaction)
+let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "...")
+firstly {
+    web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
+}.then { nonce in
+    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).createTransaction(
+        nonce: nonce,
+        from: myPrivateKey.address,
+        value: 0,
+        gas: 100000,
+        gasPrice: EthereumQuantity(quantity: 21.gwei)
+    )!.sign(with: myPrivateKey).promise
+}.then { tx in
+    web3.eth.sendRawTransaction(transaction: tx)
+}.done { txHash in
+    print(txHash)
+}.catch { error in
+    print(error)
+}
+
+// Send some tokens to another address (signing will be done by the node)
+let myAddress = try EthereumAddress(hex: "0x1f04ef7263804fafb839f0d04e2b5a6a1a57dc60", eip55: true)
+firstly {
+    web3.eth.getTransactionCount(address: myAddress, block: .latest)
+}.then { nonce in
+    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).send(
+        nonce: nonce,
+        from: myAddress,
+        value: 0,
+        gas: 150000,
+        gasPrice: EthereumQuantity(quantity: 21.gwei)
+    )
+}.done { txHash in
+    print(txHash)
+}.catch { error in
+    print(error)
+}
+```
+
+By creating your own interfaces, you can interact with any smart contract!
+
+### Dynamic Contracts
+
+If you only have access to the JSON ABI of a smart contract or you don't want to create a static template, you can use our dynamic contract api to parse the json string into a usable contract *during runtime*. See the example below.
+
+```Swift
+let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+
+let contractAddress = try EthereumAddress(hex: "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", eip55: true)
+let contractJsonABI = "<your contract ABI as a JSON string>".data(using: .utf8)!
+// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
+let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
+
+print(contract.methods.count)
+
+// Get balance of some address
+firstly {
+    try contract["balanceOf"]!(EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true)).call()
+}.done { outputs in
+    print(outputs["_balance"] as? BigUInt)
+}.catch { error in
+    print(error)
+}
+
+// Send some tokens to another address (locally signing the transaction)
+let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "...")
+guard let transaction = contract["transfer"]?(EthereumAddress.testAddress, BigUInt(100000)).createTransaction(nonce: 0, from: myPrivateKey.address, value: 0, gas: 150000, gasPrice: EthereumQuantity(quantity: 21.gwei)) else {
+    return
+}
+let signedTx = try transaction.sign(with: myPrivateKey)
+
+firstly {
+    web3.eth.sendRawTransaction(transaction: signedTx)
+}.done { txHash in
+    print(txHash)
+}.catch { error in
+    print(error)
+}
+```
+
+Using this API you can interact with any smart contract in the Ethereum Network!
+
+For more examples, including contract creation (constructor calling) check out our [tests](Example/Tests/ContractTests).
 
 ## Disclaimer
 
