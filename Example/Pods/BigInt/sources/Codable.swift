@@ -122,10 +122,10 @@ extension BigInt: Codable {
             return try container.decode(UInt64.self)
         }
         let magnitude = BigUInt(words: words)
-        
+
         self.init(sign: sign, magnitude: magnitude)
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         try container.encode(sign == .plus ? "+" : "-")
@@ -148,10 +148,8 @@ extension BigUInt: Codable {
         }
         self = value.magnitude
     }
-    
+
     public func encode(to encoder: Encoder) throws {
         try BigInt(sign: .plus, magnitude: self).encode(to: encoder)
     }
 }
-
-
