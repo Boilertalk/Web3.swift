@@ -19,9 +19,9 @@ xcode_sdk: iphonesimulator11.4
 # podfile: Example/Podfile
 before_install:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then instruments -s devices; fi
-  - if [ $TRAVIS_OS_NAME == "osx" ]; gem install cocoapods; fi # Since Travis is not always on latest version
-  - if [ $TRAVIS_OS_NAME == "osx" ]; pod repo update; fi
-  - if [ $TRAVIS_OS_NAME == "osx" ]; pod install --project-directory=Example; fi
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then gem install cocoapods; fi # Since Travis is not always on latest version
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then pod repo update; fi
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then pod install --project-directory=Example; fi
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       echo "macOS build. swiftenv will not be installed.";
     else
