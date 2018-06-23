@@ -16,20 +16,26 @@ public extension QuickSpec {
 
     func loadStub(named: String) -> Data? {
         #if os(Linux) || os(FreeBSD)
-        let bundle = Bundle.getBundle(for: type(of: self))
+        let path = "Tests/Web3Tests/Stubs/\(named).json"
+        let url = URL(fileURLWithPath: path)
+        return try? Data(contentsOf: url)
         #else
         let bundle = Bundle(for: type(of: self))
-        #endif
+
         if let path = bundle.path(forResource: named, ofType: "json") {
             // XCTest
             let url = URL(fileURLWithPath: path)
             return try? Data(contentsOf: url)
         } else {
             // Swift Package Manager (https://bugs.swift.org/browse/SR-4725)
-            let basePath = bundle.bundlePath
-            let url = URL(fileURLWithPath: basePath + "/../../../../Tests/Web3Tests/Stubs/\(named).json")
+            // let basePath = bundle.bundlePath
+            // let url = URL(fileURLWithPath: basePath + "/../../../../Tests/Web3Tests/Stubs/\(named).json")
+            // return try? Data(contentsOf: url)
+            let path = "Tests/Web3Tests/Stubs/\(named).json"
+            let url = URL(fileURLWithPath: path)
             return try? Data(contentsOf: url)
         }
+        #endif
     }
 }
 
