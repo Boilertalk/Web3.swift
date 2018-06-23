@@ -11,6 +11,9 @@ import Nimble
 import BigInt
 import PromiseKit
 import Foundation
+#if canImport(Web3ContractABI)
+    @testable import Web3ContractABI
+#endif
 
 public extension QuickSpec {
 

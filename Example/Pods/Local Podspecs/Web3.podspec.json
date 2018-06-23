@@ -64,6 +64,15 @@
           "~> 6.0"
         ]
       }
+    },
+    {
+      "name": "ContractABI",
+      "source_files": "Web3/Classes/ContractABI/**/*",
+      "dependencies": {
+        "Web3/Core": [
+
+        ]
+      }
     }
   ]
 }

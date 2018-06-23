@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if !Web3CocoaPods
+    import Web3
+#endif
 
 /// Base protocol all contracts should adopt.
 /// Brokers relationship between Web3 and contract methods and events
