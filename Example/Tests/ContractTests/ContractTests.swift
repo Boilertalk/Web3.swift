@@ -13,16 +13,20 @@ import PromiseKit
 import Foundation
 
 public extension QuickSpec {
-    
+
     func loadStub(named: String) -> Data? {
+        #if os(Linux) || os(FreeBSD)
+        let bundle = Bundle.getBundle(for: type(of: self))
+        #else
         let bundle = Bundle(for: type(of: self))
+        #endif
         if let path = bundle.path(forResource: named, ofType: "json") {
             // XCTest
             let url = URL(fileURLWithPath: path)
             return try? Data(contentsOf: url)
         } else {
             // Swift Package Manager (https://bugs.swift.org/browse/SR-4725)
-            let basePath = Bundle(for: type(of: self)).bundlePath
+            let basePath = bundle.bundlePath
             let url = URL(fileURLWithPath: basePath + "/../../../../Tests/Web3Tests/Stubs/\(named).json")
             return try? Data(contentsOf: url)
         }
@@ -30,17 +34,17 @@ public extension QuickSpec {
 }
 
 class MockWeb3Provider: Web3Provider {
-    
+
     var stubs: [String: Data] = [:]
-    
+
     func addStub(method: String, data: Data) {
         stubs[method] = data
     }
-    
+
     func removeStub(method: String) {
         stubs[method] = nil
     }
-    
+
     func send<Params, Result>(request: RPCRequest<Params>, response: @escaping (Web3Response<Result>) -> Void) {
         if let stubbedData = stubs[request.method] {
             do {
@@ -56,20 +60,20 @@ class MockWeb3Provider: Web3Provider {
             response(err)
         }
     }
-    
+
 }
 
 // Example of subclassing a common token implementation
 class TestContract: GenericERC721Contract {
-    
+
     private let byteCode = try! EthereumData(ethereumValue: "0x0123456789ABCDEF")
-    
+
     // Example of a static constructor
     func deploy(name: String) -> SolidityConstructorInvocation {
         let constructor = SolidityConstructor(inputs: [SolidityFunctionParameter(name: "_name", type: .string)], handler: self)
         return constructor.invoke(byteCode: byteCode, parameters: [name])
     }
-    
+
     // Example of a static function
     func buyToken() -> SolidityInvocation {
         let method = SolidityPayableFunction(name: "buyToken", inputs: [], outputs: nil, handler: self)
@@ -78,33 +82,33 @@ class TestContract: GenericERC721Contract {
 }
 
 class ContractTests: QuickSpec {
-    
+
     func stubResponses(provider: MockWeb3Provider) {
         if let transactionData = loadStub(named: "sendTransaction") {
             provider.addStub(method: "eth_sendTransaction", data: transactionData)
         }
-        
+
         if let receiptData = loadStub(named: "getTransactionReceipt") {
             provider.addStub(method: "eth_getTransactionReceipt", data: receiptData)
         }
-        
+
         if let callData = loadStub(named: "call_getBalance") {
             provider.addStub(method: "eth_call", data: callData)
         }
-        
+
         if let gasData = loadStub(named: "estimateGas") {
             provider.addStub(method: "eth_estimateGas", data: gasData)
         }
     }
-    
+
     override func spec() {
-        
+
         describe("Contract") {
             let provider = MockWeb3Provider()
             stubResponses(provider: provider)
             let web3 = Web3(provider: provider)
             let contract = web3.eth.Contract(type: TestContract.self, address: .testAddress)
-            
+
             describe("Constructor method") {
                 it("should be able to be deployed") {
                     waitUntil { done in
@@ -116,11 +120,11 @@ class ContractTests: QuickSpec {
                     }
                 }
             }
-            
+
             describe("Constant method") {
-                
+
                 let invocation = contract.balanceOf(address: .testAddress)
-                
+
                 it("should succeed with call") {
                     waitUntil { done in
                         invocation.call().done { values in
@@ -131,7 +135,7 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-                
+
                 it("should fail with send") {
                     waitUntil { done in
                         invocation.send(from: .testAddress, value: nil, gas: 0, gasPrice: 0).catch { error in
@@ -140,13 +144,13 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-                
+
             }
-            
+
             describe("Payable method") {
-                
+
                 let invocation = contract.buyToken()
-                
+
                 it("should estimate gas") {
                     waitUntil { done in
                         firstly {
@@ -158,7 +162,7 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-                
+
                 it("should succeed with send") {
                     let expectedHash = try! EthereumData(ethereumValue: "0x0e670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331")
                     waitUntil { done in
@@ -172,7 +176,7 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-                
+
                 it("should fail with call") {
                     waitUntil { done in
                         invocation.call().catch { error in
@@ -181,13 +185,13 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-                
+
             }
-            
+
             describe("Non payable method") {
-                
+
                 let invocation = contract.transfer(to: .testAddress, tokenId: 1)
-                
+
                 it("should succeed with send") {
                     let expectedHash = try! EthereumData(ethereumValue: "0x0e670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331")
                     waitUntil { done in
@@ -199,7 +203,7 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-                
+
                 it("should fail with call") {
                     waitUntil { done in
                         invocation.call().catch { error in
@@ -209,10 +213,10 @@ class ContractTests: QuickSpec {
                     }
                 }
             }
-            
+
             describe("Event") {
                 let hash = try! EthereumData(ethereumValue: "0x0e670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331")
-                
+
                 it("should be decoded from a matching log") {
                     waitUntil { done in
                         firstly {
@@ -231,10 +235,10 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-                
+
             }
         }
-        
+
     }
-    
+
 }
