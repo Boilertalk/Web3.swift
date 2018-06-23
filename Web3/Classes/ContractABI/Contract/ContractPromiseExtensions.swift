@@ -14,6 +14,8 @@ import PromiseKit
     import Web3
 #endif
 
+// MARK: - Extensions
+
 public extension SolidityInvocation {
 
     public func call(block: EthereumQuantityTag = .latest) -> Promise<[String: Any]> {
@@ -43,5 +45,18 @@ public extension SolidityConstructorInvocation {
         }
     }
 }
+
+// MARK: - Promisable and Guaranteeable
+
+extension SolidityTuple: Guaranteeable {}
+extension SolidityWrappedValue: Guaranteeable {}
+extension ABIObject: Guaranteeable {}
+extension SolidityEmittedEvent: Guaranteeable {}
+extension SolidityEvent: Guaranteeable {}
+extension SolidityFunctionParameter: Guaranteeable {}
+extension SolidityReadInvocation: Guaranteeable {}
+extension SolidityPayableInvocation: Guaranteeable {}
+extension SolidityNonPayableInvocation: Guaranteeable {}
+extension SolidityConstructorInvocation: Guaranteeable {}
 
 #endif
