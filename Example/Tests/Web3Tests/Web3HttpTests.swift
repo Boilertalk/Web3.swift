@@ -12,7 +12,7 @@ import Nimble
 import BigInt
 import PromiseKit
 #if canImport(Web3PromiseKit)
-    import Web3PromiseKit
+    @testable import Web3PromiseKit
 #endif
 
 class Web3HttpTests: QuickSpec {

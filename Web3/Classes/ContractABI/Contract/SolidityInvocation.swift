@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if !Web3CocoaPods
+    import Web3
+#endif
 
 public enum InvocationError: Error {
     case contractNotDeployed

@@ -6,6 +6,9 @@
 //
 
 import Foundation
+#if !Web3CocoaPods
+    import Web3
+#endif
 
 /// A class that can accept invocations and forward to Web3
 public protocol SolidityFunctionHandler: class {
