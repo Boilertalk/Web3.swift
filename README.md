@@ -128,7 +128,7 @@ Web3 is compatible with Swift Package Manager v4 (Swift 4 and above). Simply add
 
 ```Swift
 dependencies: [
-    .package(url: "https://github.com/Boilertalk/Web3.swift.git", from: "0.2.0")
+    .package(url: "https://github.com/Boilertalk/Web3.swift.git", from: "0.3.0")
 ]
 ```
 
@@ -265,7 +265,7 @@ firstly {
     let tx = try EthereumTransaction(
         nonce: nonce,
         gasPrice: EthereumQuantity(quantity: 21.gwei),
-        gasLimit: 21000,
+        gas: 21000,
         to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
         value: EthereumQuantity(quantity: 1.eth)
     )
