@@ -32,7 +32,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.source_files = 'Web3/Classes/Core/**/*'
 
     # Core dependencies
-    ss.dependency 'BigInt.swift', '~> 1.0'
+    ss.dependency 'BigInt', '~> 3.1'
     ss.dependency 'CryptoSwift', '~> 0.8'
     ss.dependency 'secp256k1.swift', '~> 0.1'
   end
@@ -49,6 +49,12 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.dependency 'Web3/Core'
     # PromiseKit dependency
     ss.dependency 'PromiseKit/CorePromise', '~> 6.0'
+  end
+
+  s.subspec 'ContractABI' do |ss|
+    ss.source_files = 'Web3/Classes/ContractABI/**/*'
+
+    ss.dependency 'Web3/Core'
   end
 
   # s.resource_bundles = {
