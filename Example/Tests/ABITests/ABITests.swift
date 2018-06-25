@@ -402,6 +402,16 @@ class ABITests: QuickSpec {
                     fail()
                 }
             }
+            
+            it("should throw an error when parsing wrong type") {
+                let response = "0x454f530000000000000000000000000000000000000000000000000000000000"
+                do {
+                    let _ = try ABI.decodeParameters(types: [.string], from: response)
+                    fail("Decoder should throw an error")
+                } catch {
+                    expect(error).toNot(beNil())
+                }
+            }
         }
         
     }
