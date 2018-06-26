@@ -41,6 +41,8 @@ class ABIDecoder {
         mutating func decode(from hexString: String, ranges: inout [Range<String.Index>]) throws {
             var substring = staticString
             if type.isDynamic {
+                // We expect the value in the tail
+                guard ranges.count > 0 else { throw Error.couldNotDecodeType(type: type, string: hexString) }
                 let range = ranges.removeFirst()
                 substring = String(hexString[range])
             }
