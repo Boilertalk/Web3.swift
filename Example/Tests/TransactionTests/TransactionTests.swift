@@ -28,7 +28,7 @@ class TransactionTests: QuickSpec {
                     return
                 }
 
-                let tx = EthereumTransaction(nonce: 0, gasPrice: EthereumQuantity(quantity: 21.gwei), gasLimit: 21000, to: to, value: EthereumQuantity(quantity: 1.eth))
+                let tx = EthereumTransaction(nonce: 0, gasPrice: EthereumQuantity(quantity: 21.gwei), gas: 21000, to: to, value: EthereumQuantity(quantity: 1.eth))
 
                 // Sign transaction with private key
                 let newTx = try? tx.sign(with: privateKey, chainId: 3)

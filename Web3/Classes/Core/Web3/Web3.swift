@@ -109,6 +109,8 @@ public struct Web3 {
     public struct Eth {
 
         public let properties: Properties
+        
+        // MARK: - Methods
 
         public func protocolVersion(response: @escaping Web3ResponseCompletion<String>) {
             let req = BasicRPCRequest(
@@ -276,6 +278,24 @@ public struct Web3 {
                 params: [address, block]
             )
 
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func sendTransaction(
+            transaction: EthereumTransaction,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            guard transaction.from != nil else {
+                let error = Web3Response<EthereumData>(error: .requestFailed(nil))
+                response(error)
+                return
+            }
+            let req = RPCRequest<[EthereumTransaction]>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_sendTransaction",
+                params: [transaction]
+            )
             properties.provider.send(request: req, response: response)
         }
 

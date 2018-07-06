@@ -13,14 +13,15 @@ dist: trusty
 language: generic
 sudo: required
 
-osx_image: xcode9.3beta
-xcode_sdk: iphonesimulator11.3
+osx_image: xcode9.4
+xcode_sdk: iphonesimulator11.4
 # cache: cocoapods
 # podfile: Example/Podfile
 before_install:
-  - gem install cocoapods # Since Travis is not always on latest version
-  - pod repo update
-  - pod install --project-directory=Example
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then instruments -s devices; fi
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then gem install cocoapods; fi # Since Travis is not always on latest version
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then pod repo update; fi
+  - if [ $TRAVIS_OS_NAME == "osx" ]; then pod install --project-directory=Example; fi
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       echo "macOS build. swiftenv will not be installed.";
     else
@@ -37,7 +38,7 @@ script:
   - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
   # Actual script
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.3 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.3' ONLY_ACTIVE_ARCH=YES | xcpretty;
+      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.4 -destination 'platform=iOS Simulator,name=iPhone X,OS=11.4' ONLY_ACTIVE_ARCH=YES | xcpretty;
       pod lib lint --allow-warnings;
     fi
   - swift build
