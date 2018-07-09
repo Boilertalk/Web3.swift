@@ -109,6 +109,10 @@ public class DynamicContract: EthereumContract {
         return constructor?.invoke(byteCode: byteCode, parameters: parameters)
     }
     
+    public func deploy(byteCode: EthereumData, parameters: [ABIEncodable]) -> SolidityConstructorInvocation? {
+        return constructor?.invoke(byteCode: byteCode, parameters: parameters)
+    }
+    
     public func deploy(byteCode: EthereumData) -> SolidityConstructorInvocation? {
         return constructor?.invoke(byteCode: byteCode, parameters: [])
     }
