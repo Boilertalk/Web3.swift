@@ -25,10 +25,10 @@ public struct RPCResponse<Result: Codable>: Codable {
     public struct Error: Swift.Error, Codable {
 
         /// The error code
-        let code: Int
+        public let code: Int
 
         /// The error message
-        let message: String
+        public let message: String
         
         /// Description
         public var localizedDescription: String {
