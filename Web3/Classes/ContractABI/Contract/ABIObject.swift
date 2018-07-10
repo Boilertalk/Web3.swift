@@ -60,7 +60,7 @@ public struct ABIObject: Codable {
     let constant: Bool?
     
     // input parameters
-    let inputs: [Parameter]
+    let inputs: [Parameter]?
     
     // output parameters
     let outputs: [Parameter]?
