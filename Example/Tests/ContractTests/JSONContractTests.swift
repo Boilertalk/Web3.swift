@@ -187,5 +187,18 @@ class DynamicContractTests: QuickSpec {
             }
         }
         
+        describe("JSON Contract with fallback function") {
+            let provider = MockWeb3Provider()
+            stubResponses(provider: provider)
+            let web3 = Web3(provider: provider)
+            guard let data = loadStub(named: "Fallback") else { fail("Could not find stub for contract"); return }
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: "abi", address: .testAddress)
+                expect(contract).toNot(beNil())
+            } catch {
+                fail(error.localizedDescription)
+            }
+        }
+        
     }
 }

@@ -83,7 +83,7 @@ public struct SolidityEvent {
     public init?(abiObject: ABIObject) {
         guard abiObject.type == .event, let name = abiObject.name else { return nil }
         self.anonymous = abiObject.anonymous ?? false
-        self.inputs = abiObject.inputs.compactMap { Parameter($0) }
+        self.inputs = abiObject.inputs?.compactMap { Parameter($0) } ?? []
         self.name = name
     }
     

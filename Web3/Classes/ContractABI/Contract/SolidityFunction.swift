@@ -97,7 +97,7 @@ public class SolidityConstantFunction: SolidityFunction {
         guard abiObject.type == .function, abiObject.stateMutability?.isConstant == true else { return nil }
         guard let name = abiObject.name else { return nil }
         self.name = name
-        self.inputs = abiObject.inputs.compactMap { SolidityFunctionParameter($0) }
+        self.inputs = abiObject.inputs?.compactMap { SolidityFunctionParameter($0) } ?? []
         self.outputs = abiObject.outputs?.compactMap { SolidityFunctionParameter($0) }
         self.handler = handler
     }
@@ -126,7 +126,7 @@ public class SolidityPayableFunction: SolidityFunction {
         guard abiObject.type == .function, abiObject.stateMutability == .payable else { return nil }
         guard let name = abiObject.name else { return nil }
         self.name = name
-        self.inputs = abiObject.inputs.compactMap { SolidityFunctionParameter($0) }
+        self.inputs = abiObject.inputs?.compactMap { SolidityFunctionParameter($0) } ?? []
         self.handler = handler
     }
     
@@ -153,7 +153,7 @@ public class SolidityNonPayableFunction: SolidityFunction {
         guard abiObject.type == .function, abiObject.stateMutability == .nonpayable else { return nil }
         guard let name = abiObject.name else { return nil }
         self.name = name
-        self.inputs = abiObject.inputs.compactMap { SolidityFunctionParameter($0) }
+        self.inputs = abiObject.inputs?.compactMap { SolidityFunctionParameter($0) } ?? []
         self.handler = handler
     }
     
@@ -176,7 +176,7 @@ public class SolidityConstructor {
     
     public init?(abiObject: ABIObject, handler: SolidityFunctionHandler) {
         guard abiObject.type == .constructor else { return nil }
-        self.inputs = abiObject.inputs.compactMap { SolidityFunctionParameter($0) }
+        self.inputs = abiObject.inputs?.compactMap { SolidityFunctionParameter($0) } ?? []
         self.handler = handler
         self.payable = abiObject.payable ?? false
     }
