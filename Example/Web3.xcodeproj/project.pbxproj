@@ -26,6 +26,7 @@
 		0EA5D3F32039123A0037C2BE /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3F22039123A0037C2BE /* UInt+BytesRepresentableTests.swift */; };
 		0EA5D3F7203912790037C2BE /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA5D3F6203912790037C2BE /* Web3HttpTests.swift */; };
 		E54BAE94B0A9A8565CD31D93 /* Pods_Web3_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */; };
+		E807E53D20F5247A009CC575 /* Fallback.json in Resources */ = {isa = PBXBuildFile; fileRef = E807E53C20F5247A009CC575 /* Fallback.json */; };
 		E85B782520D1ED3F0069E3B4 /* JSONContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B781620D1ED3E0069E3B4 /* JSONContractTests.swift */; };
 		E85B782720D1ED3F0069E3B4 /* ContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85B781820D1ED3F0069E3B4 /* ContractTests.swift */; };
 		E85B782820D1ED3F0069E3B4 /* getBlock2.json in Resources */ = {isa = PBXBuildFile; fileRef = E85B781A20D1ED3F0069E3B4 /* getBlock2.json */; };
@@ -72,6 +73,7 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		746C365C55131A708ACBAB71 /* Web3.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Web3.podspec; path = ../Web3.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DA16060729F56349F6C9ADD3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		E807E53C20F5247A009CC575 /* Fallback.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Fallback.json; sourceTree = "<group>"; };
 		E85B781620D1ED3E0069E3B4 /* JSONContractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONContractTests.swift; sourceTree = "<group>"; };
 		E85B781820D1ED3F0069E3B4 /* ContractTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContractTests.swift; sourceTree = "<group>"; };
 		E85B781A20D1ED3F0069E3B4 /* getBlock2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = getBlock2.json; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				E85B781C20D1ED3F0069E3B4 /* call_tuple.json */,
 				E85B781D20D1ED3F0069E3B4 /* sendTransaction.json */,
 				E85B781E20D1ED3F0069E3B4 /* ERC721.json */,
+				E807E53C20F5247A009CC575 /* Fallback.json */,
 				E85B781F20D1ED3F0069E3B4 /* call_getBalance.json */,
 				E85B782020D1ED3F0069E3B4 /* LimitedMintableNonFungibleToken.json */,
 				E85B782120D1ED3F0069E3B4 /* TupleExample.json */,
@@ -334,6 +337,7 @@
 				E85B782920D1ED3F0069E3B4 /* getBlock3.json in Resources */,
 				E85B783020D1ED3F0069E3B4 /* estimateGas.json in Resources */,
 				E85B783120D1ED3F0069E3B4 /* getTransactionReceipt.json in Resources */,
+				E807E53D20F5247A009CC575 /* Fallback.json in Resources */,
 				E85B782D20D1ED3F0069E3B4 /* call_getBalance.json in Resources */,
 				E85B782A20D1ED3F0069E3B4 /* call_tuple.json in Resources */,
 				E85B782820D1ED3F0069E3B4 /* getBlock2.json in Resources */,
