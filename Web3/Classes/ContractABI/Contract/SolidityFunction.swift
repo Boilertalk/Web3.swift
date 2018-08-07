@@ -73,6 +73,8 @@ public protocol SolidityFunction: class {
     /// - Parameter inputs: Input values. Must be in the correct order.
     /// - Returns: Invocation object
     func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation
+
+    func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation
 }
 
 public extension SolidityFunction {
@@ -112,6 +114,10 @@ public class SolidityConstantFunction: SolidityFunction {
     public func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation {
         return SolidityReadInvocation(method: self, parameters: inputs, handler: handler)
     }
+
+    public func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation {
+        return SolidityReadInvocation(method: self, parameters: inputs, handler: handler)
+    }
 }
 
 /// Represents a function that can modify the state of the contract and can accept ETH.
@@ -139,6 +145,10 @@ public class SolidityPayableFunction: SolidityFunction {
     public func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation {
         return SolidityPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
+
+    public func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation {
+        return SolidityPayableInvocation(method: self, parameters: inputs, handler: handler)
+    }
 }
 
 /// Represents a function that can modify the state of the contract and cannot accept ETH.
@@ -164,6 +174,10 @@ public class SolidityNonPayableFunction: SolidityFunction {
     }
     
     public func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation {
+        return SolidityNonPayableInvocation(method: self, parameters: inputs, handler: handler)
+    }
+
+    public func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation {
         return SolidityNonPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
 }
