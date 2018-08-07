@@ -107,6 +107,20 @@ class DynamicContractTests: QuickSpec {
                             }
                         }
                     }
+
+                    it("should be able to call a method using an array of parameters") {
+                        waitUntil { done in
+                            contract.invokeMethod("balanceOf")?([EthereumAddress.testAddress]).call() { response, error in
+                                if let response = response, let balance = response["_balance"] as? BigUInt {
+                                    expect(balance).to(equal(1))
+                                    done()
+                                } else {
+                                    fail(error?.localizedDescription ?? "Empty response")
+                                }
+                            }
+
+                        }
+                    }
                     
                     it("should be able to create an EthereumCall") {
                         guard let call = contract["balanceOf"]?(EthereumAddress.testAddress).createCall() else {
