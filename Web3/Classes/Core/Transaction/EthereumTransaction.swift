@@ -69,9 +69,9 @@ public struct EthereumTransaction: Codable {
      * Signs this transaction with the given private key and returns an instance of `EthereumSignedTransaction`
      *
      * - parameter privateKey: The private key for the new signature.
-     * - parameter chainId: Optional chainId as described in EIP155.
+     * - parameter chainId: Optional chainId as described in EIP155. Default is 3 (Ropsten)
      */
-    public func sign(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity = 0) throws -> EthereumSignedTransaction {
+    public func sign(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity = 3) throws -> EthereumSignedTransaction {
         // These values are required for signing
         guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gas, let value = value else {
             throw EthereumSignedTransaction.Error.transactionInvalid

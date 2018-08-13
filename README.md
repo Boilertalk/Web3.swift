@@ -246,6 +246,8 @@ firstly {
 
 Creates new message call transaction or a contract creation for signed transactions.
 
+*Note: `chainId` parameter in `tx.sign` must be set to the correct chain. See EIP155 for list of chainIds.*
+
 **Parameters**
 
 1. `EthereumTransaction`: The signed transaction
