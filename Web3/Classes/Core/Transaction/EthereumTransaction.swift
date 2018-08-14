@@ -69,13 +69,14 @@ public struct EthereumTransaction: Codable {
      * Signs this transaction with the given private key and returns an instance of `EthereumSignedTransaction`
      *
      * - parameter privateKey: The private key for the new signature.
-     * - parameter chainId: Optional chainId as described in EIP155.
+     * - parameter chain: Wrapper for the chainId, as described in EIP155.
      */
-    public func sign(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity = 0) throws -> EthereumSignedTransaction {
+    public func sign(with privateKey: EthereumPrivateKey, chain: EthereumChain) throws -> EthereumSignedTransaction {
         // These values are required for signing
         guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gas, let value = value else {
             throw EthereumSignedTransaction.Error.transactionInvalid
         }
+        let chainId = EthereumQuantity(quantity: BigUInt(chain.rawValue))
         let rlp = RLPItem(
             nonce: nonce,
             gasPrice: gasPrice,
@@ -113,7 +114,7 @@ public struct EthereumTransaction: Codable {
             v: EthereumQuantity(quantity: v),
             r: EthereumQuantity(quantity: r),
             s: EthereumQuantity(quantity: s),
-            chainId: chainId
+            chain: chain
         )
     }
 }
@@ -149,7 +150,7 @@ public struct EthereumSignedTransaction {
     /// EC recovery ID
     public let s: EthereumQuantity
 
-    /// EIP 155 chainId. Mainnet: 1
+    /// EIP 155 chainId. Mainnet: .ethereumMain, i.e. 1
     public let chainId: EthereumQuantity
 
     // MARK: - Initialization
@@ -166,8 +167,8 @@ public struct EthereumSignedTransaction {
      * - parameter v: EC signature parameter v.
      * - parameter r: EC signature parameter r.
      * - parameter s: EC recovery ID.
-     * - parameter chainId: The chainId as described in EIP155. Mainnet: 1.
-     *                      If set to 0 and v doesn't contain a chainId,
+     * - parameter chain: Wrapper for the chainId, as described in EIP155. Mainnet: 1.
+     *                      If set to .legacy (i.e. 0) and v doesn't contain a chainId,
      *                      old style transactions are assumed.
      */
     public init(
@@ -180,7 +181,7 @@ public struct EthereumSignedTransaction {
         v: EthereumQuantity,
         r: EthereumQuantity,
         s: EthereumQuantity,
-        chainId: EthereumQuantity
+        chain: EthereumChain
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
@@ -191,6 +192,7 @@ public struct EthereumSignedTransaction {
         self.v = v
         self.r = r
         self.s = s
+        let chainId = EthereumQuantity(quantity: BigUInt(chain.rawValue))
 
         if chainId.quantity == 0 && v.quantity >= 37 {
             if v.quantity % 2 == 0 {
@@ -240,6 +242,64 @@ public struct EthereumSignedTransaction {
         case transactionInvalid
         case rlpItemInvalid
         case signatureMalformed
+    }
+}
+
+/**
+ * Chain ID (also known as the Network ID), used when signing transactions or creating signed transactions.
+ */
+public enum EthereumChain : RawRepresentable {
+    public typealias RawValue = Int
+
+    /// Unsafe to be used as this generates a signature without replay protection. Added for legacy purposes as the name states.
+    case legacy
+    case ethereumMain
+    case expanse
+    case ropsten
+    case rinkeby
+    case ubiq
+    case kovan
+    case ethereumClassic
+    case sokol
+    case core
+    case musicoin
+    case aquachain
+    case custom(Int)
+
+    public init(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .legacy
+        case 1: self = .ethereumMain
+        case 2: self = .expanse
+        case 3: self = .ropsten
+        case 4: self = .rinkeby
+        case 8: self = .ubiq
+        case 42: self = .kovan
+        case 61: self = .ethereumClassic
+        case 77: self = .sokol
+        case 99: self = .core
+        case 7762959: self = .musicoin
+        case 61717561: self = .aquachain
+        default: self = .custom(rawValue)
+        }
+    }
+
+    public var rawValue: Int {
+        switch self {
+        case .legacy: return 0
+        case .ethereumMain: return 1
+        case .expanse: return 2
+        case .ropsten: return 3
+        case .rinkeby: return 4
+        case .ubiq: return 8
+        case .kovan: return 42
+        case .ethereumClassic: return 61
+        case .sokol: return 77
+        case .core: return 99
+        case .musicoin: return 7762959
+        case .aquachain: return 61717561
+        case .custom(let value): return value
+        }
     }
 }
 
@@ -306,7 +366,7 @@ extension EthereumSignedTransaction: RLPItemConvertible {
             v: EthereumQuantity(quantity: v),
             r: EthereumQuantity(quantity: r),
             s: EthereumQuantity(quantity: s),
-            chainId: 0
+            chain: .ethereumMain
         )
     }
     
