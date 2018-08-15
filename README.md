@@ -269,7 +269,7 @@ firstly {
         to: EthereumAddress(hex: "0xC0866A1a0ed41e1aa75c932cA3c55fad847fd90D", eip55: true),
         value: EthereumQuantity(quantity: 1.eth)
     )
-    return try tx.sign(with: privateKey, chain: .ethereumMain).promise
+    return try tx.sign(with: privateKey, chain: .main).promise
 }.then { tx in
     web3.eth.sendRawTransaction(transaction: tx)
 }.done { hash in
@@ -337,7 +337,7 @@ firstly {
         value: 0,
         gas: 100000,
         gasPrice: EthereumQuantity(quantity: 21.gwei)
-    )!.sign(with: myPrivateKey, chain: .ethereumMain).promise
+    )!.sign(with: myPrivateKey, chain: .main).promise
 }.then { tx in
     web3.eth.sendRawTransaction(transaction: tx)
 }.done { txHash in
@@ -395,7 +395,7 @@ let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "...")
 guard let transaction = contract["transfer"]?(EthereumAddress.testAddress, BigUInt(100000)).createTransaction(nonce: 0, from: myPrivateKey.address, value: 0, gas: 150000, gasPrice: EthereumQuantity(quantity: 21.gwei)) else {
     return
 }
-let signedTx = try transaction.sign(with: myPrivateKey, chain: .ethereumMain)
+let signedTx = try transaction.sign(with: myPrivateKey, chain: .main)
 
 firstly {
     web3.eth.sendRawTransaction(transaction: signedTx)
