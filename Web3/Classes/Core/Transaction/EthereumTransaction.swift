@@ -253,7 +253,7 @@ public enum EthereumChain : RawRepresentable {
 
     /// Unsafe to be used as this generates a signature without replay protection. Added for legacy purposes as the name states.
     case legacy
-    case ethereumMain
+    case main
     case expanse
     case ropsten
     case rinkeby
@@ -269,7 +269,7 @@ public enum EthereumChain : RawRepresentable {
     public init(rawValue: Int) {
         switch rawValue {
         case 0: self = .legacy
-        case 1: self = .ethereumMain
+        case 1: self = .main
         case 2: self = .expanse
         case 3: self = .ropsten
         case 4: self = .rinkeby
@@ -287,7 +287,7 @@ public enum EthereumChain : RawRepresentable {
     public var rawValue: Int {
         switch self {
         case .legacy: return 0
-        case .ethereumMain: return 1
+        case .main: return 1
         case .expanse: return 2
         case .ropsten: return 3
         case .rinkeby: return 4
