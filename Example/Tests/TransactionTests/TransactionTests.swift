@@ -31,7 +31,7 @@ class TransactionTests: QuickSpec {
                 let tx = EthereumTransaction(nonce: 0, gasPrice: EthereumQuantity(quantity: 21.gwei), gas: 21000, to: to, value: EthereumQuantity(quantity: 1.eth))
 
                 // Sign transaction with private key
-                let newTx = try? tx.sign(with: privateKey, chainId: 3)
+                let newTx = try? tx.sign(with: privateKey, chain: .main)
                 it("should not be nil") {
                     expect(newTx).toNot(beNil())
                 }
