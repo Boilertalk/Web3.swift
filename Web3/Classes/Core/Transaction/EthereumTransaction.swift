@@ -343,32 +343,7 @@ extension RLPItem {
     
 }
 
-extension EthereumSignedTransaction: RLPItemConvertible {
-
-    public init(rlp: RLPItem) throws {
-        guard let array = rlp.array, array.count == 9 else {
-            throw Error.rlpItemInvalid
-        }
-        guard let nonce = array[0].bigUInt, let gasPrice = array[1].bigUInt, let gasLimit = array[2].bigUInt,
-            let toBytes = array[3].bytes, let to = try? EthereumAddress(rawAddress: toBytes),
-            let value = array[4].bigUInt, let data = array[5].bytes, let v = array[6].bigUInt,
-            let r = array[7].bigUInt, let s = array[8].bigUInt else {
-                throw Error.rlpItemInvalid
-        }
-
-        self.init(
-            nonce: EthereumQuantity(quantity: nonce),
-            gasPrice: EthereumQuantity(quantity: gasPrice),
-            gasLimit: EthereumQuantity(quantity: gasLimit),
-            to: to,
-            value: EthereumQuantity(quantity: value),
-            data: EthereumData(bytes: data),
-            v: EthereumQuantity(quantity: v),
-            r: EthereumQuantity(quantity: r),
-            s: EthereumQuantity(quantity: s),
-            chain: .ethereumMain
-        )
-    }
+extension EthereumSignedTransaction: RLPItemRepresentable {
     
     public func rlp() -> RLPItem {
         return RLPItem(
