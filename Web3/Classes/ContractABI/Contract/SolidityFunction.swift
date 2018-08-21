@@ -74,7 +74,7 @@ public protocol SolidityFunction: class {
     /// - Returns: Invocation object
     func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation
 
-    func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation
+    func invoke(arrayOfInputs: [ABIEncodable]) -> SolidityInvocation
 }
 
 public extension SolidityFunction {
@@ -115,8 +115,8 @@ public class SolidityConstantFunction: SolidityFunction {
         return SolidityReadInvocation(method: self, parameters: inputs, handler: handler)
     }
 
-    public func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation {
-        return SolidityReadInvocation(method: self, parameters: inputs, handler: handler)
+    public func invoke(arrayOfInputs: [ABIEncodable]) -> SolidityInvocation {
+        return SolidityReadInvocation(method: self, parameters: arrayOfInputs, handler: handler)
     }
 }
 
@@ -146,8 +146,8 @@ public class SolidityPayableFunction: SolidityFunction {
         return SolidityPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
 
-    public func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation {
-        return SolidityPayableInvocation(method: self, parameters: inputs, handler: handler)
+    public func invoke(arrayOfInputs: [ABIEncodable]) -> SolidityInvocation {
+        return SolidityPayableInvocation(method: self, parameters: arrayOfInputs, handler: handler)
     }
 }
 
@@ -177,8 +177,8 @@ public class SolidityNonPayableFunction: SolidityFunction {
         return SolidityNonPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
 
-    public func invoke(_ inputs: [ABIEncodable]) -> SolidityInvocation {
-        return SolidityNonPayableInvocation(method: self, parameters: inputs, handler: handler)
+    public func invoke(arrayOfInputs: [ABIEncodable]) -> SolidityInvocation {
+        return SolidityNonPayableInvocation(method: self, parameters: arrayOfInputs, handler: handler)
     }
 }
 
