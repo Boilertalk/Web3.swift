@@ -36,7 +36,7 @@ class TransactionTests: QuickSpec {
                     expect(newTx).toNot(beNil())
                 }
 
-                let expectedTransaction = "0xf86c808504e3b2920082520894867aeeeed428ed9ba7f97fc7e16f16dfcf02f375880de0b6b3a76400008029a099060c9146c68716da3a79533866dc941a03b171911d675f518c97a73882f7a6a0019167adb26b602501c954e7793e798407836f524b9778f5be6ebece5fc998c6"
+                let expectedTransaction = "0xf86c808504e3b2920082520894867aeeeed428ed9ba7f97fc7e16f16dfcf02f375880de0b6b3a76400008026a05d9fb6e88cead48b65d5f9d9e3256be4105bceec356c85dfcc6f84fd4e8314a2a04487c0f65ef0b416ec3f6f3843370e68afa9d2c1d5af09500ff5b35a9fe05c7d"
 
                 it("should produce the expected rlp encoding") {
                     expect(try? RLPEncoder().encode(newTx!.rlp()).hexString(prefix: true)) == expectedTransaction
