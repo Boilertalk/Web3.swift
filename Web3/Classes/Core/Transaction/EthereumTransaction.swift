@@ -150,7 +150,7 @@ public struct EthereumSignedTransaction {
     /// EC recovery ID
     public let s: EthereumQuantity
 
-    /// EIP 155 chainId. Mainnet: .ethereumMain, i.e. 1
+    /// EIP 155 chainId. Mainnet: .main, i.e. 1
     public let chainId: EthereumQuantity
 
     // MARK: - Initialization
@@ -167,7 +167,7 @@ public struct EthereumSignedTransaction {
      * - parameter v: EC signature parameter v.
      * - parameter r: EC signature parameter r.
      * - parameter s: EC recovery ID.
-     * - parameter chain: Wrapper for the chainId, as described in EIP155. Mainnet: 1.
+     * - parameter chain: Wrapper for the chainId, as described in EIP155. Mainnet: .main.
      *                      If set to .legacy (i.e. 0) and v doesn't contain a chainId,
      *                      old style transactions are assumed.
      */
