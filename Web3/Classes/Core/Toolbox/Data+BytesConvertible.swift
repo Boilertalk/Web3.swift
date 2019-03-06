@@ -21,4 +21,8 @@ extension Data: BytesConvertible {
         _ = copyBytes(to: buffer)
         return array
     }
+    
+    public init(raw bytes: Bytes) throws {
+        self.init(bytes: bytes)
+    }
 }

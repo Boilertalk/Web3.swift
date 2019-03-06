@@ -51,7 +51,7 @@ public struct EthereumTransaction: Codable {
         from: EthereumAddress? = nil,
         to: EthereumAddress? = nil,
         value: EthereumQuantity? = nil,
-        data: EthereumData = EthereumData(bytes: [])
+        data: EthereumData = EthereumData(raw: [])
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
@@ -100,8 +100,8 @@ public struct EthereumTransaction: Codable {
             v = sigV + big27 + chainIdCalc
         }
         
-        let r = BigUInt(bytes: signature.r)
-        let s = BigUInt(bytes: signature.s)
+        let r = BigUInt(raw: signature.r)
+        let s = BigUInt(raw: signature.s)
         
         return EthereumSignedTransaction(
             nonce: nonce,
@@ -302,7 +302,7 @@ extension EthereumSignedTransaction: RLPItemConvertible {
             gasLimit: EthereumQuantity(quantity: gasLimit),
             to: to,
             value: EthereumQuantity(quantity: value),
-            data: EthereumData(bytes: data),
+            data: EthereumData(raw: data),
             v: EthereumQuantity(quantity: v),
             r: EthereumQuantity(quantity: r),
             s: EthereumQuantity(quantity: s),

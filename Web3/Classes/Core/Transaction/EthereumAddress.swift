@@ -202,7 +202,7 @@ extension EthereumAddress: Equatable {
 
 extension EthereumAddress: BytesConvertible {
 
-    public init(bytes: Bytes) throws {
+    public init(raw bytes: Bytes) throws {
         try self.init(rawAddress: bytes)
     }
 

@@ -32,7 +32,7 @@ public final class EthereumPublicKey {
     /**
      * Convenient initializer for `init(publicKey:)`
      */
-    public required convenience init(bytes: Bytes) throws {
+    public required convenience init(raw bytes: Bytes) throws {
         try self.init(publicKey: bytes)
     }
 

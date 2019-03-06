@@ -20,7 +20,7 @@ extension String: BytesConvertible {
     /**
      * Initializes a string with the given UTF8 represented byte array
      */
-    public init(bytes: Bytes) {
+    public init(raw bytes: Bytes) {
         self = bytes.makeString()
     }
 }

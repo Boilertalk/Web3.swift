@@ -12,7 +12,7 @@ public struct EthereumData: BytesConvertible {
 
     public let bytes: Bytes
 
-    public init(bytes: Bytes) {
+    public init(raw bytes: Bytes) {
         self.bytes = bytes
     }
 
@@ -36,7 +36,7 @@ extension EthereumData: EthereumValueConvertible {
             throw EthereumValueInitializableError.notInitializable
         }
 
-        try self.init(bytes: str.hexBytes())
+        try self.init(raw: str.hexBytes())
     }
 
     public func ethereumValue() -> EthereumValue {

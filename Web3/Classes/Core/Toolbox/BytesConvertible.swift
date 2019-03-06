@@ -25,7 +25,7 @@ public protocol BytesRepresentable {
  * Implementable if the type can be represented with Bytes
  */
 public protocol BytesInitializable {
-    init(bytes: Bytes) throws
+    init(raw bytes: Bytes) throws
 }
 
 /**
@@ -36,6 +36,6 @@ public typealias BytesConvertible = BytesRepresentable & BytesInitializable
 extension BytesInitializable {
     public init(bytes: BytesRepresentable) throws {
         let bytes = try bytes.makeBytes()
-        try self.init(bytes: bytes)
+        try self.init(raw: bytes)
     }
 }
