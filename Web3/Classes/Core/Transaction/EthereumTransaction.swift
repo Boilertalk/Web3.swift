@@ -72,22 +72,11 @@ public struct EthereumTransaction: Codable {
      * - parameter chainId: Optional chainId as described in EIP155.
      */
     public func sign(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity = 0) throws -> EthereumSignedTransaction {
-        // These values are required for signing
         guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gas, let value = value else {
             throw EthereumSignedTransaction.Error.transactionInvalid
         }
-        let rlp = RLPItem(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            v: chainId,
-            r: 0,
-            s: 0
-        )
-        let rawRlp = try RLPEncoder().encode(rlp)
+        
+        let rawRlp = try self.rawRlp(chainId: chainId)
         let signature = try privateKey.sign(message: rawRlp)
         
         let v: BigUInt
@@ -115,6 +104,25 @@ public struct EthereumTransaction: Codable {
             s: EthereumQuantity(quantity: s),
             chainId: chainId
         )
+    }
+    
+    public func rawRlp(chainId: EthereumQuantity = 0) throws -> Bytes {
+        // These values are required for signing
+        guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gas, let value = value else {
+            throw EthereumSignedTransaction.Error.transactionInvalid
+        }
+        let rlp = RLPItem(
+            nonce: nonce,
+            gasPrice: gasPrice,
+            gasLimit: gasLimit,
+            to: to,
+            value: value,
+            data: data,
+            v: chainId,
+            r: 0,
+            s: 0
+        )
+        return try RLPEncoder().encode(rlp)
     }
 }
 
