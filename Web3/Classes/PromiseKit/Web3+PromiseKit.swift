@@ -286,6 +286,23 @@ public extension Web3.Eth {
             }
         }
     }
+    
+    public func getLogs(
+        fromBlock: EthereumQuantityTag? = nil,
+        toBlock: EthereumQuantityTag? = nil,
+        address: EthereumAddress? = nil,
+        topics: [EthereumTopic]? = nil,
+        blockhash: EthereumData? = nil
+    ) -> Promise<[EthereumLogObject]> {
+        return Promise { seal in
+            self.getLogs(
+                fromBlock: fromBlock, toBlock: toBlock, address: address,
+                topics: topics, blockhash: blockhash
+            ) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
 }
 
 extension Web3.Personal {
