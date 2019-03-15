@@ -183,6 +183,14 @@ public extension Web3.Eth {
             }
         }
     }
+    
+    public func sign(account: EthereumAddress, message: EthereumData) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.sign(account: account, message: message) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
 
     public func call(call: EthereumCall, block: EthereumQuantityTag) -> Promise<EthereumData> {
         return Promise { seal in
@@ -274,6 +282,90 @@ public extension Web3.Eth {
     ) -> Promise<EthereumBlockObject?> {
         return Promise { seal in
             self.getUncleByBlockNumberAndIndex(block: block, uncleIndex: uncleIndex) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+}
+
+extension Web3.Personal {
+
+    public func importRawKey(
+        privateKey: EthereumData,
+        password: String
+    ) -> Promise<EthereumAddress> {
+        return Promise { seal in
+            self.importRawKey(privateKey: privateKey, password: password) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+
+    public func listAccounts() -> Promise<[EthereumAddress]> {
+        return Promise { seal in
+            self.listAccounts() { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+
+    public func newAccount(password: String) -> Promise<EthereumAddress> {
+        return Promise { seal in
+            self.newAccount(password: password) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+
+    public func lockAccount(account: EthereumAddress) -> Promise<Bool> {
+        return Promise { seal in
+            self.lockAccount(account: account) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+
+    public func unlockAccount(
+            account: EthereumAddress,
+            password: String,
+            duration: Int? = nil
+    ) -> Promise<Bool> {
+        return Promise { seal in
+            self.unlockAccount(account: account, password: password, duration: duration) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+
+    public func sendTransaction(
+            transaction: EthereumTransaction,
+            password: String
+    ) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.sendTransaction(transaction: transaction, password: password) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+
+    public func sign(
+            message: EthereumData,
+            account: EthereumAddress,
+            password: String
+    ) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.sign(message: message, account: account, password: password) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+
+    public func ecRecover(
+            message: EthereumData,
+            signature: EthereumData
+    ) -> Promise<EthereumAddress> {
+        return Promise { seal in
+            self.ecRecover(message: message, signature: signature) { response in
                 response.sealPromise(seal: seal)
             }
         }

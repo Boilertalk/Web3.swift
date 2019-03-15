@@ -208,6 +208,7 @@
 		914800174852B084AC0537FD38754F43 /* ErrorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36DEA96406CF8A347805C31D9266E3 /* ErrorUtility.swift */; };
 		91487DD574643E3E8A758C51F2EC7610 /* scalar_8x32.h in Headers */ = {isa = PBXBuildFile; fileRef = 4125C85D9F09F5AC29147DE17DCC911C /* scalar_8x32.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		926A649FE11EFDCB42727D024C7F4A5D /* Callsite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCD6711AAC48BA327829E1268A3797 /* Callsite.swift */; };
+		92EF3D12223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EF3D11223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift */; };
 		92F13FB701DC782CB8797D80CD7933A9 /* lax_der_privatekey_parsing.c in Sources */ = {isa = PBXBuildFile; fileRef = 83A4CD9D149507CA5E3CCE4AAAE1133A /* lax_der_privatekey_parsing.c */; };
 		94363B8EAFE5F672D35B60FFAA72033D /* Eth+ABI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC3D45D9F61E8B1D01F14015B63719C /* Eth+ABI.swift */; };
 		94404006C5971B66FA38FA0F1E1D3279 /* EthereumBlockObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F61EEAD05FC597C56DCEC6F4626CFDC /* EthereumBlockObject.swift */; };
@@ -731,6 +732,7 @@
 		91A745AAC55912D298E6F3D10BEEFCA8 /* NMBStringify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NMBStringify.h; path = Sources/NimbleObjectiveC/NMBStringify.h; sourceTree = "<group>"; };
 		91C8DEAE81847E961F496521D2E3D482 /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = Sources/Nimble/Utils/Errors.swift; sourceTree = "<group>"; };
 		926547A3D75C34FD14D40B949F0A166B /* PromiseKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PromiseKit.h; path = Sources/PromiseKit.h; sourceTree = "<group>"; };
+		92EF3D11223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPersonalSignTransactionParams.swift; sourceTree = "<group>"; };
 		9380A65714A0FEF67E1C38FDA0135C68 /* Pods-Web3_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Web3_Tests.modulemap"; sourceTree = "<group>"; };
 		93886933DBA27BCE1273A64D539246D7 /* BeVoid.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeVoid.swift; path = Sources/Nimble/Matchers/BeVoid.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -1689,6 +1691,7 @@
 			children = (
 				8F61EEAD05FC597C56DCEC6F4626CFDC /* EthereumBlockObject.swift */,
 				5E87ACC8BB25135A1022E6A41E68C1C7 /* EthereumCall.swift */,
+				92EF3D11223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift */,
 				70317A400765B75742A5FF1CF2712B02 /* EthereumData.swift */,
 				FF93B4CEEA870FB496C43ADE996020AC /* EthereumLogObject.swift */,
 				032AB1281D714206F80C5FC8CA568E26 /* EthereumQuantity.swift */,
@@ -2132,6 +2135,7 @@
 				94363B8EAFE5F672D35B60FFAA72033D /* Eth+ABI.swift in Sources */,
 				505804306290152567A078C676DF877A /* Eth+Contract.swift in Sources */,
 				6F72B22B8AC4DAF29DEF5CE8136AC285 /* EthereumAddress.swift in Sources */,
+				92EF3D12223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift in Sources */,
 				94404006C5971B66FA38FA0F1E1D3279 /* EthereumBlockObject.swift in Sources */,
 				8B4A0A3B31FF6A9BA12F98DFA897CC05 /* EthereumCall.swift in Sources */,
 				7BFFD6AB777EBEC9B1F1C13B42A98093 /* EthereumContract.swift in Sources */,

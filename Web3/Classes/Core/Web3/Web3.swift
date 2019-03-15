@@ -19,10 +19,24 @@ public struct Web3 {
 
     public let properties: Properties
 
-    public struct Properties {
-
+    public class Properties {
         public let provider: Web3Provider
-        public let rpcId: Int
+        private var _rpcId: Int32
+        private let _lock: NSLock
+        
+        public init(provider: Web3Provider) {
+            self.provider = provider
+            self._rpcId = 0
+            self._lock = NSLock()
+        }
+        
+        // Better to use atomic, but for now Swift doesn't have good atomic support
+        var rpcId: Int {
+            _lock.lock()
+            defer { _lock.unlock() }
+            _rpcId = _rpcId < Int32.max ? _rpcId + 1 : 1
+            return Int(_rpcId)
+        }
     }
 
     // MARK: - Convenient properties
@@ -40,6 +54,9 @@ public struct Web3 {
 
     /// The struct holding all `eth` requests
     public let eth: Eth
+    
+    // The struct holding all `personal` requests
+    public let personal: Personal
 
     // MARK: - Initialization
 
@@ -47,13 +64,13 @@ public struct Web3 {
      * Initializes a new instance of `Web3` with the given custom provider.
      *
      * - parameter provider: The provider which handles all requests and responses.
-     * - parameter rpcId: The rpc id to be used in all requests. Defaults to 1.
      */
-    public init(provider: Web3Provider, rpcId: Int = 1) {
-        let properties = Properties(provider: provider, rpcId: rpcId)
+    public init(provider: Web3Provider) {
+        let properties = Properties(provider: provider)
         self.properties = properties
         self.net = Net(properties: properties)
         self.eth = Eth(properties: properties)
+        self.personal = Personal(properties: properties)
     }
 
     // MARK: - Web3 methods
@@ -72,9 +89,7 @@ public struct Web3 {
     }
 
     // MARK: - Net methods
-
     public struct Net {
-
         public let properties: Properties
 
         /**
@@ -105,9 +120,7 @@ public struct Web3 {
     }
 
     // MARK: - Eth methods
-
     public struct Eth {
-
         public let properties: Properties
         
         // MARK: - Methods
@@ -278,6 +291,21 @@ public struct Web3 {
                 params: [address, block]
             )
 
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func sign(
+            account: EthereumAddress,
+            message: EthereumData,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_sign",
+                params: [account, message]
+            )
+            
             properties.provider.send(request: req, response: response)
         }
         
@@ -454,6 +482,139 @@ public struct Web3 {
                 params: [block, uncleIndex]
             )
 
+            properties.provider.send(request: req, response: response)
+        }
+    }
+    
+    // MARK: - Personal methods
+    
+    public struct Personal {
+        public let properties: Properties
+        
+        public func importRawKey(
+            privateKey: EthereumData,
+            password: String,
+            response: @escaping Web3ResponseCompletion<EthereumAddress>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_importRawKey",
+                params: [privateKey, password]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func listAccounts(
+            response: @escaping Web3ResponseCompletion<[EthereumAddress]>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_listAccounts",
+                params: []
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func newAccount(
+            password: String,
+            response: @escaping Web3ResponseCompletion<EthereumAddress>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_newAccount",
+                params: [password]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func lockAccount(
+            account: EthereumAddress,
+            response: @escaping Web3ResponseCompletion<Bool>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_lockAccount",
+                params: [account]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func unlockAccount(
+            account: EthereumAddress,
+            password: String,
+            duration: Int? = nil,
+            response: @escaping Web3ResponseCompletion<Bool>
+        ) {
+            let params: [EthereumValueRepresentable] = duration != nil
+                ? [account, password, duration!]
+                : [account, password]
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_unlockAccount",
+                params: EthereumValue(array: params)
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func sendTransaction(
+            transaction: EthereumTransaction,
+            password: String,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            guard transaction.from != nil else {
+                let error = Web3Response<EthereumData>(error: .requestFailed(nil))
+                response(error)
+                return
+            }
+            let req = RPCRequest<EthereumPersonalSignTransactionParams>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_sendTransaction",
+                params: EthereumPersonalSignTransactionParams(
+                    transaction: transaction, password: password
+                )
+            )
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func sign(
+            message: EthereumData,
+            account: EthereumAddress,
+            password: String,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_sign",
+                params: [message, account, password]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func ecRecover(
+            message: EthereumData,
+            signature: EthereumData,
+            response: @escaping Web3ResponseCompletion<EthereumAddress>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_ecRecover",
+                params: [message, signature]
+            )
+            
             properties.provider.send(request: req, response: response)
         }
     }
