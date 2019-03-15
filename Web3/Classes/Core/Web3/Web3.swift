@@ -484,6 +484,28 @@ public struct Web3 {
 
             properties.provider.send(request: req, response: response)
         }
+        
+        public func getLogs(
+            fromBlock: EthereumQuantityTag? = nil,
+            toBlock: EthereumQuantityTag? = nil,
+            address: EthereumAddress? = nil,
+            topics: [EthereumTopic]? = nil,
+            blockhash: EthereumData? = nil,
+            response: @escaping Web3ResponseCompletion<[EthereumLogObject]>
+        ) {
+            let param = EthereumGetLogsParams(
+                fromBlock: fromBlock, toBlock: toBlock, address: address,
+                topics: topics, blockhash: blockhash
+            )
+            let req = RPCRequest<[EthereumGetLogsParams]>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getLogs",
+                params: [param]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
     }
     
     // MARK: - Personal methods
