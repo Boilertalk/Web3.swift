@@ -1421,7 +1421,7 @@
 				92EF3D24223D3F330068F1CC /* EthereumFilterEngine.swift */,
 			);
 			name = Filters;
-			path = Web3/Classes/Filters;
+			path = Web3/Classes/Core/Filters;
 			sourceTree = "<group>";
 		};
 		934F7FAB1D816EFCA3E2A2BE7F2BBCD8 /* Support Files */ = {
