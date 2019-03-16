@@ -496,7 +496,7 @@
 
 /* Begin PBXFileReference section */
 		02187B67AADED39E71E6A5D9E48300DD /* group_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = group_impl.h; path = secp256k1/Classes/secp256k1/src/group_impl.h; sourceTree = "<group>"; };
-		026DD2270201508265868A5FE24FF4EB /* Web3+HTTPInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Web3+HTTPInitializer.swift"; path = "Web3/Classes/FoundationHTTP/Web3+HTTPInitializer.swift"; sourceTree = "<group>"; };
+		026DD2270201508265868A5FE24FF4EB /* Web3+HTTPInitializer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Web3+HTTPInitializer.swift"; sourceTree = "<group>"; };
 		02A1C6DB05A9F83953A027C6559DB9D4 /* Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Codable.swift; path = sources/Codable.swift; sourceTree = "<group>"; };
 		02E5B31E818D90BAB6C71A62A81CCEF0 /* main_impl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = main_impl.h; path = secp256k1/Classes/secp256k1/src/modules/ecdh/main_impl.h; sourceTree = "<group>"; };
 		02FCD6711AAC48BA327829E1268A3797 /* Callsite.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Callsite.swift; path = Sources/Quick/Callsite.swift; sourceTree = "<group>"; };
@@ -698,7 +698,7 @@
 		761E1E4EA04DFF51B02EF4DEBD3B8E3A /* MatcherProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatcherProtocols.swift; path = Sources/Nimble/Matchers/MatcherProtocols.swift; sourceTree = "<group>"; };
 		784F4C2AFDB34A74E5CD0A26F641583C /* Quick-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Quick-umbrella.h"; sourceTree = "<group>"; };
 		792169B8BC5C9C4E6D7D977DC10E6E0D /* Quick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Quick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		794819AADA5399461D0C62C61DFF880C /* Web3HttpProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Web3HttpProvider.swift; path = Web3/Classes/FoundationHTTP/Web3HttpProvider.swift; sourceTree = "<group>"; };
+		794819AADA5399461D0C62C61DFF880C /* Web3HttpProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Web3HttpProvider.swift; sourceTree = "<group>"; };
 		796E393D1403ED92E609430553F67F98 /* CMAC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CMAC.swift; path = Sources/CryptoSwift/CMAC.swift; sourceTree = "<group>"; };
 		798E95787C92F6A7D18E0F557A48EE15 /* CBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CBC.swift; path = Sources/CryptoSwift/BlockMode/CBC.swift; sourceTree = "<group>"; };
 		7B0F94DBF0F9234BD8344DD5559F1CDA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1420,7 +1420,8 @@
 				92EF3D22223D37C50068F1CC /* EthereumLogsFilter.swift */,
 				92EF3D24223D3F330068F1CC /* EthereumFilterEngine.swift */,
 			);
-			path = Filters;
+			name = Filters;
+			path = Web3/Classes/Filters;
 			sourceTree = "<group>";
 		};
 		934F7FAB1D816EFCA3E2A2BE7F2BBCD8 /* Support Files */ = {
@@ -1533,6 +1534,7 @@
 				92EF3D13223C3E250068F1CC /* Web3HttpProviderFilterHandler.swift */,
 			);
 			name = HTTPExtension;
+			path = Web3/Classes/FoundationHTTP;
 			sourceTree = "<group>";
 		};
 		B68A2D74D931A8DFE422CB5205970741 /* Support Files */ = {
