@@ -39,37 +39,37 @@ public struct Web3HttpProviderFilterHandler: Web3Provider {
             let filterId = _filterEngine.addPendingBlockFilter(filter: EthereumPendingTransactionFilter())
             response(Web3Response(id: request.id, value: filterId) as! Web3Response<Result>)
         case "eth_uninstallFilter":
-            let req = (request as! RPCRequest<[EthereumValue]>)
-            guard req.params.count > 0, let id = req.params[0].ethereumQuantity else {
-                response(Web3Response(id: req.id, error: .requestFailed(nil)))
+            let params = (request as! RPCRequest<EthereumValue>).params.array
+            guard params != nil, params!.count > 0, let id = params![0].ethereumQuantity else {
+                response(Web3Response(id: request.id, error: .requestFailed(nil)))
                 return
             }
             let result = _filterEngine.removeFilter(id: id)
-            response(Web3Response(id: req.id, value: result) as! Web3Response<Result>)
+            response(Web3Response(id: request.id, value: result) as! Web3Response<Result>)
         case "eth_getFilterChanges":
-            let req = (request as! RPCRequest<[EthereumValue]>)
-            guard req.params.count > 0, let id = req.params[0].ethereumQuantity else {
-                response(Web3Response(id: req.id, error: .requestFailed(nil)))
+            let params = (request as! RPCRequest<EthereumValue>).params.array
+            guard params != nil, params!.count > 0, let id = params![0].ethereumQuantity else {
+                response(Web3Response(id: request.id, error: .requestFailed(nil)))
                 return
             }
             do {
                 let changes = try _filterEngine.getFilterChages(id: id)
-                response(Web3Response(id: req.id, value: changes) as! Web3Response<Result>)
+                response(Web3Response(id: request.id, value: changes) as! Web3Response<Result>)
             } catch(let err) {
-                response(Web3Response(id: req.id, error: err))
+                response(Web3Response(id: request.id, error: err))
             }
         case "eth_getFilterLogs":
-            let req = (request as! RPCRequest<[EthereumValue]>)
-            guard req.params.count > 0, let id = req.params[0].ethereumQuantity else {
-                response(Web3Response(id: req.id, error: .requestFailed(nil)))
+            let params = (request as! RPCRequest<EthereumValue>).params.array
+            guard params != nil, params!.count > 0, let id = params![0].ethereumQuantity else {
+                response(Web3Response(id: request.id, error: .requestFailed(nil)))
                 return
             }
             _filterEngine.getFilterLogs(id: id) { err, res in
                 if let err = err {
-                    response(Web3Response(id: req.id, error: err))
+                    response(Web3Response(id: request.id, error: err))
                     return
                 }
-                response(Web3Response(id: req.id, value: res!) as! Web3Response<Result>)
+                response(Web3Response(id: request.id, value: res!) as! Web3Response<Result>)
             }
         default:
             _provider.send(request: request, response: response)
