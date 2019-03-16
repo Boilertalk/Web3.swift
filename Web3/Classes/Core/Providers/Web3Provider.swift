@@ -29,7 +29,8 @@ public struct Web3Response<Result: Codable> {
         case success(Result)
         case failure(Swift.Error)
     }
-
+    
+    public let id: Int
     public let status: Status<Result>
     
     public var result: Result? {
@@ -42,13 +43,20 @@ public struct Web3Response<Result: Codable> {
     
     // MARK: - Initialization
     
-    public init(status: Status<Result>) {
+    public init(id: Int, status: Status<Result>) {
         self.status = status
+        self.id = id
+    }
+    
+    public init(id: Int, value: Result) {
+        self.status = .success(value)
+        self.id = id
     }
     
     /// Initialize with any Error object
-    public init(error: Swift.Error) {
+    public init(id: Int, error: Swift.Error) {
         self.status = .failure(error)
+        self.id = id
     }
     
     /// Initialize with a response
@@ -60,11 +68,13 @@ public struct Web3Response<Result: Codable> {
         } else {
             self.status = .failure(Error.emptyResponse)
         }
+        self.id = rpcResponse.id
     }
     
     /// For convenience, initialize with one of the common errors
-    public init(error: Error) {
+    public init(id: Int, error: Error) {
         self.status = .failure(error)
+        self.id = id
     }
 }
 

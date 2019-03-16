@@ -18,7 +18,8 @@ public extension Web3 {
     public init(rpcURL: String, handleFilters: Bool = false) {
         let provider = Web3HttpProvider(rpcURL: rpcURL)
         if handleFilters {
-            self.init(provider: Web3HttpProviderFilterHandler(provider))
+            let counter = AtomicCounter()
+            self.init(provider: Web3HttpProviderFilterHandler(provider, counter: counter), rpcIdCounter: counter)
         } else {
             self.init(provider: provider)
         }

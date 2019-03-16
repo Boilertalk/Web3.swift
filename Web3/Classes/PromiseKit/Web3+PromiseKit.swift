@@ -287,6 +287,62 @@ public extension Web3.Eth {
         }
     }
     
+    public func newFilter(
+        fromBlock: EthereumQuantityTag? = nil,
+        toBlock: EthereumQuantityTag? = nil,
+        address: EthereumAddress? = nil,
+        topics: [EthereumTopic]? = nil
+    ) -> Promise<EthereumQuantity> {
+        return Promise { seal in
+            self.newFilter(
+                fromBlock: fromBlock, toBlock: toBlock,
+                address: address, topics: topics
+            ) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+    
+    public func newBlockFilter() -> Promise<EthereumQuantity> {
+        return Promise { seal in
+            self.newBlockFilter() { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+    
+    public func newPendingTransactionFilter() -> Promise<EthereumQuantity> {
+        return Promise { seal in
+            self.newPendingTransactionFilter() { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+    
+    public func uninstallFilter(id: EthereumQuantity) -> Promise<Bool> {
+        return Promise { seal in
+            self.uninstallFilter(id: id) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+    
+    public func getFilterChanges(id: EthereumQuantity) -> Promise<EthereumFilterChangesObject> {
+        return Promise { seal in
+            self.getFilterChanges(id: id) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+    
+    public func getFilterLogs(id: EthereumQuantity) -> Promise<[EthereumLogObject]> {
+        return Promise { seal in
+            self.getFilterLogs(id: id) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+    
     public func getLogs(
         fromBlock: EthereumQuantityTag? = nil,
         toBlock: EthereumQuantityTag? = nil,

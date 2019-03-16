@@ -19,23 +19,17 @@ public struct Web3 {
 
     public let properties: Properties
 
-    public class Properties {
+    public struct Properties {
         public let provider: Web3Provider
-        private var _rpcId: Int32
-        private let _lock: NSLock
+        private let _rpcId: AtomicCounter
         
-        public init(provider: Web3Provider) {
+        public init(provider: Web3Provider, counter: AtomicCounter) {
             self.provider = provider
-            self._rpcId = 0
-            self._lock = NSLock()
+            self._rpcId = counter
         }
         
-        // Better to use atomic, but for now Swift doesn't have good atomic support
         var rpcId: Int {
-            _lock.lock()
-            defer { _lock.unlock() }
-            _rpcId = _rpcId < Int32.max ? _rpcId + 1 : 1
-            return Int(_rpcId)
+            return Int(_rpcId.next())
         }
     }
 
@@ -65,8 +59,8 @@ public struct Web3 {
      *
      * - parameter provider: The provider which handles all requests and responses.
      */
-    public init(provider: Web3Provider) {
-        let properties = Properties(provider: provider)
+    public init(provider: Web3Provider, rpcIdCounter: AtomicCounter? = nil) {
+        let properties = Properties(provider: provider, counter: rpcIdCounter ?? AtomicCounter())
         self.properties = properties
         self.net = Net(properties: properties)
         self.eth = Eth(properties: properties)
@@ -313,13 +307,14 @@ public struct Web3 {
             transaction: EthereumTransaction,
             response: @escaping Web3ResponseCompletion<EthereumData>
         ) {
+            let id = properties.rpcId
             guard transaction.from != nil else {
-                let error = Web3Response<EthereumData>(error: .requestFailed(nil))
+                let error = Web3Response<EthereumData>(id: id, error: .requestFailed(nil))
                 response(error)
                 return
             }
             let req = RPCRequest<[EthereumTransaction]>(
-                id: properties.rpcId,
+                id: id,
                 jsonrpc: Web3.jsonrpc,
                 method: "eth_sendTransaction",
                 params: [transaction]
@@ -485,6 +480,96 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
         
+        public func newFilter(
+            fromBlock: EthereumQuantityTag? = nil,
+            toBlock: EthereumQuantityTag? = nil,
+            address: EthereumAddress? = nil,
+            topics: [EthereumTopic]? = nil,
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+        ) {
+            let req = RPCRequest<[EthereumNewFilterParams]>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_newFilter",
+                params: [EthereumNewFilterParams(
+                    fromBlock: fromBlock,
+                    toBlock: toBlock,
+                    address: address,
+                    topics: topics
+                )]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func newBlockFilter(
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_newBlockFilter",
+                params: []
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func newPendingTransactionFilter(
+            response: @escaping Web3ResponseCompletion<EthereumQuantity>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_newPendingTransactionFilter",
+                params: []
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func uninstallFilter(
+            id: EthereumQuantity,
+            response: @escaping Web3ResponseCompletion<Bool>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_uninstallFilter",
+                params: [id]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func getFilterChanges(
+            id: EthereumQuantity,
+            response: @escaping Web3ResponseCompletion<EthereumFilterChangesObject>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getFilterChanges",
+                params: [id]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func getFilterLogs(
+            id: EthereumQuantity,
+            response: @escaping Web3ResponseCompletion<[EthereumLogObject]>
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getFilterLogs",
+                params: [id]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
         public func getLogs(
             fromBlock: EthereumQuantityTag? = nil,
             toBlock: EthereumQuantityTag? = nil,
@@ -593,13 +678,14 @@ public struct Web3 {
             password: String,
             response: @escaping Web3ResponseCompletion<EthereumData>
         ) {
+            let id = properties.rpcId
             guard transaction.from != nil else {
-                let error = Web3Response<EthereumData>(error: .requestFailed(nil))
+                let error = Web3Response<EthereumData>(id: id, error: .requestFailed(nil))
                 response(error)
                 return
             }
             let req = RPCRequest<EthereumPersonalSignTransactionParams>(
-                id: properties.rpcId,
+                id: id,
                 jsonrpc: Web3.jsonrpc,
                 method: "personal_sendTransaction",
                 params: EthereumPersonalSignTransactionParams(

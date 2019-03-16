@@ -1,13 +1,13 @@
 //
-//  EthereumGetLogsParams.swift
+//  EthereumNewFilterParams.swift
 //  Web3
 //
-//  Created by Yehor Popovych on 3/15/19.
+//  Created by Yehor Popovych on 3/16/19.
 //
 
 import Foundation
 
-public struct EthereumGetLogsParams: Codable {
+public struct EthereumNewFilterParams: Codable {
     let fromBlock: EthereumQuantityTag?
     
     let toBlock: EthereumQuantityTag?
@@ -16,31 +16,25 @@ public struct EthereumGetLogsParams: Codable {
     
     let topics: [EthereumTopic]?
     
-    let blockhash: EthereumData?
-    
     public init(
         fromBlock: EthereumQuantityTag? = nil,
         toBlock: EthereumQuantityTag? = nil,
         address: EthereumAddress? = nil,
-        topics: [EthereumTopic]? = nil,
-        blockhash: EthereumData? = nil
+        topics: [EthereumTopic]? = nil
     ) {
         self.fromBlock = fromBlock
         self.toBlock = toBlock
         self.address = address
         self.topics = topics
-        self.blockhash = blockhash
     }
 }
 
-extension EthereumGetLogsParams: Equatable {
-    
-    public static func ==(_ lhs: EthereumGetLogsParams, _ rhs: EthereumGetLogsParams) -> Bool {
+extension EthereumNewFilterParams: Equatable {
+    public static func ==(_ lhs: EthereumNewFilterParams, _ rhs: EthereumNewFilterParams) -> Bool {
         return lhs.fromBlock == rhs.fromBlock
             && lhs.toBlock == rhs.toBlock
             && lhs.address == rhs.address
             && lhs.topics == rhs.topics
-            && lhs.blockhash == rhs.blockhash
     }
 }
 
