@@ -41,13 +41,13 @@ public struct EthereumBlockObject: Codable {
     public let receiptsRoot: EthereumData
 
     /// 20 Bytes - the address of the beneficiary to whom the mining rewards were given.
-    public let miner: EthereumAddress
+    public let miner: EthereumAddress?
 
     /// Integer of the difficulty for this block.
     public let difficulty: EthereumQuantity
 
     /// Integer of the total difficulty of the chain until this block.
-    public let totalDifficulty: EthereumQuantity
+    public let totalDifficulty: EthereumQuantity?
 
     /// The "extra data" field of this block.
     public let extraData: EthereumData
