@@ -143,7 +143,7 @@ public class EthereumFilterEngine {
                 timer.setEventHandler { [weak self] in
                     self?._tick()
                 }
-                timer.schedule(deadline: .now(), repeating: 4.0)
+                timer.schedule(deadline: .now() + .milliseconds(100) , repeating: 4.0)
                 timer.resume()
                 self.timer = timer
             }
