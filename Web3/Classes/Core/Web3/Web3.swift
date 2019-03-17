@@ -67,25 +67,6 @@ public struct Web3 {
         self.personal = Personal(properties: properties)
     }
 
-    /**
-     * Send request to the network
-     *
-     * - parameter response: The response handler.
-     */
-    public func sendRequest<Params: Encodable, Result: Codable>(
-        method: String,
-        params: Params,
-        response: @escaping Web3ResponseCompletion<Result>
-    ) {
-        let req = RPCRequest<Params>(
-            id: rpcId,
-            jsonrpc: type(of: self).jsonrpc,
-            method: method,
-            params: params
-        )
-        provider.send(request: req, response: response)
-    }
-    
     // MARK: - Web3 methods
 
     /**

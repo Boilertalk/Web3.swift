@@ -7,13 +7,14 @@
 
 import Foundation
 
-public struct Web3HttpProviderFilterHandler: Web3Provider {
-    private let _provider: Web3Provider
+public struct Web3HttpProviderFilterHandler: Web3InjectedProvider {
     private let _counter: AtomicCounter
     private let _filterEngine: EthereumFilterEngine
     
+    public let provider: Web3Provider
+    
     public init(_ web3Provider: Web3Provider, counter: AtomicCounter) {
-        _provider = web3Provider
+        provider = web3Provider
         _counter = counter
         _filterEngine = EthereumFilterEngine(provider: web3Provider, counter: counter)
     }
@@ -72,7 +73,7 @@ public struct Web3HttpProviderFilterHandler: Web3Provider {
                 response(Web3Response(id: request.id, value: res!) as! Web3Response<Result>)
             }
         default:
-            _provider.send(request: request, response: response)
+            provider.send(request: request, response: response)
         }
     }
 }

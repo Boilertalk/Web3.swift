@@ -8,11 +8,32 @@
 
 import Foundation
 
+public protocol Web3DataProvider {
+    func send(data: Data, response: @escaping(Error?, Data?) -> Void)
+}
+
 public protocol Web3Provider {
-
     typealias Web3ResponseCompletion<Result: Codable> = (_ resp: Web3Response<Result>) -> Void
-
+    
+    var dataProvider: Web3DataProvider { get }
+    
     func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>)
+}
+
+extension Web3Provider where Self: Web3DataProvider {
+    public var dataProvider: Web3DataProvider {
+        return self
+    }
+}
+
+public protocol Web3InjectedProvider: Web3Provider {
+    var provider: Web3Provider { get }
+}
+
+extension Web3InjectedProvider {
+    public var dataProvider: Web3DataProvider {
+        return provider.dataProvider
+    }
 }
 
 public struct Web3Response<Result: Codable> {
