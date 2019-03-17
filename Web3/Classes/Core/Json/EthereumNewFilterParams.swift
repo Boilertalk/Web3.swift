@@ -8,13 +8,13 @@
 import Foundation
 
 public struct EthereumNewFilterParams: Codable {
-    let fromBlock: EthereumQuantityTag?
+    public let fromBlock: EthereumQuantityTag?
     
-    let toBlock: EthereumQuantityTag?
+    public let toBlock: EthereumQuantityTag?
     
-    let address: EthereumAddress?
+    public let address: EthereumAddress?
     
-    let topics: [EthereumTopic]?
+    public let topics: [EthereumTopic]?
     
     public init(
         fromBlock: EthereumQuantityTag? = nil,

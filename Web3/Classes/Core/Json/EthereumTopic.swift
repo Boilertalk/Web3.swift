@@ -35,11 +35,11 @@ public enum EthereumTopic: EthereumValueConvertible, Equatable {
 }
 
 extension EthereumValue {
-    var topic: EthereumTopic? {
+    public var topic: EthereumTopic? {
         return try? EthereumTopic(ethereumValue: self)
     }
     
-    var topics: [EthereumTopic]? {
+    public var topics: [EthereumTopic]? {
         guard let array = self.array else {
             return nil
         }
