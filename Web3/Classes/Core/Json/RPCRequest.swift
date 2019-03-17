@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct RPCRequest<Params: Codable>: Codable {
+public struct RPCRequest<Params: Encodable>: Encodable {
 
     /// The rpc id
     public let id: Int

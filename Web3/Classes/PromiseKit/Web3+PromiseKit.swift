@@ -21,6 +21,17 @@ public extension Web3 {
             }
         }
     }
+    
+    public func sendRequest<Params: Encodable, Result: Codable>(
+        method: String,
+        params: Params
+    ) -> Promise<Result> {
+        return Promise { seal in
+            self.sendRequest(method: method, params: params) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
 }
 
 public extension Web3.Net {
