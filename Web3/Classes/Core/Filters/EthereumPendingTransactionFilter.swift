@@ -11,10 +11,12 @@ import Foundation
 public struct EthereumPendingTransactionFilter: EthereumBlockFilterProtocol {
     public private(set) var lastFetched: Date
     
+    private var lastBlock: EthereumBlockObject?
     private var changes: Array<EthereumData>
     
     public init() {
         self.lastFetched = Date(timeIntervalSinceNow: -1.0)
+        self.lastBlock = nil
         self.changes = []
     }
     
@@ -26,6 +28,9 @@ public struct EthereumPendingTransactionFilter: EthereumBlockFilterProtocol {
     }
     
     public mutating func apply(block: EthereumBlockObject) {
+        guard let blockNum = block.number else { return }
+        guard lastBlock == nil || lastBlock!.number!.quantity < blockNum.quantity else { return }
+        self.lastBlock = block
         self.changes.removeAll()
         let txHashes = block.transactions.map { $0.hash! }
         self.changes.append(contentsOf: txHashes)
