@@ -105,8 +105,9 @@ public class EthereumFilterEngine {
         cb: @escaping (Swift.Error?, [EthereumLogObject]?) -> Void
     ) {
         lock.lock()
-        defer { lock.unlock() }
-        if let filter = logFilters[UInt64(id.quantity)] {
+        let filter = logFilters[UInt64(id.quantity)]
+        lock.unlock()
+        if let filter = filter {
             let req = RPCRequest<[EthereumGetLogsParams]>(
                 id: Int(counter.next()),
                 jsonrpc: Web3.jsonrpc,
@@ -131,6 +132,7 @@ public class EthereumFilterEngine {
         }
     }
     
+    // Thread unsafe
     private func _checkTimer() {
         if let timer = self.timer {
             if logFilters.count + blockFilters.count + pendingBlockFilters.count == 0 {
@@ -143,13 +145,14 @@ public class EthereumFilterEngine {
                 timer.setEventHandler { [weak self] in
                     self?._tick()
                 }
-                timer.schedule(deadline: .now() + .milliseconds(100) , repeating: 4.0)
+                timer.schedule(deadline: .now() , repeating: 4.0)
                 timer.resume()
                 self.timer = timer
             }
         }
     }
     
+    // Thread unsafe
     private func _clearOutdatedFilters() {
         let now = Date(timeIntervalSinceNow: 0.0)
         blockFilters = blockFilters.filter { _, filter in
@@ -165,14 +168,15 @@ public class EthereumFilterEngine {
     
     private func _tick() {
         lock.lock()
-        defer { lock.unlock() }
         _clearOutdatedFilters()
         _checkTimer()
-        
-        if blockFilters.count + logFilters.count > 0 {
+        let hasBlock = blockFilters.count + logFilters.count > 0
+        let hasPending = pendingBlockFilters.count > 0
+        lock.unlock()
+        if hasBlock {
             _updateLastBlock()
         }
-        if pendingBlockFilters.count > 0 {
+        if hasPending {
             _updatePendingBlock()
         }
     }
@@ -187,13 +191,14 @@ public class EthereumFilterEngine {
         provider.send(request: req) { (response: Web3Response<EthereumBlockObject>) in
             if let block = response.result {
                 self.lock.lock()
-                defer { self.lock.unlock() }
                 self.blockFilters = self.blockFilters.mapValues { filter in
                     var mFilter = filter
                     mFilter.apply(block: block)
                     return mFilter
                 }
-                if self.logFilters.count > 0 {
+                let hasLogs = self.logFilters.count > 0
+                self.lock.unlock()
+                if hasLogs {
                     self._updateLogs(block: block)
                 }
             }
@@ -210,23 +215,24 @@ public class EthereumFilterEngine {
         provider.send(request: req) { (response: Web3Response<EthereumBlockObject>) in
             if let block = response.result {
                 self.lock.lock()
-                defer { self.lock.unlock() }
                 self.pendingBlockFilters = self.pendingBlockFilters.mapValues { filter in
                     var mFilter = filter
                     mFilter.apply(block: block)
                     return mFilter
                 }
+                self.lock.unlock()
             }
         }
     }
     
     private func _updateLogs(block: EthereumBlockObject) {
         lock.lock()
-        defer { lock.unlock() }
         guard lastBlock == nil || lastBlock!.number!.quantity < block.number!.quantity else {
+            lock.unlock()
             return
         }
         lastBlock = block
+        lock.unlock()
         let req = RPCRequest<[EthereumGetLogsParams]>(
             id: Int(counter.next()),
             jsonrpc: Web3.jsonrpc,
@@ -236,17 +242,18 @@ public class EthereumFilterEngine {
         provider.send(request: req) { (response: Web3Response<[EthereumLogObject]>) in
             if let logs = response.result {
                 self.lock.lock()
-                defer { self.lock.unlock() }
                 self.logFilters = self.logFilters.mapValues { filter in
                     var mFilter = filter
                     mFilter.apply(block: block, logs: logs)
                     return mFilter
                 }
+                self.lock.unlock()
             }
         }
     }
     
     deinit {
         self.timer?.cancel()
+        self.timer = nil
     }
 }
