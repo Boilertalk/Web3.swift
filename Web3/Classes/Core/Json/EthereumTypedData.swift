@@ -9,15 +9,33 @@ import Foundation
 
 public struct EthereumTypedData: Codable, Equatable {
     public struct `Type`: Codable, Equatable {
-        let name: String
-        let type: String
+        public let name: String
+        public let type: String
+        
+        public init(name: String, type: String) {
+            self.name = name
+            self.type = type
+        }
     }
     
     public struct Domain: Codable, Equatable {
-        let name: String
-        let version: String
-        let chainId: Int
-        let verifyingContract: String
+        public let name: String
+        public let version: String
+        //Theoretically should be EthereumQuantity, but all libs are using Int
+        public let chainId: Int
+        public let verifyingContract: EthereumAddress
+        
+        public init(
+            name: String,
+            version: String,
+            chainId: Int,
+            verifyingContract: EthereumAddress
+        ) {
+            self.name = name
+            self.version = version
+            self.chainId = chainId
+            self.verifyingContract = verifyingContract
+        }
     }
     
     public let types: Dictionary<String, Array<Type>>
