@@ -192,6 +192,16 @@ public extension Web3.Eth {
             }
         }
     }
+    
+    public func signTypedData(
+        account: EthereumAddress, data: EthereumTypedData
+    ) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.signTypedData(account: account, data: data) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
 
     public func call(call: EthereumCall, block: EthereumQuantityTag) -> Promise<EthereumData> {
         return Promise { seal in
@@ -429,6 +439,16 @@ extension Web3.Personal {
     ) -> Promise<EthereumData> {
         return Promise { seal in
             self.sign(message: message, account: account, password: password) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
+    
+    public func signTypedData(
+        account: EthereumAddress, data: EthereumTypedData, password: String
+    ) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.signTypedData(account: account, data: data, password: password) { response in
                 response.sealPromise(seal: seal)
             }
         }

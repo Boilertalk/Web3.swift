@@ -208,6 +208,8 @@
 		914800174852B084AC0537FD38754F43 /* ErrorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36DEA96406CF8A347805C31D9266E3 /* ErrorUtility.swift */; };
 		91487DD574643E3E8A758C51F2EC7610 /* scalar_8x32.h in Headers */ = {isa = PBXBuildFile; fileRef = 4125C85D9F09F5AC29147DE17DCC911C /* scalar_8x32.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		926A649FE11EFDCB42727D024C7F4A5D /* Callsite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02FCD6711AAC48BA327829E1268A3797 /* Callsite.swift */; };
+		92A1CE1622404CA1001D429C /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1CE1522404CA1001D429C /* JSONValue.swift */; };
+		92A1CE1822404E0B001D429C /* EthereumTypedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A1CE1722404E0B001D429C /* EthereumTypedData.swift */; };
 		92EF3D12223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EF3D11223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift */; };
 		92EF3D14223C3E250068F1CC /* Web3HttpProviderFilterHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EF3D13223C3E250068F1CC /* Web3HttpProviderFilterHandler.swift */; };
 		92EF3D16223C40780068F1CC /* EthereumTopic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EF3D15223C40780068F1CC /* EthereumTopic.swift */; };
@@ -743,6 +745,8 @@
 		91A745AAC55912D298E6F3D10BEEFCA8 /* NMBStringify.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = NMBStringify.h; path = Sources/NimbleObjectiveC/NMBStringify.h; sourceTree = "<group>"; };
 		91C8DEAE81847E961F496521D2E3D482 /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = Sources/Nimble/Utils/Errors.swift; sourceTree = "<group>"; };
 		926547A3D75C34FD14D40B949F0A166B /* PromiseKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PromiseKit.h; path = Sources/PromiseKit.h; sourceTree = "<group>"; };
+		92A1CE1522404CA1001D429C /* JSONValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValue.swift; sourceTree = "<group>"; };
+		92A1CE1722404E0B001D429C /* EthereumTypedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumTypedData.swift; sourceTree = "<group>"; };
 		92EF3D11223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPersonalSignTransactionParams.swift; sourceTree = "<group>"; };
 		92EF3D13223C3E250068F1CC /* Web3HttpProviderFilterHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HttpProviderFilterHandler.swift; sourceTree = "<group>"; };
 		92EF3D15223C40780068F1CC /* EthereumTopic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumTopic.swift; sourceTree = "<group>"; };
@@ -1141,6 +1145,7 @@
 				F78090FD0C646BEB960042247EB0ECF2 /* UnsignedInteger+BytesConvertible.swift */,
 				A6D1B0EE3768B879015E46C696284FD4 /* UnsignedInteger+Shifting.swift */,
 				6191E8A80D5F9C1A37F69CF815722132 /* Values+GeneralHashable.swift */,
+				92A1CE1522404CA1001D429C /* JSONValue.swift */,
 			);
 			name = Toolbox;
 			path = Web3/Classes/Core/Toolbox;
@@ -1740,6 +1745,7 @@
 				032AB1281D714206F80C5FC8CA568E26 /* EthereumQuantity.swift */,
 				4C83CCB81657E5CDEF6E81B63DB39F9E /* EthereumQuantityTag.swift */,
 				E911D61F09C251FF0019675757852705 /* EthereumSyncStatusObject.swift */,
+				92A1CE1722404E0B001D429C /* EthereumTypedData.swift */,
 				248EF1BF68FBE7047312795999763578 /* EthereumTransactionObject.swift */,
 				948569B4D9C6031865E2CDCEFC19CEC6 /* EthereumTransactionReceiptObject.swift */,
 				3B8C95F48EE4DC81A3D06B941ECD1610 /* EthereumValue.swift */,
@@ -2181,7 +2187,9 @@
 				505804306290152567A078C676DF877A /* Eth+Contract.swift in Sources */,
 				6F72B22B8AC4DAF29DEF5CE8136AC285 /* EthereumAddress.swift in Sources */,
 				92EF3D12223BE9E50068F1CC /* EthereumPersonalSignTransactionParams.swift in Sources */,
+				92A1CE1822404E0B001D429C /* EthereumTypedData.swift in Sources */,
 				94404006C5971B66FA38FA0F1E1D3279 /* EthereumBlockObject.swift in Sources */,
+				92A1CE1622404CA1001D429C /* JSONValue.swift in Sources */,
 				92EF3D18223C46320068F1CC /* EthereumGetLogsParams.swift in Sources */,
 				8B4A0A3B31FF6A9BA12F98DFA897CC05 /* EthereumCall.swift in Sources */,
 				92EF3D21223D22A20068F1CC /* EthereumPendingTransactionFilter.swift in Sources */,

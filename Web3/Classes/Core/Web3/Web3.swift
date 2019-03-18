@@ -303,6 +303,23 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
         
+        public func signTypedData(
+            account: EthereumAddress,
+            data: EthereumTypedData,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            let req = RPCRequest<EthereumSignTypedDataCallParams>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_signTypedData",
+                params: EthereumSignTypedDataCallParams(
+                    account: account, data: data
+                )
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
         public func sendTransaction(
             transaction: EthereumTransaction,
             response: @escaping Web3ResponseCompletion<EthereumData>
@@ -706,6 +723,24 @@ public struct Web3 {
                 jsonrpc: Web3.jsonrpc,
                 method: "personal_sign",
                 params: [message, account, password]
+            )
+            
+            properties.provider.send(request: req, response: response)
+        }
+        
+        public func signTypedData(
+            account: EthereumAddress,
+            data: EthereumTypedData,
+            password: String,
+            response: @escaping Web3ResponseCompletion<EthereumData>
+        ) {
+            let req = RPCRequest<EthereumSignTypedDataCallParams>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "personal_signTypedData",
+                params: EthereumSignTypedDataCallParams(
+                    account: account, data: data, password: password
+                )
             )
             
             properties.provider.send(request: req, response: response)
