@@ -8,7 +8,7 @@
 import Foundation
 
 public struct EthereumTypedData: Codable, Equatable {
-    public struct `Type`: Codable, Equatable {
+    public struct _Type: Codable, Equatable {
         public let name: String
         public let type: String
         
@@ -38,7 +38,7 @@ public struct EthereumTypedData: Codable, Equatable {
         }
     }
     
-    public let types: Dictionary<String, Array<Type>>
+    public let types: Dictionary<String, Array<_Type>>
     public let primaryType: String
     public let domain: Domain
     public let message: Dictionary<String, JSONValue>
@@ -46,7 +46,7 @@ public struct EthereumTypedData: Codable, Equatable {
     public init(
         primaryType: String,
         domain: Domain,
-        types: Dictionary<String, Array<Type>>,
+        types: Dictionary<String, Array<_Type>>,
         message: Dictionary<String, JSONValue>
     ) {
         self.primaryType = primaryType
