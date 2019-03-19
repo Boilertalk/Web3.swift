@@ -102,7 +102,7 @@ public extension JSONValue {
     }
     
     /// Return the object value if this is an `.object`, otherwise `nil`
-    public var objec: Dictionary<String, JSONValue>? {
+    public var object: Dictionary<String, JSONValue>? {
         if case .object(let value) = self {
             return value
         }
