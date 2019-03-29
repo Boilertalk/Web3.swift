@@ -1,5 +1,0 @@
-github "Boilertalk/secp256k1.swift" "0.1.4"
-github "attaswift/SipHash" "v1.2.2"
-github "crossroadlabs/BigInt" "f6ab3a53ff1e14e9545fded5fe33347ce46e4106"
-github "krzyzanowskim/CryptoSwift" "0.13.1"
-github "mxcl/PromiseKit" "6.8.3"
