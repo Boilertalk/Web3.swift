@@ -66,11 +66,11 @@ extension EthereumTransactionReceiptObject: Equatable {
 // MARK: - Hashable
 
 extension EthereumTransactionReceiptObject: Hashable {
-
-    public var hashValue: Int {
+    
+    public func hash(into hasher: inout Hasher) {
         // logs are not included as of now but it should be sufficient like that...
-        return hashValues(
+        hasher.combine(hashValues(
             transactionHash, transactionIndex, blockHash, cumulativeGasUsed, gasUsed, contractAddress, logsBloom, root, status
-        )
+        ))
     }
 }

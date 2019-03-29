@@ -51,7 +51,7 @@ public struct EthereumTransaction: Codable {
         from: EthereumAddress? = nil,
         to: EthereumAddress? = nil,
         value: EthereumQuantity? = nil,
-        data: EthereumData = EthereumData(raw: [])
+        data: EthereumData = EthereumData([])
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
@@ -310,7 +310,7 @@ extension EthereumSignedTransaction: RLPItemConvertible {
             gasLimit: EthereumQuantity(quantity: gasLimit),
             to: to,
             value: EthereumQuantity(quantity: value),
-            data: EthereumData(raw: data),
+            data: EthereumData(data),
             v: EthereumQuantity(quantity: v),
             r: EthereumQuantity(quantity: r),
             s: EthereumQuantity(quantity: s),
@@ -367,18 +367,22 @@ extension EthereumSignedTransaction: Equatable {
 
 extension EthereumTransaction: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(
-            nonce, gasPrice, gas, from, to, value, data
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(
+            hashValues(
+                nonce, gasPrice, gas, from, to, value, data
+            )
         )
     }
 }
 
 extension EthereumSignedTransaction: Hashable {
     
-    public var hashValue: Int {
-        return hashValues(
-            nonce, gasPrice, gasLimit, to, value, data, v, r, s, chainId
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(
+            hashValues(
+                nonce, gasPrice, gasLimit, to, value, data, v, r, s, chainId
+            )
         )
     }
 }

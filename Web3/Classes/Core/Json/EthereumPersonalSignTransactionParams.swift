@@ -44,9 +44,8 @@ extension EthereumPersonalSignTransactionParams: Equatable {
 
 extension EthereumPersonalSignTransactionParams: Hashable {
     
-    public var hashValue: Int {
-        var hash = transaction.hashValue
-        let bytes = withUnsafeBytes(of: &hash) { Array<UInt8>($0) }
-        return hashValues(Data(bytes: bytes), password)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(transaction)
+        hasher.combine(password)
     }
 }

@@ -15,7 +15,7 @@ public extension Web3 {
      *
      * - parameter rpcURL: The URL of the HTTP RPC API.
      */
-    public init(rpcURL: String, handleFilters: Bool = false) {
+    init(rpcURL: String, handleFilters: Bool = false) {
         let provider = Web3HttpProvider(rpcURL: rpcURL)
         if handleFilters {
             let counter = AtomicCounter()

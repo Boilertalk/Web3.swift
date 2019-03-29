@@ -202,7 +202,7 @@ extension EthereumAddress: Equatable {
 
 extension EthereumAddress: BytesConvertible {
 
-    public init(raw bytes: Bytes) throws {
+    public init(_ bytes: Bytes) throws {
         try self.init(rawAddress: bytes)
     }
 
@@ -215,7 +215,7 @@ extension EthereumAddress: BytesConvertible {
 
 extension EthereumAddress: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(self)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(hashValues(self))
     }
 }

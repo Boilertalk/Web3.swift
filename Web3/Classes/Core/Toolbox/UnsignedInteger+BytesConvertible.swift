@@ -25,7 +25,7 @@ extension UnsignedInteger {
      * - parameter bytes: The bytes to be converted
      *
      */
-    public init(raw bytes: Bytes) {
+    public init(_ bytes: Bytes) {
         // 8 bytes in UInt64, etc. clips overflow
         let prefix = bytes.suffix(MemoryLayout<Self>.size)
         var value: UInt64 = 0

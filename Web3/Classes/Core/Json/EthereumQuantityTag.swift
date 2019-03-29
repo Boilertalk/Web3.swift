@@ -29,19 +29,19 @@ public struct EthereumQuantityTag {
 
 public extension EthereumQuantityTag {
 
-    public static var latest: EthereumQuantityTag {
+    static var latest: EthereumQuantityTag {
         return self.init(tagType: .latest)
     }
 
-    public static var earliest: EthereumQuantityTag {
+    static var earliest: EthereumQuantityTag {
         return self.init(tagType: .earliest)
     }
 
-    public static var pending: EthereumQuantityTag {
+    static var pending: EthereumQuantityTag {
         return self.init(tagType: .pending)
     }
 
-    public static func block(_ bigUInt: BigUInt) -> EthereumQuantityTag {
+    static func block(_ bigUInt: BigUInt) -> EthereumQuantityTag {
         return self.init(tagType: .block(bigUInt))
     }
 }
@@ -126,23 +126,23 @@ extension EthereumQuantityTag: Equatable {
 
 extension EthereumQuantityTag.TagType: Hashable {
 
-    public var hashValue: Int {
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .block(let bigInt):
-            return hashValues(bigInt)
+            hasher.combine(hashValues(bigInt))
         case .latest:
-            return hashValues(Byte(0x01))
+            hasher.combine(hashValues(Byte(0x01)))
         case .earliest:
-            return hashValues(Byte(0x02))
+            hasher.combine(hashValues(Byte(0x02)))
         case .pending:
-            return hashValues(Byte(0x03))
+            hasher.combine(hashValues(Byte(0x03)))
         }
     }
 }
 
 extension EthereumQuantityTag: Hashable {
 
-    public var hashValue: Int {
-        return tagType.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(tagType)
     }
 }

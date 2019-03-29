@@ -60,7 +60,7 @@ open class GenericERC721Contract: StaticContract, ERC721Contract {
 
 public extension ERC721Contract {
 
-    public static var Transfer: SolidityEvent {
+    static var Transfer: SolidityEvent {
         let inputs: [SolidityEvent.Parameter] = [
             SolidityEvent.Parameter(name: "_from", type: .address, indexed: true),
             SolidityEvent.Parameter(name: "_to", type: .address, indexed: true),
@@ -69,7 +69,7 @@ public extension ERC721Contract {
         return SolidityEvent(name: "Transfer", anonymous: false, inputs: inputs)
     }
     
-    public static var Approval: SolidityEvent {
+    static var Approval: SolidityEvent {
         let inputs: [SolidityEvent.Parameter] = [
             SolidityEvent.Parameter(name: "_owner", type: .address, indexed: true),
             SolidityEvent.Parameter(name: "_approved", type: .address, indexed: true),
@@ -78,21 +78,21 @@ public extension ERC721Contract {
         return SolidityEvent(name: "Approval", anonymous: false, inputs: inputs)
     }
     
-    public func balanceOf(address: EthereumAddress) -> SolidityInvocation {
+    func balanceOf(address: EthereumAddress) -> SolidityInvocation {
         let inputs = [SolidityFunctionParameter(name: "_owner", type: .address)]
         let outputs = [SolidityFunctionParameter(name: "_balance", type: .uint256)]
         let method = SolidityConstantFunction(name: "balanceOf", inputs: inputs, outputs: outputs, handler: self)
         return method.invoke(address)
     }
     
-    public func ownerOf(tokenId: BigUInt) -> SolidityInvocation {
+    func ownerOf(tokenId: BigUInt) -> SolidityInvocation {
         let inputs = [SolidityFunctionParameter(name: "_tokenId", type: .uint256)]
         let outputs = [SolidityFunctionParameter(name: "_owner", type: .address)]
         let method = SolidityConstantFunction(name: "ownerOf", inputs: inputs, outputs: outputs, handler: self)
         return method.invoke(tokenId)
     }
     
-    public func approve(to: EthereumAddress, tokenId: BigUInt) -> SolidityInvocation {
+    func approve(to: EthereumAddress, tokenId: BigUInt) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_to", type: .address),
             SolidityFunctionParameter(name: "_tokenId", type: .uint256)
@@ -101,14 +101,14 @@ public extension ERC721Contract {
         return method.invoke(to, tokenId)
     }
     
-    public func getApproved(tokenId: BigUInt) -> SolidityInvocation {
+    func getApproved(tokenId: BigUInt) -> SolidityInvocation {
         let inputs = [SolidityFunctionParameter(name: "_tokenId", type: .uint256)]
         let outputs = [SolidityFunctionParameter(name: "_approved", type: .address)]
         let method = SolidityConstantFunction(name: "getApproved", inputs: inputs, outputs: outputs, handler: self)
         return method.invoke(tokenId)
     }
     
-    public func transferFrom(from: EthereumAddress, to: EthereumAddress, tokenId: BigUInt) -> SolidityInvocation {
+    func transferFrom(from: EthereumAddress, to: EthereumAddress, tokenId: BigUInt) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_from", type: .address),
             SolidityFunctionParameter(name: "_to", type: .address),
@@ -118,7 +118,7 @@ public extension ERC721Contract {
         return method.invoke(from, to, tokenId)
     }
     
-    public func transfer(to: EthereumAddress, tokenId: BigUInt) -> SolidityInvocation {
+    func transfer(to: EthereumAddress, tokenId: BigUInt) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_to", type: .address),
             SolidityFunctionParameter(name: "_tokenId", type: .uint256)
@@ -131,19 +131,19 @@ public extension ERC721Contract {
 
 public extension AnnotatedERC721 {
     
-    public func name() -> SolidityInvocation {
+    func name() -> SolidityInvocation {
         let outputs = [SolidityFunctionParameter(name: "_name", type: .string)]
         let method = SolidityConstantFunction(name: "name", outputs: outputs, handler: self)
         return method.invoke()
     }
     
-    public func symbol() -> SolidityInvocation {
+    func symbol() -> SolidityInvocation {
         let outputs = [SolidityFunctionParameter(name: "_symbol", type: .string)]
         let method = SolidityConstantFunction(name: "symbol", outputs: outputs, handler: self)
         return method.invoke()
     }
     
-    public func tokenURI(tokenId: BigUInt) -> SolidityInvocation {
+    func tokenURI(tokenId: BigUInt) -> SolidityInvocation {
         let inputs = [SolidityFunctionParameter(name: "_tokenId", type: .uint256)]
         let outputs = [SolidityFunctionParameter(name: "_tokenURI", type: .string)]
         let method = SolidityConstantFunction(name: "tokenURI", inputs: inputs, outputs: outputs, handler: self)
@@ -154,20 +154,20 @@ public extension AnnotatedERC721 {
 
 public extension EnumeratedERC721 {
     
-    public func totalSupply() -> SolidityInvocation {
+    func totalSupply() -> SolidityInvocation {
         let outputs = [SolidityFunctionParameter(name: "_totalSupply", type: .uint256)]
         let method = SolidityConstantFunction(name: "totalSupply", outputs: outputs, handler: self)
         return method.invoke()
     }
     
-    public func tokenByIndex(index: BigUInt) -> SolidityInvocation {
+    func tokenByIndex(index: BigUInt) -> SolidityInvocation {
         let inputs = [SolidityFunctionParameter(name: "_index", type: .uint256)]
         let outputs = [SolidityFunctionParameter(name: "_tokenId", type: .uint256)]
         let method = SolidityConstantFunction(name: "tokenByIndex", inputs: inputs, outputs: outputs, handler: self)
         return method.invoke(index)
     }
     
-    public func tokenOfOwnerByIndex(owner: EthereumAddress, index: BigUInt) -> SolidityInvocation {
+    func tokenOfOwnerByIndex(owner: EthereumAddress, index: BigUInt) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_owner", type: .address),
             SolidityFunctionParameter(name: "_index", type: .uint256)

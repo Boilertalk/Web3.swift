@@ -78,7 +78,7 @@ extension JSONValue: CustomDebugStringConvertible {
 
 public extension JSONValue {
     /// Return the string value if this is a `.string`, otherwise `nil`
-    public var string: String? {
+    var string: String? {
         if case .string(let value) = self {
             return value
         }
@@ -86,7 +86,7 @@ public extension JSONValue {
     }
     
     /// Return the double value if this is a `.number`, otherwise `nil`
-    public var number: Double? {
+    var number: Double? {
         if case .number(let value) = self {
             return value
         }
@@ -94,7 +94,7 @@ public extension JSONValue {
     }
     
     /// Return the bool value if this is a `.bool`, otherwise `nil`
-    public var bool: Bool? {
+    var bool: Bool? {
         if case .bool(let value) = self {
             return value
         }
@@ -102,7 +102,7 @@ public extension JSONValue {
     }
     
     /// Return the object value if this is an `.object`, otherwise `nil`
-    public var object: Dictionary<String, JSONValue>? {
+    var object: Dictionary<String, JSONValue>? {
         if case .object(let value) = self {
             return value
         }
@@ -110,7 +110,7 @@ public extension JSONValue {
     }
     
     /// Return the array value if this is an `.array`, otherwise `nil`
-    public var array: Array<JSONValue>? {
+    var array: Array<JSONValue>? {
         if case .array(let value) = self {
             return value
         }
@@ -118,7 +118,7 @@ public extension JSONValue {
     }
     
     /// Return `true` if this is `.null`
-    public var isNull: Bool {
+    var isNull: Bool {
         if case .null = self {
             return true
         }
@@ -128,7 +128,7 @@ public extension JSONValue {
     /// If this is an `.array`, return item at index
     ///
     /// If this is not an `.array` or the index is out of bounds, returns `nil`.
-    public subscript(index: Int) -> JSONValue? {
+    subscript(index: Int) -> JSONValue? {
         if case .array(let arr) = self, arr.indices.contains(index) {
             return arr[index]
         }
@@ -136,7 +136,7 @@ public extension JSONValue {
     }
     
     /// If this is an `.object`, return item at key
-    public subscript(key: String) -> JSONValue? {
+    subscript(key: String) -> JSONValue? {
         if case .object(let dict) = self {
             return dict[key]
         }

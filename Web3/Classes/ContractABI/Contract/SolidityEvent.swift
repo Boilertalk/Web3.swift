@@ -95,13 +95,13 @@ public struct SolidityEvent {
     
 }
 
-extension SolidityEvent: Hashable {
+extension SolidityEvent: Hashable, Equatable {
     
     public static func == (lhs: SolidityEvent, rhs: SolidityEvent) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
     
-    public var hashValue: Int {
-        return signature.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(signature)
     }
 }

@@ -67,9 +67,9 @@ extension EthereumTransactionObject: Equatable {
 
 extension EthereumTransactionObject: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(hashValues(
             hash, nonce, blockHash, blockNumber, transactionIndex, from, to, value, gasPrice, gas, input
-        )
+        ))
     }
 }

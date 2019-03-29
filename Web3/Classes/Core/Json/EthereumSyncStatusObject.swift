@@ -89,9 +89,9 @@ extension EthereumSyncStatusObject: Equatable {
 
 extension EthereumSyncStatusObject: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(hashValues(
             syncing ? UInt8(0x01) : UInt8(0x00), startingBlock, currentBlock, highestBlock
-        )
+        ))
     }
 }

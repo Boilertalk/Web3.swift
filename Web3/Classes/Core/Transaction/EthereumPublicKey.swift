@@ -32,7 +32,7 @@ public final class EthereumPublicKey {
     /**
      * Convenient initializer for `init(publicKey:)`
      */
-    public required convenience init(raw bytes: Bytes) throws {
+    public required convenience init(_ bytes: Bytes) throws {
         try self.init(publicKey: bytes)
     }
 
@@ -360,7 +360,7 @@ extension EthereumPublicKey: BytesConvertible {
 
 extension EthereumPublicKey: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(self)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(hashValues(self))
     }
 }
