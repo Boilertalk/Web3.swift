@@ -33,7 +33,7 @@ class EthereumCallParamsTests: QuickSpec {
                     gas: 21000,
                     gasPrice: EthereumQuantity(quantity: UInt(21).gwei),
                     value: 10,
-                    data: EthereumData(bytes: [0x00, 0xff]),
+                    data: EthereumData([0x00, 0xff]),
                     block: .latest
                 )
                 it("should not be nil") {

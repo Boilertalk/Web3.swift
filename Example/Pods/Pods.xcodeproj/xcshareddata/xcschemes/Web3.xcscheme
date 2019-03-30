@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7E65A8D2F3AB83962DC3362AFE05EE9F"
+               BlueprintIdentifier = "8EF5FF6750DEBDA16A7CDB0C3EE5AC8D"
                BuildableName = "Web3.framework"
                BlueprintName = "Web3"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7E65A8D2F3AB83962DC3362AFE05EE9F"
+            BlueprintIdentifier = "8EF5FF6750DEBDA16A7CDB0C3EE5AC8D"
             BuildableName = "Web3.framework"
             BlueprintName = "Web3"
             ReferencedContainer = "container:Pods.xcodeproj">

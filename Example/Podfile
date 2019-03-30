@@ -4,6 +4,6 @@ target 'Web3_Tests' do
   pod 'Web3/PromiseKit', :path => '../'
   pod 'Web3/ContractABI', :path => '../'
   
-  pod 'Quick', '~> 1.2.0'
-  pod 'Nimble', '~> 7.0.2'
+  pod 'Quick', '~> 1.3.0'
+  pod 'Nimble', '~> 8.0.0'
 end

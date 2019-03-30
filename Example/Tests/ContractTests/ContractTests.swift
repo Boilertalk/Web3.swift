@@ -42,7 +42,14 @@ public extension QuickSpec {
     }
 }
 
+class MockWeb3DataProvider: Web3DataProvider {
+    func send(data: Data, response: @escaping (Error?, Data?) -> Void) {
+    }
+}
+
 class MockWeb3Provider: Web3Provider {
+    var dataProvider: Web3DataProvider = MockWeb3DataProvider()
+    
 
     var stubs: [String: Data] = [:]
 
@@ -61,11 +68,11 @@ class MockWeb3Provider: Web3Provider {
                 let res = Web3Response<Result>(rpcResponse: rpcResponse)
                 response(res)
             } catch {
-                let err = Web3Response<Result>(error: .decodingError(error))
+                let err = Web3Response<Result>(id: 0, error: .decodingError(error))
                 response(err)
             }
         } else {
-            let err = Web3Response<Result>(error: .serverError(nil))
+            let err = Web3Response<Result>(id: 0, error: .serverError(nil))
             response(err)
         }
     }
