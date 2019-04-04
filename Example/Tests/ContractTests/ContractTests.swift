@@ -43,7 +43,7 @@ public extension QuickSpec {
 }
 
 class MockWeb3DataProvider: Web3DataProvider {
-    func send(data: Data, response: @escaping (Error?, Data?) -> Void) {
+    func send(data: Data, response: @escaping (Swift.Result<Data, Error>) -> Void) {
     }
 }
 
