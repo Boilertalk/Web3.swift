@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol Web3DataProvider {
-    func send(data: Data, response: @escaping(Error?, Data?) -> Void)
+    func send(data: Data, response: @escaping(Swift.Result<Data, Error>) -> Void)
 }
 
 public protocol Web3Provider {

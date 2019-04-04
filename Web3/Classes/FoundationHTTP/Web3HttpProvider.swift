@@ -36,9 +36,9 @@ public struct Web3HttpProvider: Web3Provider, Web3DataProvider {
         self.queue = DispatchQueue(label: "Web3HttpProvider", attributes: .concurrent)
     }
     
-    public func send(data: Data, response: @escaping (Swift.Error?, Data?) -> Void) {
+    public func send(data: Data, response: @escaping (Swift.Result<Data, Swift.Error>) -> Void) {
         guard let url = URL(string: self.rpcURL) else {
-            response(Error.badRpcUrl(self.rpcURL), nil)
+            response(.failure(Error.badRpcUrl(self.rpcURL)))
             return
         }
         
@@ -51,17 +51,17 @@ public struct Web3HttpProvider: Web3Provider, Web3DataProvider {
         
         let task = self.session.dataTask(with: req) { data, urlResponse, error in
             guard let urlResponse = urlResponse as? HTTPURLResponse, let data = data, error == nil else {
-                response(Error.serverError(error), nil)
+                response(.failure(Error.serverError(error)))
                 return
             }
             
             let status = urlResponse.statusCode
             guard status >= 200 && status < 300 else {
-                response(Error.badHttpStatus(status), nil)
+                response(.failure(Error.badHttpStatus(status)))
                 return
             }
             
-            response(nil, data)
+            response(.success(data))
         }
         
         task.resume()
@@ -78,8 +78,9 @@ public struct Web3HttpProvider: Web3Provider, Web3DataProvider {
                 return
             }
             
-            self.send(data: body) { err, data in
-                if let err = err {
+            self.send(data: body) { result in
+                switch result {
+                case .failure(let err):
                     let web3Res: Web3Response<Result>
                     switch err {
                     case Error.badRpcUrl(_):
@@ -92,16 +93,17 @@ public struct Web3HttpProvider: Web3Provider, Web3DataProvider {
                         web3Res = Web3Response<Result>(id: request.id, error: .serverError(nil))
                     }
                     response(web3Res)
-                }
-                do {
-                    let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data!)
-                    // We got the Result object
-                    let res = Web3Response(rpcResponse: rpcResponse)
-                    response(res)
-                } catch {
-                    // We don't have the response we expected...
-                    let err = Web3Response<Result>(id: request.id, error: .decodingError(error))
-                    response(err)
+                case .success(let data):
+                    do {
+                        let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data)
+                        // We got the Result object
+                        let res = Web3Response(rpcResponse: rpcResponse)
+                        response(res)
+                    } catch {
+                        // We don't have the response we expected...
+                        let err = Web3Response<Result>(id: request.id, error: .decodingError(error))
+                        response(err)
+                    }
                 }
             }
         }
