@@ -13,7 +13,9 @@
 
 // MARK: - Promisable and Guaranteeable
 
-extension EthereumPrivateKey: Guaranteeable {}
-extension EthereumPublicKey: Guaranteeable {}
+#if Web3CocoaPods || canImport(Web3PromiseKit)
+    extension EthereumPrivateKey: Guaranteeable {}
+    extension EthereumPublicKey: Guaranteeable {}
+#endif
 
 #endif
