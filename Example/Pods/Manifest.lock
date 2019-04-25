@@ -1,7 +1,7 @@
 PODS:
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
-  - CryptoSwift (0.15.0)
+  - CryptoSwift (1.0.0)
   - Nimble (8.0.1)
   - PromiseKit/CorePromise (6.8.4)
   - Quick (2.1.0)
@@ -15,7 +15,7 @@ PODS:
     - Web3/Core
   - Web3/Core (0.3.1):
     - BigInt (~> 3.1)
-    - CryptoSwift (~> 0.15)
+    - CryptoSwift (~> 1.0)
   - Web3/HTTPExtension (0.3.1):
     - Web3/Core
   - Web3/Keychain (0.3.1):
@@ -48,13 +48,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
-  CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
   PromiseKit: 51794a832647e7b819336dc2279039ce9f1cc49b
   Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
   secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   SipHash: fad90a4683e420c52ef28063063dbbce248ea6d4
-  Web3: 629f3aa1b3940e8cb9d9ce8ae8b1c66d933a1914
+  Web3: e8691c31e443c24a699a5be68c519cbdef2962aa
 
 PODFILE CHECKSUM: c143613356b915a7c52d1a262f1fcadf2f3cb1a4
 

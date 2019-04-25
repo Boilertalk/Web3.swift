@@ -33,7 +33,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
 
     # Core dependencies
     ss.dependency 'BigInt', '~> 3.1'
-    ss.dependency 'CryptoSwift', '~> 0.15'
+    ss.dependency 'CryptoSwift', '~> 1.0'
   end
   
   s.subspec 'Keychain' do |ss|
