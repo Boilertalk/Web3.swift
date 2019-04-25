@@ -58,7 +58,5 @@ extension RPCResponse: Guaranteeable {}
 // MARK: - Transaction
 
 extension EthereumAddress: Guaranteeable {}
-extension EthereumPrivateKey: Guaranteeable {}
-extension EthereumPublicKey: Guaranteeable {}
 extension EthereumTransaction: Guaranteeable {}
 extension EthereumSignedTransaction: Guaranteeable {}
