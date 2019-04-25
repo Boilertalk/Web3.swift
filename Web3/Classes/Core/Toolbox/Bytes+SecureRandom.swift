@@ -15,7 +15,7 @@ import Foundation
 
 extension Array where Element == UInt8 {
 
-    static func secureRandom(count: Int) -> [UInt8]? {
+    public static func secureRandom(count: Int) -> [UInt8]? {
         var array = [UInt8](repeating: 0, count: count)
 
         let fd = open("/dev/urandom", O_RDONLY)

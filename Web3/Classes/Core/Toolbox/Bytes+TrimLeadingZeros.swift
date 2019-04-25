@@ -10,7 +10,7 @@ import Foundation
 
 extension Array where Element == Byte {
 
-    func trimLeadingZeros() -> Bytes {
+    public func trimLeadingZeros() -> Bytes {
         var oldBytes = self
         var bytes = Bytes()
 

@@ -190,7 +190,7 @@ extension RLPItem {
      * - parameter r: EC signature parameter r.
      * - parameter s: EC recovery ID.
      */
-    init(
+    public init(
         nonce: EthereumQuantity,
         gasPrice: EthereumQuantity,
         gasLimit: EthereumQuantity,

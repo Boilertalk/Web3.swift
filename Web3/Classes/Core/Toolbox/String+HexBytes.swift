@@ -11,7 +11,7 @@ import Foundation
 extension String {
     
     /// Convert a hex string "0xFF" or "FF" to Bytes
-    func hexBytes() throws -> Bytes {
+    public func hexBytes() throws -> Bytes {
         var string = self
         // Check if we have a complete byte
         guard !string.isEmpty else {
@@ -33,7 +33,7 @@ extension String {
         return try string.rawHex()
     }
 
-    func quantityHexBytes() throws -> Bytes {
+    public func quantityHexBytes() throws -> Bytes {
         var bytes = Bytes()
 
         var string = self
