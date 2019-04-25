@@ -17,16 +17,11 @@ matrix:
         - pod install --project-directory=Example
         - gem install slather
       script:
-        # Output something every 10 minutes or Travis kills the job
-        - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
-        # Actual script
         - set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator12.2 -destination 'platform=iOS Simulator,name=iPhone X,OS=12.2' ONLY_ACTIVE_ARCH=YES | xcpretty
         - pod lib lint --allow-warnings --fail-fast --verbose
         - swift build
         - swift build -c release
         - swift test
-        # Kill background echo job
-        - kill %1
       after_success:
         - slather
         - bash <(curl -s https://codecov.io/bash) -f test-reports/cobertura.xml -X coveragepy -X gcov -X xcode;
@@ -39,11 +34,6 @@ matrix:
       before_install:
         - eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
       script:
-        # Output something every 10 minutes or Travis kills the job
-        - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
-        # Actual script
         - swift build
         - swift build -c release
         - swift test
-        # Kill background echo job
-        - kill %1
