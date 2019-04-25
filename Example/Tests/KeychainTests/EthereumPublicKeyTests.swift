@@ -8,7 +8,11 @@
 
 import Quick
 import Nimble
+
 @testable import Web3
+#if canImport(Web3Keychain)
+    @testable import Web3Keychain
+#endif
 
 class EthereumPublicKeyTests: QuickSpec {
 

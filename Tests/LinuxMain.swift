@@ -43,10 +43,12 @@ QCKMain([
     StringBytesTests.self,
     UIntBytesRepresentableTests.self,
 
-    // TransactionTests
-    EthereumAddressTests.self,
+    // KeychainTests
     EthereumPrivateKeyTests.self,
     EthereumPublicKeyTests.self,
+    
+    // TransactionTests
+    EthereumAddressTests.self,
     TransactionTests.self,
 
     // Web3Tests

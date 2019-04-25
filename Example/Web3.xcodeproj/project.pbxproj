@@ -146,8 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				0E9C6B4A2039E32F000E7225 /* EthereumAddressTests.swift */,
-				0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */,
-				0E9C6B4B2039E32F000E7225 /* EthereumPublicKeyTests.swift */,
 				0E9C6B492039E32F000E7225 /* TransactionTests.swift */,
 			);
 			path = TransactionTests;
@@ -183,6 +181,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				92A5778C22722E4D006EC8AC /* KeychainTests */,
 				E85B781920D1ED3F0069E3B4 /* Stubs */,
 				E85B781520D1ECBB0069E3B4 /* ContractTests */,
 				E85B781420D1ECA50069E3B4 /* ABITests */,
@@ -212,6 +211,15 @@
 				2823EF66D329567217458073 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		92A5778C22722E4D006EC8AC /* KeychainTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E9C6B482039E32F000E7225 /* EthereumPrivateKeyTests.swift */,
+				0E9C6B4B2039E32F000E7225 /* EthereumPublicKeyTests.swift */,
+			);
+			path = KeychainTests;
 			sourceTree = "<group>";
 		};
 		B444433184FBB2B4CDFC906D /* Frameworks */ = {
