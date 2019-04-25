@@ -2,11 +2,11 @@ import struct Foundation.TimeInterval
 import Dispatch
 
 /**
-     after(.seconds(2)).then {
+     after(seconds: 1.5).then {
          //…
      }
 
-- Returns: A new promise that fulfills after the specified duration.
+- Returns: A guarantee that resolves after the specified duration.
 */
 public func after(seconds: TimeInterval) -> Guarantee<Void> {
     let (rg, seal) = Guarantee<Void>.pending()
@@ -20,11 +20,11 @@ public func after(seconds: TimeInterval) -> Guarantee<Void> {
 }
 
 /**
-     after(seconds: 1.5).then {
+     after(.seconds(2)).then {
          //…
      }
 
- - Returns: A new promise that fulfills after the specified duration.
+ - Returns: A guarantee that resolves after the specified duration.
 */
 public func after(_ interval: DispatchTimeInterval) -> Guarantee<Void> {
     let (rg, seal) = Guarantee<Void>.pending()

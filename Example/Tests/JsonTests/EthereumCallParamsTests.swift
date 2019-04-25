@@ -33,7 +33,7 @@ class EthereumCallParamsTests: QuickSpec {
                     gas: 21000,
                     gasPrice: EthereumQuantity(quantity: UInt(21).gwei),
                     value: 10,
-                    data: EthereumData(bytes: [0x00, 0xff]),
+                    data: EthereumData([0x00, 0xff]),
                     block: .latest
                 )
                 it("should not be nil") {
@@ -70,7 +70,7 @@ class EthereumCallParamsTests: QuickSpec {
             context("decoding") {
 
                 let str = "[{\"value\":\"0xa\",\"to\":\"0x829bd824b016326a401d083b33d092293333a830\",\"gas\":\"0x5208\",\"data\":\"0x00ff\",\"gasPrice\":\"0x4e3b29200\",\"from\":\"0x52bc44d5378309ee2abf1539bf71de1b7d7be3b5\"},\"latest\"]"
-                let e = try? self.decoder.decode(EthereumCallParams.self, from: Data(bytes: str.makeBytes()))
+                let e = try? self.decoder.decode(EthereumCallParams.self, from: Data(str.makeBytes()))
                 it("should not be nil") {
                     expect(e).toNot(beNil())
                 }

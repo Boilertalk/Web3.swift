@@ -138,7 +138,7 @@ And then add it to your target dependencies:
 targets: [
     .target(
         name: "MyProject",
-        dependencies: ["Web3", "Web3PromiseKit", "Web3ContractABI"]),
+        dependencies: ["Web3", "Web3Keychain", "Web3PromiseKit", "Web3ContractABI"]),
     .testTarget(
         name: "MyProjectTests",
         dependencies: ["MyProject"])

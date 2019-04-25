@@ -13,7 +13,7 @@ import Foundation
 public extension Web3.Eth {
     
     /// The struct holding all `abi` methods
-    public var abi: ABI.Type {
+    var abi: ABI.Type {
         return ABI.self
     }
     

@@ -158,7 +158,7 @@ public indirect enum SolidityType {
 
 public extension SolidityType.ValueType {
     
-    public var nativeType: ABIConvertible.Type? {
+    var nativeType: ABIConvertible.Type? {
         switch self {
         case .uint(let bits):
             switch bits {
@@ -202,7 +202,7 @@ public extension SolidityType.ValueType {
     }
     
     /// Whether or not the type is considered dynamic
-    public var isDynamic: Bool {
+    var isDynamic: Bool {
         switch self {
         case .string:
             // All strings are dynamic
@@ -216,7 +216,7 @@ public extension SolidityType.ValueType {
     }
     
     /// String representation used for ABI signature encoding
-    public var stringValue: String {
+    var stringValue: String {
         switch self {
         case .uint(let bits):
             return "uint\(bits)"

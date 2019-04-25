@@ -2,13 +2,17 @@ import Dispatch
 
 /// Thenable represents an asynchronous operation that can be chained.
 public protocol Thenable: class {
+    /// The type of the wrapped value
     associatedtype T
+
+    /// `pipe` is immediately executed when this `Thenable` is resolved
     func pipe(to: @escaping(Result<T>) -> Void)
+
+    /// The resolved result or nil if pending.
     var result: Result<T>? { get }
 }
 
 public extension Thenable {
-    
     /**
      The provided closure executes when this promise resolves.
      
@@ -26,12 +30,12 @@ public extension Thenable {
                //…
            }
      */
-    func then<U: Thenable>(on: DispatchQueue? = conf.Q.map, file: StaticString = #file, line: UInt = #line, _ body: @escaping(T) throws -> U) -> Promise<U.T> {
+    func then<U: Thenable>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ body: @escaping(T) throws -> U) -> Promise<U.T> {
         let rp = Promise<U.T>(.pending)
         pipe {
             switch $0 {
             case .fulfilled(let value):
-                on.async {
+                on.async(flags: flags) {
                     do {
                         let rv = try body(value)
                         guard rv !== rp else { throw PMKError.returnedSelf }
@@ -64,12 +68,12 @@ public extension Thenable {
                //…
            }
      */
-    func map<U>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T) throws -> U) -> Promise<U> {
+    func map<U>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ transform: @escaping(T) throws -> U) -> Promise<U> {
         let rp = Promise<U>(.pending)
         pipe {
             switch $0 {
             case .fulfilled(let value):
-                on.async {
+                on.async(flags: flags) {
                     do {
                         rp.box.seal(.fulfilled(try transform(value)))
                     } catch {
@@ -98,12 +102,12 @@ public extension Thenable {
                // either `PMKError.compactMap` or a `JSONError`
            }
      */
-    func compactMap<U>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T) throws -> U?) -> Promise<U> {
+    func compactMap<U>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ transform: @escaping(T) throws -> U?) -> Promise<U> {
         let rp = Promise<U>(.pending)
         pipe {
             switch $0 {
             case .fulfilled(let value):
-                on.async {
+                on.async(flags: flags) {
                     do {
                         if let rv = try transform(value) {
                             rp.box.seal(.fulfilled(rv))
@@ -137,12 +141,12 @@ public extension Thenable {
                print(response.data)
            }
      */
-    func done(on: DispatchQueue? = conf.Q.return, _ body: @escaping(T) throws -> Void) -> Promise<Void> {
+    func done(on: DispatchQueue? = conf.Q.return, flags: DispatchWorkItemFlags? = nil, _ body: @escaping(T) throws -> Void) -> Promise<Void> {
         let rp = Promise<Void>(.pending)
         pipe {
             switch $0 {
             case .fulfilled(let value):
-                on.async {
+                on.async(flags: flags) {
                     do {
                         try body(value)
                         rp.box.seal(.fulfilled(()))
@@ -177,10 +181,32 @@ public extension Thenable {
                print(foo, " is Void")
            }
      */
-    func get(on: DispatchQueue? = conf.Q.return, _ body: @escaping (T) throws -> Void) -> Promise<T> {
-        return map(on: on) {
+    func get(on: DispatchQueue? = conf.Q.return, flags: DispatchWorkItemFlags? = nil, _ body: @escaping (T) throws -> Void) -> Promise<T> {
+        return map(on: on, flags: flags) {
             try body($0)
             return $0
+        }
+    }
+
+    /**
+     The provided closure is executed with promise result.
+
+     This is like `get` but provides the Result<T> of the Promise so you can inspect the value of the chain at this point without causing any side effects.
+
+     - Parameter on: The queue to which the provided closure dispatches.
+     - Parameter body: The closure that is executed with Result of Promise.
+     - Returns: A new promise that is resolved with the result that the handler is fed. For example:
+
+     promise.tap{ print($0) }.then{ /*…*/ }
+     */
+    func tap(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ body: @escaping(Result<T>) -> Void) -> Promise<T> {
+        return Promise { seal in
+            pipe { result in
+                on.async(flags: flags) {
+                    body(result)
+                    seal.resolve(result)
+                }
+            }
         }
     }
 
@@ -260,8 +286,8 @@ public extension Thenable where T: Sequence {
              // $0 => [2,4,6]
          }
      */
-    func mapValues<U>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U]> {
-        return map(on: on){ try $0.map(transform) }
+    func mapValues<U>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U]> {
+        return map(on: on, flags: flags){ try $0.map(transform) }
     }
 
     /**
@@ -275,8 +301,8 @@ public extension Thenable where T: Sequence {
              // $0 => [1,1,2,2,3,3]
          }
      */
-    func flatMapValues<U: Sequence>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U.Iterator.Element]> {
-        return map(on: on){ (foo: T) in
+    func flatMapValues<U: Sequence>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U.Iterator.Element]> {
+        return map(on: on, flags: flags){ (foo: T) in
             try foo.flatMap{ try transform($0) }
         }
     }
@@ -292,8 +318,8 @@ public extension Thenable where T: Sequence {
              // $0 => [1,2,3]
          }
      */
-    func compactMapValues<U>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T.Iterator.Element) throws -> U?) -> Promise<[U]> {
-        return map(on: on) { foo -> [U] in
+    func compactMapValues<U>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ transform: @escaping(T.Iterator.Element) throws -> U?) -> Promise<[U]> {
+        return map(on: on, flags: flags) { foo -> [U] in
           #if !swift(>=3.3) || (swift(>=4) && !swift(>=4.1))
             return try foo.flatMap(transform)
           #else
@@ -313,8 +339,8 @@ public extension Thenable where T: Sequence {
              // $0 => [2,4,6]
          }
      */
-    func thenMap<U: Thenable>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U.T]> {
-        return then(on: on) {
+    func thenMap<U: Thenable>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U.T]> {
+        return then(on: on, flags: flags) {
             when(fulfilled: try $0.map(transform))
         }
     }
@@ -330,8 +356,8 @@ public extension Thenable where T: Sequence {
              // $0 => [1,1,2,2,3,3]
          }
      */
-    func thenFlatMap<U: Thenable>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U.T.Iterator.Element]> where U.T: Sequence {
-        return then(on: on) {
+    func thenFlatMap<U: Thenable>(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U.T.Iterator.Element]> where U.T: Sequence {
+        return then(on: on, flags: flags) {
             when(fulfilled: try $0.map(transform))
         }.map(on: nil) {
             $0.flatMap{ $0 }
@@ -349,8 +375,8 @@ public extension Thenable where T: Sequence {
              // $0 => [2,3]
          }
      */
-    func filterValues(on: DispatchQueue? = conf.Q.map, _ isIncluded: @escaping (T.Iterator.Element) -> Bool) -> Promise<[T.Iterator.Element]> {
-        return map(on: on) {
+    func filterValues(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, _ isIncluded: @escaping (T.Iterator.Element) -> Bool) -> Promise<[T.Iterator.Element]> {
+        return map(on: on, flags: flags) {
             $0.filter(isIncluded)
         }
     }
@@ -365,6 +391,15 @@ public extension Thenable where T: Collection {
             } else {
                 throw PMKError.emptySequence
             }
+        }
+    }
+
+    func firstValue(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil, where test: @escaping (T.Iterator.Element) -> Bool) -> Promise<T.Iterator.Element> {
+        return map(on: on, flags: flags) {
+            for x in $0 where test(x) {
+                return x
+            }
+            throw PMKError.emptySequence
         }
     }
 
@@ -383,7 +418,7 @@ public extension Thenable where T: Collection {
 
 public extension Thenable where T: Sequence, T.Iterator.Element: Comparable {
     /// - Returns: a promise fulfilled with the sorted values of this `Sequence`.
-    func sortedValues(on: DispatchQueue? = conf.Q.map) -> Promise<[T.Iterator.Element]> {
-        return map(on: on){ $0.sorted() }
+    func sortedValues(on: DispatchQueue? = conf.Q.map, flags: DispatchWorkItemFlags? = nil) -> Promise<[T.Iterator.Element]> {
+        return map(on: on, flags: flags){ $0.sorted() }
     }
 }

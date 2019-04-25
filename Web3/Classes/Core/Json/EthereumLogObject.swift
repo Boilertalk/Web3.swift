@@ -63,19 +63,16 @@ extension EthereumLogObject: Equatable {
 // MARK: - Hashable
 
 extension EthereumLogObject: Hashable {
-
-    public var hashValue: Int {
-        var removedBytes: UInt8?
-        if let removed = self.removed {
-            removedBytes = removed ? UInt8(0x01) : UInt8(0x00)
-        }
-        var arr: [BytesRepresentable?] = [
-            removedBytes, logIndex, transactionIndex, transactionHash, blockHash, blockNumber,
-            address, data
-        ]
-        for t in topics {
-            arr.append(t)
-        }
-        return hashValues(arr)
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(removed)
+        hasher.combine(logIndex)
+        hasher.combine(transactionIndex)
+        hasher.combine(transactionHash)
+        hasher.combine(blockHash)
+        hasher.combine(blockNumber)
+        hasher.combine(address)
+        hasher.combine(data)
+        hasher.combine(topics)
     }
 }

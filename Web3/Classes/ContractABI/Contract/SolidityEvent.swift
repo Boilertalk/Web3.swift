@@ -101,7 +101,7 @@ extension SolidityEvent: Hashable {
         return lhs.hashValue == rhs.hashValue
     }
     
-    public var hashValue: Int {
-        return signature.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(signature)
     }
 }

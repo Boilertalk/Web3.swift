@@ -10,6 +10,11 @@ import Foundation
 import secp256k1
 import CryptoSwift
 
+#if !Web3CocoaPods
+    import Web3
+#endif
+
+
 public final class EthereumPrivateKey {
 
     // MARK: - Properties
@@ -59,7 +64,7 @@ public final class EthereumPrivateKey {
     /**
      * Convenient initializer for `init(privateKey:)`
      */
-    public required convenience init(bytes: Bytes) throws {
+    public required convenience init(_ bytes: Bytes) throws {
         try self.init(privateKey: bytes)
     }
 
@@ -302,8 +307,9 @@ extension EthereumPrivateKey: BytesConvertible {
 // MARK: - Hashable
 
 extension EthereumPrivateKey: Hashable {
-
-    public var hashValue: Int {
-        return hashValues(self)
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawPrivateKey)
     }
 }
+

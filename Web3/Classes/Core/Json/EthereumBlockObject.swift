@@ -133,6 +133,35 @@ public struct EthereumBlockObject: Codable {
             case unsupportedType
         }
     }
+    
+    init(number: EthereumQuantity?, hash: EthereumData?, parentHash: EthereumData,
+         nonce: EthereumData?, sha3Uncles: EthereumData, logsBloom: EthereumData?,
+         transactionsRoot: EthereumData, stateRoot: EthereumData, receiptsRoot: EthereumData,
+         miner: EthereumAddress, difficulty: EthereumQuantity, totalDifficulty: EthereumQuantity,
+         extraData: EthereumData, size: EthereumQuantity, gasLimit: EthereumQuantity,
+         gasUsed: EthereumQuantity, timestamp: EthereumQuantity, transactions: [Transaction],
+         uncles: [EthereumData])
+    {
+        self.number = number
+        self.hash = hash
+        self.parentHash = parentHash
+        self.nonce = nonce
+        self.sha3Uncles = sha3Uncles
+        self.logsBloom = logsBloom
+        self.transactionsRoot = transactionsRoot
+        self.stateRoot = stateRoot
+        self.receiptsRoot = receiptsRoot
+        self.miner = miner
+        self.difficulty = difficulty
+        self.totalDifficulty = totalDifficulty
+        self.extraData = extraData
+        self.size = size
+        self.gasLimit = gasLimit
+        self.gasUsed = gasUsed
+        self.timestamp = timestamp
+        self.transactions = transactions
+        self.uncles = uncles
+    }
 }
 
 // MARK: - Equatable
@@ -173,22 +202,36 @@ extension EthereumBlockObject: Equatable {
 // MARK: - Hashable
 
 extension EthereumBlockObject.Transaction: Hashable {
-
-    public var hashValue: Int {
-        return hashValues(hash) ^ (object?.hashValue ?? 0)
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(hash)
+        hasher.combine(object)
     }
 }
 
 extension EthereumBlockObject: Hashable {
-
-    public var hashValue: Int {
+    
+    public func hash(into hasher: inout Hasher) {
         // As of now we don't include transactions and uncles into the hashValue. This should be sufficiently fast for
         // the average case, which is enough for now. (Normally there are no block objects which have exact same values
         // but different transactions and uncles unless they were requested to include only tx hashes/complete objects.
-        // We should test those cases and change this function if it makes a huge difference)
-        return hashValues(
-            number, hash, parentHash, nonce, sha3Uncles, logsBloom, transactionsRoot, stateRoot, receiptsRoot, miner,
-            difficulty, totalDifficulty, extraData, size, gasLimit, gasUsed, timestamp
-        )
+        // We should test those cases and change this function if it makes a huge difference
+        hasher.combine(number)
+        hasher.combine(hash)
+        hasher.combine(parentHash)
+        hasher.combine(nonce)
+        hasher.combine(sha3Uncles)
+        hasher.combine(logsBloom)
+        hasher.combine(transactionsRoot)
+        hasher.combine(stateRoot)
+        hasher.combine(receiptsRoot)
+        hasher.combine(miner)
+        hasher.combine(difficulty)
+        hasher.combine(totalDifficulty)
+        hasher.combine(extraData)
+        hasher.combine(size)
+        hasher.combine(gasLimit)
+        hasher.combine(gasUsed)
+        hasher.combine(timestamp)
     }
 }

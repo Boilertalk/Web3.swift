@@ -11,6 +11,10 @@ import secp256k1
 import CryptoSwift
 import BigInt
 
+#if !Web3CocoaPods
+    import Web3
+#endif
+
 public final class EthereumPublicKey {
 
     // MARK: - Properties
@@ -32,7 +36,7 @@ public final class EthereumPublicKey {
     /**
      * Convenient initializer for `init(publicKey:)`
      */
-    public required convenience init(bytes: Bytes) throws {
+    public required convenience init(_ bytes: Bytes) throws {
         try self.init(publicKey: bytes)
     }
 
@@ -359,8 +363,8 @@ extension EthereumPublicKey: BytesConvertible {
 // MARK: - Hashable
 
 extension EthereumPublicKey: Hashable {
-
-    public var hashValue: Int {
-        return hashValues(self)
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawPublicKey)
     }
 }

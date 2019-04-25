@@ -128,19 +128,19 @@ extension EthereumValue: ExpressibleByArrayLiteral {
 
 public extension EthereumValue {
 
-    public static func string(_ string: String) -> EthereumValue {
+    static func string(_ string: String) -> EthereumValue {
         return self.init(stringLiteral: string)
     }
 
-    public static func int(_ int: Int) -> EthereumValue {
+    static func int(_ int: Int) -> EthereumValue {
         return self.init(integerLiteral: int)
     }
 
-    public static func bool(_ bool: Bool) -> EthereumValue {
+    static func bool(_ bool: Bool) -> EthereumValue {
         return self.init(booleanLiteral: bool)
     }
 
-    public static func array(_ array: [EthereumValueRepresentable]) -> EthereumValue {
+    static func array(_ array: [EthereumValueRepresentable]) -> EthereumValue {
         return self.init(array: array)
     }
 }
@@ -149,7 +149,7 @@ public extension EthereumValue {
 
 public extension EthereumValue {
 
-    public var string: String? {
+    var string: String? {
         if case .string(let string) = valueType {
             return string
         }
@@ -157,7 +157,7 @@ public extension EthereumValue {
         return nil
     }
 
-    public var int: Int? {
+    var int: Int? {
         if case .int(let int) = valueType {
             return int
         }
@@ -165,7 +165,7 @@ public extension EthereumValue {
         return nil
     }
 
-    public var bool: Bool? {
+    var bool: Bool? {
         if case .bool(let bool) = valueType {
             return bool
         }
@@ -173,7 +173,7 @@ public extension EthereumValue {
         return nil
     }
 
-    public var array: [EthereumValue]? {
+    var array: [EthereumValue]? {
         if case .array(let array) = valueType {
             return array
         }
@@ -240,26 +240,26 @@ extension EthereumValue: Equatable {
 // MARK: - Hashable
 
 extension EthereumValue.ValueType: Hashable {
-
-    public var hashValue: Int {
+    
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .string(let str):
-            return hashValues(str)
+            hasher.combine(str)
         case .int(let int):
-            return hashValues(String(int))
+            hasher.combine(int)
         case .bool(let bool):
-            return hashValues(bool ? UInt8(0x01) : UInt8(0x00))
+            hasher.combine(bool)
         case .array(let array):
-            return hashValues(String(array.reduce(0, { $0 ^ $1.hashValue })))
+            hasher.combine(array)
         case .nil:
-            return hashValues(UInt8(0x00))
+            hasher.combine(0x00)
         }
     }
 }
 
 extension EthereumValue: Hashable {
-
-    public var hashValue: Int {
-        return valueType.hashValue
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(valueType)
     }
 }

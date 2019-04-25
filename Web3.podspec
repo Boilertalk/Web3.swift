@@ -26,14 +26,21 @@ HTTP RPC interface provided by this library or a custom RPC interface
     'OTHER_SWIFT_FLAGS' => '-DWeb3CocoaPods'
   }
 
-  s.default_subspecs = 'Core', 'HTTPExtension'
+  s.default_subspecs = 'Core', 'Keychain', 'HTTPExtension'
 
   s.subspec 'Core' do |ss|
     ss.source_files = 'Web3/Classes/Core/**/*'
 
     # Core dependencies
     ss.dependency 'BigInt', '~> 3.1'
-    ss.dependency 'CryptoSwift', '~> 0.8'
+    ss.dependency 'CryptoSwift', '~> 0.15'
+  end
+  
+  s.subspec 'Keychain' do |ss|
+    ss.source_files = 'Web3/Classes/Keychain/**/*'
+    
+    ss.dependency 'Web3/Core'
+    # crypto library
     ss.dependency 'secp256k1.swift', '~> 0.1'
   end
 
@@ -56,11 +63,4 @@ HTTP RPC interface provided by this library or a custom RPC interface
 
     ss.dependency 'Web3/Core'
   end
-
-  # s.resource_bundles = {
-  #   'Web3' => ['Web3/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
 end
