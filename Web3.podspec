@@ -32,7 +32,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.source_files = 'Web3/Classes/Core/**/*'
 
     # Core dependencies
-    ss.dependency 'BigInt', '~> 3.1'
+    ss.dependency 'BigInt', '~> 4.0'
     ss.dependency 'CryptoSwift', '~> 1.0'
   end
   
