@@ -35,7 +35,7 @@
       "source_files": "Web3/Classes/Core/**/*",
       "dependencies": {
         "BigInt": [
-          "~> 3.1"
+          "~> 4.0"
         ],
         "CryptoSwift": [
           "~> 1.0"
