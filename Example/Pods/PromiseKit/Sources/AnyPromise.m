@@ -1,4 +1,8 @@
-#import <PromiseKit/PromiseKit-Swift.h>
+#if __has_include("PromiseKit-Swift.h")
+    #import "PromiseKit-Swift.h"
+#else
+    #import <PromiseKit/PromiseKit-Swift.h>
+#endif
 #import "PMKCallVariadicBlock.m"
 #import "AnyPromise+Private.h"
 #import "AnyPromise.h"
@@ -106,6 +110,10 @@ NSString *const PMKErrorDomain = @"PMKErrorDomain";
     return ^(dispatch_queue_t queue, dispatch_block_t block) {
         return [self->d __ensureOn:queue execute:block];
     };
+}
+
+- (id)wait {
+    return [d __wait];
 }
 
 - (BOOL)pending {
