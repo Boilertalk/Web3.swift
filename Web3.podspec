@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Web3'
-  s.version          = '0.3.1'
+  s.version          = '0.4.0'
   s.summary          = 'Web3 library for Swift. Sign transactions and interact with Smart Contracts in the Ethereum Network.'
 
   s.description      = <<-DESC
