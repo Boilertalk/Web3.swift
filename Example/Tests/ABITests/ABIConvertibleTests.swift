@@ -257,14 +257,14 @@ class ABIConvertibleTests: QuickSpec {
             
             context("when encoding to hex string") {
                 it("should encode Data to dynamic bytes") {
-                    let bytes = Data(bytes: [1, 2, 3, 4, 5, 6, 7, 8, 9])
+                    let bytes = Data([1, 2, 3, 4, 5, 6, 7, 8, 9])
                     let test = try? ABI.encodeParameters([.bytes(bytes)])
                     let expected = "0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000090102030405060708090000000000000000000000000000000000000000000000"
                     expect(test).to(equal(expected))
                 }
                 
                 it("should encode Data to fixed bytes") {
-                    let bytes = Data(bytes: [0, 111, 222])
+                    let bytes = Data([0, 111, 222])
                     let test = try? ABI.encodeParameters([.fixedBytes(bytes)])
                     let expected = "0x006fde0000000000000000000000000000000000000000000000000000000000"
                     expect(test).to(equal(expected))
@@ -273,13 +273,13 @@ class ABIConvertibleTests: QuickSpec {
             
             context("when decoding from hex string") {
                 it("should decode Data from dynamic bytes") {
-                    let expected = Data(bytes: [1, 2, 3, 4, 5, 6, 7, 8, 9])
+                    let expected = Data([1, 2, 3, 4, 5, 6, 7, 8, 9])
                     let test = "00000000000000000000000000000000000000000000000000000000000000090102030405060708090000000000000000000000000000000000000000000000"
                     expect(Data(hexString: test)).to(equal(expected))
                 }
                 
                 it("should decode Data from fixed bytes") {
-                    let expected = Data(bytes: [0, 111, 222])
+                    let expected = Data([0, 111, 222])
                     let test = "006fde0000000000000000000000000000000000000000000000000000000000"
                     expect(Data(hexString: test, length: 3)).to(equal(expected))
                 }

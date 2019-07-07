@@ -290,7 +290,7 @@ extension Data: ABIConvertible {
         let bytes = valueString.hexToBytes()
         //trim bytes to length
         let trimmedBytes = bytes.prefix(length)
-        self.init(bytes: trimmedBytes)
+        self.init(trimmedBytes)
     }
     
     public init?(hexString: String, length: UInt) {
@@ -298,7 +298,7 @@ extension Data: ABIConvertible {
         let bytes = hexString.hexToBytes()
         //trim bytes to length
         let trimmedBytes = bytes.prefix(Int(length))
-        self.init(bytes: trimmedBytes)
+        self.init(trimmedBytes)
     }
     
     public func abiEncode(dynamic: Bool) -> String? {

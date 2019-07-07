@@ -5,7 +5,7 @@ enum Sealant<R> {
     case resolved(R)
 }
 
-class Handlers<R> {
+final class Handlers<R> {
     var bodies: [(R) -> Void] = []
     func append(_ item: @escaping(R) -> Void) { bodies.append(item) }
 }
@@ -17,7 +17,7 @@ class Box<T> {
     func seal(_: T) {}
 }
 
-class SealedBox<T>: Box<T> {
+final class SealedBox<T>: Box<T> {
     let value: T
 
     init(value: T) {
@@ -85,12 +85,17 @@ class EmptyBox<T>: Box<T> {
 
 
 extension Optional where Wrapped: DispatchQueue {
-    func async(_ body: @escaping() -> Void) {
+    @inline(__always)
+    func async(flags: DispatchWorkItemFlags?, _ body: @escaping() -> Void) {
         switch self {
         case .none:
             body()
         case .some(let q):
-            q.async(execute: body)
+            if let flags = flags {
+                q.async(flags: flags, execute: body)
+            } else {
+                q.async(execute: body)
+            }
         }
     }
 }

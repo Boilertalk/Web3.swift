@@ -77,7 +77,7 @@ public protocol SolidityFunction: class {
 
 public extension SolidityFunction {
     
-    public var signature: String {
+    var signature: String {
         return "\(name)(\(inputs.map { $0.type.stringValue }.joined(separator: ",")))"
     }
     

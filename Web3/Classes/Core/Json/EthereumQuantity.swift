@@ -14,7 +14,7 @@ public struct EthereumQuantity {
     public let quantity: BigUInt
 
     public static func bytes(_ bytes: Bytes) -> EthereumQuantity {
-        return self.init(quantity: BigUInt(bytes: bytes))
+        return self.init(quantity: BigUInt(bytes))
     }
 
     public init(quantity: BigUInt) {
@@ -31,7 +31,7 @@ extension EthereumQuantity: ExpressibleByIntegerLiteral {
     public typealias IntegerLiteralType = UInt64
 
     public init(integerLiteral value: UInt64) {
-        self.init(quantity: BigUInt(value))
+        self.init(quantity: BigUInt.init(integerLiteral: value))
     }
 }
 
@@ -46,7 +46,7 @@ extension EthereumQuantity: EthereumValueConvertible {
             throw EthereumValueInitializableError.notInitializable
         }
 
-        try self.init(quantity: BigUInt(bytes: str.quantityHexBytes()))
+        try self.init(quantity: BigUInt(str.quantityHexBytes()))
     }
 
     public func ethereumValue() -> EthereumValue {
@@ -56,7 +56,7 @@ extension EthereumQuantity: EthereumValueConvertible {
 
 public extension EthereumValue {
 
-    public var ethereumQuantity: EthereumQuantity? {
+    var ethereumQuantity: EthereumQuantity? {
         return try? EthereumQuantity(ethereumValue: self)
     }
 }
@@ -65,7 +65,7 @@ public extension EthereumValue {
 
 extension EthereumQuantity: BytesConvertible {
 
-    public init(bytes: Bytes) {
+    public init(_ bytes: Bytes) {
         self = EthereumQuantity.bytes(bytes)
     }
 
@@ -87,7 +87,7 @@ extension EthereumQuantity: Equatable {
 
 extension EthereumQuantity: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(quantity)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(quantity)
     }
 }

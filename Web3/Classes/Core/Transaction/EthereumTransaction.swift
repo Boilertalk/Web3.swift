@@ -51,7 +51,7 @@ public struct EthereumTransaction: Codable {
         from: EthereumAddress? = nil,
         to: EthereumAddress? = nil,
         value: EthereumQuantity? = nil,
-        data: EthereumData = EthereumData(bytes: [])
+        data: EthereumData = EthereumData([])
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
@@ -100,8 +100,8 @@ public struct EthereumTransaction: Codable {
             v = sigV + big27 + chainIdCalc
         }
         
-        let r = BigUInt(bytes: signature.r)
-        let s = BigUInt(bytes: signature.s)
+        let r = BigUInt(signature.r)
+        let s = BigUInt(signature.s)
         
         return EthereumSignedTransaction(
             nonce: nonce,
@@ -302,7 +302,7 @@ extension EthereumSignedTransaction: RLPItemConvertible {
             gasLimit: EthereumQuantity(quantity: gasLimit),
             to: to,
             value: EthereumQuantity(quantity: value),
-            data: EthereumData(bytes: data),
+            data: EthereumData(data),
             v: EthereumQuantity(quantity: v),
             r: EthereumQuantity(quantity: r),
             s: EthereumQuantity(quantity: s),
@@ -359,18 +359,29 @@ extension EthereumSignedTransaction: Equatable {
 
 extension EthereumTransaction: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(
-            nonce, gasPrice, gas, from, to, value, data
-        )
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(nonce)
+        hasher.combine(gasPrice)
+        hasher.combine(gas)
+        hasher.combine(from)
+        hasher.combine(to)
+        hasher.combine(value)
+        hasher.combine(data)
     }
 }
 
 extension EthereumSignedTransaction: Hashable {
-    
-    public var hashValue: Int {
-        return hashValues(
-            nonce, gasPrice, gasLimit, to, value, data, v, r, s, chainId
-        )
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(nonce)
+        hasher.combine(gasPrice)
+        hasher.combine(gasLimit)
+        hasher.combine(to)
+        hasher.combine(value)
+        hasher.combine(data)
+        hasher.combine(v)
+        hasher.combine(r)
+        hasher.combine(s)
+        hasher.combine(chainId)
     }
 }

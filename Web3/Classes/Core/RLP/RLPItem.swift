@@ -45,15 +45,15 @@ public struct RLPItem {
 
 public extension RLPItem {
 
-    public static func bytes(_ bytes: Bytes) -> RLPItem {
+    static func bytes(_ bytes: Bytes) -> RLPItem {
         return RLPItem(bytes: bytes)
     }
 
-    public static func bytes(_ bytes: Byte...) -> RLPItem {
+    static func bytes(_ bytes: Byte...) -> RLPItem {
         return RLPItem(bytes: bytes)
     }
 
-    public init(bytes: Bytes) {
+    init(bytes: Bytes) {
         self.init(valueType: .bytes(bytes))
     }
 }
@@ -112,7 +112,7 @@ public extension RLPItem {
     /**
      * Returns an array of bytes iff `self.valueType` is .bytes. Returns nil otherwise.
      */
-    public var bytes: Bytes? {
+    var bytes: Bytes? {
         guard case .bytes(let value) = valueType else {
             return nil
         }
@@ -122,7 +122,7 @@ public extension RLPItem {
     /**
      * Returns the string representation of this item iff `self.valueType` is .bytes. Returns nil otherwise.
      */
-    public var string: String? {
+    var string: String? {
         guard case .bytes(let value) = valueType else {
             return nil
         }
@@ -133,7 +133,7 @@ public extension RLPItem {
      * Returns the uint representation of this item (big endian represented) iff `self.valueType` is .bytes.
      * Returns nil otherwise.
      */
-    public var uint: UInt? {
+    var uint: UInt? {
         guard case .bytes(let value) = valueType else {
             return nil
         }
@@ -144,17 +144,17 @@ public extension RLPItem {
      * Returns the `BigUInt` representation of this item (big endian represented) iff `self.valueType` is .bytes.
      * Returns nil otherwise.
      */
-    public var bigUInt: BigUInt? {
+    var bigUInt: BigUInt? {
         guard case .bytes(let value) = valueType else {
             return nil
         }
-        return BigUInt(bytes: value)
+        return BigUInt(value)
     }
 
     /**
      * Returns an array of `RLPItem`'s iff `self.valueType` is .array. Returns nil otherwise.
      */
-    public var array: [RLPItem]? {
+    var array: [RLPItem]? {
         guard case .array(let elements) = valueType else {
             return nil
         }
@@ -238,19 +238,19 @@ extension RLPItem: Equatable {
 
 extension RLPItem.ValueType: Hashable {
 
-    public var hashValue: Int {
+    public func hash(into hasher: inout Hasher) {
         switch self {
         case .array(let arr):
-            return hashValues(String(arr.reduce(0, { $0 ^ $1.hashValue })))
+            hasher.combine(arr)
         case .bytes(let bytes):
-            return hashValues(bytes)
+            hasher.combine(bytes)
         }
     }
 }
 
 extension RLPItem: Hashable {
 
-    public var hashValue: Int {
-        return valueType.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(valueType)
     }
 }
