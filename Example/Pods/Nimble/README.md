@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/Quick/Nimble.svg?branch=master)](https://travis-ci.org/Quick/Nimble)
 [![CocoaPods](https://img.shields.io/cocoapods/v/Nimble.svg)](https://cocoapods.org/pods/Nimble)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Accio supported](https://img.shields.io/badge/Accio-supported-0A7CF5.svg?style=flat)](https://github.com/JamitLabs/Accio)
 [![Platforms](https://img.shields.io/cocoapods/p/Nimble.svg)](https://cocoapods.org/pods/Nimble)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 Use Nimble to express the expected outcomes of Swift
 or Objective-C expressions. Inspired by
@@ -69,6 +71,7 @@ expect(ocean.isClean).toEventually(beTruthy())
 - [Installing Nimble](#installing-nimble)
   - [Installing Nimble as a Submodule](#installing-nimble-as-a-submodule)
   - [Installing Nimble via CocoaPods](#installing-nimble-via-cocoapods)
+  - [Installing Nimble via Accio](#installing-nimble-via-accio)
   - [Using Nimble without XCTest](#using-nimble-without-xctest)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -226,9 +229,9 @@ exception once evaluated:
 //       that Nimble will catch.
 //       (see https://github.com/Quick/Nimble/issues/220#issuecomment-172667064)
 let exception = NSException(
-  name: NSInternalInconsistencyException,
-  reason: "Not enough fish in the sea.",
-  userInfo: ["something": "is fishy"])
+    name: NSInternalInconsistencyException,
+    reason: "Not enough fish in the sea.",
+    userInfo: ["something": "is fishy"])
 expect { exception.raise() }.to(raiseException())
 
 // Also, you can customize raiseException to be more specific
@@ -306,20 +309,8 @@ In Nimble, it's easy to make expectations on values that are updated
 asynchronously. Just use `toEventually` or `toEventuallyNot`:
 
 ```swift
-// Swift 3.0 and later
-
+// Swift
 DispatchQueue.main.async {
-    ocean.add("dolphins")
-    ocean.add("whales")
-}
-expect(ocean).toEventually(contain("dolphins", "whales"))
-```
-
-
-```swift
-// Swift 2.3 and earlier
-
-dispatch_async(dispatch_get_main_queue()) {
     ocean.add("dolphins")
     ocean.add("whales")
 }
@@ -714,7 +705,7 @@ expect(actual) ≈ expected
 expect(actual) ≈ (expected, delta)
 
 ```
-(Type Option-x to get ≈ on a U.S. keyboard)
+(Type <kbd>option</kbd>+<kbd>x</kbd> to get `≈` on a U.S. keyboard)
 
 The former version uses the default delta of 0.0001. Here is yet another way to do this:
 
@@ -725,7 +716,7 @@ expect(actual) ≈ expected ± delta
 expect(actual) == expected ± delta
 
 ```
-(Type Option-Shift-= to get ± on a U.S. keyboard)
+(Type <kbd>option</kbd>+<kbd>shift</kbd>+<kbd>=</kbd> to get `±` on a U.S. keyboard)
 
 If you are comparing arrays of floating point numbers, you'll find the following useful:
 
@@ -857,11 +848,7 @@ Notes:
 
 ## Swift Error Handling
 
-If you're using Swift 2.0 or newer, you can use the `throwError` matcher to check if an error is thrown.
-
-Note:
-The following code sample references the `Swift.Error` protocol. 
-This is `Swift.ErrorProtocol` in versions of Swift prior to version 3.0.
+You can use the `throwError` matcher to check if an error is thrown.
 
 ```swift
 // Swift
@@ -1043,10 +1030,10 @@ let turtles: [Turtle] = functionThatReturnsSomeTurtlesInAnyOrder()
 // [{color: "blue"}, {color: "green"}] or [{color: "green"}, {color: "blue"}]:
 
 expect(turtles).to(containElementSatisfying({ turtle in
-	return turtle.color == "green"
+    return turtle.color == "green"
 }))
 expect(turtles).to(containElementSatisfying({ turtle in
-	return turtle.color == "blue"
+    return turtle.color == "blue"
 }, "that is a turtle with color 'blue'"))
 
 // The second matcher will incorporate the provided string in the error message
@@ -1069,10 +1056,10 @@ NSArray<Turtle *> * __nonnull turtles = functionThatReturnsSomeTurtlesInAnyOrder
 // [{color: "blue"}, {color: "green"}] or [{color: "green"}, {color: "blue"}]:
 
 expect(turtles).to(containElementSatisfying(^BOOL(id __nonnull object) {
-	return [[turtle color] isEqualToString:@"green"];
+    return [[turtle color] isEqualToString:@"green"];
 }));
 expect(turtles).to(containElementSatisfying(^BOOL(id __nonnull object) {
-	return [[turtle color] isEqualToString:@"blue"];
+    return [[turtle color] isEqualToString:@"blue"];
 }));
 ```
 
@@ -1273,24 +1260,24 @@ value and return a `Predicate` closure. Take `equal`, for example:
 // Swift
 
 public func equal<T: Equatable>(expectedValue: T?) -> Predicate<T> {
-  // Can be shortened to:
-  //   Predicate { actual in  ... }
-  //
-  // But shown with types here for clarity.
-  return Predicate { (actual: Expression<T>) throws -> PredicateResult in
-    let msg = ExpectationMessage.expectedActualValueTo("equal <\(expectedValue)>")
-    if let actualValue = try actualExpression.evaluate() {
-    	return PredicateResult(
-            bool: actualValue == expectedValue!,
-            message: msg
-        )
-    } else {
-    	return PredicateResult(
-            status: .fail,
-            message: msg.appendedBeNilHint()
-        )
+    // Can be shortened to:
+    //   Predicate { actual in  ... }
+    //
+    // But shown with types here for clarity.
+    return Predicate { (actualExpression: Expression<T>) throws -> PredicateResult in
+        let msg = ExpectationMessage.expectedActualValueTo("equal <\(expectedValue)>")
+        if let actualValue = try actualExpression.evaluate() {
+            return PredicateResult(
+                bool: actualValue == expectedValue!,
+                message: msg
+            )
+        } else {
+            return PredicateResult(
+                status: .fail,
+                message: msg.appendedBeNilHint()
+            )
+        }
     }
-  }
 }
 ```
 
@@ -1382,11 +1369,11 @@ custom matchers should call `actualExpression.evaluate()`:
 // Swift
 
 public func beNil<T>() -> Predicate<T> {
-	// Predicate.simpleNilable(..) automatically generates ExpectationMessage for
-	// us based on the string we provide to it. Also, the 'Nilable' postfix indicates
-	// that this Predicate supports matching against nil actualExpressions, instead of
-	// always resulting in a PredicateStatus.fail result -- which is true for
-	// Predicate.simple(..)
+    // Predicate.simpleNilable(..) automatically generates ExpectationMessage for
+    // us based on the string we provide to it. Also, the 'Nilable' postfix indicates
+    // that this Predicate supports matching against nil actualExpressions, instead of
+    // always resulting in a PredicateStatus.fail result -- which is true for
+    // Predicate.simple(..)
     return Predicate.simpleNilable("be nil") { actualExpression in
         let actualValue = try actualExpression.evaluate()
         return PredicateStatus(bool: actualValue == nil)
@@ -1412,9 +1399,9 @@ against the one provided to the matcher function, and passes if they are the sam
 // Swift
 
 public func haveDescription(description: String) -> Predicate<Printable?> {
-  return Predicate.simple("have description") { actual in
-    return PredicateStatus(bool: actual.evaluate().description == description)
-  }
+    return Predicate.simple("have description") { actual in
+        return PredicateStatus(bool: actual.evaluate().description == description)
+    }
 }
 ```
 
@@ -1489,7 +1476,7 @@ case expectedCustomValueTo(/* message: */ String, /* actual: */ String)
 
 // Emits standard error message without mentioning the actual value
 // eg - "expected to <message>"
-case expectedTo(/* message: */ String, /* actual: */ String)
+case expectedTo(/* message: */ String)
 
 // ...
 }
@@ -1526,13 +1513,13 @@ custom matcher. The example below defines the class method
 // Swift
 
 extension NMBObjCMatcher {
-  public class func beNilMatcher() -> NMBObjCMatcher {
-    return NMBObjCMatcher { actualBlock, failureMessage, location in
-      let block = ({ actualBlock() as NSObject? })
-      let expr = Expression(expression: block, location: location)
-      return beNil().matches(expr, failureMessage: failureMessage)
+    public class func beNilMatcher() -> NMBObjCMatcher {
+        return NMBObjCMatcher { actualBlock, failureMessage, location in
+            let block = ({ actualBlock() as NSObject? })
+            let expr = Expression(expression: block, location: location)
+            return beNil().matches(expr, failureMessage: failureMessage)
+        }
     }
-  }
 }
 ```
 
@@ -1551,7 +1538,7 @@ class method:
 // Objective-C
 
 FOUNDATION_EXPORT id<NMBMatcher> beNil() {
-  return [NMBObjCMatcher beNilMatcher];
+    return [NMBObjCMatcher beNilMatcher];
 }
 ```
 
@@ -1673,11 +1660,11 @@ backported.
 The deprecating plan is a 3 major versions removal. Which is as follows:
 
  1. Introduce new `Predicate` API, deprecation warning for old matcher APIs.
-    (Nimble `v7.x.x`)
+    (Nimble `v7.x.x` and `v8.x.x`)
  2. Introduce warnings on migration-path features (`.predicate`,
     `Predicate`-constructors with similar arguments to old API). (Nimble
-    `v8.x.x`)
- 3. Remove old API. (Nimble `v9.x.x`)
+    `v9.x.x`)
+ 3. Remove old API. (Nimble `v10.x.x`)
 
 
 # Installing Nimble
@@ -1725,6 +1712,27 @@ end
 ```
 
 Finally run `pod install`.
+
+## Installing Nimble via Accio
+
+Add the following to your Package.swift:
+
+```swift
+.package(url: "https://github.com/Quick/Nimble.git", .upToNextMajor(from: "8.0.1")),
+```
+
+Next, add `Nimble` to your App targets dependencies like so:
+
+```swift
+.testTarget(
+    name: "AppTests",
+    dependencies: [
+        "Nimble",
+    ]
+),
+```
+
+Then run `accio update`.
 
 ## Using Nimble without XCTest
 

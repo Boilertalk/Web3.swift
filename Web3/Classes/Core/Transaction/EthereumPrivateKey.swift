@@ -59,7 +59,7 @@ public final class EthereumPrivateKey {
     /**
      * Convenient initializer for `init(privateKey:)`
      */
-    public required convenience init(bytes: Bytes) throws {
+    public required convenience init(_ bytes: Bytes) throws {
         try self.init(privateKey: bytes)
     }
 
@@ -303,7 +303,8 @@ extension EthereumPrivateKey: BytesConvertible {
 
 extension EthereumPrivateKey: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(self)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawPrivateKey)
     }
 }
+

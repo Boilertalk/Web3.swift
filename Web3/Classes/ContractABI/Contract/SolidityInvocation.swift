@@ -185,11 +185,11 @@ public extension SolidityInvocation {
     
     // Default Implementations
     
-    public func call(completion: @escaping ([String: Any]?, Error?) -> Void) {
+    func call(completion: @escaping ([String: Any]?, Error?) -> Void) {
         self.call(block: .latest, completion: completion)
     }
     
-    public func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, value: EthereumQuantity? = nil, completion: @escaping (EthereumQuantity?, Error?) -> Void) {
+    func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, value: EthereumQuantity? = nil, completion: @escaping (EthereumQuantity?, Error?) -> Void) {
         guard let data = encodeABI() else {
             completion(nil, InvocationError.encodingError)
             return
@@ -202,7 +202,7 @@ public extension SolidityInvocation {
         handler.estimateGas(call, completion: completion)
     }
     
-    public func encodeABI() -> EthereumData? {
+    func encodeABI() -> EthereumData? {
         if let hexString = try? ABI.encodeFunctionCall(self) {
             return try? EthereumData(ethereumValue: hexString)
         }

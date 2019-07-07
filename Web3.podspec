@@ -22,6 +22,8 @@ HTTP RPC interface provided by this library or a custom RPC interface
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '2.0'
 
+  s.swift_version = '5.0.1'
+
   s.pod_target_xcconfig = {
     'OTHER_SWIFT_FLAGS' => '-DWeb3CocoaPods'
   }
@@ -32,8 +34,8 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.source_files = 'Web3/Classes/Core/**/*'
 
     # Core dependencies
-    ss.dependency 'BigInt', '~> 3.1'
-    ss.dependency 'CryptoSwift', '~> 0.8'
+    ss.dependency 'BigInt', '~> 4.0'
+    ss.dependency 'CryptoSwift', '~> 1.0'
     ss.dependency 'secp256k1.swift', '~> 0.1'
   end
 

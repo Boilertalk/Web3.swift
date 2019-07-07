@@ -22,7 +22,7 @@ extension BigUInt: BytesConvertible {
         return bytes
     }
 
-    public init(bytes: Bytes) {
+    public init(_ bytes: Bytes) {
         var bytes = bytes
 
         var words: [Word] = []
@@ -34,7 +34,7 @@ extension BigUInt: BytesConvertible {
         }
 
         for i in Swift.stride(from: 0, to: bytes.count, by: wordSize) {
-            let word = BigUInt.Word(bytes: Array(bytes[i..<(i + wordSize)]))
+            let word = BigUInt.Word(Array(bytes[i..<(i + wordSize)]))
             words.insert(word, at: 0)
         }
 
