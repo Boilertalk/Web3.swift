@@ -359,18 +359,29 @@ extension EthereumSignedTransaction: Equatable {
 
 extension EthereumTransaction: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(
-            nonce, gasPrice, gas, from, to, value, data
-        )
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(nonce)
+        hasher.combine(gasPrice)
+        hasher.combine(gas)
+        hasher.combine(from)
+        hasher.combine(to)
+        hasher.combine(value)
+        hasher.combine(data)
     }
 }
 
 extension EthereumSignedTransaction: Hashable {
-    
-    public var hashValue: Int {
-        return hashValues(
-            nonce, gasPrice, gasLimit, to, value, data, v, r, s, chainId
-        )
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(nonce)
+        hasher.combine(gasPrice)
+        hasher.combine(gasLimit)
+        hasher.combine(to)
+        hasher.combine(value)
+        hasher.combine(data)
+        hasher.combine(v)
+        hasher.combine(r)
+        hasher.combine(s)
+        hasher.combine(chainId)
     }
 }

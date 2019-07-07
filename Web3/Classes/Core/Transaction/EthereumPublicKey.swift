@@ -360,7 +360,7 @@ extension EthereumPublicKey: BytesConvertible {
 
 extension EthereumPublicKey: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(self)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawPublicKey)
     }
 }

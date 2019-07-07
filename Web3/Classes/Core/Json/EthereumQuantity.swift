@@ -56,7 +56,7 @@ extension EthereumQuantity: EthereumValueConvertible {
 
 public extension EthereumValue {
 
-    public var ethereumQuantity: EthereumQuantity? {
+    var ethereumQuantity: EthereumQuantity? {
         return try? EthereumQuantity(ethereumValue: self)
     }
 }
@@ -87,7 +87,7 @@ extension EthereumQuantity: Equatable {
 
 extension EthereumQuantity: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(quantity)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(quantity)
     }
 }

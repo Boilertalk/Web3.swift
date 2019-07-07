@@ -158,7 +158,7 @@ public indirect enum SolidityType {
 
 public extension SolidityType.ValueType {
     
-    public var nativeType: ABIConvertible.Type? {
+    var nativeType: ABIConvertible.Type? {
         switch self {
         case .uint(let bits):
             switch bits {
@@ -202,7 +202,7 @@ public extension SolidityType.ValueType {
     }
     
     /// Whether or not the type is considered dynamic
-    public var isDynamic: Bool {
+    var isDynamic: Bool {
         switch self {
         case .string:
             // All strings are dynamic
@@ -216,7 +216,7 @@ public extension SolidityType.ValueType {
     }
     
     /// String representation used for ABI signature encoding
-    public var stringValue: String {
+    var stringValue: String {
         switch self {
         case .uint(let bits):
             return "uint\(bits)"
@@ -263,6 +263,21 @@ extension SolidityType: Equatable {
     }
 }
 
+extension SolidityType: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case .type(let enumType):
+            hasher.combine(enumType)
+        case .array(let enumType, let length):
+            hasher.combine(enumType)
+            hasher.combine(length)
+        case .tuple(let enumType):
+            hasher.combine(enumType)
+        }
+    }
+}
+
 extension SolidityType.ValueType: Equatable {
     public static func ==(_ a: SolidityType.ValueType, _ b: SolidityType.ValueType) -> Bool {
         switch (a, b) {
@@ -284,6 +299,37 @@ extension SolidityType.ValueType: Equatable {
             return aBits == bBits && aLength == bLength
         default:
             return false
+        }
+    }
+}
+
+extension SolidityType.ValueType: Hashable {
+
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case .uint(let bits):
+            hasher.combine("0x00")
+            hasher.combine(bits)
+        case .int(let bits):
+            hasher.combine("0x01")
+            hasher.combine(bits)
+        case .address:
+            hasher.combine("0x02")
+        case .bool:
+            hasher.combine("0x03")
+        case .bytes(let length):
+            hasher.combine("0x04")
+            hasher.combine(length)
+        case .string:
+            hasher.combine("0x05")
+        case .fixed(let bits, let length):
+            hasher.combine("0x06")
+            hasher.combine(bits)
+            hasher.combine(length)
+        case .ufixed(let bits, let length):
+            hasher.combine("0x07")
+            hasher.combine(bits)
+            hasher.combine(length)
         }
     }
 }

@@ -303,7 +303,8 @@ extension EthereumPrivateKey: BytesConvertible {
 
 extension EthereumPrivateKey: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(self)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawPrivateKey)
     }
 }
+
