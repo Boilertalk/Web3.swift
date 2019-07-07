@@ -38,7 +38,6 @@
 		13FBB20EA4647EA46F0CB2E7254A5F50 /* NMBObjCMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7811CB29E79923E3ACBC5D5AB1216A0B /* NMBObjCMatcher.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		151469A9167059995E3ADF79B4856155 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6710C1BDB439E8BACCD5845ADF11C8F0 /* Configuration.swift */; };
 		16BEDD5279B4C6BDFFEC244180BC630E /* Quick-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 15694F6BDA4AF043C86FC01FCE715BEF /* Quick-dummy.m */; };
-		172934C0742DA067B2F7EF5C08D1286B /* Values+GeneralHashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F694DB2FB34861076F8802A63778E2 /* Values+GeneralHashable.swift */; };
 		18A4DF46EDF5176D4FDE84EBBC38CDEB /* QuickTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8498A9662A32AABE7DB0332499D91632 /* QuickTestSuite.swift */; };
 		18ECF151CD8EAD1DABB7886847953EBC /* Bitwise Ops.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129BF7DE97010AF311437F120D5FFB7D /* Bitwise Ops.swift */; };
 		192FFF7AC7F145E6F594491C8887519B /* scalar_low_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CCF92F272148C0D9E9E3A78C85ABF3A /* scalar_low_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -630,7 +629,6 @@
 		71003D54E0102C32FCA8042BDF1DA8F5 /* Web3-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Web3-Info.plist"; sourceTree = "<group>"; };
 		7150D33AF529B6A674C761D938E2CC8D /* secp256k1.swift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "secp256k1.swift-Info.plist"; sourceTree = "<group>"; };
 		71D48582F8942C459C44EB70204BEE02 /* PBKDF2.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PBKDF2.swift; path = Sources/CryptoSwift/PKCS/PBKDF2.swift; sourceTree = "<group>"; };
-		71F694DB2FB34861076F8802A63778E2 /* Values+GeneralHashable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Values+GeneralHashable.swift"; sourceTree = "<group>"; };
 		732A160536A2992F0A0BC0FBCB8B6334 /* Exponentiation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Exponentiation.swift; path = Sources/Exponentiation.swift; sourceTree = "<group>"; };
 		736E4B6F6880F6DF524D286CCE8616D5 /* Web3.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Web3.modulemap; sourceTree = "<group>"; };
 		737F5B9C5CE5255292106F27A06470FD /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/CryptoSwift/Operators.swift; sourceTree = "<group>"; };
@@ -1540,7 +1538,6 @@
 				D324D1664C1B34853F426C2F7F658584 /* UInt+BytesRepresentable.swift */,
 				2E891EC1DEE6CDBD70868FF4FD85257D /* UnsignedInteger+BytesConvertible.swift */,
 				AE7A65BACB10F225BB4B46E70DF49C77 /* UnsignedInteger+Shifting.swift */,
-				71F694DB2FB34861076F8802A63778E2 /* Values+GeneralHashable.swift */,
 			);
 			name = Toolbox;
 			path = Web3/Classes/Core/Toolbox;
@@ -2376,7 +2373,6 @@
 				73968FE6F26450FE4EDCAA9FF894C03E /* UInt+BytesRepresentable.swift in Sources */,
 				B2605F18CA016F04F6DF845DF23D1B1B /* UnsignedInteger+BytesConvertible.swift in Sources */,
 				8E1535340D02DC8C5B7DCA1B9C259172 /* UnsignedInteger+Shifting.swift in Sources */,
-				172934C0742DA067B2F7EF5C08D1286B /* Values+GeneralHashable.swift in Sources */,
 				072E39940FBC8C41F08EF4FC2498D7EF /* Web3+HTTPInitializer.swift in Sources */,
 				5082DE8F9D66A1C21DE6D4E2440EFB64 /* Web3+PromiseKit.swift in Sources */,
 				ACCFCCD5F4259EFEB2B2CD6D426572BB /* Web3-dummy.m in Sources */,
