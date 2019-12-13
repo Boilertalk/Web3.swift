@@ -243,8 +243,19 @@ extension Array: ABIEncodable where Element: ABIEncodable {
         }
         // number of elements in the array, padded left
         let length = String(values.count, radix: 16).paddingLeft(toLength: 64, withPad: "0")
+
+        // offsets, that pointing where starts each value of array
+        let offsets = values.enumerated().map { (index, value) -> Int in
+            if index == 0 {
+            return values.count * 32
+            } else {
+            return (values.count - index) * 32 + values[index - 1].bytes.count
+            }
+        }.map { String($0, radix: 16).paddingLeft(toLength: 64, withPad: "0") }
+        
         // values, joined with no separator
-        return length + values.joined()
+        // offsets, joined with no separator
+        return length + offsets.joined() + values.joined()
     }
 }
 
