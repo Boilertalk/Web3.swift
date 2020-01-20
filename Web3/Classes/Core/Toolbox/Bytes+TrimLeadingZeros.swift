@@ -11,7 +11,7 @@ import Foundation
 extension Array where Element == Byte {
 
     func trimLeadingZeros() -> Bytes {
-        var oldBytes = self
+        let oldBytes = self
         var bytes = Bytes()
 
         var leading = true
