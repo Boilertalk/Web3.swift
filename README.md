@@ -410,6 +410,20 @@ Using this API you can interact with any smart contract in the Ethereum Network!
 
 For more examples, including contract creation (constructor calling) check out our [tests](Example/Tests/ContractTests).
 
+## Common errors
+
+### Couldn't parse ABI Object
+
+If you are getting this error when parsing your ABI from a json, it may be because your contract has a fallback function. To solve it, remove the fragment of your ABI that has the information about the fallback function. The part you should remove might look like this:
+
+```
+{
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "fallback"
+},
+```
+
 ## Disclaimer
 
 Until we reach version 1.0.0 our API is subject to breaking changes between minor version jumps.
