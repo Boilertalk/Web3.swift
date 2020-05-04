@@ -97,7 +97,11 @@ public class DynamicContract: EthereumContract {
     public subscript(_ name: String) -> ((ABIEncodable...) -> SolidityInvocation)? {
         return methods[name]?.invoke
     }
-    
+
+    public func invokeMethod(_ name: String) -> (([ABIEncodable]) -> SolidityInvocation)? {
+        return methods[name]?.invoke
+    }
+
     /// Deploys a new instance of this contract to the network
     /// Example: contract.deploy(byteCode: byteCode, parameters: p1, p2)?.send(...) { ... }
     ///
