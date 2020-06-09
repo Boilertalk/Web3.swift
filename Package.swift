@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         // Core dependencies
-        .package(url: "https://github.com/attaswift/BigInt.git", from: "4.0.0"),
+        .package(url: "https://github.com/attaswift/BigInt.git", from: "5.0.0"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.0.0"),
         .package(url: "https://github.com/Boilertalk/secp256k1.swift.git", from: "0.1.1"),
 
