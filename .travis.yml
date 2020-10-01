@@ -21,6 +21,8 @@ before_install:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       echo "macOS build. swiftenv will not be installed.";
     else
+      sudo apt-get -q install -y libz3-4;
+
       git clone https://github.com/kylef/swiftenv.git ~/.swiftenv;
       export SWIFTENV_ROOT="$HOME/.swiftenv";
       export PATH="$SWIFTENV_ROOT/bin:$PATH";
