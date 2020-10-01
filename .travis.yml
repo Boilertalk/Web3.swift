@@ -47,5 +47,5 @@ script:
 after_success:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       xcrun llvm-cov export -format="lcov" .build/debug/Web3PackageTests.xctest/Contents/MacOS/Web3PackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov;
-      bash <(curl https://codecov.io/bash);
+      bash <(curl https://raw.githubusercontent.com/codecov/codecov-bash/9d9a1b61c04e8aea9ebb8c200d1fbc399eb6cc99/codecov);
     fi
