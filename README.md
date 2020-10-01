@@ -21,7 +21,7 @@
   <a href="https://codecov.io/gh/Boilertalk/Web3.swift">
     <img src="https://codecov.io/gh/Boilertalk/Web3.swift/branch/master/graph/badge.svg" alt="Code Coverage">
   </a>
-  <a href="https://t.me/joinchat/BPk3DE6CTFaiOolSIZNLyg">  
+  <a href="https://t.me/web3_swift">
     <img src="https://img.shields.io/badge/chat-on%20telegram-blue.svg?longCache=true&style=flat" alt="Telegram">
   </a>
 </p>
