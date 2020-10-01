@@ -29,26 +29,43 @@ let package = Package(
 
         // Test dependencies
         .package(url: "https://github.com/Quick/Quick.git", from: "3.0.0"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "8.1.2")
+        .package(url: "https://github.com/Quick/Nimble.git", from: "8.1.2"),
     ],
     targets: [
         .target(
             name: "Web3",
-            dependencies: ["BigInt", "CryptoSwift", "secp256k1"],
-            path: "Web3/Classes",
+            dependencies: [
+                .product(name: "BigInt", package: "BigInt"),
+                .product(name: "CryptoSwift", package: "CryptoSwift"),
+                .product(name: "secp256k1", package: "secp256k1"),
+            ],
+            path: "Sources",
             sources: ["Core", "FoundationHTTP"]),
         .target(
             name: "Web3PromiseKit",
-            dependencies: ["Web3", "PromiseKit"],
-            path: "Web3/Classes",
+            dependencies: [
+                .target(name: "Web3"),
+                .product(name: "PromiseKit", package: "PromiseKit"),
+            ],
+            path: "Sources",
             sources: ["PromiseKit"]),
         .target(
             name: "Web3ContractABI",
-            dependencies: ["Web3", "BigInt", "CryptoSwift"],
-            path: "Web3/Classes",
+            dependencies: [
+                .target(name: "Web3"),
+                .product(name: "BigInt", package: "BigInt"),
+                .product(name: "CryptoSwift", package: "CryptoSwift"),
+            ],
+            path: "Sources",
             sources: ["ContractABI"]),
         .testTarget(
             name: "Web3Tests",
-            dependencies: ["Web3", "Web3PromiseKit", "Web3ContractABI", "Quick", "Nimble"])
+            dependencies: [
+                .target(name: "Web3"),
+                .target(name: "Web3PromiseKit"),
+                .target(name: "Web3ContractABI"),
+                .product(name: "Quick", package: "Quick"),
+                .product(name: "Nimble", package: "Nimble"),
+            ]),
     ]
 )
