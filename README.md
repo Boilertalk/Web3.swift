@@ -110,6 +110,10 @@ After the installation you can import `Web3` in your `.swift` files.
 
 ```Swift
 import Web3
+
+// Optional
+import Web3PromiseKit
+import Web3ContractABI
 ```
 
 ### CocoaPods and Carthage
