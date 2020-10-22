@@ -293,9 +293,9 @@ firstly {
 
 #### More examples
 
-For more examples either read through [our test cases](https://github.com/Boilertalk/Web3.swift/blob/master/Example/Tests/Web3Tests/Web3HttpTests.swift),
-[the Web3 struct](https://github.com/Boilertalk/Web3.swift/blob/master/Web3/Classes/Core/Web3/Web3.swift)
-or [the official Ethereum JSON RPC documentation](https://github.com/ethereum/wiki/wiki/JSON-RPC).
+For more examples either read through [our test cases](https://github.com/Boilertalk/Web3.swift/blob/master/Tests/Web3Tests/Web3Tests/Web3HttpTests.swift),
+[the Web3 struct](https://github.com/Boilertalk/Web3.swift/blob/master/Sources/Core/Web3/Web3.swift)
+or [the official Ethereum JSON RPC documentation](https://eth.wiki/json-rpc/API).
 
 ### Contract ABI interaction
 
