@@ -370,14 +370,14 @@ public struct Web3 {
         }
 
         public func getTransactionByHash(
-            blockHash: EthereumData,
+            transactionHash: EthereumData,
             response: @escaping Web3ResponseCompletion<EthereumTransactionObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
                 method: "eth_getTransactionByHash",
-                params: [blockHash]
+                params: [transactionHash]
             )
 
             properties.provider.send(request: req, response: response)
