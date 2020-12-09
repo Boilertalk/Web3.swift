@@ -371,6 +371,19 @@ class ABITests: QuickSpec {
                     }
                 }
                 
+                let emptyBytes = Data("".utf8)
+                context("when encoding with empty dynamic bytes") {
+                    it("should encode and decode") {
+                        do {
+                            let encoded = try ABI.encodeParameters([.bytes(emptyBytes)])
+                            let decoded = try ABI.decodeParameters(types: [.bytes(length: nil)], from: encoded)
+                            expect(decoded[0] as? Data).to(equal(emptyBytes))
+                        } catch {
+                            fail()
+                        }
+                    }
+                }
+                
                 context("when encoding with dynamic bytes") {
                     it("should encode and decode") {
                         do {
