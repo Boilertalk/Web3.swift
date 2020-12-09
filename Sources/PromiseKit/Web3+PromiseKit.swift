@@ -219,9 +219,9 @@ public extension Web3.Eth {
         }
     }
 
-    func getTransactionByHash(blockHash: EthereumData) -> Promise<EthereumTransactionObject?> {
+    func getTransactionByHash(transactionHash: EthereumData) -> Promise<EthereumTransactionObject?> {
         return Promise { seal in
-            self.getTransactionByHash(blockHash: blockHash) { response in
+            self.getTransactionByHash(transactionHash: transactionHash) { response in
                 response.sealPromise(seal: seal)
             }
         }
