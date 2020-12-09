@@ -140,7 +140,8 @@ class ABIDecoder {
                     data = Data(hexString: hexString)
                 }
                 guard let decoded = data else {
-                    throw Error.couldNotDecodeType(type: type, string: hexString)
+                    // value is empty
+                    return Data("".utf8)
                 }
                 return decoded
             case .fixed:
