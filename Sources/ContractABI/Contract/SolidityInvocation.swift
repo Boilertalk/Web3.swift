@@ -41,7 +41,7 @@ public protocol SolidityInvocation {
     func send(nonce: EthereumQuantity?, from: EthereumAddress, value: EthereumQuantity?, gas: EthereumQuantity, gasPrice: EthereumQuantity?, completion: @escaping (EthereumData?, Error?) -> Void)
     
     /// Estimate how much gas is needed to execute this transaction.
-    func estimateGas(from: EthereumAddress?, gas: EthereumQuantity?, value: EthereumQuantity?, completion: @escaping (EthereumQuantity?, Error?) -> Void)
+    func estimateGas(from: EthereumAddress?, gas: EthereumQuantity?, gasPrice: EthereumQuantity?, value: EthereumQuantity?, completion: @escaping (EthereumQuantity?, Error?) -> Void)
     
     /// Encodes the ABI for this invocation
     func encodeABI() -> EthereumData?
@@ -189,7 +189,7 @@ public extension SolidityInvocation {
         self.call(block: .latest, completion: completion)
     }
     
-    func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, value: EthereumQuantity? = nil, completion: @escaping (EthereumQuantity?, Error?) -> Void) {
+    func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, gasPrice: EthereumQuantity? = nil, value: EthereumQuantity? = nil, completion: @escaping (EthereumQuantity?, Error?) -> Void) {
         guard let data = encodeABI() else {
             completion(nil, InvocationError.encodingError)
             return
@@ -198,7 +198,7 @@ public extension SolidityInvocation {
             completion(nil, InvocationError.contractNotDeployed)
             return
         }
-        let call = EthereumCall(from: from, to: to, gas: gas, gasPrice: nil, value: value, data: data)
+        let call = EthereumCall(from: from, to: to, gas: gas, gasPrice: gasPrice, value: value, data: data)
         handler.estimateGas(call, completion: completion)
     }
     
