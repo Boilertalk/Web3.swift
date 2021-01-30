@@ -26,10 +26,23 @@ public struct Web3HttpProvider: Web3Provider {
         "Content-Type": "application/json"
     ]
 
-    public let rpcURL: String
+    public let rpcURL: URL
 
-    public init(rpcURL: String, session: URLSession = URLSession(configuration: .default)) {
+    public init(rpcURL: URL, session: URLSession = URLSession(configuration: .default)) {
         self.rpcURL = rpcURL
+        self.session = session
+        // Concurrent queue for faster concurrent requests
+        self.queue = DispatchQueue(label: "Web3HttpProvider", attributes: .concurrent)
+    }
+    
+    @available(*, deprecated, message: "Please initialize the Web3 object with a URL not a String.")
+    public init(rpcURL: String, session: URLSession = URLSession(configuration: .default)) {
+        if let url = URL(string: rpcURL) {
+            self.rpcURL = url
+        }else {
+            self.rpcURL = URL(string: "localhost:8080")!
+        }
+        
         self.session = session
         // Concurrent queue for faster concurrent requests
         self.queue = DispatchQueue(label: "Web3HttpProvider", attributes: .concurrent)
@@ -47,13 +60,7 @@ public struct Web3HttpProvider: Web3Provider {
                 return
             }
 
-            guard let url = URL(string: self.rpcURL) else {
-                let err = Web3Response<Result>(error: .requestFailed(nil))
-                response(err)
-                return
-            }
-
-            var req = URLRequest(url: url)
+            var req = URLRequest(url: rpcURL)
             req.httpMethod = "POST"
             req.httpBody = body
             for (k, v) in type(of: self).headers {
