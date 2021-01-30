@@ -16,7 +16,7 @@ public extension Web3 {
      * - parameter rpcURL: The URL of the HTTP RPC API.
      * - parameter rpcId: The rpc id to be used in all requests. Defaults to 1.
      */
-    init(rpcURL: String, rpcId: Int = 1) {
+    init(rpcURL: URL, rpcId: Int = 1) {
         self.init(provider: Web3HttpProvider(rpcURL: rpcURL), rpcId: rpcId)
     }
 }

@@ -11,6 +11,7 @@ import Nimble
 @testable import Web3
 import BigInt
 import PromiseKit
+import Foundation
 #if canImport(Web3PromiseKit)
     @testable import Web3PromiseKit
 #endif
@@ -22,7 +23,11 @@ class Web3HttpTests: QuickSpec {
     override func spec() {
         describe("http rpc requests") {
 
-            let web3 = Web3(rpcURL: infuraUrl)
+            let url = URL(string: infuraUrl)
+            
+            expect(url).toNot(beNil())
+            
+            let web3 = Web3(rpcURL: url!)
 
             context("web3 client version") {
 

@@ -26,9 +26,9 @@ public struct Web3HttpProvider: Web3Provider {
         "Content-Type": "application/json"
     ]
 
-    public let rpcURL: String
+    public let rpcURL: URL
 
-    public init(rpcURL: String, session: URLSession = URLSession(configuration: .default)) {
+    public init(rpcURL: URL, session: URLSession = URLSession(configuration: .default)) {
         self.rpcURL = rpcURL
         self.session = session
         // Concurrent queue for faster concurrent requests
@@ -47,13 +47,7 @@ public struct Web3HttpProvider: Web3Provider {
                 return
             }
 
-            guard let url = URL(string: self.rpcURL) else {
-                let err = Web3Response<Result>(error: .requestFailed(nil))
-                response(err)
-                return
-            }
-
-            var req = URLRequest(url: url)
+            var req = URLRequest(url: rpcURL)
             req.httpMethod = "POST"
             req.httpBody = body
             for (k, v) in type(of: self).headers {
