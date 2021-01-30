@@ -34,6 +34,19 @@ public struct Web3HttpProvider: Web3Provider {
         // Concurrent queue for faster concurrent requests
         self.queue = DispatchQueue(label: "Web3HttpProvider", attributes: .concurrent)
     }
+    
+    @available(*, deprecated, message: "Please initialize the Web3 object with a URL not a String.")
+    public init(rpcURL: String, session: URLSession = URLSession(configuration: .default)) {
+        if let url = URL(string: rpcURL) {
+            self.rpcURL = url
+        }else {
+            self.rpcURL = URL(string: "localhost:8080")!
+        }
+        
+        self.session = session
+        // Concurrent queue for faster concurrent requests
+        self.queue = DispatchQueue(label: "Web3HttpProvider", attributes: .concurrent)
+    }
 
     public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {
         queue.async {
