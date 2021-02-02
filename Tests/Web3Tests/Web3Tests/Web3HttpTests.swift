@@ -23,7 +23,6 @@ class Web3HttpTests: QuickSpec {
         describe("http rpc requests") {
 
             let web3 = Web3(rpcURL: infuraUrl)
-
             context("web3 client version") {
 
                 waitUntil(timeout: 2.0) { done in
@@ -216,6 +215,7 @@ class Web3HttpTests: QuickSpec {
 
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.blockNumber { response in
+                        print("quant \(response.result)")
                         it("should be status ok") {
                             expect(response.status.isSuccess) == true
                         }
@@ -243,19 +243,26 @@ class Web3HttpTests: QuickSpec {
                 }
 
                 waitUntil(timeout: 2.0) { done in
-                    web3.eth.getBalance(address: ethereumAddress, block: .block(4000000)) { response in
-                        it("should be status ok") {
-                            expect(response.status.isSuccess) == true
-                        }
-                        it("should not be nil") {
-                            expect(response.result).toNot(beNil())
-                        }
-                        it("should be a quantity response") {
-                            expect(response.result?.quantity) == BigUInt("1ea7ab3de3c2f1dc75", radix: 16)
-                        }
+                    
+                    // Infura only works on 128 most recent blocks, dynmaically get the latest block to test.
+                    web3.eth.blockNumber { blockResponse in
+                        
+                        expect(blockResponse.result).toNot(beNil())
+                        
+                        web3.eth.getBalance(address: ethereumAddress, block: .block(blockResponse.result!.quantity)) { response in
+                            it("should be status ok") {
+                                expect(response.status.isSuccess) == true
+                            }
+                            it("should not be nil") {
+                                expect(response.result).toNot(beNil())
+                            }
+                            it("should be a quantity response") {
+                                expect(response.result?.quantity) == BigUInt("1ea7ab3de3c2f1dc75", radix: 16)
+                            }
 
-                        // Tests done
-                        done()
+                            // Tests done
+                            done()
+                        }
                     }
                 }
             }
@@ -397,7 +404,7 @@ class Web3HttpTests: QuickSpec {
             }
 
             context("eth get code") {
-                waitUntil(timeout: 2.0) { done in
+                waitUntil(timeout: 5.0) { done in
                     firstly {
                         try web3.eth.getCode(address: EthereumAddress(hex: "0x2e704bF506b96adaC7aD1df0db461344146a4657", eip55: true), block: .block(5397525))
                     }.done { code in
