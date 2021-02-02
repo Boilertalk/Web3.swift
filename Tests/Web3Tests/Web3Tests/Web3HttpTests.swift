@@ -215,7 +215,6 @@ class Web3HttpTests: QuickSpec {
 
                 waitUntil(timeout: 2.0) { done in
                     web3.eth.blockNumber { response in
-                        print("quant \(response.result)")
                         it("should be status ok") {
                             expect(response.status.isSuccess) == true
                         }
