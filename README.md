@@ -301,7 +301,7 @@ or [the official Ethereum JSON RPC documentation](https://eth.wiki/json-rpc/API)
 
 We are providing an optional module for interaction with smart contracts. To use it you have to add `Web3ContractABI` to your target dependencies in your Podfile (for SPM). Make sure you check out the [installation instructions](#Installation) first.
 
-We are providing two different options to create contract abi interfaces in Swift. Either you define your functions and events manually (or use one of our provided interfaces like [ERC20](Web3/Sources/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Sources/ContractABI/Contract/ERC721.swift)). Or you parse them from the JSON ABI representation just like in web3.js.
+We are providing two different options to create contract abi interfaces in Swift. Either you define your functions and events manually (or use one of our provided interfaces like [ERC20](Sources/ContractABI/Contract/ERC20.swift) or [ERC721](Sources/ContractABI/Contract/ERC721.swift)). Or you parse them from the JSON ABI representation just like in web3.js.
 
 ### Static Contracts
 
