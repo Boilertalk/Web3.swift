@@ -48,7 +48,7 @@ open class GenericERC20Contract: StaticContract, ERC20Contract, AnnotatedERC20 {
     }
 }
 
-// MARK: - Implementation of ERC721 standard methods and events
+// MARK: - Implementation of ERC20 standard methods and events
 
 public extension ERC20Contract {
     
