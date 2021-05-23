@@ -211,7 +211,29 @@ public final class EthereumPrivateKey {
     }
 
     // MARK: - Convenient functions
-
+    
+    /**
+     * Signs message against the privatekey.
+     * - parameter message: Message is hex string.
+     * - returns message signature along with the r, s, v values
+     */
+    public func sign(message: String) throws -> (v: UInt, r: Bytes, s: Bytes, signature: String) {
+        let messagehash = SHA3(variant: .keccak256).calculate(for: message.hexToBytes())
+        let messageBuffer = Data(hex: messagehash.toHexString())
+        //Append preamble (UTF-8) bytes
+        let preambleString = "\u{19}Ethereum Signed Message:\n\(messagehash.count)"
+        guard var preambleBuffer = preambleString.data(using: .utf8) else { return "" }
+        preambleBuffer.append(messageBuffer)
+        //Calculate hash
+        let hash = SHA3(variant: .keccak256).calculate(for: preambleBuffer.bytes)
+        //Sign hash
+        let signatureObj = try sign(hash: hash)
+        
+        //Concatenating r s v values from the signature
+        var signature = "0x" + signatureObj.r.toHexString() + signatureObj.s.toHexString() + String(format:"%02x", signatureObj.v+27)
+        return (v: signatureObj.v, r: signatureObj.r,  s: signatureObj.s, signature: signature)
+    }
+    
     public func sign(message: Bytes) throws -> (v: UInt, r: Bytes, s: Bytes) {
         let hash = SHA3(variant: .keccak256).calculate(for: message)
         return try sign(hash: hash)
