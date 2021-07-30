@@ -1,7 +1,4 @@
-# :alembic: Web3
-  
-  Fixes and package updates - July 2021
-  
+# Web3
 
 Web3.swift is a Swift library for signing transactions and interacting with Smart Contracts in the Ethereum Network.
 
@@ -9,7 +6,7 @@ It allows you to connect to a [geth](https://github.com/ethereum/go-ethereum) or
 Ethereum node (like [Infura](https://infura.io/)) to send transactions and read values from Smart Contracts without the need of
 writing your own implementations of the protocols.
 
-Web3.swift supports iOS, macOS, tvOS, watchOS and Linux with Swift Package Manager.
+Web3.swift supports iOS with Swift Package Manager.
 
 ## Example
 
@@ -68,78 +65,9 @@ Web3 is compatible with Swift Package Manager v5 (Swift 5 and above). Simply add
 
 ```Swift
 dependencies: [
-    .package(url: "https://github.com/Boilertalk/Web3.swift.git", from: "0.5.0")
+    .package(url: "https://github.com/rkohl/Web3.swift", from: "1.0.0")
 ]
 ```
-
-And then add it to your target dependencies:
-
-```Swift
-targets: [
-    .target(
-        name: "MyProject",
-        dependencies: [
-            .product(name: "Web3", package: "Web3"),
-            .product(name: "Web3PromiseKit", package: "Web3"),
-            .product(name: "Web3ContractABI", package: "Web3"),
-        ]
-    ),
-    .testTarget(
-        name: "MyProjectTests",
-        dependencies: ["MyProject"])
-]
-```
-
-> Note: `Web3PromiseKit` and `Web3ContractABI` are optional and you only have to put them into
-your target dependencies (and later import them) if you want to use them.
-
-After the installation you can import `Web3` in your `.swift` files.
-
-```Swift
-
-
-// Optional
-PromiseKit
-ContractABI
-```
-
-### CocoaPods and Carthage
-
-Because of an internal decision, we stopped supporting any Package Managers other than SPM starting with version 0.5.0.
-
-To elaborate a little on this decision: With XCode 11 and Swift 5.1 we reached a point with Swift Package Manager where it
-slowly started making other package managers irrelevant. You could already load all your dependencies in the XCode project
-with Swift Package Manager.    
-With more updates it became even more prelevant. Cocoapods and Carthage maintainers lost interest into their project and
-stopped maintaining it. There are many unresolved issues, many problems especially for library developers with Cocoapods.
-
-So much hassle for no real gain. Users can already put dependencies which support SPM into their XCode project. So why bother?
-
-The answer is simple. Some still use XCode < 11 and some library developers depend on Web3 in their own Pods/Carthages.
-
-The decision was hard and took some time. But after seeing that the last version was very stable and used in many
-production apps already, we decided to start with this move now.    
-XCode 10 is already more than 2 years old. Most projects already upgraded, the ones which didn't have a much bigger
-problem than Web3.swift not making Updates for Cocoapods...    
-Library owners depending on Web3.swift are encouraged to drop Cocoapods and Carthage Support as well.
-
-SPM is the Future. For all Cocoapods and Carthage Users who use it because many libraries did not switch to SPM yet:
-You can still add Web3.swift as a SPM product into your `.xcworkspace` or `.xcodeproj` and keep all your other
-dependencies inside Cocoapods/Carthage. But still. We encourage you to switch with as many dependencies as possible
-to SPM. Better sooner than later. See the next section on how to do this.
-
-### XCode
-
-Using XCode 11 or later (for iOS, macOS or other Apple platforms) you can add SPM packages very easy.
-
-In Xcode, select your project, from the Dropdown select the project, not a single Target, in the Tabs select `Swift Packages`.    
-Then you can click the + icon and put in the URL to this repository (https://github.com/Boilertalk/Web3.swift).    
-Now you can select all products and just click Next until the dependency was added.
-
-That's it. If you push your changes even your CI will not make any problems. No hassles with outdated spec repositories,
-no problems with some weird linker errors which only occur sometimes/with some dependencies.
-
-If you need further guidance, join our [Telegram group](https://t.me/web3_swift) and we will help you. https://t.me/web3_swift
 
 ## Usage
 
@@ -419,10 +347,9 @@ instead of trying to maintain something which is deprecated.
 
 That being said, we will try to minimize breaking changes. Most certainly there won't be many.
 
-## Author
+## Original Author
 
 The awesome guys at Boilertalk :alembic:    
-...and even more awesome members from the community :purple_heart:
 
 Check out the [contributors list](https://github.com/Boilertalk/Web3.swift/graphs/contributors) for a complete list.
 
