@@ -6,6 +6,8 @@
 //  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
+import PromiseKit
+
 public protocol Promisable {
 
     var promise: Promise<Self> { get }
