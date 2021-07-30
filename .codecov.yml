@@ -1,3 +1,0 @@
-ignore:
-    - "Tests/**/*"
-    - ".build/**/*"
