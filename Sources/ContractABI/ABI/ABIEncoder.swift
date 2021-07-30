@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import BigInt
+
 
 class ABIEncoder {
     

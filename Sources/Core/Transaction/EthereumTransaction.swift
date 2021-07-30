@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BigInt
+
 
 public struct EthereumTransaction: Codable {
     /// The number of transactions made prior to this one

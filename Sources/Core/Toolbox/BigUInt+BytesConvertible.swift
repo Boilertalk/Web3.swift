@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BigInt
+
 
 extension BigUInt: BytesConvertible {
 

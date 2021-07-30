@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import BigInt
+
 
 /// An event that has been emitted by a contract
 public struct SolidityEmittedEvent {

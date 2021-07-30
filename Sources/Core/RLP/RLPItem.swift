@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BigInt
+
 
 /**
  * An RLP encodable item. Either a byte array or a list of RLP items.

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CryptoSwift
+
 
 public struct EthereumAddress {
 

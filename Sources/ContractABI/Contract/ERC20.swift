@@ -6,10 +6,8 @@
 //
 
 import Foundation
-import BigInt
-#if !Web3CocoaPods
-    import Web3
-#endif
+
+
 
 /// Base protocol for ERC20
 public protocol ERC20Contract: EthereumContract {

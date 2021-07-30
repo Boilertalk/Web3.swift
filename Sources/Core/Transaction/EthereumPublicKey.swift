@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import secp256k1
-import CryptoSwift
-import BigInt
+
+
+
 
 public final class EthereumPublicKey {
 

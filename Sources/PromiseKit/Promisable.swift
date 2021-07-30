@@ -6,11 +6,6 @@
 //  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
-import PromiseKit
-#if !Web3CocoaPods
-    import Web3
-#endif
-
 public protocol Promisable {
 
     var promise: Promise<Self> { get }

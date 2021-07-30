@@ -1,20 +1,7 @@
-<a href="https://github.com/Boilertalk/Web3.swift">
-  <img src="https://bitcoinboomer-atm-app-releases.ams3.digitaloceanspaces.com/boilertalk.svg" width="100%" height="256">
-</a>
-
-<p align="center">
-  <a href="https://travis-ci.org/Boilertalk/Web3.swift">
-    <img src="http://img.shields.io/travis/Boilertalk/Web3.swift.svg?style=flat" alt="CI Status">
-  </a>
-  <a href="https://codecov.io/gh/Boilertalk/Web3.swift">
-    <img src="https://codecov.io/gh/Boilertalk/Web3.swift/branch/master/graph/badge.svg" alt="Code Coverage">
-  </a>
-  <a href="https://t.me/web3_swift">
-    <img src="https://img.shields.io/badge/chat-on%20telegram-blue.svg?longCache=true&style=flat" alt="Telegram">
-  </a>
-</p>
-
 # :alembic: Web3
+  
+  Changed and fixes July 2021
+  
 
 Web3.swift is a Swift library for signing transactions and interacting with Smart Contracts in the Ethereum Network.
 
@@ -109,11 +96,11 @@ your target dependencies (and later import them) if you want to use them.
 After the installation you can import `Web3` in your `.swift` files.
 
 ```Swift
-import Web3
+
 
 // Optional
-import Web3PromiseKit
-import Web3ContractABI
+PromiseKit
+ContractABI
 ```
 
 ### CocoaPods and Carthage
@@ -174,7 +161,7 @@ under the `eth` struct in the `web3` struct.
 
 __*Please see the examples below*__
 
-> Note: For the examples to work you need to import Web3 and PromiseKit first
+> Note: For the examples to work you need to  and PromiseKit first
 
 #### Request web3_clientVersion
 

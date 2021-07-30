@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import CryptoSwift
-import BigInt
+
+
 
 public struct EthereumQuantityTag {
 

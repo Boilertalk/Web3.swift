@@ -6,13 +6,11 @@
 //  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
-#if canImport(PromiseKit)
+
 
 import PromiseKit
 
-#if !Web3CocoaPods
-    import Web3
-#endif
+
 
 // MARK: - Extensions
 
@@ -46,8 +44,6 @@ public extension SolidityConstructorInvocation {
     }
 }
 
-#if canImport(Web3PromiseKit)
-import Web3PromiseKit
 
 // MARK: - Promisable and Guaranteeable
 
@@ -61,6 +57,3 @@ extension SolidityReadInvocation: Guaranteeable {}
 extension SolidityPayableInvocation: Guaranteeable {}
 extension SolidityNonPayableInvocation: Guaranteeable {}
 extension SolidityConstructorInvocation: Guaranteeable {}
-#endif
-
-#endif
