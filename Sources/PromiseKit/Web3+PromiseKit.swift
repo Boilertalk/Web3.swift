@@ -5,7 +5,7 @@
 //  Created by Koray Koska on 08.03.18.
 //  Copyright © 2018 Boilertalk. All rights reserved.
 //
-
+import PromiseKit
 
 public extension Web3 {
 
