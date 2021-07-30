@@ -1,6 +1,6 @@
 # :alembic: Web3
   
-  Changed and fixes July 2021
+  Fixes and package updates - July 2021
   
 
 Web3.swift is a Swift library for signing transactions and interacting with Smart Contracts in the Ethereum Network.
