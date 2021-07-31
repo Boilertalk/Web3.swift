@@ -3,15 +3,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "Web3",
+    name: "W3Connect",
     platforms: [
-       .iOS(.v10),
+       .iOS(.v12),
        .macOS(.v10_12)
     ],
     products: [
         .library(
-            name: "Web3",
-            targets: ["Web3"]),
+            name: "W3Connect",
+            targets: ["W3Connect"]),
     ],
     dependencies: [
         // Core dependencies
@@ -22,7 +22,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Web3",
+            name: "W3Connect",
             dependencies: ["BigInt", "CryptoSwift", "PromiseKit", "secp256k1"],
             path: "Sources"),
     ],
