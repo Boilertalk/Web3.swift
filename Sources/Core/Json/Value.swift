@@ -1,5 +1,5 @@
 //
-//  EthereumValue.swift
+//  value.swift
 //  Web3
 //
 //  Created by Koray Koska on 30.12.17.
@@ -11,7 +11,7 @@ import Foundation
 /**
  * A `Codable`, Ethereum representable value.
  */
-public struct EthereumValue: Codable {
+public struct Value: Codable {
 
     /// The internal type of this value
     public let valueType: ValueType
@@ -28,7 +28,7 @@ public struct EthereumValue: Codable {
         case bool(Bool)
 
         /// An array value
-        case array([EthereumValue])
+        case array([Value])
 
         /// A special case nil value
         case `nil`
@@ -47,7 +47,7 @@ public struct EthereumValue: Codable {
             valueType = .bool(bool)
         } else if let int = try? container.decode(Int.self) {
             valueType = .int(int)
-        } else if let array = try? container.decode([EthereumValue].self) {
+        } else if let array = try? container.decode([Value].self) {
             valueType = .array(array)
         } else if container.decodeNil() {
             valueType = .nil
@@ -56,10 +56,10 @@ public struct EthereumValue: Codable {
         }
     }
 
-    /// Encoding and Decoding errors specific to EthereumValue
+    /// Encoding and Decoding errors specific to value
     public enum Error: Swift.Error {
 
-        /// The type set is not convertible to EthereumValue
+        /// The type set is not convertible to value
         case unsupportedType
     }
 
@@ -83,7 +83,7 @@ public struct EthereumValue: Codable {
 
 // MARK: - Convenient Initializers
 
-extension EthereumValue: ExpressibleByStringLiteral {
+extension Value: ExpressibleByStringLiteral {
 
     public typealias StringLiteralType = String
 
@@ -92,7 +92,7 @@ extension EthereumValue: ExpressibleByStringLiteral {
     }
 }
 
-extension EthereumValue: ExpressibleByIntegerLiteral {
+extension Value: ExpressibleByIntegerLiteral {
 
     public typealias IntegerLiteralType = Int
 
@@ -101,7 +101,7 @@ extension EthereumValue: ExpressibleByIntegerLiteral {
     }
 }
 
-extension EthereumValue: ExpressibleByBooleanLiteral {
+extension Value: ExpressibleByBooleanLiteral {
 
     public typealias BooleanLiteralType = Bool
 
@@ -110,12 +110,12 @@ extension EthereumValue: ExpressibleByBooleanLiteral {
     }
 }
 
-extension EthereumValue: ExpressibleByArrayLiteral {
+extension Value: ExpressibleByArrayLiteral {
 
-    public typealias ArrayLiteralElement = EthereumValueRepresentable
+    public typealias ArrayLiteralElement = ValueRepresentable
 
-    public init(array: [EthereumValueRepresentable]) {
-        let values = array.map({ $0.ethereumValue() })
+    public init(array: [ValueRepresentable]) {
+        let values = array.map({ $0.value() })
         valueType = .array(values)
     }
 
@@ -126,28 +126,28 @@ extension EthereumValue: ExpressibleByArrayLiteral {
 
 // MARK: - Convenient Setters
 
-public extension EthereumValue {
+public extension Value {
 
-    static func string(_ string: String) -> EthereumValue {
+    static func string(_ string: String) -> Value {
         return self.init(stringLiteral: string)
     }
 
-    static func int(_ int: Int) -> EthereumValue {
+    static func int(_ int: Int) -> Value {
         return self.init(integerLiteral: int)
     }
 
-    static func bool(_ bool: Bool) -> EthereumValue {
+    static func bool(_ bool: Bool) -> Value {
         return self.init(booleanLiteral: bool)
     }
 
-    static func array(_ array: [EthereumValueRepresentable]) -> EthereumValue {
+    static func array(_ array: [ValueRepresentable]) -> Value {
         return self.init(array: array)
     }
 }
 
 // MARK: - Convenient Getters
 
-public extension EthereumValue {
+public extension Value {
 
     var string: String? {
         if case .string(let string) = valueType {
@@ -173,7 +173,7 @@ public extension EthereumValue {
         return nil
     }
 
-    var array: [EthereumValue]? {
+    var array: [Value]? {
         if case .array(let array) = valueType {
             return array
         }
@@ -182,24 +182,24 @@ public extension EthereumValue {
     }
 }
 
-// MARK: - EthereumValueConvertible
+// MARK: - valueConvertible
 
-extension EthereumValue: EthereumValueConvertible {
+extension Value: ValueConvertible {
 
-    public init(ethereumValue: EthereumValue) {
-        self = ethereumValue
+    public init(value: Value) {
+        self = value
     }
 
-    public func ethereumValue() -> EthereumValue {
+    public func value() -> Value {
         return self
     }
 }
 
 // MARK: - Equatable
 
-extension EthereumValue.ValueType: Equatable {
+extension Value.ValueType: Equatable {
 
-    public static func ==(_ lhs: EthereumValue.ValueType, _ rhs: EthereumValue.ValueType) -> Bool {
+    public static func ==(_ lhs: Value.ValueType, _ rhs: Value.ValueType) -> Bool {
         switch lhs {
         case .string(let str):
             if case .string(let rStr) = rhs {
@@ -230,16 +230,16 @@ extension EthereumValue.ValueType: Equatable {
     }
 }
 
-extension EthereumValue: Equatable {
+extension Value: Equatable {
 
-    public static func ==(_ lhs: EthereumValue, _ rhs: EthereumValue) -> Bool {
+    public static func ==(_ lhs: Value, _ rhs: Value) -> Bool {
         return lhs.valueType == rhs.valueType
     }
 }
 
 // MARK: - Hashable
 
-extension EthereumValue.ValueType: Hashable {
+extension Value.ValueType: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         switch self {
@@ -257,7 +257,7 @@ extension EthereumValue.ValueType: Hashable {
     }
 }
 
-extension EthereumValue: Hashable {
+extension Value: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(valueType)

@@ -19,7 +19,7 @@ public enum ContractParsingError: Error, LocalizedError {
     }
 }
 
-public extension Web3.Eth {
+public extension Blockchain.Node {
     
     /// Initialize an instance of a dynamic EthereumContract from data
     ///
@@ -30,7 +30,7 @@ public extension Web3.Eth {
     ///   - address: The address of the contract, if it is deployed
     /// - Returns: Instance of the dynamic contract from the data provided
     /// - Throws: Error when the ABI data cannot be decoded
-    func Contract(json data: Data, abiKey: String?, address: EthereumAddress?) throws -> DynamicContract {
+    func Contract(json data: Data, abiKey: String?, address: Address?) throws -> DynamicContract {
         let decoder = JSONDecoder()
         // Many tools generate a JSON file or response that includes the actual ABI nested under another key
         if let key = abiKey {
@@ -54,8 +54,8 @@ public extension Web3.Eth {
     ///   - name: Name of your contract instance
     ///   - address: The address of the contract, if it is deployed
     /// - Returns: Instance of the dynamic contract as represented in the provided ABI
-    func Contract(abi: [ABIObject], address: EthereumAddress? = nil) -> DynamicContract {
-        return DynamicContract(abi: abi, address: address, eth: self)
+    func Contract(abi: [ABIObject], address: Address? = nil) -> DynamicContract {
+        return DynamicContract(abi: abi, address: address, node: self)
     }
     
     
@@ -65,8 +65,8 @@ public extension Web3.Eth {
     ///   - type: The contract type to initialize. Must conform to `StaticContract`
     ///   - address: Address the contract is deployed at, if it is deployed
     /// - Returns: An instance of the contract that is configured with this instance of Web3
-    func Contract<T: StaticContract>(type: T.Type, address: EthereumAddress? = nil) -> T {
-        return T(address: address, eth: self)
+    func Contract<T: StaticContract>(type: T.Type, address: Address? = nil) -> T {
+        return T(address: address, node: self)
     }
     
 }

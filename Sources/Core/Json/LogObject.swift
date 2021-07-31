@@ -8,31 +8,31 @@
 
 import Foundation
 
-public struct EthereumLogObject: Codable {
+public struct LogObject: Codable {
 
     /// true when the log was removed, due to a chain reorganization. false if its a valid log.
     public let removed: Bool?
 
     /// Integer of the log index position in the block. nil when its pending log.
-    public let logIndex: EthereumQuantity?
+    public let logIndex: Quantity?
 
     /// Integer of the transactions index position log was created from. nil when its pending log.
-    public let transactionIndex: EthereumQuantity?
+    public let transactionIndex: Quantity?
 
     /// 32 Bytes - hash of the transactions this log was created from. nil when its pending log.
-    public let transactionHash: EthereumData?
+    public let transactionHash: DataObject?
 
     /// 32 Bytes - hash of the block where this log was in. nil when its pending. nil when its pending log.
-    public let blockHash: EthereumData?
+    public let blockHash: DataObject?
 
     /// The block number where this log was in. nil when its pending. nil when its pending log.
-    public let blockNumber: EthereumQuantity?
+    public let blockNumber: Quantity?
 
     /// 20 Bytes - address from which this log originated.
-    public let address: EthereumAddress
+    public let address: Address
 
     /// Contains one or more 32 Bytes non-indexed arguments of the log.
-    public let data: EthereumData
+    public let data: DataObject
 
     /**
      * Array of 0 to 4 32 Bytes DATA of indexed log arguments.
@@ -40,14 +40,14 @@ public struct EthereumLogObject: Codable {
      * In solidity: The first topic is the hash of the signature of the event (e.g. Deposit(address,bytes32,uint256))
      * except you declared the event with the anonymous specifier.)
      */
-    public let topics: [EthereumData]
+    public let topics: [DataObject]
 }
 
 // MARK: - Equatable
 
-extension EthereumLogObject: Equatable {
+extension LogObject: Equatable {
 
-    public static func ==(_ lhs: EthereumLogObject, _ rhs: EthereumLogObject) -> Bool {
+    public static func ==(_ lhs: LogObject, _ rhs: LogObject) -> Bool {
         return lhs.removed == rhs.removed
             && lhs.logIndex == rhs.logIndex
             && lhs.transactionIndex == rhs.transactionIndex
@@ -62,7 +62,7 @@ extension EthereumLogObject: Equatable {
 
 // MARK: - Hashable
 
-extension EthereumLogObject: Hashable {
+extension LogObject: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         var removedBytes: UInt8?

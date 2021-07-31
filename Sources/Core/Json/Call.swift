@@ -8,35 +8,35 @@
 
 import Foundation
 
-public struct EthereumCall: Codable {
+public struct Call: Codable {
 
     /// The address the transaction is sent from.
-    public let from: EthereumAddress?
+    public let from: Address?
 
     /// The address the transaction is directed to.
-    public let to: EthereumAddress
+    public let to: Address
 
     /// Integer of the gas provided for the transaction execution.
     /// `eth_call` consumes zero gas, but this parameter may be needed by some executions.
-    public let gas: EthereumQuantity?
+    public let gas: Quantity?
 
     /// Integer of the gasPrice used for each paid gas
-    public let gasPrice: EthereumQuantity?
+    public let gasPrice: Quantity?
 
     /// Integer of the value send with this transaction
-    public let value: EthereumQuantity?
+    public let value: Quantity?
 
     /// Hash of the method signature and encoded parameters.
     /// For details see https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI
-    public let data: EthereumData?
+    public let data: DataObject?
 
     public init(
-        from: EthereumAddress? = nil,
-        to: EthereumAddress,
-        gas: EthereumQuantity? = nil,
-        gasPrice: EthereumQuantity? = nil,
-        value: EthereumQuantity? = nil,
-        data: EthereumData? = nil
+        from: Address? = nil,
+        to: Address,
+        gas: Quantity? = nil,
+        gasPrice: Quantity? = nil,
+        value: Quantity? = nil,
+        data: DataObject? = nil
         ) {
         self.from = from
         self.to = to
@@ -50,70 +50,70 @@ public struct EthereumCall: Codable {
 public struct EthereumCallParams: Codable {
 
     /// The actual call parameters
-    public let call: EthereumCall
+    public let call: Call
 
     /// The address the transaction is sent from.
-    public var from: EthereumAddress? {
+    public var from: Address? {
         return call.from
     }
 
     /// The address the transaction is directed to.
-    public var to: EthereumAddress {
+    public var to: Address {
         return call.to
     }
 
     /// Integer of the gas provided for the transaction execution.
     /// `eth_call` consumes zero gas, but this parameter may be needed by some executions.
-    public var gas: EthereumQuantity? {
+    public var gas: Quantity? {
         return call.gas
     }
 
     /// Integer of the gasPrice used for each paid gas
-    public var gasPrice: EthereumQuantity? {
+    public var gasPrice: Quantity? {
         return call.gasPrice
     }
 
     /// Integer of the value send with this transaction
-    public var value: EthereumQuantity? {
+    public var value: Quantity? {
         return call.value
     }
 
     /// Hash of the method signature and encoded parameters.
     /// For details see https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI
-    public var data: EthereumData? {
+    public var data: DataObject? {
         return call.data
     }
 
     /// Integer block number, or the string "latest", "earliest" or "pending"
-    public let block: EthereumQuantityTag
+    public let block: QuantityTag
 
     public init(
-        call: EthereumCall,
-        block: EthereumQuantityTag
+        call: Call,
+        block: QuantityTag
     ) {
         self.call = call
         self.block = block
     }
 
     public init(
-        from: EthereumAddress? = nil,
-        to: EthereumAddress,
-        gas: EthereumQuantity? = nil,
-        gasPrice: EthereumQuantity? = nil,
-        value: EthereumQuantity? = nil,
-        data: EthereumData? = nil,
-        block: EthereumQuantityTag
+        from: Address? = nil,
+        to: Address,
+        gas: Quantity? = nil,
+        gasPrice: Quantity? = nil,
+        value: Quantity? = nil,
+        data: DataObject? = nil,
+        block: QuantityTag
         ) {
-        let call = EthereumCall(from: from, to: to, gas: gas, gasPrice: gasPrice, value: value, data: data)
+        let call = Call(from: from, to: to, gas: gas, gasPrice: gasPrice, value: value, data: data)
         self.init(call: call, block: block)
     }
 
     public init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
 
-        let call = try container.decode(EthereumCall.self)
+        let call = try container.decode(Call.self)
 
-        let block = try container.decode(EthereumQuantityTag.self)
+        let block = try container.decode(QuantityTag.self)
 
         self.init(call: call, block: block)
     }
@@ -129,9 +129,9 @@ public struct EthereumCallParams: Codable {
 
 // MARK: - Equatable
 
-extension EthereumCall: Equatable {
+extension Call: Equatable {
 
-    public static func ==(_ lhs: EthereumCall, _ rhs: EthereumCall) -> Bool {
+    public static func ==(_ lhs: Call, _ rhs: Call) -> Bool {
         return lhs.from == rhs.from
             && lhs.to == rhs.to
             && lhs.gas == rhs.gas
@@ -150,7 +150,7 @@ extension EthereumCallParams: Equatable {
 
 // MARK: - Hashable
 
-extension EthereumCall: Hashable {
+extension Call: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(from)

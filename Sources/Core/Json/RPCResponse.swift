@@ -37,4 +37,4 @@ public struct RPCResponse<Result: Codable>: Codable {
     }
 }
 
-public typealias BasicRPCResponse = RPCResponse<EthereumValue>
+public typealias BasicRPCResponse = RPCResponse<Value>

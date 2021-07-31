@@ -10,7 +10,7 @@ import Foundation
 
 
 
-public final class EthereumPrivateKey {
+public final class PrivateKey {
 
     // MARK: - Properties
 
@@ -18,10 +18,10 @@ public final class EthereumPrivateKey {
     public let rawPrivateKey: Bytes
 
     /// The public key associated with this private key
-    public let publicKey: EthereumPublicKey
+    public let publicKey: PublicKey
 
     /// Returns the ethereum address representing the public key associated with this private key.
-    public var address: EthereumAddress {
+    public var address: Address {
         return publicKey.address
     }
 
@@ -136,7 +136,7 @@ public final class EthereumPrivateKey {
         // First byte is header byte 0x04
         pubOut.remove(at: 0)
 
-        self.publicKey = try EthereumPublicKey(publicKey: pubOut, ctx: ctx)
+        self.publicKey = try PublicKey(publicKey: pubOut, ctx: ctx)
         // *** End Generate public key ***
 
         // Verify private key
@@ -288,16 +288,16 @@ public final class EthereumPrivateKey {
 
 // MARK: - Equatable
 
-extension EthereumPrivateKey: Equatable {
+extension PrivateKey: Equatable {
 
-    public static func ==(_ lhs: EthereumPrivateKey, _ rhs: EthereumPrivateKey) -> Bool {
+    public static func ==(_ lhs: PrivateKey, _ rhs: PrivateKey) -> Bool {
         return lhs.rawPrivateKey == rhs.rawPrivateKey
     }
 }
 
 // MARK: - BytesConvertible
 
-extension EthereumPrivateKey: BytesConvertible {
+extension PrivateKey: BytesConvertible {
 
     public func makeBytes() -> Bytes {
         return rawPrivateKey
@@ -306,7 +306,7 @@ extension EthereumPrivateKey: BytesConvertible {
 
 // MARK: - Hashable
 
-extension EthereumPrivateKey: Hashable {
+extension PrivateKey: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(rawPrivateKey)

@@ -10,7 +10,7 @@ import Foundation
 
 
 
-public struct EthereumQuantityTag {
+public struct QuantityTag {
 
     public enum TagType {
 
@@ -27,34 +27,34 @@ public struct EthereumQuantityTag {
     }
 }
 
-public extension EthereumQuantityTag {
+public extension QuantityTag {
 
-    static var latest: EthereumQuantityTag {
+    static var latest: QuantityTag {
         return self.init(tagType: .latest)
     }
 
-    static var earliest: EthereumQuantityTag {
+    static var earliest: QuantityTag {
         return self.init(tagType: .earliest)
     }
 
-    static var pending: EthereumQuantityTag {
+    static var pending: QuantityTag {
         return self.init(tagType: .pending)
     }
 
-    static func block(_ bigUInt: BigUInt) -> EthereumQuantityTag {
+    static func block(_ bigUInt: BigUInt) -> QuantityTag {
         return self.init(tagType: .block(bigUInt))
     }
 }
 
-extension EthereumQuantityTag: EthereumValueConvertible {
+extension QuantityTag: ValueConvertible {
 
-    public static func string(_ string: String) throws -> EthereumQuantityTag {
-        return try self.init(ethereumValue: .string(string))
+    public static func string(_ string: String) throws -> QuantityTag {
+        return try self.init(value: .string(string))
     }
 
-    public init(ethereumValue: EthereumValue) throws {
-        guard let str = ethereumValue.string else {
-            throw EthereumValueInitializableError.notInitializable
+    public init(value: Value) throws {
+        guard let str = value.string else {
+            throw ValueInitializableError.notInitializable
         }
 
         if str == "latest" {
@@ -65,13 +65,13 @@ extension EthereumQuantityTag: EthereumValueConvertible {
             tagType = .pending
         } else {
             guard let hex = try? BigUInt(str.quantityHexBytes()) else {
-                throw EthereumValueInitializableError.notInitializable
+                throw ValueInitializableError.notInitializable
             }
             tagType = .block(hex)
         }
     }
 
-    public func ethereumValue() -> EthereumValue {
+    public func value() -> Value {
         switch tagType {
         case .latest:
             return "latest"
@@ -80,16 +80,16 @@ extension EthereumQuantityTag: EthereumValueConvertible {
         case .pending:
             return "pending"
         case .block(let bigUInt):
-            return EthereumValue(stringLiteral: bigUInt.makeBytes().quantityHexString(prefix: true))
+            return Value(stringLiteral: bigUInt.makeBytes().quantityHexString(prefix: true))
         }
     }
 }
 
 // MARK: - Equatable
 
-extension EthereumQuantityTag.TagType: Equatable {
+extension QuantityTag.TagType: Equatable {
 
-    public static func ==(lhs: EthereumQuantityTag.TagType, rhs: EthereumQuantityTag.TagType) -> Bool {
+    public static func ==(lhs: QuantityTag.TagType, rhs: QuantityTag.TagType) -> Bool {
         switch lhs {
         case .block(let bigLeft):
             if case .block(let bigRight) = rhs {
@@ -115,16 +115,16 @@ extension EthereumQuantityTag.TagType: Equatable {
     }
 }
 
-extension EthereumQuantityTag: Equatable {
+extension QuantityTag: Equatable {
 
-    public static func ==(_ lhs: EthereumQuantityTag, _ rhs: EthereumQuantityTag) -> Bool {
+    public static func ==(_ lhs: QuantityTag, _ rhs: QuantityTag) -> Bool {
         return lhs.tagType == rhs.tagType
     }
 }
 
 // MARK: - Hashable
 
-extension EthereumQuantityTag.TagType: Hashable {
+extension QuantityTag.TagType: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         switch self {
@@ -141,7 +141,7 @@ extension EthereumQuantityTag.TagType: Hashable {
     }
 }
 
-extension EthereumQuantityTag: Hashable {
+extension QuantityTag: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(tagType)

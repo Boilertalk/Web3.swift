@@ -16,19 +16,19 @@ import PromiseKit
 
 public extension SolidityInvocation {
 
-    func call(block: EthereumQuantityTag = .latest) -> Promise<[String: Any]> {
+    func call(block: QuantityTag = .latest) -> Promise<[String: Any]> {
         return Promise { seal in
             self.call(block: block, completion: seal.resolve)
         }
     }
 
-    func send(nonce: EthereumQuantity? = nil, from: EthereumAddress, value: EthereumQuantity?, gas: EthereumQuantity, gasPrice: EthereumQuantity?) -> Promise<EthereumData> {
+    func send(nonce: Quantity? = nil, from: Address, value: Quantity?, gas: Quantity, gasPrice: Quantity?) -> Promise<DataObject> {
         return Promise { seal in
             self.send(nonce: nonce, from: from, value: value, gas: gas, gasPrice: gasPrice, completion: seal.resolve)
         }
     }
 
-    func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, value: EthereumQuantity? = nil) -> Promise<EthereumQuantity> {
+    func estimateGas(from: Address? = nil, gas: Quantity? = nil, value: Quantity? = nil) -> Promise<Quantity> {
         return Promise { seal in
             self.estimateGas(from: from, gas: gas, value: value, completion: seal.resolve)
         }
@@ -37,7 +37,7 @@ public extension SolidityInvocation {
 
 public extension SolidityConstructorInvocation {
 
-    func send(nonce: EthereumQuantity? = nil, from: EthereumAddress, value: EthereumQuantity = 0, gas: EthereumQuantity, gasPrice: EthereumQuantity?) -> Promise<EthereumData> {
+    func send(nonce: Quantity? = nil, from: Address, value: Quantity = 0, gas: Quantity, gasPrice: Quantity?) -> Promise<DataObject> {
         return Promise { seal in
             self.send(nonce: nonce, from: from, value: value, gas: gas, gasPrice: gasPrice, completion: seal.resolve)
         }

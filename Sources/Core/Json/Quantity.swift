@@ -7,13 +7,13 @@
 //
 
 import Foundation
+import BigInt
 
-
-public struct EthereumQuantity {
+public struct Quantity {
 
     public let quantity: BigUInt
 
-    public static func bytes(_ bytes: Bytes) -> EthereumQuantity {
+    public static func bytes(_ bytes: Bytes) -> Quantity {
         return self.init(quantity: BigUInt(bytes))
     }
 
@@ -26,7 +26,7 @@ public struct EthereumQuantity {
     }
 }
 
-extension EthereumQuantity: ExpressibleByIntegerLiteral {
+extension Quantity: ExpressibleByIntegerLiteral {
 
     public typealias IntegerLiteralType = UInt64
 
@@ -35,38 +35,38 @@ extension EthereumQuantity: ExpressibleByIntegerLiteral {
     }
 }
 
-extension EthereumQuantity: EthereumValueConvertible {
+extension Quantity: ValueConvertible {
 
-    public static func string(_ string: String) throws -> EthereumQuantity {
-        return try self.init(ethereumValue: .string(string))
+    public static func string(_ string: String) throws -> Quantity {
+        return try self.init(value: .string(string))
     }
 
-    public init(ethereumValue: EthereumValue) throws {
-        guard let str = ethereumValue.string else {
-            throw EthereumValueInitializableError.notInitializable
+    public init(value: Value) throws {
+        guard let str = value.string else {
+            throw ValueInitializableError.notInitializable
         }
 
         try self.init(quantity: BigUInt(str.quantityHexBytes()))
     }
 
-    public func ethereumValue() -> EthereumValue {
+    public func value() -> Value {
         return .init(stringLiteral: quantity.makeBytes().quantityHexString(prefix: true))
     }
 }
 
-public extension EthereumValue {
+public extension Value {
 
-    var ethereumQuantity: EthereumQuantity? {
-        return try? EthereumQuantity(ethereumValue: self)
+    var ethereumQuantity: Quantity? {
+        return try? Quantity(value: self)
     }
 }
 
 // MARK: - BytesConvertible
 
-extension EthereumQuantity: BytesConvertible {
+extension Quantity: BytesConvertible {
 
     public init(_ bytes: Bytes) {
-        self = EthereumQuantity.bytes(bytes)
+        self = Quantity.bytes(bytes)
     }
 
     public func makeBytes() -> Bytes {
@@ -76,16 +76,16 @@ extension EthereumQuantity: BytesConvertible {
 
 // MARK: - Equatable
 
-extension EthereumQuantity: Equatable {
+extension Quantity: Equatable {
 
-    public static func ==(_ lhs: EthereumQuantity, _ rhs: EthereumQuantity) -> Bool {
+    public static func ==(_ lhs: Quantity, _ rhs: Quantity) -> Bool {
         return lhs.quantity == rhs.quantity
     }
 }
 
 // MARK: - Hashable
 
-extension EthereumQuantity: Hashable {
+extension Quantity: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(quantity)

@@ -8,14 +8,18 @@
 
 import Foundation
 
-public protocol Web3Provider {
+/// The ID used in `RPC` requests
+/// **Default: 1**
+public typealias RPCID = Int
 
-    typealias Web3ResponseCompletion<Result: Codable> = (_ resp: Web3Response<Result>) -> Void
+public protocol Provider {
 
-    func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>)
+    typealias NetworkResponseCompletion<Result: Codable> = (_ resp: NetworkResponse<Result>) -> Void
+
+    func send<Params, Result>(request: RPCRequest<Params>, response: @escaping NetworkResponseCompletion<Result>)
 }
 
-public struct Web3Response<Result: Codable> {
+public struct NetworkResponse<Result: Codable> {
     
     public enum Error: Swift.Error {
         case emptyResponse
@@ -69,7 +73,7 @@ public struct Web3Response<Result: Codable> {
 }
 
 /// Convenience properties
-extension Web3Response.Status {
+extension NetworkResponse.Status {
     public var isSuccess: Bool {
         switch self {
         case .success:
@@ -102,7 +106,7 @@ extension Web3Response.Status {
     }
 }
 
-extension Web3Response.Status: CustomStringConvertible {
+extension NetworkResponse.Status: CustomStringConvertible {
     public var description: String {
         switch self {
         case .success:
@@ -113,7 +117,7 @@ extension Web3Response.Status: CustomStringConvertible {
     }
 }
 
-extension Web3Response.Status: CustomDebugStringConvertible {
+extension NetworkResponse.Status: CustomDebugStringConvertible {
     public var debugDescription: String {
         switch self {
         case .success(let value):

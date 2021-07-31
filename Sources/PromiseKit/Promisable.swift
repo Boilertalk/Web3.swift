@@ -37,25 +37,25 @@ extension Guaranteeable {
 
 // MARK: - Json
 
-extension EthereumBlockObject: Guaranteeable {}
-extension EthereumBlockObject.Transaction: Guaranteeable {}
-extension EthereumCall: Guaranteeable {}
+extension BlockObject: Guaranteeable {}
+extension BlockObject.Transaction: Guaranteeable {}
+extension Call: Guaranteeable {}
 extension EthereumCallParams: Guaranteeable {}
-extension EthereumData: Guaranteeable {}
-extension EthereumLogObject: Guaranteeable {}
-extension EthereumQuantity: Guaranteeable {}
-extension EthereumQuantityTag: Guaranteeable {}
-extension EthereumSyncStatusObject: Guaranteeable {}
-extension EthereumTransactionObject: Guaranteeable {}
-extension EthereumTransactionReceiptObject: Guaranteeable {}
-extension EthereumValue: Guaranteeable {}
+extension DataObject: Guaranteeable {}
+extension LogObject: Guaranteeable {}
+extension Quantity: Guaranteeable {}
+extension QuantityTag: Guaranteeable {}
+extension SyncStatusObject: Guaranteeable {}
+extension TransactionObject: Guaranteeable {}
+extension TransactionReceiptObject: Guaranteeable {}
+extension Value: Guaranteeable {}
 extension RPCRequest: Guaranteeable {}
 extension RPCResponse: Guaranteeable {}
 
 // MARK: - Transaction
 
-extension EthereumAddress: Guaranteeable {}
-extension EthereumPrivateKey: Guaranteeable {}
-extension EthereumPublicKey: Guaranteeable {}
-extension EthereumTransaction: Guaranteeable {}
-extension EthereumSignedTransaction: Guaranteeable {}
+extension Address: Guaranteeable {}
+extension PrivateKey: Guaranteeable {}
+extension PublicKey: Guaranteeable {}
+extension Transaction: Guaranteeable {}
+extension SignedTransaction: Guaranteeable {}

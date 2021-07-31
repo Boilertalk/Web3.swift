@@ -30,4 +30,4 @@ public struct RPCRequest<Params: Codable>: Codable {
     }
 }
 
-public typealias BasicRPCRequest = RPCRequest<EthereumValue>
+public typealias BasicRPCRequest = RPCRequest<Value>

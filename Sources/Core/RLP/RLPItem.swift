@@ -162,16 +162,16 @@ public extension RLPItem {
     }
 }
 
-// MARK: - EthereumValueConvertible
+// MARK: - valueConvertible
 
-extension RLPItem: EthereumValueConvertible {
+extension RLPItem: ValueConvertible {
 
-    public init(ethereumValue: EthereumValue) throws {
-        let data = try EthereumData(ethereumValue: ethereumValue)
+    public init(value: Value) throws {
+        let data = try DataObject(value: value)
         self.init(bytes: data.makeBytes())
     }
 
-    public func ethereumValue() -> EthereumValue {
+    public func value() -> Value {
         let encoder = RLPEncoder()
         let string = try? encoder.encode(self).hexString(prefix: true)
         return .string(string ?? "0x")

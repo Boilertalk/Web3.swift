@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct EthereumAddress {
+public struct Address {
 
     // MARK: - Properties
 
@@ -172,35 +172,35 @@ public struct EthereumAddress {
     }
 }
 
-// MARK: - EthereumValueConvertible
+// MARK: - valueConvertible
 
-extension EthereumAddress: EthereumValueConvertible {
+extension Address: ValueConvertible {
 
-    public init(ethereumValue: EthereumValue) throws {
-        guard let str = ethereumValue.string else {
-            throw EthereumValueInitializableError.notInitializable
+    public init(value: Value) throws {
+        guard let str = value.string else {
+            throw ValueInitializableError.notInitializable
         }
 
         try self.init(hex: str, eip55: false)
     }
 
-    public func ethereumValue() -> EthereumValue {
-        return EthereumValue(stringLiteral: hex(eip55: false))
+    public func value() -> Value {
+        return Value(stringLiteral: hex(eip55: false))
     }
 }
 
 // MARK: - Equatable
 
-extension EthereumAddress: Equatable {
+extension Address: Equatable {
 
-    public static func ==(_ lhs: EthereumAddress, _ rhs: EthereumAddress) -> Bool {
+    public static func ==(_ lhs: Address, _ rhs: Address) -> Bool {
         return lhs.rawAddress == rhs.rawAddress
     }
 }
 
 // MARK: - BytesConvertible
 
-extension EthereumAddress: BytesConvertible {
+extension Address: BytesConvertible {
 
     public init(_ bytes: Bytes) throws {
         try self.init(rawAddress: bytes)
@@ -213,7 +213,7 @@ extension EthereumAddress: BytesConvertible {
 
 // MARK: - Hashable
 
-extension EthereumAddress: Hashable {
+extension Address: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         // TODO: Is throwing deterministic here?

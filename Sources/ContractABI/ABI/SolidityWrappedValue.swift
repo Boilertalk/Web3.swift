@@ -30,7 +30,7 @@ public struct SolidityWrappedValue {
         return SolidityWrappedValue(value: value, type: .bool)
     }
     
-    public static func address(_ value: EthereumAddress) -> SolidityWrappedValue {
+    public static func address(_ value: Address) -> SolidityWrappedValue {
         return SolidityWrappedValue(value: value, type: .address)
     }
     

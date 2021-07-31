@@ -8,7 +8,7 @@
 import Foundation
 
 
-public extension Web3.Eth {
+public extension Blockchain.Node {
     
     /// The struct holding all `abi` methods
     var abi: ABI.Type {

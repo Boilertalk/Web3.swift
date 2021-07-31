@@ -9,27 +9,27 @@
 import Foundation
 
 
-public struct EthereumTransaction: Codable {
+public struct Transaction: Codable {
     /// The number of transactions made prior to this one
-    public var nonce: EthereumQuantity?
+    public var nonce: Quantity?
     
     /// Gas price provided Wei
-    public var gasPrice: EthereumQuantity?
+    public var gasPrice: Quantity?
     
     /// Gas limit provided
-    public var gas: EthereumQuantity?
+    public var gas: Quantity?
     
     /// Address of the sender
-    public var from: EthereumAddress?
+    public var from: Address?
     
     /// Address of the receiver
-    public var to: EthereumAddress?
+    public var to: Address?
     
     /// Value to transfer provided in Wei
-    public var value: EthereumQuantity?
+    public var value: Quantity?
     
     /// Input data for this transaction
-    public var data: EthereumData
+    public var data: DataObject
     
     // MARK: - Initialization
     
@@ -45,13 +45,13 @@ public struct EthereumTransaction: Codable {
      * - parameter data: Input data for this transaction. Defaults to [].
      */
     public init(
-        nonce: EthereumQuantity? = nil,
-        gasPrice: EthereumQuantity? = nil,
-        gas: EthereumQuantity? = nil,
-        from: EthereumAddress? = nil,
-        to: EthereumAddress? = nil,
-        value: EthereumQuantity? = nil,
-        data: EthereumData = EthereumData([])
+        nonce: Quantity? = nil,
+        gasPrice: Quantity? = nil,
+        gas: Quantity? = nil,
+        from: Address? = nil,
+        to: Address? = nil,
+        value: Quantity? = nil,
+        data: DataObject = DataObject([])
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
@@ -71,10 +71,10 @@ public struct EthereumTransaction: Codable {
      * - parameter privateKey: The private key for the new signature.
      * - parameter chainId: Optional chainId as described in EIP155.
      */
-    public func sign(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity = 0) throws -> EthereumSignedTransaction {
+    public func sign(with privateKey: PrivateKey, chainId: Quantity = 0) throws -> SignedTransaction {
         // These values are required for signing
         guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gas, let value = value else {
-            throw EthereumSignedTransaction.Error.transactionInvalid
+            throw SignedTransaction.Error.transactionInvalid
         }
         let rlp = RLPItem(
             nonce: nonce,
@@ -103,54 +103,54 @@ public struct EthereumTransaction: Codable {
         let r = BigUInt(signature.r)
         let s = BigUInt(signature.s)
         
-        return EthereumSignedTransaction(
+        return SignedTransaction(
             nonce: nonce,
             gasPrice: gasPrice,
             gasLimit: gasLimit,
             to: to,
             value: value,
             data: data,
-            v: EthereumQuantity(quantity: v),
-            r: EthereumQuantity(quantity: r),
-            s: EthereumQuantity(quantity: s),
+            v: Quantity(quantity: v),
+            r: Quantity(quantity: r),
+            s: Quantity(quantity: s),
             chainId: chainId
         )
     }
 }
 
-public struct EthereumSignedTransaction {
+public struct SignedTransaction {
 
     // MARK: - Properties
 
     /// The number of transactions made prior to this one
-    public let nonce: EthereumQuantity
+    public let nonce: Quantity
 
     /// Gas price provided Wei
-    public let gasPrice: EthereumQuantity
+    public let gasPrice: Quantity
 
     /// Gas limit provided
-    public let gasLimit: EthereumQuantity
+    public let gasLimit: Quantity
 
     /// Address of the receiver
-    public let to: EthereumAddress?
+    public let to: Address?
 
     /// Value to transfer provided in Wei
-    public let value: EthereumQuantity
+    public let value: Quantity
 
     /// Input data for this transaction
-    public let data: EthereumData
+    public let data: DataObject
 
     /// EC signature parameter v
-    public let v: EthereumQuantity
+    public let v: Quantity
 
     /// EC signature parameter r
-    public let r: EthereumQuantity
+    public let r: Quantity
 
     /// EC recovery ID
-    public let s: EthereumQuantity
+    public let s: Quantity
 
     /// EIP 155 chainId. Mainnet: 1
-    public let chainId: EthereumQuantity
+    public let chainId: Quantity
 
     // MARK: - Initialization
 
@@ -171,16 +171,16 @@ public struct EthereumSignedTransaction {
      *                      old style transactions are assumed.
      */
     public init(
-        nonce: EthereumQuantity,
-        gasPrice: EthereumQuantity,
-        gasLimit: EthereumQuantity,
-        to: EthereumAddress?,
-        value: EthereumQuantity,
-        data: EthereumData,
-        v: EthereumQuantity,
-        r: EthereumQuantity,
-        s: EthereumQuantity,
-        chainId: EthereumQuantity
+        nonce: Quantity,
+        gasPrice: Quantity,
+        gasLimit: Quantity,
+        to: Address?,
+        value: Quantity,
+        data: DataObject,
+        v: Quantity,
+        r: Quantity,
+        s: Quantity,
+        chainId: Quantity
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
@@ -194,9 +194,9 @@ public struct EthereumSignedTransaction {
 
         if chainId.quantity == 0 && v.quantity >= 37 {
             if v.quantity % 2 == 0 {
-                self.chainId = EthereumQuantity(quantity: (v.quantity - 36) / 2)
+                self.chainId = Quantity(quantity: (v.quantity - 36) / 2)
             } else {
-                self.chainId = EthereumQuantity(quantity: (v.quantity - 35) / 2)
+                self.chainId = Quantity(quantity: (v.quantity - 35) / 2)
             }
         } else {
             self.chainId = chainId
@@ -227,7 +227,7 @@ public struct EthereumSignedTransaction {
             r: 0,
             s: 0
         )
-        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp), v: EthereumQuantity(quantity: recId), r: r, s: s) {
+        if let _ = try? PublicKey(message: RLPEncoder().encode(rlp), v: Quantity(quantity: recId), r: r, s: s) {
             return true
         }
 
@@ -258,15 +258,15 @@ extension RLPItem {
      * - parameter s: EC recovery ID.
      */
     init(
-        nonce: EthereumQuantity,
-        gasPrice: EthereumQuantity,
-        gasLimit: EthereumQuantity,
-        to: EthereumAddress?,
-        value: EthereumQuantity,
-        data: EthereumData,
-        v: EthereumQuantity,
-        r: EthereumQuantity,
-        s: EthereumQuantity
+        nonce: Quantity,
+        gasPrice: Quantity,
+        gasLimit: Quantity,
+        to: Address?,
+        value: Quantity,
+        data: DataObject,
+        v: Quantity,
+        r: Quantity,
+        s: Quantity
     ) {
         self = .array(
             .bigUInt(nonce.quantity),
@@ -283,29 +283,29 @@ extension RLPItem {
     
 }
 
-extension EthereumSignedTransaction: RLPItemConvertible {
+extension SignedTransaction: RLPItemConvertible {
 
     public init(rlp: RLPItem) throws {
         guard let array = rlp.array, array.count == 9 else {
             throw Error.rlpItemInvalid
         }
         guard let nonce = array[0].bigUInt, let gasPrice = array[1].bigUInt, let gasLimit = array[2].bigUInt,
-            let toBytes = array[3].bytes, let to = try? EthereumAddress(rawAddress: toBytes),
+            let toBytes = array[3].bytes, let to = try? Address(rawAddress: toBytes),
             let value = array[4].bigUInt, let data = array[5].bytes, let v = array[6].bigUInt,
             let r = array[7].bigUInt, let s = array[8].bigUInt else {
                 throw Error.rlpItemInvalid
         }
 
         self.init(
-            nonce: EthereumQuantity(quantity: nonce),
-            gasPrice: EthereumQuantity(quantity: gasPrice),
-            gasLimit: EthereumQuantity(quantity: gasLimit),
+            nonce: Quantity(quantity: nonce),
+            gasPrice: Quantity(quantity: gasPrice),
+            gasLimit: Quantity(quantity: gasLimit),
             to: to,
-            value: EthereumQuantity(quantity: value),
-            data: EthereumData(data),
-            v: EthereumQuantity(quantity: v),
-            r: EthereumQuantity(quantity: r),
-            s: EthereumQuantity(quantity: s),
+            value: Quantity(quantity: value),
+            data: DataObject(data),
+            v: Quantity(quantity: v),
+            r: Quantity(quantity: r),
+            s: Quantity(quantity: s),
             chainId: 0
         )
     }
@@ -327,8 +327,8 @@ extension EthereumSignedTransaction: RLPItemConvertible {
 
 // MARK: - Equatable
 
-extension EthereumTransaction: Equatable {
-    public static func ==(_ lhs: EthereumTransaction, _ rhs: EthereumTransaction) -> Bool {
+extension Transaction: Equatable {
+    public static func ==(_ lhs: Transaction, _ rhs: Transaction) -> Bool {
         return lhs.nonce == rhs.nonce
             && lhs.gasPrice == rhs.gasPrice
             && lhs.gas == rhs.gas
@@ -339,9 +339,9 @@ extension EthereumTransaction: Equatable {
     }
 }
 
-extension EthereumSignedTransaction: Equatable {
+extension SignedTransaction: Equatable {
 
-    public static func ==(_ lhs: EthereumSignedTransaction, _ rhs: EthereumSignedTransaction) -> Bool {
+    public static func ==(_ lhs: SignedTransaction, _ rhs: SignedTransaction) -> Bool {
         return lhs.nonce == rhs.nonce
             && lhs.gasPrice == rhs.gasPrice
             && lhs.gasLimit == rhs.gasLimit
@@ -357,7 +357,7 @@ extension EthereumSignedTransaction: Equatable {
 
 // MARK: - Hashable
 
-extension EthereumTransaction: Hashable {
+extension Transaction: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(nonce)
@@ -370,7 +370,7 @@ extension EthereumTransaction: Hashable {
     }
 }
 
-extension EthereumSignedTransaction: Hashable {
+extension SignedTransaction: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(nonce)

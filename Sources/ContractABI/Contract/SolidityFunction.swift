@@ -10,10 +10,10 @@ import Foundation
 
 /// A class that can accept invocations and forward to Web3
 public protocol SolidityFunctionHandler: AnyObject {
-    var address: EthereumAddress? { get }
-    func call(_ call: EthereumCall, outputs: [SolidityFunctionParameter], block: EthereumQuantityTag, completion: @escaping ([String: Any]?, Error?) -> Void)
-    func send(_ transaction: EthereumTransaction, completion: @escaping (EthereumData?, Error?) -> Void)
-    func estimateGas(_ call: EthereumCall, completion: @escaping (EthereumQuantity?, Error?) -> Void)
+    var address: Address? { get }
+    func call(_ call: Call, outputs: [SolidityFunctionParameter], block: QuantityTag, completion: @escaping ([String: Any]?, Error?) -> Void)
+    func send(_ transaction: Transaction, completion: @escaping (DataObject?, Error?) -> Void)
+    func estimateGas(_ call: Call, completion: @escaping (Quantity?, Error?) -> Void)
 }
 
 public protocol SolidityParameter {
@@ -185,7 +185,7 @@ public class SolidityConstructor {
         self.payable = payable
     }
     
-    public func invoke(byteCode: EthereumData, parameters: [ABIEncodable]) -> SolidityConstructorInvocation {
+    public func invoke(byteCode: DataObject, parameters: [ABIEncodable]) -> SolidityConstructorInvocation {
         let wrappedParams = zip(parameters, inputs).map { SolidityWrappedValue(value: $0.0, type: $0.1.type) }
         return SolidityConstructorInvocation(byteCode: byteCode, parameters: wrappedParams, payable: payable, handler: handler)
     }

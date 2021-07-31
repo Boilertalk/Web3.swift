@@ -11,7 +11,7 @@ import Foundation
 
 
 
-public final class EthereumPublicKey {
+public final class PublicKey {
 
     // MARK: - Properties
 
@@ -19,7 +19,7 @@ public final class EthereumPublicKey {
     public let rawPublicKey: Bytes
 
     /// The `EthereumAddress` associated with this public key
-    public let address: EthereumAddress
+    public let address: Address
 
     /// True iff ctx should not be freed on deinit
     private let ctxSelfManaged: Bool
@@ -89,7 +89,7 @@ public final class EthereumPublicKey {
             throw Error.internalError
         }
         hash = Array(hash[12...])
-        self.address = try EthereumAddress(rawAddress: hash)
+        self.address = try Address(rawAddress: hash)
 
         // Verify public key
         try verifyPublicKey()
@@ -118,7 +118,7 @@ public final class EthereumPublicKey {
      * - throws: EthereumPublicKey.Error.signatureMalformed if the signature is not valid or in other ways malformed.
      *           EthereumPublicKey.Error.internalError if a secp256k1 library call or another internal call fails.
      */
-    public init(message: Bytes, v: EthereumQuantity, r: EthereumQuantity, s: EthereumQuantity, ctx: OpaquePointer? = nil) throws {
+    public init(message: Bytes, v: Quantity, r: Quantity, s: Quantity, ctx: OpaquePointer? = nil) throws {
         // Create context
         let finalCtx: OpaquePointer
         if let ctx = ctx {
@@ -196,7 +196,7 @@ public final class EthereumPublicKey {
             throw Error.internalError
         }
         pubHash = Array(pubHash[12...])
-        self.address = try EthereumAddress(rawAddress: pubHash)
+        self.address = try Address(rawAddress: pubHash)
     }
 
     /**
@@ -340,16 +340,16 @@ public final class EthereumPublicKey {
 
 // MARK: - Equatable
 
-extension EthereumPublicKey: Equatable {
+extension PublicKey: Equatable {
 
-    public static func ==(_ lhs: EthereumPublicKey, _ rhs: EthereumPublicKey) -> Bool {
+    public static func ==(_ lhs: PublicKey, _ rhs: PublicKey) -> Bool {
         return lhs.rawPublicKey == rhs.rawPublicKey
     }
 }
 
 // MARK: - BytesConvertible
 
-extension EthereumPublicKey: BytesConvertible {
+extension PublicKey: BytesConvertible {
 
     public func makeBytes() -> Bytes {
         return rawPublicKey
@@ -358,7 +358,7 @@ extension EthereumPublicKey: BytesConvertible {
 
 // MARK: - Hashable
 
-extension EthereumPublicKey: Hashable {
+extension PublicKey: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(rawPublicKey)

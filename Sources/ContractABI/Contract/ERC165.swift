@@ -8,7 +8,7 @@
 import Foundation
 
 /// ERC165
-public protocol ERC165Contract: EthereumContract {
+public protocol ERC165Contract: Contract {
     func supportsInterface(interface: String) -> SolidityInvocation
 }
 

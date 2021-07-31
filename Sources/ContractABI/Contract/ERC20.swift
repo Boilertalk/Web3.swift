@@ -10,20 +10,20 @@ import Foundation
 
 
 /// Base protocol for ERC20
-public protocol ERC20Contract: EthereumContract {
+public protocol ERC20Contract: Contract {
     
     static var Transfer: SolidityEvent { get }
     static var Approval: SolidityEvent { get }
     
     func totalSupply() -> SolidityInvocation
-    func balanceOf(address: EthereumAddress) -> SolidityInvocation
-    func approve(spender: EthereumAddress, value: BigUInt) -> SolidityInvocation
-    func allowance(owner: EthereumAddress, spender: EthereumAddress) -> SolidityInvocation
-    func transferFrom(from: EthereumAddress, to: EthereumAddress, value: BigUInt) -> SolidityInvocation
-    func transfer(to: EthereumAddress, value: BigUInt) -> SolidityInvocation
+    func balanceOf(address: Address) -> SolidityInvocation
+    func approve(spender: Address, value: BigUInt) -> SolidityInvocation
+    func allowance(owner: Address, spender: Address) -> SolidityInvocation
+    func transferFrom(from: Address, to: Address, value: BigUInt) -> SolidityInvocation
+    func transfer(to: Address, value: BigUInt) -> SolidityInvocation
 }
 
-public protocol AnnotatedERC20: EthereumContract {
+public protocol AnnotatedERC20: Contract {
     func name() -> SolidityInvocation
     func symbol() -> SolidityInvocation
     func decimals() -> SolidityInvocation
@@ -31,18 +31,19 @@ public protocol AnnotatedERC20: EthereumContract {
 
 /// Generic implementation class. Use directly, or subclass to conveniently add your contract's events or methods.
 open class GenericERC20Contract: StaticContract, ERC20Contract, AnnotatedERC20 {
-    public var address: EthereumAddress?
-    public let eth: Web3.Eth
+    public var address: Address?
+    public let node: Blockchain.Node
     
     open var constructor: SolidityConstructor?
     
     open var events: [SolidityEvent] {
+    
         return [GenericERC20Contract.Transfer, GenericERC20Contract.Approval]
     }
     
-    public required init(address: EthereumAddress?, eth: Web3.Eth) {
+    public required init(address: Address?, node: Blockchain.Node) {
         self.address = address
-        self.eth = eth
+        self.node = node
     }
 }
 
@@ -74,14 +75,14 @@ public extension ERC20Contract {
         return method.invoke()
     }
     
-    func balanceOf(address: EthereumAddress) -> SolidityInvocation {
+    func balanceOf(address: Address) -> SolidityInvocation {
         let inputs = [SolidityFunctionParameter(name: "_owner", type: .address)]
         let outputs = [SolidityFunctionParameter(name: "_balance", type: .uint256)]
         let method = SolidityConstantFunction(name: "balanceOf", inputs: inputs, outputs: outputs, handler: self)
         return method.invoke(address)
     }
     
-    func approve(spender: EthereumAddress, value: BigUInt) -> SolidityInvocation {
+    func approve(spender: Address, value: BigUInt) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_spender", type: .address),
             SolidityFunctionParameter(name: "_value", type: .uint256)
@@ -90,7 +91,7 @@ public extension ERC20Contract {
         return method.invoke(spender, value)
     }
     
-    func allowance(owner: EthereumAddress, spender: EthereumAddress) -> SolidityInvocation {
+    func allowance(owner: Address, spender: Address) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_owner", type: .address),
             SolidityFunctionParameter(name: "_spender", type: .address)
@@ -102,7 +103,7 @@ public extension ERC20Contract {
         return method.invoke(owner, spender)
     }
     
-    func transferFrom(from: EthereumAddress, to: EthereumAddress, value: BigUInt) -> SolidityInvocation {
+    func transferFrom(from: Address, to: Address, value: BigUInt) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_from", type: .address),
             SolidityFunctionParameter(name: "_to", type: .address),
@@ -112,7 +113,7 @@ public extension ERC20Contract {
         return method.invoke(from, to, value)
     }
     
-    func transfer(to: EthereumAddress, value: BigUInt) -> SolidityInvocation {
+    func transfer(to: Address, value: BigUInt) -> SolidityInvocation {
         let inputs = [
             SolidityFunctionParameter(name: "_to", type: .address),
             SolidityFunctionParameter(name: "_value", type: .uint256)

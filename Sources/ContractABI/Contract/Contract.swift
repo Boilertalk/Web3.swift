@@ -10,9 +10,9 @@ import Foundation
 
 /// Base protocol all contracts should adopt.
 /// Brokers relationship between Web3 and contract methods and events
-public protocol EthereumContract: SolidityFunctionHandler {
-    var address: EthereumAddress? { get }
-    var eth: Web3.Eth { get }
+public protocol Contract: SolidityFunctionHandler {
+    var address: Address? { get }
+    var node: Blockchain.Node { get }
     var events: [SolidityEvent] { get }
 }
 
@@ -22,8 +22,8 @@ public protocol EthereumContract: SolidityFunctionHandler {
 /// Cons: more work to implement
 ///
 /// Best for when you want to code the methods yourself
-public protocol StaticContract: EthereumContract {
-    init(address: EthereumAddress?, eth: Web3.Eth)
+public protocol StaticContract: Contract {
+    init(address: Address?, node: Blockchain.Node)
 }
 
 /// Contract that is dynamically generated from a JSON representation
@@ -32,18 +32,18 @@ public protocol StaticContract: EthereumContract {
 /// Cons: harder to call methods, less type safety
 ///
 /// For when you want to import from json
-public class DynamicContract: EthereumContract {
+public class DynamicContract: Contract {
     
-    public var address: EthereumAddress?
-    public let eth: Web3.Eth
+    public var address: Address?
+    public let node: Blockchain.Node
     
     private(set) public var constructor: SolidityConstructor?
     private(set) public var events: [SolidityEvent] = []
     private(set) var methods: [String: SolidityFunction] = [:]
     
-    public init(abi: [ABIObject], address: EthereumAddress?, eth: Web3.Eth) {
+    public init(abi: [ABIObject], address: Address?, node: Blockchain.Node) {
         self.address = address
-        self.eth = eth
+        self.node = node
         self.parseABIObjects(abi: abi)
     }
     
@@ -103,22 +103,22 @@ public class DynamicContract: EthereumContract {
     ///   - byteCode: Compiled bytecode of the contract
     ///   - parameters: Any input values for the constructor
     /// - Returns: Invocation object that can be called with .send(...)
-    public func deploy(byteCode: EthereumData, parameters: ABIEncodable...) -> SolidityConstructorInvocation? {
+    public func deploy(byteCode: DataObject, parameters: ABIEncodable...) -> SolidityConstructorInvocation? {
         return constructor?.invoke(byteCode: byteCode, parameters: parameters)
     }
     
-    public func deploy(byteCode: EthereumData, parameters: [ABIEncodable]) -> SolidityConstructorInvocation? {
+    public func deploy(byteCode: DataObject, parameters: [ABIEncodable]) -> SolidityConstructorInvocation? {
         return constructor?.invoke(byteCode: byteCode, parameters: parameters)
     }
     
-    public func deploy(byteCode: EthereumData) -> SolidityConstructorInvocation? {
+    public func deploy(byteCode: DataObject) -> SolidityConstructorInvocation? {
         return constructor?.invoke(byteCode: byteCode, parameters: [])
     }
 }
 
 // MARK: - Call & Send
 
-extension EthereumContract {
+extension Contract {
     
     /// Returns data by calling a constant function on the contract
     ///
@@ -126,8 +126,8 @@ extension EthereumContract {
     ///   - data: EthereumData object representing the method called
     ///   - outputs: Expected return values
     ///   - completion: Completion handler
-    public func call(_ call: EthereumCall, outputs: [SolidityFunctionParameter], block: EthereumQuantityTag = .latest, completion: @escaping ([String: Any]?, Error?) -> Void) {
-        eth.call(call: call, block: block) { response in
+    public func call(_ call: Call, outputs: [SolidityFunctionParameter], block: QuantityTag = .latest, completion: @escaping ([String: Any]?, Error?) -> Void) {
+        node.call(call: call, block: block) { response in
             switch response.status {
             case .success(let data):
                 do {
@@ -151,8 +151,8 @@ extension EthereumContract {
     ///   - gas: Maximum gas allowed for the transaction
     ///   - gasPrice: Amount of wei to spend per unit of gas
     ///   - completion: completion handler. Either the transaction's hash or an error.
-    public func send(_ transaction: EthereumTransaction, completion: @escaping (EthereumData?, Error?) -> Void) {
-        eth.sendTransaction(transaction: transaction) { response in
+    public func send(_ transaction: Transaction, completion: @escaping (DataObject?, Error?) -> Void) {
+        node.sendTransaction(transaction: transaction) { response in
             switch response.status {
             case .success(let hash):
                 completion(hash, nil)
@@ -167,8 +167,8 @@ extension EthereumContract {
     /// - Parameters:
     ///   - call: An ethereum call with the data for the transaction.
     ///   - completion: completion handler with either an error or the estimated amount of gas needed.
-    public func estimateGas(_ call: EthereumCall, completion: @escaping (EthereumQuantity?, Error?) -> Void) {
-        eth.estimateGas(call: call) { response in
+    public func estimateGas(_ call: Call, completion: @escaping (Quantity?, Error?) -> Void) {
+        node.estimateGas(call: call) { response in
             switch response.status {
             case .success(let quantity):
                 completion(quantity, nil)

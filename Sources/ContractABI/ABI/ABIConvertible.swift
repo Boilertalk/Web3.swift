@@ -318,13 +318,13 @@ extension Data: ABIConvertible {
 
 // Address
 
-extension EthereumAddress: ABIConvertible {
+extension Address: ABIConvertible {
     
     public init?(hexString: String) {
         // trim whitespace to 160 bytes
         let trimmedString = String(hexString.dropFirst(hexString.count - 40))
         // initialize address
-        if let address = try? EthereumAddress(hex: trimmedString, eip55: false) {
+        if let address = try? Address(hex: trimmedString, eip55: false) {
             self = address
         } else {
             return nil
@@ -337,7 +337,7 @@ extension EthereumAddress: ABIConvertible {
     }
 }
 
-extension EthereumAddress: SolidityTypeRepresentable {
+extension Address: SolidityTypeRepresentable {
     public static var solidityType: SolidityType {
         return .address
     }

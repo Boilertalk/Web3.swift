@@ -14,7 +14,7 @@ class ABIDecoder {
     enum Error: Swift.Error {
         case typeNotSupported(type: SolidityType)
         case couldNotParseLength
-        case doesNotMatchSignature(event: SolidityEvent, log: EthereumLogObject)
+        case doesNotMatchSignature(event: SolidityEvent, log: LogObject)
         case associatedTypeNotFound(type: SolidityType)
         case couldNotDecodeType(type: SolidityType, string: String)
         case unknownError
@@ -203,7 +203,7 @@ class ABIDecoder {
     
     // MARK: Event Values
     
-    static func decode(event: SolidityEvent, from log: EthereumLogObject) throws -> [String: Any] {
+    static func decode(event: SolidityEvent, from log: LogObject) throws -> [String: Any] {
         typealias Param = SolidityEvent.Parameter
         var values = [String: Any]()
         // determine if this event is eligible to be decoded from this log

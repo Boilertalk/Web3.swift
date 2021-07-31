@@ -191,7 +191,7 @@ public extension SolidityType.ValueType {
         case .bytes:
             return Data.self
         case .address:
-            return EthereumAddress.self
+            return Address.self
         case .fixed:
             return nil
         case .ufixed:

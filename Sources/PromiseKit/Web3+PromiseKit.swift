@@ -7,7 +7,7 @@
 //
 import PromiseKit
 
-public extension Web3 {
+public extension Blockchain {
 
     func clientVersion() -> Promise<String> {
         return Promise { seal in
@@ -18,7 +18,7 @@ public extension Web3 {
     }
 }
 
-public extension Web3.Net {
+public extension Blockchain.Network {
 
     func version() -> Promise<String> {
         return Promise { seal in
@@ -28,7 +28,7 @@ public extension Web3.Net {
         }
     }
 
-    func peerCount() -> Promise<EthereumQuantity> {
+    func peerCount() -> Promise<Quantity> {
         return Promise { seal in
             self.peerCount { response in
                 response.sealPromise(seal: seal)
@@ -37,7 +37,7 @@ public extension Web3.Net {
     }
 }
 
-public extension Web3.Eth {
+public extension Blockchain.Node {
 
     func protocolVersion() -> Promise<String> {
         return Promise { seal in
@@ -47,7 +47,7 @@ public extension Web3.Eth {
         }
     }
 
-    func syncing() -> Promise<EthereumSyncStatusObject> {
+    func syncing() -> Promise<SyncStatusObject> {
         return Promise { seal in
             self.syncing { response in
                 response.sealPromise(seal: seal)
@@ -63,7 +63,7 @@ public extension Web3.Eth {
         }
     }
 
-    func hashrate() -> Promise<EthereumQuantity> {
+    func hashrate() -> Promise<Quantity> {
         return Promise { seal in
             self.hashrate { response in
                 response.sealPromise(seal: seal)
@@ -71,7 +71,7 @@ public extension Web3.Eth {
         }
     }
 
-    func gasPrice() -> Promise<EthereumQuantity> {
+    func gasPrice() -> Promise<Quantity> {
         return Promise { seal in
             self.gasPrice { response in
                 response.sealPromise(seal: seal)
@@ -79,7 +79,7 @@ public extension Web3.Eth {
         }
     }
 
-    func accounts() -> Promise<[EthereumAddress]> {
+    func accounts() -> Promise<[Address]> {
         return Promise { seal in
             self.accounts { response in
                 response.sealPromise(seal: seal)
@@ -87,7 +87,7 @@ public extension Web3.Eth {
         }
     }
 
-    func blockNumber() -> Promise<EthereumQuantity> {
+    func blockNumber() -> Promise<Quantity> {
         return Promise { seal in
             self.blockNumber { response in
                 response.sealPromise(seal: seal)
@@ -95,7 +95,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getBalance(address: EthereumAddress, block: EthereumQuantityTag) -> Promise<EthereumQuantity> {
+    func getBalance(address: Address, block: QuantityTag) -> Promise<Quantity> {
         return Promise { seal in
             self.getBalance(address: address, block: block) { response in
                 response.sealPromise(seal: seal)
@@ -104,10 +104,10 @@ public extension Web3.Eth {
     }
 
     func getStorageAt(
-        address: EthereumAddress,
-        position: EthereumQuantity,
-        block: EthereumQuantityTag
-    ) -> Promise<EthereumData> {
+        address: Address,
+        position: Quantity,
+        block: QuantityTag
+    ) -> Promise<DataObject> {
         return Promise { seal in
             self.getStorageAt(address: address, position: position, block: block) { response in
                 response.sealPromise(seal: seal)
@@ -115,7 +115,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getTransactionCount(address: EthereumAddress, block: EthereumQuantityTag) -> Promise<EthereumQuantity> {
+    func getTransactionCount(address: Address, block: QuantityTag) -> Promise<Quantity> {
         return Promise { seal in
             self.getTransactionCount(address: address, block: block) { response in
                 response.sealPromise(seal: seal)
@@ -123,7 +123,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getBlockTransactionCountByHash(blockHash: EthereumData) -> Promise<EthereumQuantity> {
+    func getBlockTransactionCountByHash(blockHash: DataObject) -> Promise<Quantity> {
         return Promise { seal in
             self.getBlockTransactionCountByHash(blockHash: blockHash) { response in
                 response.sealPromise(seal: seal)
@@ -131,7 +131,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getBlockTransactionCountByNumber(block: EthereumQuantityTag) -> Promise<EthereumQuantity> {
+    func getBlockTransactionCountByNumber(block: QuantityTag) -> Promise<Quantity> {
         return Promise { seal in
             self.getBlockTransactionCountByNumber(block: block) { response in
                 response.sealPromise(seal: seal)
@@ -139,7 +139,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getUncleCountByBlockHash(blockHash: EthereumData) -> Promise<EthereumQuantity> {
+    func getUncleCountByBlockHash(blockHash: DataObject) -> Promise<Quantity> {
         return Promise { seal in
             self.getUncleCountByBlockHash(blockHash: blockHash) { response in
                 response.sealPromise(seal: seal)
@@ -147,7 +147,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getUncleCountByBlockNumber(block: EthereumQuantityTag) -> Promise<EthereumQuantity> {
+    func getUncleCountByBlockNumber(block: QuantityTag) -> Promise<Quantity> {
         return Promise { seal in
             self.getUncleCountByBlockNumber(block: block) { response in
                 response.sealPromise(seal: seal)
@@ -155,7 +155,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getCode(address: EthereumAddress, block: EthereumQuantityTag) -> Promise<EthereumData> {
+    func getCode(address: Address, block: QuantityTag) -> Promise<DataObject> {
         return Promise { seal in
             self.getCode(address: address, block: block) { response in
                 response.sealPromise(seal: seal)
@@ -163,7 +163,7 @@ public extension Web3.Eth {
         }
     }
 
-    func sendRawTransaction(transaction: EthereumSignedTransaction) -> Promise<EthereumData> {
+    func sendRawTransaction(transaction: SignedTransaction) -> Promise<DataObject> {
         return Promise { seal in
             self.sendRawTransaction(transaction: transaction) { response in
                 response.sealPromise(seal: seal)
@@ -171,7 +171,7 @@ public extension Web3.Eth {
         }
     }
     
-    func sendTransaction(transaction: EthereumTransaction) -> Promise<EthereumData> {
+    func sendTransaction(transaction: Transaction) -> Promise<DataObject> {
         return Promise { seal in
             self.sendTransaction(transaction: transaction) { response in
                 response.sealPromise(seal: seal)
@@ -179,7 +179,7 @@ public extension Web3.Eth {
         }
     }
 
-    func call(call: EthereumCall, block: EthereumQuantityTag) -> Promise<EthereumData> {
+    func call(call: Call, block: QuantityTag) -> Promise<DataObject> {
         return Promise { seal in
             self.call(call: call, block: block) { response in
                 response.sealPromise(seal: seal)
@@ -187,7 +187,7 @@ public extension Web3.Eth {
         }
     }
 
-    func estimateGas(call: EthereumCall) -> Promise<EthereumQuantity> {
+    func estimateGas(call: Call) -> Promise<Quantity> {
         return Promise { seal in
             self.estimateGas(call: call) { response in
                 response.sealPromise(seal: seal)
@@ -195,7 +195,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getBlockByHash(blockHash: EthereumData, fullTransactionObjects: Bool) -> Promise<EthereumBlockObject?> {
+    func getBlockByHash(blockHash: DataObject, fullTransactionObjects: Bool) -> Promise<BlockObject?> {
         return Promise { seal in
             self.getBlockByHash(blockHash: blockHash, fullTransactionObjects: fullTransactionObjects) { response in
                 response.sealPromise(seal: seal)
@@ -204,9 +204,9 @@ public extension Web3.Eth {
     }
 
     func getBlockByNumber(
-        block: EthereumQuantityTag,
+        block: QuantityTag,
         fullTransactionObjects: Bool
-    ) -> Promise<EthereumBlockObject?> {
+    ) -> Promise<BlockObject?> {
         return Promise { seal in
             self.getBlockByNumber(block: block, fullTransactionObjects: fullTransactionObjects) { response in
                 response.sealPromise(seal: seal)
@@ -214,7 +214,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getTransactionByHash(blockHash: EthereumData) -> Promise<EthereumTransactionObject?> {
+    func getTransactionByHash(blockHash: DataObject) -> Promise<TransactionObject?> {
         return Promise { seal in
             self.getTransactionByHash(blockHash: blockHash) { response in
                 response.sealPromise(seal: seal)
@@ -223,9 +223,9 @@ public extension Web3.Eth {
     }
 
     func getTransactionByBlockHashAndIndex(
-        blockHash: EthereumData,
-        transactionIndex: EthereumQuantity
-    ) -> Promise<EthereumTransactionObject?> {
+        blockHash: DataObject,
+        transactionIndex: Quantity
+    ) -> Promise<TransactionObject?> {
         return Promise { seal in
             self.getTransactionByBlockHashAndIndex(blockHash: blockHash, transactionIndex: transactionIndex) { response in
                 response.sealPromise(seal: seal)
@@ -234,9 +234,9 @@ public extension Web3.Eth {
     }
 
     func getTransactionByBlockNumberAndIndex(
-        block: EthereumQuantityTag,
-        transactionIndex: EthereumQuantity
-    ) -> Promise<EthereumTransactionObject?> {
+        block: QuantityTag,
+        transactionIndex: Quantity
+    ) -> Promise<TransactionObject?> {
         return Promise { seal in
             self.getTransactionByBlockNumberAndIndex(block: block, transactionIndex: transactionIndex) { response in
                 response.sealPromise(seal: seal)
@@ -244,7 +244,7 @@ public extension Web3.Eth {
         }
     }
 
-    func getTransactionReceipt(transactionHash: EthereumData) -> Promise<EthereumTransactionReceiptObject?> {
+    func getTransactionReceipt(transactionHash: DataObject) -> Promise<TransactionReceiptObject?> {
         return Promise { seal in
             self.getTransactionReceipt(transactionHash: transactionHash) { response in
                 response.sealPromise(seal: seal)
@@ -253,9 +253,9 @@ public extension Web3.Eth {
     }
 
     func getUncleByBlockHashAndIndex(
-        blockHash: EthereumData,
-        uncleIndex: EthereumQuantity
-    ) -> Promise<EthereumBlockObject?> {
+        blockHash: DataObject,
+        uncleIndex: Quantity
+    ) -> Promise<BlockObject?> {
         return Promise { seal in
             self.getUncleByBlockHashAndIndex(blockHash: blockHash, uncleIndex: uncleIndex) { response in
                 response.sealPromise(seal: seal)
@@ -264,9 +264,9 @@ public extension Web3.Eth {
     }
 
     func getUncleByBlockNumberAndIndex(
-        block: EthereumQuantityTag,
-        uncleIndex: EthereumQuantity
-    ) -> Promise<EthereumBlockObject?> {
+        block: QuantityTag,
+        uncleIndex: Quantity
+    ) -> Promise<BlockObject?> {
         return Promise { seal in
             self.getUncleByBlockNumberAndIndex(block: block, uncleIndex: uncleIndex) { response in
                 response.sealPromise(seal: seal)
@@ -275,7 +275,7 @@ public extension Web3.Eth {
     }
 }
 
-fileprivate extension Web3Response {
+fileprivate extension NetworkResponse {
 
     func sealPromise(seal: Resolver<Result>) {
         seal.resolve(result, error)

@@ -8,47 +8,47 @@
 
 import Foundation
 
-public struct EthereumTransactionReceiptObject: Codable {
+public struct TransactionReceiptObject: Codable {
 
     /// 32 Bytes - hash of the transaction.
-    public let transactionHash: EthereumData
+    public let transactionHash: DataObject
 
     /// Integer of the transactions index position in the block.
-    public let transactionIndex: EthereumQuantity
+    public let transactionIndex: Quantity
 
     /// 32 Bytes - hash of the block where this transaction was in.
-    public let blockHash: EthereumData
+    public let blockHash: DataObject
 
     /// Block number where this transaction was in.
-    public let blockNumber: EthereumQuantity
+    public let blockNumber: Quantity
 
     /// The total amount of gas used when this transaction was executed in the block.
-    public let cumulativeGasUsed: EthereumQuantity
+    public let cumulativeGasUsed: Quantity
 
     /// The amount of gas used by this specific transaction alone.
-    public let gasUsed: EthereumQuantity
+    public let gasUsed: Quantity
 
     /// 20 Bytes - The contract address created, if the transaction was a contract creation, otherwise nil.
-    public let contractAddress: EthereumData?
+    public let contractAddress: DataObject?
 
     /// Array of log objects, which this transaction generated.
-    public let logs: [EthereumLogObject]
+    public let logs: [LogObject]
 
     /// 256 Bytes - Bloom filter for light clients to quickly retrieve related logs.
-    public let logsBloom: EthereumData
+    public let logsBloom: DataObject
 
     /// 32 bytes of post-transaction stateroot (pre Byzantium)
-    public let root: EthereumData?
+    public let root: DataObject?
 
     /// Either 1 (success) or 0 (failure)
-    public let status: EthereumQuantity?
+    public let status: Quantity?
 }
 
 // MARK: - Equatable
 
-extension EthereumTransactionReceiptObject: Equatable {
+extension TransactionReceiptObject: Equatable {
 
-    public static func ==(_ lhs: EthereumTransactionReceiptObject, _ rhs: EthereumTransactionReceiptObject) -> Bool {
+    public static func ==(_ lhs: TransactionReceiptObject, _ rhs: TransactionReceiptObject) -> Bool {
         return lhs.transactionHash == rhs.transactionHash
             && lhs.transactionIndex == rhs.transactionIndex
             && lhs.blockHash == rhs.blockHash
@@ -65,7 +65,7 @@ extension EthereumTransactionReceiptObject: Equatable {
 
 // MARK: - Hashable
 
-extension EthereumTransactionReceiptObject: Hashable {
+extension TransactionReceiptObject: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(transactionHash)

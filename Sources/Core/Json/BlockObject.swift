@@ -11,64 +11,64 @@ import Foundation
 /**
  * A block as returned by an Ethereum node.
  */
-public struct EthereumBlockObject: Codable {
+public struct BlockObject: Codable {
 
     /// The block number. nil when its a pending block.
-    public let number: EthereumQuantity?
+    public let number: Quantity?
 
     /// 32 Bytes - hash of the block. nil when its a pending block.
-    public let hash: EthereumData?
+    public let hash: DataObject?
 
     /// 32 Bytes - hash of the parent block.
-    public let parentHash: EthereumData
+    public let parentHash: DataObject
 
     /// 8 Bytes - hash of the generated proof-of-work. nil when its a pending block.
-    public let nonce: EthereumData?
+    public let nonce: DataObject?
 
     /// 32 Bytes - SHA3 of the uncles data in the block.
-    public let sha3Uncles: EthereumData
+    public let sha3Uncles: DataObject
 
     /// 256 Bytes - the bloom filter for the logs of the block. null when its a pending block.
-    public let logsBloom: EthereumData?
+    public let logsBloom: DataObject?
 
     /// 32 Bytes - the root of the transaction trie of the block.
-    public let transactionsRoot: EthereumData
+    public let transactionsRoot: DataObject
 
     /// 32 Bytes - the root of the final state trie of the block.
-    public let stateRoot: EthereumData
+    public let stateRoot: DataObject
 
     /// 32 Bytes - the root of the receipts trie of the block.
-    public let receiptsRoot: EthereumData
+    public let receiptsRoot: DataObject
 
     /// 20 Bytes - the address of the beneficiary to whom the mining rewards were given.
-    public let miner: EthereumAddress
+    public let miner: Address
 
     /// Integer of the difficulty for this block.
-    public let difficulty: EthereumQuantity
+    public let difficulty: Quantity
 
     /// Integer of the total difficulty of the chain until this block.
-    public let totalDifficulty: EthereumQuantity
+    public let totalDifficulty: Quantity
 
     /// The "extra data" field of this block.
-    public let extraData: EthereumData
+    public let extraData: DataObject
 
     /// Integer the size of this block in bytes.
-    public let size: EthereumQuantity
+    public let size: Quantity
 
     /// The maximum gas allowed in this block.
-    public let gasLimit: EthereumQuantity
+    public let gasLimit: Quantity
 
     /// The total used gas by all transactions in this block.
-    public let gasUsed: EthereumQuantity
+    public let gasUsed: Quantity
 
     /// The unix timestamp for when the block was collated.
-    public let timestamp: EthereumQuantity
+    public let timestamp: Quantity
 
     /// Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
     public let transactions: [Transaction]
 
     /// Array of uncle hashes.
-    public let uncles: [EthereumData]
+    public let uncles: [DataObject]
 
     /**
      * Represents a transaction as either a hash or an object.
@@ -76,17 +76,17 @@ public struct EthereumBlockObject: Codable {
     public struct Transaction: Codable {
 
         /// The transaction as an object
-        public let object: EthereumTransactionObject?
+        public let object: TransactionObject?
 
         /// The transaction as an hash
-        public let hash: EthereumData?
+        public let hash: DataObject?
 
         /**
          * Initialize this Transaction as an object.
          *
          * - parameter object: The Transaction as an object.
          */
-        public init(object: EthereumTransactionObject) {
+        public init(object: TransactionObject) {
             self.object = object
             self.hash = nil
         }
@@ -96,7 +96,7 @@ public struct EthereumBlockObject: Codable {
          *
          * - parameter hash: The transaction hash.
          */
-        public init(hash: EthereumData) {
+        public init(hash: DataObject) {
             self.hash = hash
             self.object = nil
         }
@@ -104,9 +104,9 @@ public struct EthereumBlockObject: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
 
-            if let tx = try? container.decode(EthereumTransactionObject.self) {
+            if let tx = try? container.decode(TransactionObject.self) {
                 self.init(object: tx)
-            } else if let tx = try? container.decode(EthereumData.self) {
+            } else if let tx = try? container.decode(DataObject.self) {
                 self.init(hash: tx)
             } else {
                 throw Error.unsupportedType
@@ -126,10 +126,10 @@ public struct EthereumBlockObject: Codable {
             }
         }
 
-        /// Encoding and Decoding errors specific to EthereumValue
+        /// Encoding and Decoding errors specific to value
         public enum Error: Swift.Error {
 
-            /// The type set is not convertible to EthereumValue
+            /// The type set is not convertible to value
             case unsupportedType
         }
     }
@@ -137,16 +137,16 @@ public struct EthereumBlockObject: Codable {
 
 // MARK: - Equatable
 
-extension EthereumBlockObject.Transaction: Equatable {
+extension BlockObject.Transaction: Equatable {
 
-    public static func ==(_ lhs: EthereumBlockObject.Transaction, _ rhs: EthereumBlockObject.Transaction) -> Bool {
+    public static func ==(_ lhs: BlockObject.Transaction, _ rhs: BlockObject.Transaction) -> Bool {
         return lhs.object == rhs.object && lhs.hash == rhs.hash
     }
 }
 
-extension EthereumBlockObject: Equatable {
+extension BlockObject: Equatable {
 
-    public static func ==(_ lhs: EthereumBlockObject, _ rhs: EthereumBlockObject) -> Bool {
+    public static func ==(_ lhs: BlockObject, _ rhs: BlockObject) -> Bool {
 
         return lhs.number == rhs.number
             && lhs.hash == rhs.hash
@@ -172,7 +172,7 @@ extension EthereumBlockObject: Equatable {
 
 // MARK: - Hashable
 
-extension EthereumBlockObject.Transaction: Hashable {
+extension BlockObject.Transaction: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(hash)
@@ -180,7 +180,7 @@ extension EthereumBlockObject.Transaction: Hashable {
     }
 }
 
-extension EthereumBlockObject: Hashable {
+extension BlockObject: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         // As of now we don't include transactions and uncles into the hashValue. This should be sufficiently fast for

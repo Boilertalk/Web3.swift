@@ -8,19 +8,19 @@
 
 import Foundation
 
-public struct EthereumSyncStatusObject: Codable {
+public struct SyncStatusObject: Codable {
 
     /// True iff the peer is syncing right now. If false, all other values will be nil
     public let syncing: Bool
 
     /// The block at which the import started (will only be reset, after the sync reached his head)
-    public let startingBlock: EthereumQuantity?
+    public let startingBlock: Quantity?
 
     /// The current block, same as eth_blockNumber
-    public let currentBlock: EthereumQuantity?
+    public let currentBlock: Quantity?
 
     /// The estimated highest block
-    public let highestBlock: EthereumQuantity?
+    public let highestBlock: Quantity?
 
     public init() {
         self.syncing = false
@@ -29,7 +29,7 @@ public struct EthereumSyncStatusObject: Codable {
         self.highestBlock = nil
     }
 
-    public init(startingBlock: EthereumQuantity, currentBlock: EthereumQuantity, highestBlock: EthereumQuantity) {
+    public init(startingBlock: Quantity, currentBlock: Quantity, highestBlock: Quantity) {
         self.startingBlock = startingBlock
         self.currentBlock = currentBlock
         self.highestBlock = highestBlock
@@ -53,9 +53,9 @@ public struct EthereumSyncStatusObject: Codable {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             self.syncing = true
-            self.startingBlock = try container.decode(EthereumQuantity.self, forKey: .startingBlock)
-            self.currentBlock = try container.decode(EthereumQuantity.self, forKey: .currentBlock)
-            self.highestBlock = try container.decode(EthereumQuantity.self, forKey: .highestBlock)
+            self.startingBlock = try container.decode(Quantity.self, forKey: .startingBlock)
+            self.currentBlock = try container.decode(Quantity.self, forKey: .currentBlock)
+            self.highestBlock = try container.decode(Quantity.self, forKey: .highestBlock)
         }
     }
 
@@ -75,9 +75,9 @@ public struct EthereumSyncStatusObject: Codable {
 
 // MARK: - Equatable
 
-extension EthereumSyncStatusObject: Equatable {
+extension SyncStatusObject: Equatable {
 
-    public static func ==(_ lhs: EthereumSyncStatusObject, _ rhs: EthereumSyncStatusObject) -> Bool {
+    public static func ==(_ lhs: SyncStatusObject, _ rhs: SyncStatusObject) -> Bool {
         return lhs.syncing == rhs.syncing
             && lhs.startingBlock == rhs.startingBlock
             && lhs.currentBlock == rhs.currentBlock
@@ -87,7 +87,7 @@ extension EthereumSyncStatusObject: Equatable {
 
 // MARK: - Hashable
 
-extension EthereumSyncStatusObject: Hashable {
+extension SyncStatusObject: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(syncing)

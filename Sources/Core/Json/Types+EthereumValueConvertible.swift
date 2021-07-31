@@ -1,5 +1,5 @@
 //
-//  Types+EthereumValueConvertible.swift
+//  Types+valueConvertible.swift
 //  Web3
 //
 //  Created by Koray Koska on 11.02.18.
@@ -8,47 +8,47 @@
 
 import Foundation
 
-extension Bool: EthereumValueConvertible {
+extension Bool: ValueConvertible {
 
-    public init(ethereumValue: EthereumValue) throws {
-        guard let bool = ethereumValue.bool else {
-            throw EthereumValueInitializableError.notInitializable
+    public init(value: Value) throws {
+        guard let bool = value.bool else {
+            throw ValueInitializableError.notInitializable
         }
 
         self = bool
     }
 
-    public func ethereumValue() -> EthereumValue {
+    public func value() -> Value {
         return .bool(self)
     }
 }
 
-extension String: EthereumValueConvertible {
+extension String: ValueConvertible {
 
-    public init(ethereumValue: EthereumValue) throws {
-        guard let str = ethereumValue.string else {
-            throw EthereumValueInitializableError.notInitializable
+    public init(value: Value) throws {
+        guard let str = value.string else {
+            throw ValueInitializableError.notInitializable
         }
 
         self = str
     }
 
-    public func ethereumValue() -> EthereumValue {
+    public func value() -> Value {
         return .string(self)
     }
 }
 
-extension Int: EthereumValueConvertible {
+extension Int: ValueConvertible {
 
-    public init(ethereumValue: EthereumValue) throws {
-        guard let int = ethereumValue.int else {
-            throw EthereumValueInitializableError.notInitializable
+    public init(value: Value) throws {
+        guard let int = value.int else {
+            throw ValueInitializableError.notInitializable
         }
 
         self = int
     }
 
-    public func ethereumValue() -> EthereumValue {
+    public func value() -> Value {
         return .int(self)
     }
 }

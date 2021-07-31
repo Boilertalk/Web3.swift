@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension Web3 {
+public extension Blockchain {
 
     /**
      * Initializes a new instance of `Web3` with the default HTTP RPC interface and the given url.
@@ -16,7 +16,7 @@ public extension Web3 {
      * - parameter rpcURL: The URL of the HTTP RPC API.
      * - parameter rpcId: The rpc id to be used in all requests. Defaults to 1.
      */
-    init(rpcURL: String, rpcId: Int = 1) {
-        self.init(provider: Web3HttpProvider(rpcURL: rpcURL), rpcId: rpcId)
+  init(connectTo rpcURL: String, withID rpcId: RPCID = 1) {
+        self.init(connectTo: Web3HttpProvider(rpcURL: rpcURL), withID: rpcId)
     }
 }

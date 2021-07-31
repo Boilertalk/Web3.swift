@@ -1,178 +1,71 @@
-# Web3
+# W3Connect
 
-Web3.swift is a Swift library for signing transactions and interacting with Smart Contracts in the Ethereum Network.
+W3Connect is a Swift library for interacting with the blockchain & smart contract ecosystem using the Web3 interface. By connecting to a network or node, you can to compose, send transactions and read values from smart contracts without the need of writing your own implementations of the protocols. 
 
-It allows you to connect to a [geth](https://github.com/ethereum/go-ethereum) or [parity](https://github.com/paritytech/parity)
-Ethereum node (like [Infura](https://infura.io/)) to send transactions and read values from Smart Contracts without the need of
-writing your own implementations of the protocols.
+W3Connect aims to make it as simple and easy to follow and understand. The class structure follows the same pattern as the [official Web3 library](https://web3js.readthedocs.io) but renames and organizes the classes, variables, and methods for ease of use, efficiency, and understanding. 
 
-Web3.swift supports iOS with Swift Package Manager.
 
-## Example
 
-Check the usage below or look through the repositories tests.
+W3Connect supports all networks that are compatible with the `Ethereum web3.js` [library](https://web3js.readthedocs.io). 
 
-## Why?
 
-There are already some Web3 library out there written in Swift. We know their strengths and weaknesses and for our use case
-they just didn't work.
+* [Ethereum (ETH)](https://ethereum.org) 
+* [Binance Smart-Chain (BSC)](https://www.binance.org/en/smartChain)
 
-`Web3.swift` was built with modularity, portability, speed and efficiency in mind.
 
-**Ok, thank you for the buzzwords. But what does this actually mean?**
-
-### :floppy_disk: Modularity
-
-`Web3.swift` was built to be modular. If you install/use the basic `Web3` SPM product, you get access to the most basic
-functions like transaction signing and interacting with an http rpc server.    
-If you want to add support for IPC rpc or something else, you can simple create a library which depends on `Web3` and implements
-this exact functionality. More about that later.    
-If you want to use [PromiseKit](https://github.com/mxcl/PromiseKit) extensions for the web3 calls, you can either use the
-provided PromiseKit SPM product or create your own.    
-If you want to conveniently parse JSON ABIs for Ethereum Smart Contracts, you can use the provided ABI Parsing SPM product.
-
-Finally, if you want to add functionality to `Web3.swift` which is not provided yet, you don't have to wait until it gets merged
-and released in a version bump. You can simple extend/update functionality within you own app as our APIs are made to be very open
-for changes.    
-For example, if you want to add a web3 method which is not provided yet by `Web3.swift` (we will only support Infura supported methods),
-you only have to add [some 3 lines of code](https://github.com/Boilertalk/Web3.swift/blob/master/Sources/Core/Web3/Web3.swift#L132)
-(depending on the input and output parameters of the method). Adding IPC rpc support would be only implementing a protocol and answering
-requests.
-
-Like you can see, everything is possible with `Web3.swift`.
-
-### :computer: Portability
-
-One of the main reasons we started working on this project is because we wanted to use it with Swift Package Manager on
-different platforms.    
-Because of that, `Web3.swift` is available through [Swift Package Manager](https://swift.org/package-manager/) on iOS, macOS, tvOS, watchOS and Linux.    
-> Note: For SPM we are only testing iOS, macOS and officially supported Linux distributions
-(currently Ubuntu 16.04 and 20.04) but it should be compatible with all little endian systems
-which are able to compile the Swift Compiler, Foundation and Glibc.
-
-### :zap: Speed and Efficiency
-
-We try to make this library as fast as possible while trying to provide an API which increases your development
-workflow such that you can focus on building great DAPPS instead of worrying about implementation details.
-
-All our APIs are thread safe and designed to be used in highly concurrent applications.
-
-## Installation
-
-### Swift Package Manager
-
-Web3 is compatible with Swift Package Manager v5 (Swift 5 and above). Simply add it to the dependencies in your `Package.swift`.
-
-```Swift
-dependencies: [
-    .package(url: "https://github.com/rkohl/Web3.swift", from: "1.0.0")
-]
-```
 
 ## Usage
 
-### Interaction with an Ethereum node
 
-With `Web3.swift` you can use an Ethereum node on a server to communicate with Ethereum.    
-You can send signed transactions, read contract data, call contract functions and much more.
+To use the library, add `import W3Connect` in your swift files.
 
-The base class for all available methods is `Web3`. You can, for example, instantiate it with
-an http provider:
-
-```Swift
-let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+```swift
+import W3Connect
 ```
 
-All `web3_` methods are available directly from the `Web3` struct. The `net_` methods are
-available under the `net` struct in the `web3` struct. The `eth_` methods are available
-under the `eth` struct in the `web3` struct.
+Define a new connection with a `Provider`:
 
-__*Please see the examples below*__
+```swift
+let w3 = Blockchain(connectTo: "https://mainnet.infura.io/<your_infura_id>")
+```
 
-> Note: For the examples to work you need to  and PromiseKit first
+#### Interaction with an Blockchain node
+With `W3Connect` you can use a local or remote node as the `Provider` to communicate with the blockchain network allowing for  fetching address balances, signing of transactions, reading contracts and calling of contracts and their respective functions.
 
-#### Request web3_clientVersion
+All standard Web3 `web3_` methods are accessible using the base `Blockchain` struct. 
 
-Returns the current client version.
-
-**Parameters**
-
-none
-
-**Returns**
-
-`String` - The current client version
-
-```Swift
-firstly {
-    web3.clientVersion()
-}.done { version in
-    print(version)
-}.catch { error in
-    print("Error")
+```swift
+struct Blockchain {
+	let network: Network
+	let node: Node
+	...
 }
 ```
 
-#### Request net_version
+<span></span>
+> `Network`: Provides information about the current connected network and related data. *Renamed from `net_`.*
 
-Returns the current network id.
+<span></span>
+> `Node`: Allows for interacting with the blockchain and it's smart contracts. *Renamed from `eth_`.*
 
-**Parameters**
 
-none
 
-**Returns**
-
-`String` - The current network id
-
-```Swift
-firstly {
-    web3.net.version()
-}.done { version in
-    print(version)
-}.catch { error in
-    print("Error")
-}
-```
-
-#### Request net_PeerCount
-
-Returns number of peers currently connected to the client.
-
-**Parameters**
-
-none
-
-**Returns**
-
-`EthereumQuantity` - BigInt of the number of connected peers.
-
-```Swift
-firstly {
-    web3.net.peerCount()
-}.done { ethereumQuantity in
-    print(ethereumQuantity.quantity)
-}.catch { error in
-    print("Error")
-}
-```
-
-#### Send raw transaction
+## Send Raw Transaction
 
 Creates new message call transaction or a contract creation for signed transactions.
 
 **Parameters**
 
-1. `EthereumTransaction`: The signed transaction
+1. `Transaction`: The signed transaction
 
 **Returns**
 
-`EthereumData`, 32 Bytes - The transaction hash, or the zero hash if the transaction is not yet available
+`NetworkData`, 32 Bytes - The transaction hash, or the zero hash if the transaction is not yet available
 
 To send some ETH you first need to get the current transaction count of the sender (nonce),
 create the transaction, sign it and then send it.
 
-```Swift
+```swift
 let privateKey = try! EthereumPrivateKey(hexPrivateKey: "0xa26da69ed1df3ba4bb2a231d506b711eace012f1bd2571dfbfff9650b03375af")
 firstly {
     web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
@@ -196,7 +89,7 @@ firstly {
 
 #### Request block transaction count by block number
 
-```Swift
+```swift
 firstly {
     web3.eth.getBlockTransactionCountByNumber(block: .block(5397389))
 }.done { count in
@@ -206,153 +99,46 @@ firstly {
 }
 ```
 
-#### More examples
 
-For more examples either read through [our test cases](https://github.com/Boilertalk/Web3.swift/blob/master/Tests/Web3Tests/Web3Tests/Web3HttpTests.swift),
-[the Web3 struct](https://github.com/Boilertalk/Web3.swift/blob/master/Sources/Core/Web3/Web3.swift)
-or [the official Ethereum JSON RPC documentation](https://eth.wiki/json-rpc/API).
+## Contract ABI
 
-### Contract ABI interaction
+<span></span>
+> <p style="color: #444444; font-weight: 600; font-size: 14px; margin-bottom: -18px;">StaticContract</p>
+<span style="font-size:12px">A protocol that provides predefined functions and events to interact with the contract</span>
+> 
+> - `ERC20Contract`: <span style="color: #a9a9a9; font-size:12px">*ERC-20 Standard for Tokens*</span>
+> - `ERC721Contract`: <span style="color: #a9a9a9; font-size:12px">*ERC-721 Standard for NFT*</span>
 
-We are providing an optional module for interaction with smart contracts. To use it you have to add `Web3ContractABI` to your target dependencies in your Podfile (for SPM). Make sure you check out the [installation instructions](#Installation) first.
+<span></span>
+> <p style="color: #444444; font-weight: 600; font-size: 14px; margin-bottom: -15px;">DynamicContract</p>
+> A parsed JSON-RPC object representation that dynamically generates a contract at run-time.
 
-We are providing two different options to create contract abi interfaces in Swift. Either you define your functions and events manually (or use one of our provided interfaces like [ERC20](Web3/Classes/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Classes/ContractABI/Contract/ERC721.swift)). Or you parse them from the JSON ABI representation just like in web3.js.
 
-### Static Contracts
 
-Static contracts are classes implementing `StaticContract`. They provide a set of functions and events they want to use from the original smart contract. Check out our provided static contracts as a starting point ([ERC20](Web3/Classes/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Classes/ContractABI/Contract/ERC721.swift)).
+There are several options to create contract abi interfaces: 
 
-Our static ERC20 interface is called `GenericERC20Contract`, the ERC721 contract is called `GenericERC721Contract`. Both can be subclassed to add more functions for custom contracts.
+* Use the generic [ERC20](Web3/Classes/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Classes/ContractABI/Contract/ERC721.swift) static `Contract` 
+* Creating your own `Contract` interface to make contract calls
+* Parse the JSON ABI representation of the dynamic `Contract`, just like in web3.js
 
-With those `StaticContract` types you can create and use your contract like in the following example (We are using PromiseKit again in our examples).
+By creating your own interfaces, you can interact with *any* smart contract! 
 
-```Swift
-let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+> [Static & Dynamic Contract Examples](Contract.md)
 
-let contractAddress = try EthereumAddress(hex: "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", eip55: true)
-let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
+## Installation
 
-// Get balance of some address
-firstly {
-    try contract.balanceOf(address: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true)).call()
-}.done { outputs in
-    print(outputs["_balance"] as? BigUInt)
-}.catch { error in
-    print(error)
-}
+### Swift Package Manager
+To add W3Connect to a [Swift Package Manager](https://swift.org/package-manager/) based project, add the following to your `Package.swift` files `dependencies` array.
 
-// Send some tokens to another address (locally signing the transaction)
-let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "...")
-firstly {
-    web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
-}.then { nonce in
-    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).createTransaction(
-        nonce: nonce,
-        from: myPrivateKey.address,
-        value: 0,
-        gas: 100000,
-        gasPrice: EthereumQuantity(quantity: 21.gwei)
-    )!.sign(with: myPrivateKey).promise
-}.then { tx in
-    web3.eth.sendRawTransaction(transaction: tx)
-}.done { txHash in
-    print(txHash)
-}.catch { error in
-    print(error)
-}
-
-// Send some tokens to another address (signing will be done by the node)
-let myAddress = try EthereumAddress(hex: "0x1f04ef7263804fafb839f0d04e2b5a6a1a57dc60", eip55: true)
-firstly {
-    web3.eth.getTransactionCount(address: myAddress, block: .latest)
-}.then { nonce in
-    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).send(
-        nonce: nonce,
-        from: myAddress,
-        value: 0,
-        gas: 150000,
-        gasPrice: EthereumQuantity(quantity: 21.gwei)
-    )
-}.done { txHash in
-    print(txHash)
-}.catch { error in
-    print(error)
-}
+```swift
+.package(name: "W3Connect", url: "https://github.com/rkohl/W3Connect", .upToNextMajor(from: "1.1.0")),
 ```
 
-By creating your own interfaces, you can interact with any smart contract!
 
-### Dynamic Contracts
+## Contributors
+* [Boilertalk/Web3.swift](https://github.com/Boilertalk/Web3.swift)
 
-If you only have access to the JSON ABI of a smart contract or you don't want to create a static template, you can use our dynamic contract api to parse the json string into a usable contract *during runtime*. See the example below.
-
-```Swift
-let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
-
-let contractAddress = try EthereumAddress(hex: "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", eip55: true)
-let contractJsonABI = "<your contract ABI as a JSON string>".data(using: .utf8)!
-// You can optionally pass an abiKey param if the actual abi is nested and not the top level element of the json
-let contract = try web3.eth.Contract(json: contractJsonABI, abiKey: nil, address: contractAddress)
-
-print(contract.methods.count)
-
-// Get balance of some address
-firstly {
-    try contract["balanceOf"]!(EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true)).call()
-}.done { outputs in
-    print(outputs["_balance"] as? BigUInt)
-}.catch { error in
-    print(error)
-}
-
-// Send some tokens to another address (locally signing the transaction)
-let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "...")
-guard let transaction = contract["transfer"]?(EthereumAddress.testAddress, BigUInt(100000)).createTransaction(nonce: 0, from: myPrivateKey.address, value: 0, gas: 150000, gasPrice: EthereumQuantity(quantity: 21.gwei)) else {
-    return
-}
-let signedTx = try transaction.sign(with: myPrivateKey)
-
-firstly {
-    web3.eth.sendRawTransaction(transaction: signedTx)
-}.done { txHash in
-    print(txHash)
-}.catch { error in
-    print(error)
-}
-```
-
-Using this API you can interact with any smart contract in the Ethereum Network!
-
-For more examples, including contract creation (constructor calling) check out our [tests](Example/Tests/ContractTests).
-
-## Common errors
-
-### Couldn't parse ABI Object
-
-If you are getting this error when parsing your ABI from a json, it may be because your contract has a fallback function. To solve it, remove the fragment of your ABI that has the information about the fallback function. The part you should remove might look like this:
-
-```
-{
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "fallback"
-},
-```
-
-## Disclaimer
-
-Until we reach version 1.0.0 our API is subject to breaking changes between minor version jumps.
-This is to make sure we can focus on providing the best implementation while we are in heavy development
-instead of trying to maintain something which is deprecated.
-
-That being said, we will try to minimize breaking changes. Most certainly there won't be many.
-
-## Original Author
-
-The awesome guys at Boilertalk :alembic:    
-
-Check out the [contributors list](https://github.com/Boilertalk/Web3.swift/graphs/contributors) for a complete list.
 
 ## License
 
-Web3 is available under the MIT license. See the LICENSE file for more info.
+W3Connect is available under the MIT license. See the LICENSE file for more info.
