@@ -29,7 +29,8 @@ public protocol ERC721Contract: ERC165Contract {
 public protocol AnnotatedERC721: EthereumContract {
     func name() -> SolidityInvocation
     func symbol() -> SolidityInvocation
-    func tokenURI() -> SolidityInvocation
+    func baseURI() -> SolidityInvocation
+    func tokenURI(tokenId: BigUInt) -> SolidityInvocation
 }
 
 /// ERC721 Enumeration Extension
@@ -140,6 +141,12 @@ public extension AnnotatedERC721 {
     func symbol() -> SolidityInvocation {
         let outputs = [SolidityFunctionParameter(name: "_symbol", type: .string)]
         let method = SolidityConstantFunction(name: "symbol", outputs: outputs, handler: self)
+        return method.invoke()
+    }
+    
+    func baseURI() -> SolidityInvocation {
+        let outputs = [SolidityFunctionParameter(name: "_baseURI", type: .string)]
+        let method = SolidityConstantFunction(name: "baseURI", outputs: outputs, handler: self)
         return method.invoke()
     }
     
