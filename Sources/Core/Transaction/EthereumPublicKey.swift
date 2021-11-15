@@ -172,7 +172,7 @@ public final class EthereumPublicKey {
         defer {
             free(pubkey)
         }
-        var hash = SHA3(variant: .keccak256).calculate(for: rawSig)
+        var hash = SHA3(variant: .keccak256).calculate(for: message)
         guard hash.count == 32 else {
             throw Error.internalError
         }
