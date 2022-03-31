@@ -261,7 +261,7 @@ create the transaction, sign it and then send it.
 let privateKey = try! EthereumPrivateKey(hexPrivateKey: "0xa26da69ed1df3ba4bb2a231d506b711eace012f1bd2571dfbfff9650b03375af")
 firstly {
     web3.eth.getTransactionCount(address: privateKey.address, block: .latest)
-}.then { nonce in
+}.then { nonce -> Promise<EthereumSignedTransaction> in
     let tx = try EthereumTransaction(
         nonce: nonce,
         gasPrice: EthereumQuantity(quantity: 21.gwei),
