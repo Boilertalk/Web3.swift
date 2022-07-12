@@ -5,6 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Web3",
     platforms: [
+       .iOS(.v10),
        .macOS(.v10_12)
     ],
     products: [
@@ -67,5 +68,6 @@ let package = Package(
                 .product(name: "Quick", package: "Quick"),
                 .product(name: "Nimble", package: "Nimble"),
             ]),
-    ]
+    ],
+    swiftLanguageVersions: [.v5]
 )
