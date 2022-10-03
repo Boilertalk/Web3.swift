@@ -11,7 +11,7 @@ import Foundation
 #endif
 
 /// A class that can accept invocations and forward to Web3
-public protocol SolidityFunctionHandler: class {
+public protocol SolidityFunctionHandler: AnyObject {
     var address: EthereumAddress? { get }
     func call(_ call: EthereumCall, outputs: [SolidityFunctionParameter], block: EthereumQuantityTag, completion: @escaping ([String: Any]?, Error?) -> Void)
     func send(_ transaction: EthereumTransaction, completion: @escaping (EthereumData?, Error?) -> Void)
@@ -47,7 +47,7 @@ public struct SolidityFunctionParameter: SolidityParameter {
 }
 
 /// Represents a function within a contract
-public protocol SolidityFunction: class {
+public protocol SolidityFunction: AnyObject {
     
     /// Name of the method. Must match the contract source.
     var name: String { get }
