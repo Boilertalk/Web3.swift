@@ -88,6 +88,10 @@ class TransactionTests: QuickSpec {
                     expect(try? basicSignature?.rawTransaction().bytes.hexString(prefix: true)) == expectedBasicTx
                 }
 
+                it("should be a valid tx") {
+                    expect(basicSignature!.verifySignature()) == true
+                }
+
                 // Complicated TX
 
                 let extendedTx = try! EthereumTransaction(
@@ -116,6 +120,10 @@ class TransactionTests: QuickSpec {
                 let expectedExtendedTx = "0x02f8f70380843b9aca008504e3b2920082520894867aeeeed428ed9ba7f97fc7e16f16dfcf02f375880de0b6b3a76400009102f8730180843b9aca008504e3b2920082f872f85994de0b295669a9fd93d5f28d9ec85e40f4cb697baef842a00000000000000000000000000000000000000000000000000000000000000003a00000000000000000000000000000000000000000000000000000000000000007d694bb9bc244d798123fde783fcc1c72d3bb8c189413c080a0e0cd5f5e03d10e3d792fb652f6d1ea470cb6cdf745462980dff1652904cc4ed5a06f8b372427d15b68158597cd547c0f77165563da6a0b954d575920888edaf36c"
                 it("should produce the expected transaction") {
                     expect(try? extendedSignature?.rawTransaction().bytes.hexString(prefix: true)) == expectedExtendedTx
+                }
+
+                it("should be a valid tx") {
+                    expect(extendedSignature!.verifySignature()) == true
                 }
             }
         }
