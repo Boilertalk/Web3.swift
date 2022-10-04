@@ -8,6 +8,7 @@
 
 import Foundation
 import BigInt
+import Collections
 
 public struct EthereumTransaction: Codable {
     public enum TransactionType: String, Codable {
@@ -28,7 +29,7 @@ public struct EthereumTransaction: Codable {
     public var maxPriorityFeePerGas: EthereumQuantity?
     
     /// Gas limit provided
-    public var gas: EthereumQuantity?
+    public var gasLimit: EthereumQuantity?
     
     /// Address of the sender
     public var from: EthereumAddress?
@@ -43,7 +44,7 @@ public struct EthereumTransaction: Codable {
     public var data: EthereumData
 
     /// `accessList` as defined in EIP2930. Needs to be in the correct format to be a valid tx.
-    public var accessList: [EthereumAddress: [EthereumData]]
+    public var accessList: OrderedDictionary<EthereumAddress, [EthereumData]>
 
     /// The type of this transaction - changes the generated signature. Default: `.legacy`
     public var transactionType: TransactionType
@@ -70,19 +71,19 @@ public struct EthereumTransaction: Codable {
         gasPrice: EthereumQuantity? = nil,
         maxFeePerGas: EthereumQuantity? = nil,
         maxPriorityFeePerGas: EthereumQuantity? = nil,
-        gas: EthereumQuantity? = nil,
+        gasLimit: EthereumQuantity? = nil,
         from: EthereumAddress? = nil,
         to: EthereumAddress? = nil,
         value: EthereumQuantity? = nil,
         data: EthereumData = EthereumData([]),
-        accessList: [EthereumAddress: [EthereumData]] = [:],
+        accessList: OrderedDictionary<EthereumAddress, [EthereumData]> = [:],
         transactionType: TransactionType = .legacy
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
         self.maxFeePerGas = maxFeePerGas
         self.maxPriorityFeePerGas = maxPriorityFeePerGas
-        self.gas = gas
+        self.gasLimit = gasLimit
         self.from = from
         self.to = to
         self.value = value
@@ -121,7 +122,7 @@ public struct EthereumTransaction: Codable {
      */
     private func signLegacy(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity = 0) throws -> EthereumSignedTransaction {
         // These values are required for signing
-        guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gas, let value = value else {
+        guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gasLimit, let value = value else {
             throw EthereumSignedTransaction.Error.transactionInvalid
         }
         let rlp = RLPItem(
@@ -176,7 +177,7 @@ public struct EthereumTransaction: Codable {
     private func signEip1559(with privateKey: EthereumPrivateKey, chainId: EthereumQuantity) throws -> EthereumSignedTransaction {
         // These values are required for signing
         guard let nonce = nonce, let maxFeePerGas = maxFeePerGas, let maxPriorityFeePerGas = maxPriorityFeePerGas,
-              let gasLimit = gas, let value = value else {
+              let gasLimit = gasLimit, let value = value else {
             throw EthereumSignedTransaction.Error.transactionInvalid
         }
 
@@ -274,7 +275,7 @@ public struct EthereumSignedTransaction {
     public let chainId: EthereumQuantity
 
     /// `accessList` as defined in EIP2930. Needs to be in the correct format to be a valid tx.
-    public var accessList: [EthereumAddress: [EthereumData]]
+    public var accessList: OrderedDictionary<EthereumAddress, [EthereumData]>
 
     /// The type of this transaction - changes the generated signature. Default: `.legacy`
     public var transactionType: EthereumTransaction.TransactionType
@@ -314,7 +315,7 @@ public struct EthereumSignedTransaction {
         r: EthereumQuantity,
         s: EthereumQuantity,
         chainId: EthereumQuantity,
-        accessList: [EthereumAddress: [EthereumData]] = [:],
+        accessList: OrderedDictionary<EthereumAddress, [EthereumData]> = [:],
         transactionType: EthereumTransaction.TransactionType = .legacy
     ) {
         self.nonce = nonce
@@ -458,7 +459,7 @@ extension RLPItem {
         r: EthereumQuantity? = nil,
         s: EthereumQuantity? = nil,
         chainId: EthereumQuantity? = nil,
-        accessList: [EthereumAddress: [EthereumData]] = [:],
+        accessList: OrderedDictionary<EthereumAddress, [EthereumData]> = [:],
         transactionType: EthereumTransaction.TransactionType = .legacy
     ) {
         switch transactionType {
@@ -551,7 +552,7 @@ extension EthereumSignedTransaction: RLPItemConvertible {
                 throw Error.rlpItemInvalid
             }
 
-            var accessList: [EthereumAddress: [EthereumData]] = [:]
+            var accessList: OrderedDictionary<EthereumAddress, [EthereumData]> = [:]
             for item in accessListRLP {
                 guard let arr = item.array, arr.count == 2, let keyBytes = arr[0].bytes,
                       let key = try? EthereumAddress(rawAddress: keyBytes), let valuesRLP = arr[1].array else {
@@ -624,7 +625,7 @@ extension EthereumTransaction: Equatable {
             && lhs.gasPrice == rhs.gasPrice
             && lhs.maxFeePerGas == rhs.maxFeePerGas
             && lhs.maxPriorityFeePerGas == rhs.maxPriorityFeePerGas
-            && lhs.gas == rhs.gas
+            && lhs.gasLimit == rhs.gasLimit
             && lhs.from == rhs.from
             && lhs.to == rhs.to
             && lhs.value == rhs.value
@@ -663,7 +664,7 @@ extension EthereumTransaction: Hashable {
         hasher.combine(gasPrice)
         hasher.combine(maxFeePerGas)
         hasher.combine(maxPriorityFeePerGas)
-        hasher.combine(gas)
+        hasher.combine(gasLimit)
         hasher.combine(from)
         hasher.combine(to)
         hasher.combine(value)
