@@ -12,45 +12,52 @@ import XCTest
 import Quick
 @testable import Web3Tests
 
-QCKMain([
-    // ABITests
-    ABIConvertibleTests.self,
-    ABITests.self,
-    // SolidityTypeTests.self, --> TODO: Switch to QuickSpec
-    // SolidityWrappedValueTests.self, --> TODO: Switch to QuickSpec
+@main struct Main {
+    static func main() {
+        QCKMain([
+            // ABITests
+            ABIConvertibleTests.self,
+            ABITests.self,
+            // SolidityTypeTests.self, --> TODO: Switch to QuickSpec
+            // SolidityWrappedValueTests.self, --> TODO: Switch to QuickSpec
 
-    // ContractTests
-    ContractTests.self,
-    DynamicContractTests.self,
+            // ContractTests
+            ContractTests.self,
+            DynamicContractTests.self,
 
-    // JsonTests
-    EthereumBlockObjectTests.self,
-    EthereumCallParamsTests.self,
-    EthereumDataTests.self,
-    EthereumQuantityTagTests.self,
-    EthereumQuantityTests.self,
-    EthereumSyncStatusObjectTests.self,
-    EthereumValueTests.self,
-    RPCRequestJsonTests.self,
+            // JsonTests
+            EthereumBlockObjectTests.self,
+            EthereumCallParamsTests.self,
+            EthereumDataTests.self,
+            EthereumQuantityTagTests.self,
+            EthereumQuantityTests.self,
+            EthereumSyncStatusObjectTests.self,
+            EthereumValueTests.self,
+            RPCRequestJsonTests.self,
 
-    // RLPTests
-    RLPDecoderTests.self,
-    RLPEncoderTests.self,
-    RLPItemTests.self,
+            // RLPTests
+            RLPDecoderTests.self,
+            RLPEncoderTests.self,
+            RLPItemTests.self,
 
-    // ToolboxTests
-    IntETHTests.self,
-    StringBytesTests.self,
-    UIntBytesRepresentableTests.self,
+            // ToolboxTests
+            IntETHTests.self,
+            StringBytesTests.self,
+            UIntBytesRepresentableTests.self,
 
-    // TransactionTests
-    EthereumAddressTests.self,
-    EthereumPrivateKeyTests.self,
-    EthereumPublicKeyTests.self,
-    TransactionTests.self,
+            // TransactionTests
+            EthereumAddressTests.self,
+            EthereumPrivateKeyTests.self,
+            EthereumPublicKeyTests.self,
+            TransactionTests.self,
 
-    // Web3Tests
-    Web3HttpTests.self
-])
+            // Web3Tests
+            Web3HttpTests.self
+        ], configuration: [], testCases: [
+            SolidityTypeTests.self,
+            SolidityWrappedValueTests.self
+        ])
+    }
+}
 
 #endif
