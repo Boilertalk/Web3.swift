@@ -3,8 +3,8 @@
 </a>
 
 <p align="center">
-  <a href="https://travis-ci.org/Boilertalk/Web3.swift">
-    <img src="http://img.shields.io/travis/Boilertalk/Web3.swift.svg?style=flat" alt="CI Status">
+  <a href="https://github.com/Boilertalk/Web3.swift/actions/workflows/build-and-test.yml">
+    <img src="https://github.com/Boilertalk/Web3.swift/actions/workflows/build-and-test.yml/badge.svg?branch=master" alt="CI Status">
   </a>
   <a href="https://codecov.io/gh/Boilertalk/Web3.swift">
     <img src="https://codecov.io/gh/Boilertalk/Web3.swift/branch/master/graph/badge.svg" alt="Code Coverage">
@@ -18,8 +18,8 @@
 
 Web3.swift is a Swift library for signing transactions and interacting with Smart Contracts in the Ethereum Network.
 
-It allows you to connect to a [geth](https://github.com/ethereum/go-ethereum) or [parity](https://github.com/paritytech/parity)
-Ethereum node (like [Infura](https://infura.io/)) to send transactions and read values from Smart Contracts without the need of
+It allows you to connect to a [geth](https://github.com/ethereum/go-ethereum) or [erigon](https://github.com/ledgerwatch/erigon)
+Ethereum node (like [Chainnodes](https://www.chainnodes.org/)) to send transactions and read values from Smart Contracts without the need of
 writing your own implementations of the protocols.
 
 Web3.swift supports iOS, macOS, tvOS, watchOS and Linux with Swift Package Manager.
