@@ -1,0 +1,64 @@
+name: Build and Test
+
+on: [push]
+
+concurrency:
+  group: build_and_test_group_${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      # Checkout Step
+      - uses: actions/checkout@v1
+
+      # Dependencies
+      - name: Install Dependencies
+        env:
+          OS_ENUM: ${{ matrix.os }}
+        run: |
+          if [ $OS_ENUM == "macos-latest" ]; then
+            echo "macOS build. swiftenv will not be installed.";
+            echo "Installing llvm for test coverage conversion.";
+
+            brew install llvm;
+          else
+            echo "Installing Linux Swift dependencies.";
+            sudo apt-get -q install -y libz3-4;
+
+            echo "Installing swiftenv and Swift version specified in .swift-version.";
+            git clone https://github.com/kylef/swiftenv.git ~/.swiftenv;
+            export SWIFTENV_ROOT="$HOME/.swiftenv";
+            export PATH="$SWIFTENV_ROOT/bin:$PATH";
+            eval "$(swiftenv init -)";
+
+            swiftenv install $(cat .swift-version);
+          fi
+
+      # Build Step
+      - name: Build development
+        run: swift build
+      - name: Build production
+        run: swift build -c release
+
+      # Test Step
+      - name: Unit Tests
+        run: swift test --enable-code-coverage
+
+      # Upload test coverage (only once, on macOS)
+      - name: Generate codecov coverage format
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: xcrun llvm-cov export -format="lcov" .build/debug/Web3PackageTests.xctest/Contents/MacOS/Web3PackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
+      - name: Upload Test Coverage
+        uses: codecov/codecov-action@v3
+        if: ${{ matrix.os == 'macos-latest' }}
+        with:
+          files: ./info.lcov
+          fail_ci_if_error: true
+          verbose: true
