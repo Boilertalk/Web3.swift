@@ -81,7 +81,7 @@ Web3 is compatible with Swift Package Manager v5 (Swift 5 and above). Simply add
 
 ```Swift
 dependencies: [
-    .package(url: "https://github.com/Boilertalk/Web3.swift.git", from: "0.5.0")
+    .package(url: "https://github.com/Boilertalk/Web3.swift.git", from: "0.6.0")
 ]
 ```
 
@@ -301,11 +301,11 @@ or [the official Ethereum JSON RPC documentation](https://eth.wiki/json-rpc/API)
 
 We are providing an optional module for interaction with smart contracts. To use it you have to add `Web3ContractABI` to your target dependencies in your Podfile (for SPM). Make sure you check out the [installation instructions](#Installation) first.
 
-We are providing two different options to create contract abi interfaces in Swift. Either you define your functions and events manually (or use one of our provided interfaces like [ERC20](Web3/Classes/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Classes/ContractABI/Contract/ERC721.swift)). Or you parse them from the JSON ABI representation just like in web3.js.
+We are providing two different options to create contract abi interfaces in Swift. Either you define your functions and events manually (or use one of our provided interfaces like [ERC20](Web3/Sources/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Sources/ContractABI/Contract/ERC721.swift)). Or you parse them from the JSON ABI representation just like in web3.js.
 
 ### Static Contracts
 
-Static contracts are classes implementing `StaticContract`. They provide a set of functions and events they want to use from the original smart contract. Check out our provided static contracts as a starting point ([ERC20](Web3/Classes/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Classes/ContractABI/Contract/ERC721.swift)).
+Static contracts are classes implementing `StaticContract`. They provide a set of functions and events they want to use from the original smart contract. Check out our provided static contracts as a starting point ([ERC20](Web3/Sources/ContractABI/Contract/ERC20.swift) or [ERC721](Web3/Sources/ContractABI/Contract/ERC721.swift)).
 
 Our static ERC20 interface is called `GenericERC20Contract`, the ERC721 contract is called `GenericERC721Contract`. Both can be subclassed to add more functions for custom contracts.
 
@@ -408,7 +408,7 @@ firstly {
 
 Using this API you can interact with any smart contract in the Ethereum Network!
 
-For more examples, including contract creation (constructor calling) check out our [tests](Example/Tests/ContractTests).
+For more examples, including contract creation (constructor calling) check out our [tests](Tests/Web3Tests/ContractTests).
 
 ## Common errors
 
