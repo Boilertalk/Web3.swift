@@ -53,7 +53,7 @@ import Quick
 
             // Web3Tests
             Web3HttpTests.self
-        ], configuration: [], testCases: [
+        ], configurations: [], testCases: [
             SolidityTypeTests.self,
             SolidityWrappedValueTests.self
         ])
