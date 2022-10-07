@@ -3,7 +3,6 @@
 //  Web3
 //
 //  Created by Koray Koska on 06.04.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation

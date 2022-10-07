@@ -3,7 +3,6 @@
 //  Web3
 //
 //  Created by Koray Koska on 30.12.17.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation
@@ -29,7 +28,7 @@ public struct RPCResponse<Result: Codable>: Codable {
 
         /// The error message
         public let message: String
-        
+
         /// Description
         public var localizedDescription: String {
             return "RPC Error (\(code)) \(message)"

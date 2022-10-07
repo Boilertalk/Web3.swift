@@ -3,7 +3,6 @@
 //  Web3_Tests
 //
 //  Created by Koray Koska on 14.03.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Quick
