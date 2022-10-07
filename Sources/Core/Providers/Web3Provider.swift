@@ -3,7 +3,6 @@
 //  Web3
 //
 //  Created by Koray Koska on 30.12.17.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation
@@ -16,7 +15,7 @@ public protocol Web3Provider {
 }
 
 public struct Web3Response<Result: Codable> {
-    
+
     public enum Error: Swift.Error {
         case emptyResponse
         case requestFailed(Swift.Error?)
@@ -24,33 +23,33 @@ public struct Web3Response<Result: Codable> {
         case serverError(Swift.Error?)
         case decodingError(Swift.Error?)
     }
-    
+
     public enum Status<Result> {
         case success(Result)
         case failure(Swift.Error)
     }
 
     public let status: Status<Result>
-    
+
     public var result: Result? {
         return status.result
     }
-    
+
     public var error: Swift.Error? {
         return status.error
     }
-    
+
     // MARK: - Initialization
-    
+
     public init(status: Status<Result>) {
         self.status = status
     }
-    
+
     /// Initialize with any Error object
     public init(error: Swift.Error) {
         self.status = .failure(error)
     }
-    
+
     /// Initialize with a response
     public init(rpcResponse: RPCResponse<Result>) {
         if let result = rpcResponse.result {
@@ -61,7 +60,7 @@ public struct Web3Response<Result: Codable> {
             self.status = .failure(Error.emptyResponse)
         }
     }
-    
+
     /// For convenience, initialize with one of the common errors
     public init(error: Error) {
         self.status = .failure(error)
@@ -78,11 +77,11 @@ extension Web3Response.Status {
             return false
         }
     }
-    
+
     public var isFailure: Bool {
         return !isSuccess
     }
-    
+
     public var result: Result? {
         switch self {
         case .success(let value):
@@ -91,7 +90,7 @@ extension Web3Response.Status {
             return nil
         }
     }
-    
+
     public var error: Error? {
         switch self {
         case .failure(let error):

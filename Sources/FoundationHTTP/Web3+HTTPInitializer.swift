@@ -3,7 +3,6 @@
 //  Web3HTTPExtension
 //
 //  Created by Koray Koska on 17.02.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation

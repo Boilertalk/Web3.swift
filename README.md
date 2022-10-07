@@ -1,6 +1,8 @@
-<a href="https://github.com/Boilertalk/Web3.swift">
-  <img src="https://crypto-bot-main.fra1.digitaloceanspaces.com/old/BoilertalkLogo.svg" width="100%" height="256">
-</a>
+<p align="center">
+  <a href="https://github.com/Boilertalk/Web3.swift">
+    <img src="https://crypto-bot-main.fra1.digitaloceanspaces.com/old/web3-swift-logo.png" width="256" height="256">
+  </a>
+</p>
 
 <p align="center">
   <a href="https://github.com/Boilertalk/Web3.swift/actions/workflows/build-and-test.yml">
@@ -14,7 +16,7 @@
   </a>
 </p>
 
-# :alembic: Web3
+# :chains: Web3
 
 Web3.swift is a Swift library for signing transactions and interacting with Smart Contracts in the Ethereum Network.
 
