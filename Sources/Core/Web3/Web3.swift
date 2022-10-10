@@ -3,7 +3,6 @@
 //  Web3
 //
 //  Created by Koray Koska on 30.12.17.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation
@@ -109,7 +108,7 @@ public struct Web3 {
     public struct Eth {
 
         public let properties: Properties
-        
+
         // MARK: - Methods
 
         public func protocolVersion(response: @escaping Web3ResponseCompletion<String>) {
@@ -280,7 +279,7 @@ public struct Web3 {
 
             properties.provider.send(request: req, response: response)
         }
-        
+
         public func sendTransaction(
             transaction: EthereumTransaction,
             response: @escaping Web3ResponseCompletion<EthereumData>

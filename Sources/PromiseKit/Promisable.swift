@@ -3,7 +3,6 @@
 //  BigInt.swift
 //
 //  Created by Koray Koska on 22.06.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import PromiseKit

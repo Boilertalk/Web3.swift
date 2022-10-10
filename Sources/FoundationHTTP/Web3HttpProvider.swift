@@ -3,7 +3,6 @@
 //  Web3
 //
 //  Created by Koray Koska on 17.02.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation
@@ -37,7 +36,7 @@ public struct Web3HttpProvider: Web3Provider {
 
     public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {
         queue.async {
-            
+
             let body: Data
             do {
                 body = try self.encoder.encode(request)
@@ -74,7 +73,7 @@ public struct Web3HttpProvider: Web3Provider {
                     response(err)
                     return
                 }
-                
+
                 do {
                     let rpcResponse = try self.decoder.decode(RPCResponse<Result>.self, from: data)
                     // We got the Result object

@@ -3,7 +3,6 @@
 //  Web3
 //
 //  Created by Koray Koska on 08.03.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation
@@ -175,7 +174,7 @@ public extension Web3.Eth {
             }
         }
     }
-    
+
     func sendTransaction(transaction: EthereumTransaction) -> Promise<EthereumData> {
         return Promise { seal in
             self.sendTransaction(transaction: transaction) { response in

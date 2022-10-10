@@ -3,7 +3,6 @@
 //  BigInt
 //
 //  Created by Koray Koska on 23.06.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 #if canImport(PromiseKit)
