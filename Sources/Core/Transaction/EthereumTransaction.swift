@@ -3,7 +3,6 @@
 //  Web3
 //
 //  Created by Koray Koska on 05.02.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation
@@ -18,7 +17,7 @@ public struct EthereumTransaction: Codable {
 
     /// The number of transactions made prior to this one
     public var nonce: EthereumQuantity?
-    
+
     /// Gas price provided Wei
     public var gasPrice: EthereumQuantity?
 
@@ -27,19 +26,19 @@ public struct EthereumTransaction: Codable {
 
     /// Max Priority Fee per Gas as defined in EIP1559. Only required for EIP1559 transactions.
     public var maxPriorityFeePerGas: EthereumQuantity?
-    
+
     /// Gas limit provided
     public var gasLimit: EthereumQuantity?
-    
+
     /// Address of the sender
     public var from: EthereumAddress?
-    
+
     /// Address of the receiver
     public var to: EthereumAddress?
-    
+
     /// Value to transfer provided in Wei
     public var value: EthereumQuantity?
-    
+
     /// Input data for this transaction
     public var data: EthereumData
 
@@ -48,9 +47,9 @@ public struct EthereumTransaction: Codable {
 
     /// The type of this transaction - changes the generated signature. Default: `.legacy`
     public var transactionType: TransactionType
-    
+
     // MARK: - Initialization
-    
+
     /**
      * Initializes a new instance of `EthereumTransaction` with the given values.
      *
@@ -91,10 +90,10 @@ public struct EthereumTransaction: Codable {
         self.accessList = accessList
         self.transactionType = transactionType
     }
-    
-    
+
+
     // MARK: - Convenient functions
-    
+
     /**
      * Signs this transaction with the given private key and returns an instance of `EthereumSignedTransaction`
      *
@@ -343,7 +342,7 @@ public struct EthereumSignedTransaction {
         self.accessList = accessList
         self.transactionType = transactionType
     }
-    
+
     // MARK: - Convenient functions
 
     public func verifySignature() -> Bool {
@@ -583,7 +582,7 @@ extension EthereumSignedTransaction: RLPItemConvertible {
         // Unsupported transaction types
         throw Error.rlpItemInvalid
     }
-    
+
     public func rlp() -> RLPItem {
         return RLPItem(
             nonce: nonce,

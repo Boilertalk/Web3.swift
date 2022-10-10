@@ -3,13 +3,12 @@
 //  Web3
 //
 //  Created by Koray Koska on 10.02.18.
-//  Copyright © 2018 Boilertalk. All rights reserved.
 //
 
 import Foundation
 
 extension String {
-    
+
     /// Convert a hex string "0xFF" or "FF" to Bytes
     func hexBytes() throws -> Bytes {
         var string = self
@@ -17,7 +16,7 @@ extension String {
         guard !string.isEmpty else {
             return Bytes()
         }
-        
+
         if string.count >= 2 {
             let pre = string.startIndex
             let post = string.index(string.startIndex, offsetBy: 2)
@@ -26,7 +25,7 @@ extension String {
                 string = String(string[post...])
             }
         }
-        
+
         //normalize string, since hex strings can omit leading 0
         string = string.count % 2 == 0 ? string : "0" + string
 
