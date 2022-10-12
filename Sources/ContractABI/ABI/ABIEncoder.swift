@@ -8,7 +8,7 @@
 import Foundation
 import BigInt
 
-class ABIEncoder {
+public class ABIEncoder {
     
     enum Error: Swift.Error {
         case couldNotEncode(type: SolidityType, value: Any)
