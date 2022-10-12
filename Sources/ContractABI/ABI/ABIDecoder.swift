@@ -11,7 +11,7 @@ import BigInt
     import Web3
 #endif
 
-class ABIDecoder {
+public class ABIDecoder {
     
     enum Error: Swift.Error {
         case typeNotSupported(type: SolidityType)
