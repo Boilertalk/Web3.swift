@@ -65,5 +65,12 @@ class SolidityTypeTests: XCTestCase {
         XCTAssertEqual(try? SolidityType("string[1][2]"), .array(type: .array(type: .string, length: 1), length: 2), "fixed nested array should be parsed")
         XCTAssertEqual(try? SolidityType("string[][][2]"), .array(type: .array(type: .array(type: .string, length: nil), length: nil), length: 2), "dynamic nested array should be parsed")
     }
-    
+
+    func testMultidimensionalTupleType() {
+        let singleTupleType = SolidityType(
+            "tuple[]",
+            subTypes: [.int16, .int16, .int24, .int24, .uint24, .uint160, .uint128]
+        )
+        XCTAssertEqual(singleTupleType, .array(type: .tuple([.int16, .int16, .int24, .int24, .uint24, .uint160, .uint128]), length: nil))
+    }
 }

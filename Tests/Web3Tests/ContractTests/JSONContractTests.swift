@@ -154,28 +154,28 @@ class DynamicContractTests: QuickSpec {
 
             let provider = MockWeb3Provider()
 
-            if let tupleCallData = loadStub(named: "call_tuple") {
+            if let tupleCallData = loadStub(named: "TupleExamplesReturnStub") {
                 provider.addStub(method: "eth_call", data: tupleCallData)
             }
 
             // adapted from solidity's documentation
-            guard let data = loadStub(named: "TupleExample") else { return assertionFailure("Could not load stub") }
+            guard let data = loadStub(named: "TupleExamples") else { return assertionFailure("Could not load stub") }
             let web3 = Web3(provider: provider)
 
             do {
-                let contract = try web3.eth.Contract(json: data, abiKey: "abi", address: .testAddress)
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
 
                 it("should represent structs with tuples") {
                     waitUntil { done in
                         firstly {
-                            contract["f"]!(SolidityTuple(.uint(BigUInt(1)), .uint(BigUInt(2))), BigUInt(3)).call()
+                            contract["returnSimpleStaticTuple"]!().call()
                         }.done { outputs in
-                            guard let t = outputs["t"] as? [String: Any] else {
+                            guard let t = outputs["returnTuple"] as? [String: Any] else {
                                 fail("returned tuple should be decoded")
                                 return
                             }
-                            expect(t["x"] as? BigUInt).to(equal(3))
-                            expect(t["y"] as? BigUInt).to(equal(4))
+                            expect(t["x"] as? BigUInt).to(equal(128))
+                            expect(t["y"] as? BigUInt).to(equal(256))
                             done()
                         }.catch { error in
                             fail(error.localizedDescription)
