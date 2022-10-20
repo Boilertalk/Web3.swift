@@ -70,6 +70,6 @@ public struct ABI {
     }
     
     public static func decodeLog(event: SolidityEvent, from log: EthereumLogObject) throws -> [String: Any] {
-        return try ABIDecoder.decode(event: event, from: log)
+        return try ABIDecoder.decodeEvent(event, from: log)
     }
 }
