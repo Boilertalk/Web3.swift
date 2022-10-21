@@ -17,16 +17,37 @@ import PromiseKit
 class Web3HttpTests: QuickSpec {
 
     let infuraUrl = "https://mainnet.infura.io/v3/362c324f295a4032b2fe87d910aaa33a"
+    let infuraWsUrl = "wss://mainnet.infura.io/ws/v3/362c324f295a4032b2fe87d910aaa33a"
 
     override func spec() {
         describe("http rpc requests") {
 
             let web3 = Web3(rpcURL: infuraUrl)
+            let web3Ws: Web3! = try? Web3(wsUrl: infuraWsUrl)
+            if web3Ws == nil {
+                fail("should initialize ws web3")
+            }
 
             context("web3 client version") {
 
+                // HTTP
                 waitUntil(timeout: .seconds(2)) { done in
                     web3.clientVersion { response in
+                        it("should be status success") {
+                            expect(response.status.isSuccess) == true
+                        }
+                        it("should not be nil") {
+                            expect(response.result).toNot(beNil())
+                        }
+
+                        // Tests done
+                        done()
+                    }
+                }
+
+                // WebSocket
+                waitUntil(timeout: .seconds(2)) { done in
+                    web3Ws.clientVersion { response in
                         it("should be status success") {
                             expect(response.status.isSuccess) == true
                         }
@@ -42,8 +63,27 @@ class Web3HttpTests: QuickSpec {
 
             context("net version") {
 
+                // HTTP
                 waitUntil(timeout: .seconds(2)) { done in
                     web3.net.version { response in
+                        it("should be status ok") {
+                            expect(response.status.isSuccess) == true
+                        }
+                        it("should not be nil") {
+                            expect(response.result).toNot(beNil())
+                        }
+                        it("should be mainnet chain id") {
+                            expect(response.result) == "1"
+                        }
+
+                        // Tests done
+                        done()
+                    }
+                }
+
+                // WebSocket
+                waitUntil(timeout: .seconds(2)) { done in
+                    web3Ws.net.version { response in
                         it("should be status ok") {
                             expect(response.status.isSuccess) == true
                         }
@@ -62,8 +102,27 @@ class Web3HttpTests: QuickSpec {
 
             context("net peer count") {
 
+                // HTTP
                 waitUntil(timeout: .seconds(2)) { done in
                     web3.net.peerCount { response in
+                        it("should be status ok") {
+                            expect(response.status.isSuccess) == true
+                        }
+                        it("should not be nil") {
+                            expect(response.result).toNot(beNil())
+                        }
+                        it("should be a quantity response") {
+                            expect(response.result?.quantity).toNot(beNil())
+                        }
+
+                        // Tests done
+                        done()
+                    }
+                }
+
+                // WebSocket
+                waitUntil(timeout: .seconds(2)) { done in
+                    web3Ws.net.peerCount { response in
                         it("should be status ok") {
                             expect(response.status.isSuccess) == true
                         }
@@ -82,6 +141,22 @@ class Web3HttpTests: QuickSpec {
 
             context("eth protocol version") {
 
+                // HTTP
+                waitUntil(timeout: .seconds(2)) { done in
+                    web3.eth.protocolVersion { response in
+                        it("should be status ok") {
+                            expect(response.status.isSuccess) == true
+                        }
+                        it("should not be nil") {
+                            expect(response.result).toNot(beNil())
+                        }
+
+                        // Tests done
+                        done()
+                    }
+                }
+
+                // WebSocket
                 waitUntil(timeout: .seconds(2)) { done in
                     web3.eth.protocolVersion { response in
                         it("should be status ok") {

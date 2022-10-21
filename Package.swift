@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "Web3",
     platforms: [
-       .iOS(.v10),
-       .macOS(.v10_12),
-       .watchOS(.v5),
-       .tvOS(.v12),
+       .iOS(.v13),
+       .macOS(.v10_15),
+       .watchOS(.v6),
+       .tvOS(.v13),
        .macCatalyst(.v14),
        .driverKit(.v20),
     ],
