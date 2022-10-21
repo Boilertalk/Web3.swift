@@ -72,5 +72,47 @@ class SolidityTypeTests: XCTestCase {
             subTypes: [.int16, .int16, .int24, .int24, .uint24, .uint160, .uint128]
         )
         XCTAssertEqual(singleTupleType, .array(type: .tuple([.int16, .int16, .int24, .int24, .uint24, .uint160, .uint128]), length: nil))
+
+        let deepTuple = SolidityType(
+            "tuple[]",
+            subTypes: [.int16, .int16, .int24, .tuple([.tuple([.uint24]), .tuple([.int16]), .string]), .uint24, .uint160, .uint128, .tuple([.bytes(length: nil)])]
+        )
+        XCTAssertEqual(deepTuple, .array(type: .tuple([.int16, .int16, .int24, .tuple([.tuple([.uint24]), .tuple([.int16]), .string]), .uint24, .uint160, .uint128, .tuple([.bytes(length: nil)])]), length: nil))
+
+        let twoDTuple = SolidityType(
+            "tuple[][]",
+            subTypes: [.int16, .int16, .int24, .tuple([.tuple([.uint24]), .tuple([.int16]), .string]), .uint24, .uint160, .uint128, .tuple([.bytes(length: nil)])]
+        )
+        XCTAssertEqual(twoDTuple, .array(type:
+                .array(type:
+                        .tuple([
+                            .int16,
+                            .int16,
+                            .int24,
+                            .tuple([.tuple([.uint24]), .tuple([.int16]), .string]),
+                            .uint24,
+                            .uint160,
+                            .uint128,
+                            .tuple([.bytes(length: nil)])
+                        ]),
+                       length: nil), length: nil))
+
+        let threeDFixedTupleArray = SolidityType(
+            "tuple[3][2][10]",
+            subTypes: [.int16, .int16, .int24, .tuple([.tuple([.uint24]), .tuple([.int16]), .string]), .uint24, .uint160, .uint128, .tuple([.bytes(length: nil)])]
+        )
+        XCTAssertEqual(threeDFixedTupleArray, .array(type: .array(type:
+                .array(type:
+                        .tuple([
+                            .int16,
+                            .int16,
+                            .int24,
+                            .tuple([.tuple([.uint24]), .tuple([.int16]), .string]),
+                            .uint24,
+                            .uint160,
+                            .uint128,
+                            .tuple([.bytes(length: nil)])
+                        ]),
+                       length: 3), length: 2), length: 10))
     }
 }

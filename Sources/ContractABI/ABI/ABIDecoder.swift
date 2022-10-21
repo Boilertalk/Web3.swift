@@ -26,18 +26,18 @@ public struct ABIDecoder {
     
     // MARK: - Decoding
     
-    public static func decodeTuple(_ type: SolidityType, from hexString: String) throws -> Any {
-        if let decoded = try decodeTuple([type], from: hexString).first {
+    public static func decodeTuple(_ type: SolidityType, from hexString: String, repeatingComponents: [SolidityParameter]? = nil) throws -> Any {
+        if let decoded = try decodeTuple([type], from: hexString, repeatingComponents: repeatingComponents).first {
             return decoded
         }
         throw Error.unknownError
     }
     
-    public static func decodeTuple(_ types: SolidityType..., from hexString: String) throws -> [Any] {
-        return try decodeTuple(types, from: hexString)
+    public static func decodeTuple(_ types: SolidityType..., from hexString: String, repeatingComponents: [SolidityParameter]? = nil) throws -> [Any] {
+        return try decodeTuple(types, from: hexString, repeatingComponents: repeatingComponents)
     }
 
-    public static func decodeTuple(_ types: [SolidityType], from hexString: String) throws -> [Any] {
+    public static func decodeTuple(_ types: [SolidityType], from hexString: String, repeatingComponents: [SolidityParameter]? = nil) throws -> [Any] {
         struct BasicSolParam: SolidityParameter {
             let name: String
             let type: SolidityType
@@ -46,7 +46,7 @@ public struct ABIDecoder {
 
         var outputs = [SolidityParameter]()
         for i in 0..<types.count {
-            outputs.append(BasicSolParam(name: "\(i)", type: types[i], components: nil))
+            outputs.append(BasicSolParam(name: "\(i)", type: types[i], components: repeatingComponents))
         }
 
         let decodedDictionary = try decodeTuple(outputs: outputs, from: hexString)
@@ -69,6 +69,21 @@ public struct ABIDecoder {
         let hexString = hexString.replacingOccurrences(of: "0x", with: "")
 
         var returnDictionary: [String: Any] = [:]
+
+        if outputs.count == 1 {
+            switch outputs[0].type {
+            case .array(let type, let length):
+                // Single static length non-dynamic arrays decode like a tuple without a dataLocation
+                if let _ = length, !type.isDynamic {
+                    let decodedArray = try decodeType(type: outputs[0].type, hexString: hexString, components: outputs[0].components)
+                    returnDictionary[outputs[0].name] = decodedArray
+
+                    return returnDictionary
+                }
+            default:
+                break
+            }
+        }
 
         var currentIndex = 0
         var tailsToBeParsed: [(dataLocation: Int, param: SolidityParameter)] = []
@@ -114,6 +129,10 @@ public struct ABIDecoder {
         let missingTails = tailsToBeParsed.map({ $0.param })
 
         for i in 0..<missingTails.count {
+            if endIndexes[i] < startIndexes[i] {
+                throw Error.couldNotDecodeType(type: missingTails[i].type, string: "unexpected format of abi encoding")
+            }
+
             let output = missingTails[i]
 
             // Index to start from in hex
@@ -159,7 +178,7 @@ public struct ABIDecoder {
                 throw Error.associatedTypeNotFound(type: type)
             }
         case .array(let elementType, let length):
-            return try decodeArray(elementType: elementType, length: length, from: hexString)
+            return try decodeArray(elementType: elementType, length: length, from: hexString, components: components)
         case .tuple(let types):
             if let components = components {
                 // will return with names
@@ -173,15 +192,15 @@ public struct ABIDecoder {
     
     // MARK: - Arrays
     
-    private static func decodeArray(elementType: SolidityType, length: UInt?, from hexString: String) throws -> [Any] {
-        if !elementType.isDynamic, let length = length {
-            return try decodeFixedArray(elementType: elementType, length: Int(length), from: hexString)
+    private static func decodeArray(elementType: SolidityType, length: UInt?, from hexString: String, components: [SolidityParameter]?) throws -> [Any] {
+        if let length = length {
+            return try decodeFixedLengthArray(elementType: elementType, length: Int(length), from: hexString, components: components)
         } else {
-            return try decodeDynamicArray(elementType: elementType, from: hexString)
+            return try decodeDynamicLengthArray(elementType: elementType, from: hexString, components: components)
         }
     }
     
-    private static func decodeDynamicArray(elementType: SolidityType, from hexString: String) throws -> [Any] {
+    private static func decodeDynamicLengthArray(elementType: SolidityType, from hexString: String, components: [SolidityParameter]?) throws -> [Any] {
         // split into parts
         let lengthString = hexString.substr(0, 64)
         let valueString = String(hexString.dropFirst(64))
@@ -189,18 +208,13 @@ public struct ABIDecoder {
         guard let string = lengthString, let length = Int(string, radix: 16) else {
             throw Error.couldNotParseLength
         }
-        return try decodeFixedArray(elementType: elementType, length: length, from: valueString)
+        return try decodeFixedLengthArray(elementType: elementType, length: length, from: valueString, components: components)
     }
     
-    private static func decodeFixedArray(elementType: SolidityType, length: Int, from hexString: String) throws -> [Any] {
+    private static func decodeFixedLengthArray(elementType: SolidityType, length: Int, from hexString: String, components: [SolidityParameter]?) throws -> [Any] {
         guard length > 0 else { return [] }
-        let elementSize = hexString.count / length
-        return try (0..<length).compactMap { n in
-            if let elementString = hexString.substr(n * elementSize, elementSize) {
-                return try decodeType(type: elementType, hexString: elementString)
-            }
-            return nil
-        }
+
+        return try decodeTuple([SolidityType](repeating: elementType, count: length), from: hexString, repeatingComponents: components)
     }
     
     // MARK: Event Values

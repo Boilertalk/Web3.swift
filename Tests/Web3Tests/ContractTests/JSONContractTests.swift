@@ -150,23 +150,24 @@ class DynamicContractTests: QuickSpec {
             }
         }
 
-        describe("JSON Contract with struct types") {
+        describe("struct or tuple type return values") {
 
             let provider = MockWeb3Provider()
 
-            if let tupleCallData = loadStub(named: "TupleExamplesReturnStub") {
-                provider.addStub(method: "eth_call", data: tupleCallData)
-            }
-
-            // adapted from solidity's documentation
             guard let data = loadStub(named: "TupleExamples") else { return assertionFailure("Could not load stub") }
             let web3 = Web3(provider: provider)
+
+            // SIMPLE TUPLE RETURN EXAMPLE
 
             do {
                 let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
 
                 it("should represent structs with tuples") {
                     waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnSimpleStaticTuple") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
                         firstly {
                             contract["returnSimpleStaticTuple"]!().call()
                         }.done { outputs in
@@ -176,6 +177,332 @@ class DynamicContractTests: QuickSpec {
                             }
                             expect(t["x"] as? BigUInt).to(equal(128))
                             expect(t["y"] as? BigUInt).to(equal(256))
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+
+            // NOT SO SIMPLE TUPLE RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent structs with tuples") {
+                    waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnComplexStaticTuple") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnComplexStaticTuple"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTuple"] as? [String: Any] else {
+                                fail("returned tuple should be decoded")
+                                return
+                            }
+                            expect(t["x"] as? Int16).to(equal(128))
+                            expect(t["yArr"] as? [BigUInt]).to(equal([256, 512, 1024, 2048]))
+                            expect(t["addr"] as? EthereumAddress).to(equal(try EthereumAddress(hex: "0x000000000000000000000000000000000000dEaD", eip55: true)))
+                            expect((t["b"] as? Data)?.toHexString()).to(equal("00000000001234567890"))
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+        }
+
+        describe("struct array or tuple array type return values") {
+
+            let provider = MockWeb3Provider()
+
+            guard let data = loadStub(named: "TupleExamples") else { return assertionFailure("Could not load stub") }
+            let web3 = Web3(provider: provider)
+
+            // SIMPLE TUPLE ARRAY RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent structs arrays with tuples arrays") {
+                    waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnSimpleStaticTupleArray") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnSimpleStaticTupleArray"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
+                                fail("returned tuple array should be decoded and count should be 4")
+                                return
+                            }
+                            for el in t {
+                                expect(el["x"] as? BigUInt).to(equal(128))
+                                expect(el["y"] as? BigUInt).to(equal(256))
+                            }
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+
+            // NOT SO SIMPLE TUPLE ARRAY RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent structs with tuples") {
+                    waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnComplexStaticTupleArray") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnComplexStaticTupleArray"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
+                                fail("returned tuple array should be decoded and count should be 4")
+                                return
+                            }
+                            for el in t {
+                                expect(el["x"] as? Int16).to(equal(128))
+                                expect(el["yArr"] as? [BigUInt]).to(equal([256, 512, 1024, 2048]))
+                                expect(el["addr"] as? EthereumAddress).to(equal(try EthereumAddress(hex: "0x000000000000000000000000000000000000dEaD", eip55: true)))
+                                expect((el["b"] as? Data)?.toHexString()).to(equal("00000000001234567890"))
+                            }
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+        }
+
+        describe("dynamic struct or tuple type return values") {
+
+            let provider = MockWeb3Provider()
+
+            guard let data = loadStub(named: "TupleExamples") else { return assertionFailure("Could not load stub") }
+            let web3 = Web3(provider: provider)
+
+            // SIMPLE DYNAMIC TUPLE RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent dynamic structs with tuples") {
+                    waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnSimpleDynamicTuple") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnSimpleDynamicTuple"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTuple"] as? [String: Any] else {
+                                fail("returned tuple should be decoded")
+                                return
+                            }
+                            expect(t["s"] as? String).to(equal("abcdef123456"))
+                            expect((t["b"] as? Data)?.toHexString()).to(equal("00000000000000000000000000000000000000000000d3c21bcecceda1000000"))
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+
+            // NOT SO SIMPLE DYNAMIC TUPLE RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent structs with tuples") {
+                    waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnComplexDynamicTuple") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnComplexDynamicTuple"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTuple"] as? [String: Any] else {
+                                fail("returned tuple should be decoded")
+                                return
+                            }
+                            expect(t["s"] as? String).to(equal("abcdef123456"))
+                            expect(t["xArr"] as? [BigUInt]).to(equal([256, 512, 1024, 2048]))
+                            expect(t["addr"] as? EthereumAddress).to(equal(try EthereumAddress(hex: "0x000000000000000000000000000000000000dEaD", eip55: true)))
+                            expect((t["b"] as? Data)?.toHexString()).to(equal("00000000001234567890"))
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+        }
+
+        describe("dynamic struct array or tuple array type return values") {
+
+            let provider = MockWeb3Provider()
+
+            guard let data = loadStub(named: "TupleExamples") else { return assertionFailure("Could not load stub") }
+            let web3 = Web3(provider: provider)
+
+            // SIMPLE TUPLE ARRAY RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent structs arrays with tuples arrays") {
+                    waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnSimpleDynamicTupleArray") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnSimpleDynamicTupleArray"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
+                                fail("returned tuple array should be decoded and count should be 4")
+                                return
+                            }
+                            for el in t {
+                                expect(el["s"] as? String).to(equal("abcdef123456"))
+                                expect((el["b"] as? Data)?.toHexString()).to(equal("00000000000000000000000000000000000000000000d3c21bcecceda1000000"))
+                            }
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+
+            // NOT SO SIMPLE TUPLE ARRAY RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent dynamic struct arrays with tuples") {
+                    waitUntil { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnComplexDynamicTupleArray") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnComplexDynamicTupleArray"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
+                                fail("returned tuple array should be decoded and count should be 4")
+                                return
+                            }
+                            for el in t {
+                                expect(el["s"] as? String).to(equal("abcdef123456"))
+                                expect(el["xArr"] as? [BigUInt]).to(equal([256, 512, 1024, 2048]))
+                                expect(el["addr"] as? EthereumAddress).to(equal(try EthereumAddress(hex: "0x000000000000000000000000000000000000dEaD", eip55: true)))
+                                expect((el["b"] as? Data)?.toHexString()).to(equal("00000000001234567890"))
+                            }
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+
+            // SIMPLE MULTIDIMENSIONAL STATIC CONTENT ARRAY RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent static content dynamic length multidimensional arrays") {
+                    waitUntil(timeout: DispatchTimeInterval.seconds(2000)) { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnSimpleMultidimensionalArray") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnSimpleMultidimensionalArray"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnArray"] as? [[BigUInt]], t.count == 2 else {
+                                fail("returned array should be decoded and count should be 2")
+                                return
+                            }
+
+                            expect(t[0]).to(equal([1, 2, 3]))
+                            expect(t[1]).to(equal([4, 5, 6]))
+
+                            done()
+                        }.catch { error in
+                            fail(error.localizedDescription)
+                        }
+                    }
+                }
+            } catch {
+                fail(error.localizedDescription)
+            }
+
+            // NOT SO SIMPLE MULTIDIMENSIONAL TUPLE ARRAY RETURN EXAMPLE
+
+            do {
+                let contract = try web3.eth.Contract(json: data, abiKey: nil, address: .testAddress)
+
+                it("should represent dynamic struct multidimensional arrays with tuples") {
+                    waitUntil(timeout: DispatchTimeInterval.seconds(2000)) { done in
+                        if let tupleCallData = self.loadStub(named: "TupleExamples_returnComplexStaticTupleMultidimensionalArray") {
+                            provider.removeStub(method: "eth_call")
+                            provider.addStub(method: "eth_call", data: tupleCallData)
+                        }
+                        firstly {
+                            contract["returnComplexStaticTupleMultidimensionalArray"]!().call()
+                        }.done { outputs in
+                            guard let t = outputs["returnTupleArray"] as? [[[String: Any]]], t.count == 12 else {
+                                fail("returned tuple array should be decoded and count should be 12")
+                                return
+                            }
+                            for i in 0..<t.count {
+                                let inner = t[i]
+                                if i < 4 {
+                                    expect(inner.count).to(equal(4))
+
+                                    for j in 0..<inner.count {
+                                        let el = inner[j]
+                                        expect(el["s"] as? String).to(equal("abcdef123456"))
+                                        expect(el["xArr"] as? [BigUInt]).to(equal([256, 512, 1024, 2048]))
+                                        expect(el["addr"] as? EthereumAddress).to(equal(try EthereumAddress(hex: "0x000000000000000000000000000000000000dEaD", eip55: true)))
+                                        expect((el["b"] as? Data)?.toHexString()).to(equal("00000000001234567890"))
+                                    }
+                                } else {
+                                    expect(inner.count).to(equal(0))
+                                }
+                            }
                             done()
                         }.catch { error in
                             fail(error.localizedDescription)
