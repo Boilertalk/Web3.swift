@@ -3,8 +3,10 @@ import Dispatch
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
+import WebSocketKit
+import NIOPosix
 
-public class Web3WebSocketProvider: NSObject, Web3Provider, URLSessionWebSocketDelegate {
+public class Web3WebSocketProvider: Web3Provider {
 
     // MARK: - Properties
 
@@ -13,13 +15,14 @@ public class Web3WebSocketProvider: NSObject, Web3Provider, URLSessionWebSocketD
 
     let queue: DispatchQueue
 
-    let session: URLSession
+    public private(set) var closed: Bool = false
 
     public let wsUrl: URL
 
     public let timeoutNanoSeconds: UInt64
 
-    private var webSocketTask: URLSessionWebSocketTask
+    private let wsEventLoopGroup: EventLoopGroup
+    private var webSocket: WebSocket!
 
     // Stores ids and notification groups
     private let pendingRequests: SynchronizedDictionary<Int, DispatchGroup> = [:]
@@ -54,8 +57,7 @@ public class Web3WebSocketProvider: NSObject, Web3Provider, URLSessionWebSocketD
 
     // MARK: - Initialization
 
-    public init(wsUrl: String, timeout: DispatchTimeInterval = .seconds(120), session: URLSession = URLSession(configuration: .default)) throws {
-        self.session = session
+    public init(wsUrl: String, timeout: DispatchTimeInterval = .seconds(120)) throws {
         // Concurrent queue for faster concurrent requests
         self.queue = DispatchQueue(label: "Web3WebSocketProvider", attributes: .concurrent)
 
@@ -78,15 +80,15 @@ public class Web3WebSocketProvider: NSObject, Web3Provider, URLSessionWebSocketD
             self.timeoutNanoSeconds = UInt64(120 * 1_000_000_000)
         }
 
+        self.wsEventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 4)
+
         // Initial connect
-        self.webSocketTask = session.webSocketTask(with: url)
-        super.init()
-        registerWebSocketListeners()
-        self.webSocketTask.resume()
+        try reconnect()
     }
 
     deinit {
-        webSocketTask.cancel(with: .goingAway, reason: nil)
+        closed = true
+        _ = webSocket.close(code: .goingAway)
     }
 
     // MARK: - Web3Provider
@@ -108,51 +110,54 @@ public class Web3WebSocketProvider: NSObject, Web3Provider, URLSessionWebSocketD
             self.pendingRequests[replacedIdRequest.id] = responseGroup
             responseGroup.enter()
 
-            self.webSocketTask.send(.string(String.init(data: body, encoding: .utf8) ?? "")) { error in
-                if let error = error {
+            let promise = self.wsEventLoopGroup.next().makePromise(of: Void.self)
+            self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
+            promise.futureResult.whenComplete { result in
+                switch result {
+                case .success(_):
+                    self.queue.async {
+                        let result = responseGroup.wait(timeout: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + self.timeoutNanoSeconds))
+
+                        defer {
+                            // Remove from pending requests
+                            self.pendingRequests[replacedIdRequest.id] = nil
+
+                            // Delete pending responses
+                            self.pendingResponses[replacedIdRequest.id] = nil
+                        }
+
+                        // Generic failure sender
+                        let failure: (_ error: Error) -> () = { error in
+                            let err = Web3Response<Result>(error: .serverError(error))
+                            response(err)
+                            return
+                        }
+
+                        switch result {
+                        case .success:
+                            // This is the response as a string
+                            let responseString = self.pendingResponses[replacedIdRequest.id]
+
+                            // Parse response
+                            guard let responseData = responseString?.data(using: .utf8), let decoded = try? self.decoder.decode(RPCResponse<Result>.self, from: responseData) else {
+                                failure(Error.unexpectedResponse)
+                                return
+                            }
+                            // Put back original request id
+                            let idReplacedDecoded = RPCResponse<Result>(id: request.id, jsonrpc: decoded.jsonrpc, result: decoded.result, error: decoded.error)
+
+                            // Return result
+                            let res = Web3Response(rpcResponse: idReplacedDecoded)
+                            response(res)
+                        case .timedOut:
+                            failure(Error.timeoutError)
+                            break
+                        }
+                    }
+                case .failure(let error):
                     let err = Web3Response<Result>(error: .requestFailed(error))
                     response(err)
                     return
-                }
-
-                self.queue.async {
-                    let result = responseGroup.wait(timeout: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + self.timeoutNanoSeconds))
-
-                    defer {
-                        // Remove from pending requests
-                        self.pendingRequests[replacedIdRequest.id] = nil
-
-                        // Delete pending responses
-                        self.pendingResponses[replacedIdRequest.id] = nil
-                    }
-
-                    // Generic failure sender
-                    let failure: (_ error: Error) -> () = { error in
-                        let err = Web3Response<Result>(error: .serverError(error))
-                        response(err)
-                        return
-                    }
-
-                    switch result {
-                    case .success:
-                        // This is the response as a string
-                        let responseString = self.pendingResponses[replacedIdRequest.id]
-
-                        // Parse response
-                        guard let responseData = responseString?.data(using: .utf8), let decoded = try? self.decoder.decode(RPCResponse<Result>.self, from: responseData) else {
-                            failure(Error.unexpectedResponse)
-                            return
-                        }
-                        // Put back original request id
-                        let idReplacedDecoded = RPCResponse<Result>(id: request.id, jsonrpc: decoded.jsonrpc, result: decoded.result, error: decoded.error)
-
-                        // Return result
-                        let res = Web3Response(rpcResponse: idReplacedDecoded)
-                        response(res)
-                    case .timedOut:
-                        failure(Error.timeoutError)
-                        break
-                    }
                 }
             }
         }
@@ -166,40 +171,29 @@ public class Web3WebSocketProvider: NSObject, Web3Provider, URLSessionWebSocketD
 
     private func registerWebSocketListeners() {
         // Receive response
-        self.webSocketTask.receive { result in
-            switch result {
-            case .success(let message):
-                switch message {
-                case .string(let response):
-                    if let data = response.data(using: .utf8), let idOnly = try? self.decoder.decode(IdOnly.self, from: data) {
-                        self.pendingResponses[idOnly.id] = response
-                        self.pendingRequests[idOnly.id]?.leave()
-                    }
-                case .data(_):
-                    break
-                default:
-                    break
+        webSocket.onText { ws, string in
+            if let data = string.data(using: .utf8), let idOnly = try? self.decoder.decode(IdOnly.self, from: data) {
+                self.pendingResponses[idOnly.id] = string
+                self.pendingRequests[idOnly.id]?.leave()
+            }
+        }
+
+        // Handle close
+        webSocket.onClose.whenComplete { result in
+            if !self.closed && self.webSocket.isClosed {
+                self.queue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + 100_000_000)) {
+                    try? self.reconnect()
                 }
-            case .failure(_):
-                break
             }
         }
     }
 
-    private func reconnect() {
+    private func reconnect() throws {
         // Reconnect
-        self.webSocketTask = session.webSocketTask(with: wsUrl)
+        try WebSocket.connect(to: wsUrl, on: wsEventLoopGroup) { ws in
+            self.webSocket = ws
+        }.wait()
+
         registerWebSocketListeners()
-        self.webSocketTask.resume()
-    }
-}
-
-// MARK: - URLSessionWebSocketDelegate
-
-extension Web3WebSocketProvider {
-    public func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
-        queue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + 100_000_000)) {
-            self.reconnect()
-        }
     }
 }

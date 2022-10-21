@@ -29,6 +29,7 @@ let package = Package(
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.6.0"),
         .package(name: "secp256k1", url: "https://github.com/Boilertalk/secp256k1.swift.git", from: "0.1.7"),
         .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.3")),
+        .package(url: "https://github.com/vapor/websocket-kit", .upToNextMajor(from: "2.6.1")),
 
         // PromiseKit dependency
         .package(url: "https://github.com/mxcl/PromiseKit.git", from: "6.18.1"),
@@ -45,6 +46,7 @@ let package = Package(
                 .product(name: "CryptoSwift", package: "CryptoSwift"),
                 .product(name: "secp256k1", package: "secp256k1"),
                 .product(name: "Collections", package: "swift-collections"),
+                .product(name: "WebSocketKit", package: "websocket-kit"),
             ],
             path: "Sources",
             sources: ["Core", "FoundationHTTP"]),
