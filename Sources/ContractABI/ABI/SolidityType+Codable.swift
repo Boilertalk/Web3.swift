@@ -40,31 +40,26 @@ extension SolidityType: Codable {
     
     public enum Error: Swift.Error {
         case typeMalformed
+
+        case emptyTupleType
     }
     
     /// Initializes a SolidityType from a string
     public init(_ string: String) throws {
-        self = try SolidityType.typeFromString(string)
+        self = try Self.typeFromString(string, subTypes: nil)
     }
     
     /// Initializes a SolidityType from a given string and optional sub types
     public init?(_ string: String, subTypes: [SolidityType]?) {
-        switch (string, subTypes) {
-        case ("tuple", let subTypes?):
-            self = .tuple(subTypes)
-        case ("tuple[]", let subTypes?):
-            self = .array(type: .tuple(subTypes), length: nil)
-        default:
-            if let type = try? SolidityType(string) {
-                self = type
-            } else  {
-                return nil
-            }
+        if let type = try? SolidityType.typeFromString(string, subTypes: subTypes) {
+            self = type
+        } else  {
+            return nil
         }
     }
     
     /// Determines the SolidityType from a given string, from the JSON representation
-    static func typeFromString(_ string: String) throws -> SolidityType {
+    static func typeFromString(_ string: String, subTypes: [SolidityType]?) throws -> SolidityType {
         switch string {
         case "string":
             return .string
@@ -78,14 +73,19 @@ extension SolidityType: Codable {
             return .uint256
         case "bytes":
             return .bytes(length: nil)
+        case "tuple":
+            guard let subTypes = subTypes, subTypes.count > 0 else {
+                throw Error.emptyTupleType
+            }
+            return .tuple(subTypes)
         default:
-            return try parseTypeString(string)
+            return try parseTypeString(string, subTypes: subTypes)
         }
     }
     
-    static func parseTypeString(_ string: String) throws -> SolidityType {
+    static func parseTypeString(_ string: String, subTypes: [SolidityType]?) throws -> SolidityType {
         if isArrayType(string) {
-            return try arrayType(string)
+            return try arrayType(string, subTypes: subTypes)
         }
         if isNumberType(string), let numberType = numberType(string) {
             return numberType
@@ -110,10 +110,10 @@ extension SolidityType: Codable {
         return (typeValue, nil)
     }
     
-    static func arrayType(_ string: String) throws -> SolidityType {
+    static func arrayType(_ string: String, subTypes: [SolidityType]?) throws -> SolidityType {
         let (innerTypeString, arraySize) = arraySizeAndType(string)
         if let innerTypeString = innerTypeString {
-            let innerType = try typeFromString(innerTypeString)
+            let innerType = try typeFromString(innerTypeString, subTypes: subTypes)
             return .array(type: innerType, length: arraySize)
         }
         throw Error.typeMalformed
