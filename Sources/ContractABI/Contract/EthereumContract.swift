@@ -41,7 +41,7 @@ public class DynamicContract: EthereumContract {
     
     private(set) public var constructor: SolidityConstructor?
     private(set) public var events: [SolidityEvent] = []
-    private(set) var methods: [String: SolidityFunction] = [:]
+    private(set) public var methods: [String: SolidityFunction] = [:]
     
     public init(abi: [ABIObject], address: EthereumAddress?, eth: Web3.Eth) {
         self.address = address
