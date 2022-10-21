@@ -58,18 +58,18 @@ public struct ABI {
     // MARK: - Decoding
     
     public static func decodeParameter(type: SolidityType, from hexString: String) throws -> Any {
-        return try ABIDecoder.decode(type, from: hexString)
+        return try ABIDecoder.decodeTuple(type, from: hexString)
     }
     
     public static func decodeParameters(types: [SolidityType], from hexString: String ) throws -> [Any] {
-        return try ABIDecoder.decode(types, from: hexString)
+        return try ABIDecoder.decodeTuple(types, from: hexString)
     }
     
     public static func decodeParameters(_ outputs: [SolidityParameter], from hexString: String) throws -> [String: Any] {
-        return try ABIDecoder.decode(outputs: outputs, from: hexString)
+        return try ABIDecoder.decodeTuple(outputs: outputs, from: hexString)
     }
     
     public static func decodeLog(event: SolidityEvent, from log: EthereumLogObject) throws -> [String: Any] {
-        return try ABIDecoder.decode(event: event, from: log)
+        return try ABIDecoder.decodeEvent(event, from: log)
     }
 }

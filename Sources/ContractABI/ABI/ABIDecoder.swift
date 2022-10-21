@@ -11,7 +11,7 @@ import BigInt
     import Web3
 #endif
 
-public class ABIDecoder {
+public struct ABIDecoder {
     
     enum Error: Swift.Error {
         case typeNotSupported(type: SolidityType)
@@ -20,115 +20,134 @@ public class ABIDecoder {
         case associatedTypeNotFound(type: SolidityType)
         case couldNotDecodeType(type: SolidityType, string: String)
         case unknownError
-    }
-    
-    struct Segment {
-        let type: SolidityType
-        let name: String?
-        let components: [SolidityParameter]?
-        var dynamicOffset: String.Index?
-        let staticString: String
-        var decodedValue: Any? = nil
-        
-        init(type: SolidityType, name: String? = nil, components: [SolidityParameter]? = nil, dynamicOffset: String.Index? = nil, staticString: String) {
-            self.type = type
-            self.name = name
-            self.components = components
-            self.dynamicOffset = dynamicOffset
-            self.staticString = staticString
-        }
-        
-        mutating func decode(from hexString: String, ranges: inout [Range<String.Index>]) throws {
-            var substring = staticString
-            if type.isDynamic {
-                // We expect the value in the tail
-                guard ranges.count > 0 else { throw Error.couldNotDecodeType(type: type, string: hexString) }
-                let range = ranges.removeFirst()
-                substring = String(hexString[range])
-            }
-            decodedValue = try decodeType(type: type, hexString: substring, components: components)
-        }
+
+        case realisticIndexOutOfBounds
     }
     
     // MARK: - Decoding
     
-    public class func decode(_ type: SolidityType, from hexString: String) throws -> Any {
-        if let decoded = try decode([type], from: hexString).first {
+    public static func decodeTuple(_ type: SolidityType, from hexString: String, repeatingComponents: [SolidityParameter]? = nil) throws -> Any {
+        if let decoded = try decodeTuple([type], from: hexString, repeatingComponents: repeatingComponents).first {
             return decoded
         }
         throw Error.unknownError
     }
     
-    public class func decode(_ types: SolidityType..., from hexString: String) throws -> [Any] {
-        return try decode(types, from: hexString)
+    public static func decodeTuple(_ types: SolidityType..., from hexString: String, repeatingComponents: [SolidityParameter]? = nil) throws -> [Any] {
+        return try decodeTuple(types, from: hexString, repeatingComponents: repeatingComponents)
     }
-    
-    public class func decode(_ types: [SolidityType], from hexString: String) throws -> [Any] {
-        // Strip out leading 0x if included
-        let hexString = hexString.replacingOccurrences(of: "0x", with: "")
-        // Create segments
-        let segments = (0..<types.count).compactMap { i -> Segment? in
-            let type = types[i]
-            if let staticPart = hexString.substr(i * 64, Int(type.staticPartLength) * 2) {
-                var dynamicOffset: String.Index?
-                if type.isDynamic, let offset = Int(staticPart, radix: 16) {
-                    guard (offset * 2) < hexString.count else { return nil }
-                    dynamicOffset = hexString.index(hexString.startIndex, offsetBy: offset * 2)
-                }
-                return Segment(type: type, dynamicOffset: dynamicOffset, staticString: staticPart)
+
+    public static func decodeTuple(_ types: [SolidityType], from hexString: String, repeatingComponents: [SolidityParameter]? = nil) throws -> [Any] {
+        struct BasicSolParam: SolidityParameter {
+            let name: String
+            let type: SolidityType
+            let components: [SolidityParameter]?
+        }
+
+        var outputs = [SolidityParameter]()
+        for i in 0..<types.count {
+            outputs.append(BasicSolParam(name: "\(i)", type: types[i], components: repeatingComponents))
+        }
+
+        let decodedDictionary = try decodeTuple(outputs: outputs, from: hexString)
+
+        var outputArray = [Any]()
+
+        for i in 0..<types.count {
+            guard let el = decodedDictionary["\(i)"] else {
+                throw Error.couldNotDecodeType(type: types[i], string: "decode unexpectedly returned nil")
             }
-            return nil
+            outputArray.append(el)
         }
-        let decoded = try decodeSegments(segments, from: hexString)
-        return decoded.compactMap { $0.decodedValue }
+
+        return outputArray
     }
     
-    public class func decode(outputs: [SolidityParameter], from hexString: String) throws -> [String: Any] {
-        // Strip out leading 0x if included
+    public static func decodeTuple(outputs: [SolidityParameter], from hexString: String) throws -> [String: Any] {
+        // See https://docs.soliditylang.org/en/develop/abi-spec.html#formal-specification-of-the-encoding
+
         let hexString = hexString.replacingOccurrences(of: "0x", with: "")
-        // Create segments
-        let segments = (0..<outputs.count).compactMap { i -> Segment? in
-            let type = outputs[i].type
-            let name = outputs[i].name
-            let components = outputs[i].components
-            if let staticPart = hexString.substr(i * 64, Int(type.staticPartLength) * 2) {
-                var dynamicOffset: String.Index?
-                if type.isDynamic, let offset = Int(staticPart, radix: 16) {
-                    dynamicOffset = hexString.index(hexString.startIndex, offsetBy: offset * 2)
+
+        var returnDictionary: [String: Any] = [:]
+
+        if outputs.count == 1 {
+            switch outputs[0].type {
+            case .array(let type, let length):
+                // Single static length non-dynamic arrays decode like a tuple without a dataLocation
+                if let _ = length, !type.isDynamic {
+                    let decodedArray = try decodeType(type: outputs[0].type, hexString: hexString, components: outputs[0].components)
+                    returnDictionary[outputs[0].name] = decodedArray
+
+                    return returnDictionary
                 }
-                return Segment(type: type, name: name, components: components, dynamicOffset: dynamicOffset, staticString: staticPart)
+            default:
+                break
             }
-            return nil
         }
-        let decoded = try decodeSegments(segments, from: hexString)
-        return decoded.reduce([String: Any]()) { input, segment in
-            guard let name = segment.name else { return input }
-            var dict = input
-            dict[name] = segment.decodedValue
-            return dict
+
+        var currentIndex = 0
+        var tailsToBeParsed: [(dataLocation: Int, param: SolidityParameter)] = []
+        for i in 0..<outputs.count {
+            let output = outputs[i]
+
+            if output.type.isDynamic {
+                // Head
+                let headStartIndex = hexString.index(hexString.startIndex, offsetBy: currentIndex)
+                let headEndIndex = hexString.index(headStartIndex, offsetBy: 64)
+                let subHex = String(hexString[headStartIndex..<headEndIndex])
+
+                // More than Int.max doesn't make sense in any world. That's 2^63 - 1 bytes to read.
+                guard let indexBigUInt = (try decodeType(type: .uint256, hexString: subHex)) as? BigUInt, indexBigUInt <= Int.max else {
+                    throw Error.realisticIndexOutOfBounds
+                }
+                let dataLocation = Int(UInt(indexBigUInt))
+
+                // Bump index (faster than removing)
+                currentIndex += 64
+
+                // Tails need to be parsed once we are done with the static parts (current block)
+                tailsToBeParsed.append((dataLocation: dataLocation, param: output))
+            } else {
+                // Length as hex
+                let length = Int(output.type.staticPartLength) * 2
+
+                let startIndex = hexString.index(hexString.startIndex, offsetBy: currentIndex)
+                let endIndex = hexString.index(startIndex, offsetBy: length)
+                let subHex = String(hexString[startIndex..<endIndex])
+
+                returnDictionary[output.name] = try decodeType(type: output.type, hexString: subHex, components: output.components)
+
+                // Bump index (faster than removing)
+                currentIndex += length
+            }
         }
+
+        // Tails
+
+        let startIndexes = tailsToBeParsed.map({ $0.dataLocation })
+        let endIndexes = Array(startIndexes.dropFirst() + [hexString.count / 2])
+        let missingTails = tailsToBeParsed.map({ $0.param })
+
+        for i in 0..<missingTails.count {
+            if endIndexes[i] < startIndexes[i] {
+                throw Error.couldNotDecodeType(type: missingTails[i].type, string: "unexpected format of abi encoding")
+            }
+
+            let output = missingTails[i]
+
+            // Index to start from in hex
+            let tailStartIndex = hexString.index(hexString.startIndex, offsetBy: startIndexes[i] * 2)
+            let tailEndIndex = hexString.index(hexString.startIndex, offsetBy: endIndexes[i] * 2)
+
+            let subHex = String(hexString[tailStartIndex..<tailEndIndex])
+
+            returnDictionary[output.name] = try decodeType(type: output.type, hexString: subHex, components: output.components)
+        }
+
+        return returnDictionary
     }
-    
-    private class func decodeSegments(_ segments: [Segment], from hexString: String) throws -> [Segment] {
-        // Calculate ranges for dynamic parts
-        var ranges = getDynamicRanges(from: segments, forString: hexString)
-        // Parse each segment
-        return try segments.compactMap { segment in
-            var segment = segment
-            try segment.decode(from: hexString, ranges: &ranges)
-            return segment
-        }
-    }
-    
-    private class func getDynamicRanges(from segments: [Segment], forString hexString: String) -> [Range<String.Index>] {
-        let startIndexes = segments.compactMap { $0.dynamicOffset }
-        let endIndexes = startIndexes.dropFirst() + [hexString.endIndex]
-        return zip(startIndexes, endIndexes).map { start, end in
-            return start..<end
-        }
-    }
-    
-    private class func decodeType(type: SolidityType, hexString: String, components: [SolidityParameter]? = nil) throws -> Any {
+
+    private static func decodeType(type: SolidityType, hexString: String, components: [SolidityParameter]? = nil) throws -> Any {
         switch type {
         case .type(let valueType):
             switch valueType {
@@ -159,29 +178,29 @@ public class ABIDecoder {
                 throw Error.associatedTypeNotFound(type: type)
             }
         case .array(let elementType, let length):
-            return try decodeArray(elementType: elementType, length: length, from: hexString)
+            return try decodeArray(elementType: elementType, length: length, from: hexString, components: components)
         case .tuple(let types):
             if let components = components {
                 // will return with names
-                return try decode(outputs: components, from: hexString)
+                return try decodeTuple(outputs: components, from: hexString)
             } else {
                 // just return the values
-                return try decode(types, from: hexString)
+                return try decodeTuple(types, from: hexString)
             }
         }
     }
     
     // MARK: - Arrays
     
-    class func decodeArray(elementType: SolidityType, length: UInt?, from hexString: String) throws -> [Any] {
-        if !elementType.isDynamic, let length = length {
-            return try decodeFixedArray(elementType: elementType, length: Int(length), from: hexString)
+    private static func decodeArray(elementType: SolidityType, length: UInt?, from hexString: String, components: [SolidityParameter]?) throws -> [Any] {
+        if let length = length {
+            return try decodeFixedLengthArray(elementType: elementType, length: Int(length), from: hexString, components: components)
         } else {
-            return try decodeDynamicArray(elementType: elementType, from: hexString)
+            return try decodeDynamicLengthArray(elementType: elementType, from: hexString, components: components)
         }
     }
     
-    private class func decodeDynamicArray(elementType: SolidityType, from hexString: String) throws -> [Any] {
+    private static func decodeDynamicLengthArray(elementType: SolidityType, from hexString: String, components: [SolidityParameter]?) throws -> [Any] {
         // split into parts
         let lengthString = hexString.substr(0, 64)
         let valueString = String(hexString.dropFirst(64))
@@ -189,23 +208,18 @@ public class ABIDecoder {
         guard let string = lengthString, let length = Int(string, radix: 16) else {
             throw Error.couldNotParseLength
         }
-        return try decodeFixedArray(elementType: elementType, length: length, from: valueString)
+        return try decodeFixedLengthArray(elementType: elementType, length: length, from: valueString, components: components)
     }
     
-    private class func decodeFixedArray(elementType: SolidityType, length: Int, from hexString: String) throws -> [Any] {
+    private static func decodeFixedLengthArray(elementType: SolidityType, length: Int, from hexString: String, components: [SolidityParameter]?) throws -> [Any] {
         guard length > 0 else { return [] }
-        let elementSize = hexString.count / length
-        return try (0..<length).compactMap { n in
-            if let elementString = hexString.substr(n * elementSize, elementSize) {
-                return try decodeType(type: elementType, hexString: elementString)
-            }
-            return nil
-        }
+
+        return try decodeTuple([SolidityType](repeating: elementType, count: length), from: hexString, repeatingComponents: components)
     }
     
     // MARK: Event Values
     
-    static func decode(event: SolidityEvent, from log: EthereumLogObject) throws -> [String: Any] {
+    public static func decodeEvent(_ event: SolidityEvent, from log: EthereumLogObject) throws -> [String: Any] {
         typealias Param = SolidityEvent.Parameter
         var values = [String: Any]()
         // determine if this event is eligible to be decoded from this log
@@ -235,7 +249,7 @@ public class ABIDecoder {
         for param in indexedParameters {
             if let topicData = topics.next() {
                 if !param.type.isDynamic {
-                    values[param.name] = try decode(param.type, from: topicData.hex())
+                    values[param.name] = try decodeTuple(param.type, from: topicData.hex())
                 } else {
                     values[param.name] = topicData.hex()
                 }
@@ -243,7 +257,7 @@ public class ABIDecoder {
         }
         // decode non-indexed values
         if nonIndexedParameters.count > 0 {
-            for (key, value) in try decode(outputs: nonIndexedParameters, from: log.data.hex()) {
+            for (key, value) in try decodeTuple(outputs: nonIndexedParameters, from: log.data.hex()) {
                 values[key] = value
             }
         }

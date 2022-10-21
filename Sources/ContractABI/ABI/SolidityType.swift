@@ -50,14 +50,68 @@ public indirect enum SolidityType {
         
         public static let uint8: ValueType = .uint(bits: 8)
         public static let uint16: ValueType = .uint(bits: 16)
+        public static let uint24: ValueType = .uint(bits: 24)
         public static let uint32: ValueType = .uint(bits: 32)
+        public static let uint40: ValueType = .uint(bits: 40)
+        public static let uint48: ValueType = .uint(bits: 48)
+        public static let uint56: ValueType = .uint(bits: 56)
         public static let uint64: ValueType = .uint(bits: 64)
+        public static let uint72: ValueType = .uint(bits: 72)
+        public static let uint80: ValueType = .uint(bits: 80)
+        public static let uint88: ValueType = .uint(bits: 88)
+        public static let uint96: ValueType = .uint(bits: 96)
+        public static let uint104: ValueType = .uint(bits: 104)
+        public static let uint112: ValueType = .uint(bits: 112)
+        public static let uint120: ValueType = .uint(bits: 120)
+        public static let uint128: ValueType = .uint(bits: 128)
+        public static let uint136: ValueType = .uint(bits: 136)
+        public static let uint144: ValueType = .uint(bits: 144)
+        public static let uint152: ValueType = .uint(bits: 152)
+        public static let uint160: ValueType = .uint(bits: 160)
+        public static let uint168: ValueType = .uint(bits: 168)
+        public static let uint176: ValueType = .uint(bits: 176)
+        public static let uint184: ValueType = .uint(bits: 184)
+        public static let uint192: ValueType = .uint(bits: 192)
+        public static let uint200: ValueType = .uint(bits: 200)
+        public static let uint208: ValueType = .uint(bits: 208)
+        public static let uint216: ValueType = .uint(bits: 216)
+        public static let uint224: ValueType = .uint(bits: 224)
+        public static let uint232: ValueType = .uint(bits: 232)
+        public static let uint240: ValueType = .uint(bits: 240)
+        public static let uint248: ValueType = .uint(bits: 248)
         public static let uint256: ValueType = .uint(bits: 256)
         
         public static let int8: ValueType = .int(bits: 8)
         public static let int16: ValueType = .int(bits: 16)
+        public static let int24: ValueType = .int(bits: 24)
         public static let int32: ValueType = .int(bits: 32)
+        public static let int40: ValueType = .int(bits: 40)
+        public static let int48: ValueType = .int(bits: 48)
+        public static let int56: ValueType = .int(bits: 56)
         public static let int64: ValueType = .int(bits: 64)
+        public static let int72: ValueType = .int(bits: 72)
+        public static let int80: ValueType = .int(bits: 80)
+        public static let int88: ValueType = .int(bits: 88)
+        public static let int96: ValueType = .int(bits: 96)
+        public static let int104: ValueType = .int(bits: 104)
+        public static let int112: ValueType = .int(bits: 112)
+        public static let int120: ValueType = .int(bits: 120)
+        public static let int128: ValueType = .int(bits: 128)
+        public static let int136: ValueType = .int(bits: 136)
+        public static let int144: ValueType = .int(bits: 144)
+        public static let int152: ValueType = .int(bits: 152)
+        public static let int160: ValueType = .int(bits: 160)
+        public static let int168: ValueType = .int(bits: 168)
+        public static let int176: ValueType = .int(bits: 176)
+        public static let int184: ValueType = .int(bits: 184)
+        public static let int192: ValueType = .int(bits: 192)
+        public static let int200: ValueType = .int(bits: 200)
+        public static let int208: ValueType = .int(bits: 208)
+        public static let int216: ValueType = .int(bits: 216)
+        public static let int224: ValueType = .int(bits: 224)
+        public static let int232: ValueType = .int(bits: 232)
+        public static let int240: ValueType = .int(bits: 240)
+        public static let int248: ValueType = .int(bits: 248)
         public static let int256: ValueType = .int(bits: 256)
     }
     
@@ -74,15 +128,69 @@ public indirect enum SolidityType {
     public static let uint: SolidityType = .type(.uint256)
     public static let uint8: SolidityType = .type(.uint8)
     public static let uint16: SolidityType = .type(.uint16)
+    public static let uint24: SolidityType = .type(.uint24)
     public static let uint32: SolidityType = .type(.uint32)
+    public static let uint40: SolidityType = .type(.uint40)
+    public static let uint48: SolidityType = .type(.uint48)
+    public static let uint56: SolidityType = .type(.uint56)
     public static let uint64: SolidityType = .type(.uint64)
+    public static let uint72: SolidityType = .type(.uint72)
+    public static let uint80: SolidityType = .type(.uint80)
+    public static let uint88: SolidityType = .type(.uint88)
+    public static let uint96: SolidityType = .type(.uint96)
+    public static let uint104: SolidityType = .type(.uint104)
+    public static let uint112: SolidityType = .type(.uint112)
+    public static let uint120: SolidityType = .type(.uint120)
+    public static let uint128: SolidityType = .type(.uint128)
+    public static let uint136: SolidityType = .type(.uint136)
+    public static let uint144: SolidityType = .type(.uint144)
+    public static let uint152: SolidityType = .type(.uint152)
+    public static let uint160: SolidityType = .type(.uint160)
+    public static let uint168: SolidityType = .type(.uint168)
+    public static let uint176: SolidityType = .type(.uint176)
+    public static let uint184: SolidityType = .type(.uint184)
+    public static let uint192: SolidityType = .type(.uint192)
+    public static let uint200: SolidityType = .type(.uint200)
+    public static let uint208: SolidityType = .type(.uint208)
+    public static let uint216: SolidityType = .type(.uint216)
+    public static let uint224: SolidityType = .type(.uint224)
+    public static let uint232: SolidityType = .type(.uint232)
+    public static let uint240: SolidityType = .type(.uint240)
+    public static let uint248: SolidityType = .type(.uint248)
     public static let uint256: SolidityType = .type(.uint256)
     
-    public static let int: SolidityType = .type(.int(bits: 256))
+    public static let int: SolidityType = .type(.int256)
     public static let int8: SolidityType = .type(.int8)
     public static let int16: SolidityType = .type(.int16)
+    public static let int24: SolidityType = .type(.int24)
     public static let int32: SolidityType = .type(.int32)
+    public static let int40: SolidityType = .type(.int40)
+    public static let int48: SolidityType = .type(.int48)
+    public static let int56: SolidityType = .type(.int56)
     public static let int64: SolidityType = .type(.int64)
+    public static let int72: SolidityType = .type(.int72)
+    public static let int80: SolidityType = .type(.int80)
+    public static let int88: SolidityType = .type(.int88)
+    public static let int96: SolidityType = .type(.int96)
+    public static let int104: SolidityType = .type(.int104)
+    public static let int112: SolidityType = .type(.int112)
+    public static let int120: SolidityType = .type(.int120)
+    public static let int128: SolidityType = .type(.int128)
+    public static let int136: SolidityType = .type(.int136)
+    public static let int144: SolidityType = .type(.int144)
+    public static let int152: SolidityType = .type(.int152)
+    public static let int160: SolidityType = .type(.int160)
+    public static let int168: SolidityType = .type(.int168)
+    public static let int176: SolidityType = .type(.int176)
+    public static let int184: SolidityType = .type(.int184)
+    public static let int192: SolidityType = .type(.int192)
+    public static let int200: SolidityType = .type(.int200)
+    public static let int208: SolidityType = .type(.int208)
+    public static let int216: SolidityType = .type(.int216)
+    public static let int224: SolidityType = .type(.int224)
+    public static let int232: SolidityType = .type(.int232)
+    public static let int248: SolidityType = .type(.int248)
+    public static let int240: SolidityType = .type(.int240)
     public static let int256: SolidityType = .type(.int256)
     
     public static func fixed(bits: UInt16, exponent: UInt8) -> SolidityType {
@@ -119,7 +227,7 @@ public indirect enum SolidityType {
             return type.isDynamic || length == nil
         case .tuple(let types):
             //(T1,...,Tk) if any Ti is dynamic for 1 <= i <= k
-            return types.count > 1 || types.filter { $0.isDynamic }.count > 0
+            return types.filter { $0.isDynamic }.count > 0
         }
     }
     
@@ -150,6 +258,13 @@ public indirect enum SolidityType {
                 return length * type.staticPartLength
             }
             return 32
+        case .tuple(let types):
+            let isDynamic = types.contains(where: { $0.isDynamic })
+            if isDynamic {
+                return 0
+            } else {
+                return types.reduce(0, { $0 + $1.staticPartLength })
+            }
         default:
             return 32
         }
@@ -166,9 +281,9 @@ public extension SolidityType.ValueType {
                 return UInt8.self
             case 16:
                 return UInt16.self
-            case 32:
+            case 17...32:
                 return UInt32.self
-            case 64:
+            case 33...64:
                 return UInt64.self
             default:
                 return BigUInt.self
@@ -179,9 +294,9 @@ public extension SolidityType.ValueType {
                 return Int8.self
             case 16:
                 return Int16.self
-            case 32:
+            case 17...32:
                 return Int32.self
-            case 64:
+            case 33...64:
                 return Int64.self
             default:
                 return BigInt.self
