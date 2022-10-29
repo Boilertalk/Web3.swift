@@ -46,13 +46,13 @@ public struct EthereumBlockObject: Codable {
     public let difficulty: EthereumQuantity
 
     /// Integer of the total difficulty of the chain until this block.
-    public let totalDifficulty: EthereumQuantity
+    public let totalDifficulty: EthereumQuantity?
 
     /// The "extra data" field of this block.
     public let extraData: EthereumData
 
     /// Integer the size of this block in bytes.
-    public let size: EthereumQuantity
+    public let size: EthereumQuantity?
 
     /// The maximum gas allowed in this block.
     public let gasLimit: EthereumQuantity
@@ -64,10 +64,10 @@ public struct EthereumBlockObject: Codable {
     public let timestamp: EthereumQuantity
 
     /// Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
-    public let transactions: [Transaction]
+    public let transactions: [Transaction]?
 
     /// Array of uncle hashes.
-    public let uncles: [EthereumData]
+    public let uncles: [EthereumData]?
 
     /**
      * Represents a transaction as either a hash or an object.

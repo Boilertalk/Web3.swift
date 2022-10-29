@@ -6,7 +6,7 @@ import FoundationNetworking
 import WebSocketKit
 import NIOPosix
 
-public class Web3WebSocketProvider: Web3Provider {
+public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
     // MARK: - Properties
 
@@ -22,12 +22,19 @@ public class Web3WebSocketProvider: Web3Provider {
     public let timeoutNanoSeconds: UInt64
 
     private let wsEventLoopGroup: EventLoopGroup
-    private var webSocket: WebSocket!
+    public private(set) var webSocket: WebSocket!
 
     // Stores ids and notification groups
     private let pendingRequests: SynchronizedDictionary<Int, DispatchGroup> = [:]
     // Stores responses as strings
     private let pendingResponses: SynchronizedDictionary<Int, String> = [:]
+    
+    // Stores subscription ids and semaphores
+    private let currentSubscriptions: SynchronizedDictionary<String, DispatchSemaphore> = [:]
+    // Stores subscription responses
+    private let pendingSubscriptionResponses: SynchronizedDictionary<String, SynchronizedArray<String>> = [:]
+    // A key for cancelling subscriptions
+    private let cancelSubscriptionValue = "::::\(UUID().uuidString)::::"
 
     // Maintain sync current id
     private let nextIdQueue = DispatchQueue(label: "Web3WebSocketProvider_nextIdQueue", attributes: .concurrent)
@@ -53,6 +60,8 @@ public class Web3WebSocketProvider: Web3Provider {
 
         case timeoutError
         case unexpectedResponse
+
+        case subscriptionCancelled
     }
 
     // MARK: - Initialization
@@ -162,6 +171,82 @@ public class Web3WebSocketProvider: Web3Provider {
             }
         }
     }
+    
+    // MARK: - Web3BidirectionalProvider
+    
+    public func subscribe<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<String>, onEvent: @escaping Web3ResponseCompletion<Result>) {
+        queue.async {
+            self.send(request: request) { (_ resp: Web3Response<String>) -> Void in
+                guard let subscriptionId = resp.result else {
+                    let err = Web3Response<String>(error: .serverError(resp.error))
+                    response(err)
+                    return
+                }
+                
+                // Return subscription id
+                let res = Web3Response(status: .success(subscriptionId))
+                response(res)
+                
+                // Now we need to register the subscription id to our internal subscription id register
+                let subscriptionSemaphore = DispatchSemaphore(value: 0)
+                self.pendingSubscriptionResponses[subscriptionId] = SynchronizedArray(array: [])
+                self.currentSubscriptions[subscriptionId] = subscriptionSemaphore
+                
+                self.queue.async {
+                    while true {
+                        subscriptionSemaphore.wait()
+
+                        guard let notification = self.pendingSubscriptionResponses[subscriptionId]?.removeFirst() else {
+                            continue
+                        }
+
+                        if notification == self.cancelSubscriptionValue {
+                            // We are done, the subscription was cancelled. We don't care why
+                            self.currentSubscriptions[subscriptionId] = nil
+                            self.pendingSubscriptionResponses[subscriptionId] = nil
+
+                            // Notify client
+                            let err = Web3Response<Result>(error: .subscriptionCancelled(Error.subscriptionCancelled))
+                            onEvent(err)
+
+                            break
+                        }
+
+                        // Generic failure sender
+                        let failure: (_ error: Error) -> () = { error in
+                            let err = Web3Response<Result>(error: .serverError(error))
+                            onEvent(err)
+                            return
+                        }
+
+                        // Parse notification
+                        guard let notificationData = notification.data(using: .utf8), let decoded = try? self.decoder.decode(RPCEventResponse<Result>.self, from: notificationData) else {
+                            failure(Error.unexpectedResponse)
+                            return
+                        }
+
+                        // Return result
+                        let res = Web3Response(rpcEventResponse: decoded)
+                        onEvent(res)
+                    }
+                }
+            }
+        }
+    }
+
+    public func unsubscribe(subscriptionId: String, completion: @escaping (_ success: Bool) -> Void) {
+        let unsubscribe = BasicRPCRequest(id: 1, jsonrpc: Web3.jsonrpc, method: "eth_unsubscribe", params: [subscriptionId])
+
+        self.send(request: unsubscribe) { (_ resp: Web3Response<Bool>) -> Void in
+            let success = resp.result ?? false
+            if success {
+                self.pendingSubscriptionResponses[subscriptionId]?.append(self.cancelSubscriptionValue)
+                self.currentSubscriptions[subscriptionId]?.signal()
+            }
+
+            completion(success)
+        }
+    }
 
     // MARK: - Helpers
 
@@ -169,12 +254,27 @@ public class Web3WebSocketProvider: Web3Provider {
         let id: Int
     }
 
+    private struct SubscriptionIdOnly: Codable {
+        let params: Params
+
+        fileprivate struct Params: Codable {
+            let subscription: String
+        }
+    }
+
     private func registerWebSocketListeners() {
         // Receive response
         webSocket.onText { ws, string in
-            if let data = string.data(using: .utf8), let idOnly = try? self.decoder.decode(IdOnly.self, from: data) {
+            guard let data = string.data(using: .utf8) else {
+                return
+            }
+
+            if let idOnly = try? self.decoder.decode(IdOnly.self, from: data) {
                 self.pendingResponses[idOnly.id] = string
                 self.pendingRequests[idOnly.id]?.leave()
+            } else if let subscriptionIdOnly = try? self.decoder.decode(SubscriptionIdOnly.self, from: data) {
+                self.pendingSubscriptionResponses[subscriptionIdOnly.params.subscription]?.append(string)
+                self.currentSubscriptions[subscriptionIdOnly.params.subscription]?.signal()
             }
         }
 
@@ -189,6 +289,12 @@ public class Web3WebSocketProvider: Web3Provider {
     }
 
     private func reconnect() throws {
+        // Delete all subscriptions
+        for key in currentSubscriptions.dictionary.keys {
+            pendingSubscriptionResponses[key]?.append(cancelSubscriptionValue)
+            currentSubscriptions[key]?.signal()
+        }
+
         // Reconnect
         try WebSocket.connect(to: wsUrl, on: wsEventLoopGroup) { ws in
             self.webSocket = ws
