@@ -107,6 +107,10 @@ public struct Web3 {
 
     public struct Eth {
 
+        public enum Error: Swift.Error {
+            case providerDoesNotSupportSubscriptions
+        }
+
         public let properties: Properties
 
         // MARK: - Methods
@@ -454,6 +458,103 @@ public struct Web3 {
             )
 
             properties.provider.send(request: req, response: response)
+        }
+
+        // MARK: - Events
+
+        public func subscribeToNewHeads(
+            subscribed: @escaping Web3ResponseCompletion<String>,
+            onEvent: @escaping Web3ResponseCompletion<EthereumBlockObject>
+        ) throws {
+            guard let provider = properties.provider as? Web3BidirectionalProvider else {
+                throw Error.providerDoesNotSupportSubscriptions
+            }
+
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_subscribe",
+                params: ["newHeads"]
+            )
+
+            provider.subscribe(request: req, response: subscribed, onEvent: onEvent)
+        }
+
+        public func subscribeToNewPendingTransactions(
+            subscribed: @escaping Web3ResponseCompletion<String>,
+            onEvent: @escaping Web3ResponseCompletion<EthereumData>
+        ) throws {
+            guard let provider = properties.provider as? Web3BidirectionalProvider else {
+                throw Error.providerDoesNotSupportSubscriptions
+            }
+
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_subscribe",
+                params: ["newPendingTransactions"]
+            )
+
+            provider.subscribe(request: req, response: subscribed, onEvent: onEvent)
+        }
+
+        public func subscribeToLogs(
+            addresses: [EthereumAddress]? = nil,
+            topics: [[EthereumData]]? = nil,
+            subscribed: @escaping Web3ResponseCompletion<String>,
+            onEvent: @escaping Web3ResponseCompletion<EthereumLogObject>
+        ) throws {
+            guard let provider = properties.provider as? Web3BidirectionalProvider else {
+                throw Error.providerDoesNotSupportSubscriptions
+            }
+
+            struct LogsParam: Codable {
+                var eventName = "logs"
+
+                let params: Params?
+
+                struct Params: Codable {
+                    enum CodingKeys: String, CodingKey {
+                        case address = "address"
+
+                        case topics = "topics"
+                    }
+
+                    let address: [EthereumAddress]?
+
+                    let topics: [[EthereumData]]?
+                }
+
+                func encode(to encoder: Encoder) throws {
+                    if let params = params {
+                        var container = encoder.container(keyedBy: LogsParam.Params.CodingKeys.self)
+
+                        try container.encodeIfPresent(params.address, forKey: LogsParam.Params.CodingKeys.address)
+                        try container.encodeIfPresent(params.topics, forKey: LogsParam.Params.CodingKeys.topics)
+                    } else {
+                        // Just encode "logs" aka the event name
+                        var container = encoder.singleValueContainer()
+                        try container.encode(eventName)
+                    }
+                }
+            }
+
+            let req = RPCRequest<[LogsParam]>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_subscribe",
+                params: [LogsParam(params: nil), LogsParam(params: LogsParam.Params(address: addresses, topics: topics))]
+            )
+
+            provider.subscribe(request: req, response: subscribed, onEvent: onEvent)
+        }
+
+        public func unsubscribe(subscriptionId: String, completion: @escaping (Bool) -> Void) throws {
+            guard let provider = properties.provider as? Web3BidirectionalProvider else {
+                throw Error.providerDoesNotSupportSubscriptions
+            }
+
+            provider.unsubscribe(subscriptionId: subscriptionId, completion: completion)
         }
     }
 }

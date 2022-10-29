@@ -52,7 +52,8 @@ import Quick
             TransactionTests.self,
 
             // Web3Tests
-            Web3HttpTests.self
+            Web3HttpTests.self,
+            Web3EventsTests.self
         ], configurations: [], testCases: [
 //            SolidityTypeTests.self,
 //            SolidityWrappedValueTests.self

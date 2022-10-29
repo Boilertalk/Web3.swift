@@ -5,8 +5,9 @@
 //  Created by Koray Koska on 23.06.18.
 //
 
-#if canImport(PromiseKit)
+#if canImport(Web3ContractABI)
 
+import Web3ContractABI
 import PromiseKit
 
 #if !Web3CocoaPods
@@ -45,9 +46,6 @@ public extension SolidityConstructorInvocation {
     }
 }
 
-#if canImport(Web3PromiseKit)
-import Web3PromiseKit
-
 // MARK: - Promisable and Guaranteeable
 
 extension SolidityTuple: Guaranteeable {}
@@ -60,6 +58,5 @@ extension SolidityReadInvocation: Guaranteeable {}
 extension SolidityPayableInvocation: Guaranteeable {}
 extension SolidityNonPayableInvocation: Guaranteeable {}
 extension SolidityConstructorInvocation: Guaranteeable {}
-#endif
 
 #endif
