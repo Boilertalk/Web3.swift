@@ -81,16 +81,16 @@ class EthereumBlockObjectTests: QuickSpec {
                     expect(newBlock?.receiptsRoot.hex()) == "0x1d24660fddfeb6903113adf09b5037d67fafca50237449d3dc90ba1b6ce425eb"
                     expect(newBlock?.miner.hex(eip55: false)) == "0xea674fdde714fd979de3edf0f56aa9716b898ec8"
                     expect(newBlock?.difficulty.hex()) == "0xa2c29ca5908c1"
-                    expect(newBlock?.totalDifficulty.hex()) == "0x87076c0957cde7ace3"
+                    expect(newBlock?.totalDifficulty?.hex()) == "0x87076c0957cde7ace3"
                     expect(newBlock?.extraData.hex()) == "0x65746865726d696e652d6e6f6465"
-                    expect(newBlock?.size.quantity) == 0x8bb5
+                    expect(newBlock?.size?.quantity) == 0x8bb5
                     expect(newBlock?.gasLimit.hex()) == "0x79f39e"
                     expect(newBlock?.gasUsed.hex()) == "0x79d6f0"
                     expect(newBlock?.timestamp.hex()) == "0x5a80e79f"
 
-                    expect(newBlock?.transactions.count) == 1
+                    expect(newBlock?.transactions?.count) == 1
 
-                    let tx = newBlock?.transactions.first
+                    let tx = newBlock?.transactions?.first
                     expect(tx?.object).toNot(beNil())
                     expect(tx?.hash).to(beNil())
                     expect(tx?.object?.hash.hex()) == "0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb"
@@ -135,16 +135,16 @@ class EthereumBlockObjectTests: QuickSpec {
                     expect(block?.receiptsRoot.hex()) == "0x1d24660fddfeb6903113adf09b5037d67fafca50237449d3dc90ba1b6ce425eb"
                     expect(block?.miner.hex(eip55: false)) == "0xea674fdde714fd979de3edf0f56aa9716b898ec8"
                     expect(block?.difficulty.hex()) == "0xa2c29ca5908c1"
-                    expect(block?.totalDifficulty.hex()) == "0x87076c0957cde7ace3"
+                    expect(block?.totalDifficulty?.hex()) == "0x87076c0957cde7ace3"
                     expect(block?.extraData.hex()) == "0x65746865726d696e652d6e6f6465"
-                    expect(block?.size.quantity) == 0x8bb5
+                    expect(block?.size?.quantity) == 0x8bb5
                     expect(block?.gasLimit.hex()) == "0x79f39e"
                     expect(block?.gasUsed.hex()) == "0x79d6f0"
                     expect(block?.timestamp.hex()) == "0x5a80e79f"
 
-                    expect(block?.transactions.count) == 1
+                    expect(block?.transactions?.count) == 1
 
-                    let tx = block?.transactions.first
+                    let tx = block?.transactions?.first
                     expect(tx?.object).toNot(beNil())
                     expect(tx?.hash).to(beNil())
                     expect(tx?.object?.hash.hex()) == "0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb"
