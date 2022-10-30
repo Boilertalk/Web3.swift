@@ -129,9 +129,7 @@ public struct EthereumAddress {
     public func hex(eip55: Bool) -> String {
         var hex = "0x"
         if !eip55 {
-            for b in rawAddress {
-                hex += String(format: "%02x", b)
-            }
+            return rawAddress.hexString(prefix: true)
         } else {
             var address = ""
             for b in rawAddress {
