@@ -85,14 +85,14 @@ public struct ABIDecoder {
             }
         }
 
-        var currentIndex = 0
+        var currentIndex = hexString.startIndex
         var tailsToBeParsed: [(dataLocation: Int, param: SolidityParameter)] = []
         for i in 0..<outputs.count {
             let output = outputs[i]
 
             if output.type.isDynamic {
                 // Head
-                let headStartIndex = hexString.index(hexString.startIndex, offsetBy: currentIndex)
+                let headStartIndex = currentIndex
                 let headEndIndex = hexString.index(headStartIndex, offsetBy: 64)
                 let subHex = String(hexString[headStartIndex..<headEndIndex])
 
@@ -103,7 +103,7 @@ public struct ABIDecoder {
                 let dataLocation = Int(UInt(indexBigUInt))
 
                 // Bump index (faster than removing)
-                currentIndex += 64
+                currentIndex = headEndIndex
 
                 // Tails need to be parsed once we are done with the static parts (current block)
                 tailsToBeParsed.append((dataLocation: dataLocation, param: output))
@@ -111,14 +111,14 @@ public struct ABIDecoder {
                 // Length as hex
                 let length = Int(output.type.staticPartLength) * 2
 
-                let startIndex = hexString.index(hexString.startIndex, offsetBy: currentIndex)
+                let startIndex = currentIndex
                 let endIndex = hexString.index(startIndex, offsetBy: length)
                 let subHex = String(hexString[startIndex..<endIndex])
 
                 returnDictionary[output.name] = try decodeType(type: output.type, hexString: subHex, components: output.components)
 
                 // Bump index (faster than removing)
-                currentIndex += length
+                currentIndex = endIndex
             }
         }
 
