@@ -303,8 +303,8 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
         // Reconnect
         try WebSocket.connect(to: wsUrl, configuration: .init(maxFrameSize: Int(min(Int64(UInt32.max), Int64(Int.max)))), on: wsEventLoopGroup) { ws in
             self.webSocket = ws
-        }.wait()
 
-        registerWebSocketListeners()
+            self.registerWebSocketListeners()
+        }.wait()
     }
 }
