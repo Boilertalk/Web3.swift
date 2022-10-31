@@ -14,8 +14,6 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     let decoder = JSONDecoder()
 
     let execQueue: DispatchQueue
-    private let webSocketSendQueue: DispatchQueue
-    private let webSocketSendSemaphore = DispatchSemaphore(value: 1)
 
     public private(set) var closed: Bool = false
 
@@ -73,7 +71,6 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     public init(wsUrl: String, timeout: DispatchTimeInterval = .seconds(120)) throws {
         // Concurrent queue for faster concurrent requests
         self.execQueue = DispatchQueue(label: "Web3WebSocketProvider", attributes: .concurrent)
-        self.webSocketSendQueue = DispatchQueue(label: "Web3WebSocketProvider", attributes: .concurrent)
 
         guard let url = URL(string: wsUrl) else {
             throw Error.invalidUrl
@@ -125,8 +122,6 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
             let promise = self.wsEventLoopGroup.next().makePromise(of: Void.self)
             promise.futureResult.whenComplete { result in
-                self.webSocketSendSemaphore.signal()
-
                 switch result {
                 case .success(_):
                     self.execQueue.async {
@@ -176,10 +171,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
             }
 
             // Send Request through WebSocket once the Promise was set
-            self.webSocketSendQueue.async(flags: .barrier) {
-                self.webSocketSendSemaphore.wait()
-                self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
-            }
+            self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
         }
     }
     
@@ -309,7 +301,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
         }
 
         // Reconnect
-        try WebSocket.connect(to: wsUrl, on: wsEventLoopGroup) { ws in
+        try WebSocket.connect(to: wsUrl, configuration: .init(maxFrameSize: Int(min(Int64(UInt32.max), Int64(Int.max)))), on: wsEventLoopGroup) { ws in
             self.webSocket = ws
         }.wait()
 
