@@ -253,12 +253,10 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
     // MARK: - Helpers
 
-    private struct IdOnly: Codable {
-        let id: Int
-    }
+    private struct WebSocketOnTextTmpCodable: Codable {
+        let id: Int?
 
-    private struct SubscriptionIdOnly: Codable {
-        let params: Params
+        let params: Params?
 
         fileprivate struct Params: Codable {
             let subscription: String
@@ -272,12 +270,14 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
                 return
             }
 
-            if let idOnly = try? self.decoder.decode(IdOnly.self, from: data) {
-                self.pendingResponses[idOnly.id] = string
-                self.pendingRequests[idOnly.id]?.signal()
-            } else if let subscriptionIdOnly = try? self.decoder.decode(SubscriptionIdOnly.self, from: data) {
-                self.pendingSubscriptionResponses[subscriptionIdOnly.params.subscription]?.append(string)
-                self.currentSubscriptions[subscriptionIdOnly.params.subscription]?.signal()
+            if let tmpCodable = try? self.decoder.decode(WebSocketOnTextTmpCodable.self, from: data) {
+                if let id = tmpCodable.id {
+                    self.pendingResponses[id] = string
+                    self.pendingRequests[id]?.signal()
+                } else if let params = tmpCodable.params {
+                    self.pendingSubscriptionResponses[params.subscription]?.append(string)
+                    self.currentSubscriptions[params.subscription]?.signal()
+                }
             }
         }
 
