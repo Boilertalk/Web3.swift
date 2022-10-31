@@ -91,7 +91,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
             self.timeoutNanoSeconds = UInt64(120 * 1_000_000_000)
         }
 
-        self.wsEventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 4)
+        self.wsEventLoopGroup = MultiThreadedEventLoopGroup(numberOfThreads: 1)
 
         // Initial connect
         try reconnect()
