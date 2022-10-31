@@ -121,7 +121,6 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
             self.pendingRequests[replacedIdRequest.id] = responseSemaphore
 
             let promise = self.wsEventLoopGroup.next().makePromise(of: Void.self)
-            self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
             promise.futureResult.whenComplete { result in
                 switch result {
                 case .success(_):
@@ -170,6 +169,9 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
                     return
                 }
             }
+
+            // Send Request through WebSocket once the Promise was set
+            self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
         }
     }
     
