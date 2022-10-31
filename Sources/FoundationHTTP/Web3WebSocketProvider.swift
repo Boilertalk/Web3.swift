@@ -274,17 +274,19 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     private func registerWebSocketListeners() {
         // Receive response
         webSocket.onText { ws, string in
-            guard let data = string.data(using: .utf8) else {
-                return
-            }
+            self.execQueue.async {
+                guard let data = string.data(using: .utf8) else {
+                    return
+                }
 
-            if let tmpCodable = try? self.decoder.decode(WebSocketOnTextTmpCodable.self, from: data) {
-                if let id = tmpCodable.id {
-                    self.pendingResponses[id] = string
-                    self.pendingRequests[id]?.signal()
-                } else if let params = tmpCodable.params {
-                    self.pendingSubscriptionResponses[params.subscription]?.append(string)
-                    self.currentSubscriptions[params.subscription]?.signal()
+                if let tmpCodable = try? self.decoder.decode(WebSocketOnTextTmpCodable.self, from: data) {
+                    if let id = tmpCodable.id {
+                        self.pendingResponses[id] = string
+                        self.pendingRequests[id]?.signal()
+                    } else if let params = tmpCodable.params {
+                        self.pendingSubscriptionResponses[params.subscription]?.append(string)
+                        self.currentSubscriptions[params.subscription]?.signal()
+                    }
                 }
             }
         }
