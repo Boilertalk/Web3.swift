@@ -14,7 +14,8 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     let decoder = JSONDecoder()
 
     let execQueue: DispatchQueue
-    let webSocketSendQueue: DispatchQueue
+    private let webSocketSendQueue: DispatchQueue
+    private let webSocketSendSemaphore = DispatchSemaphore(value: 1)
 
     public private(set) var closed: Bool = false
 
@@ -124,6 +125,8 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
             let promise = self.wsEventLoopGroup.next().makePromise(of: Void.self)
             promise.futureResult.whenComplete { result in
+                self.webSocketSendSemaphore.signal()
+
                 switch result {
                 case .success(_):
                     self.execQueue.async {
@@ -174,6 +177,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
             // Send Request through WebSocket once the Promise was set
             self.webSocketSendQueue.async(flags: .barrier) {
+                self.webSocketSendSemaphore.wait()
                 self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
             }
         }
