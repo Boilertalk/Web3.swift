@@ -13,7 +13,8 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
 
-    let queue: DispatchQueue
+    let execQueue: DispatchQueue
+    let webSocketSendQueue: DispatchQueue
 
     public private(set) var closed: Bool = false
 
@@ -70,7 +71,8 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
     public init(wsUrl: String, timeout: DispatchTimeInterval = .seconds(120)) throws {
         // Concurrent queue for faster concurrent requests
-        self.queue = DispatchQueue(label: "Web3WebSocketProvider", attributes: .concurrent)
+        self.execQueue = DispatchQueue(label: "Web3WebSocketProvider", attributes: .concurrent)
+        self.webSocketSendQueue = DispatchQueue(label: "Web3WebSocketProvider", attributes: .concurrent)
 
         guard let url = URL(string: wsUrl) else {
             throw Error.invalidUrl
@@ -105,7 +107,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     // MARK: - Web3Provider
 
     public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {
-        queue.async {
+        execQueue.async {
             let replacedIdRequest = RPCRequest(id: self.nextId, jsonrpc: request.jsonrpc, method: request.method, params: request.params)
 
             let body: Data
@@ -124,7 +126,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
             promise.futureResult.whenComplete { result in
                 switch result {
                 case .success(_):
-                    self.queue.async {
+                    self.execQueue.async {
                         let result = responseSemaphore.wait(timeout: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + self.timeoutNanoSeconds))
 
                         defer {
@@ -171,14 +173,16 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
             }
 
             // Send Request through WebSocket once the Promise was set
-            self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
+            self.webSocketSendQueue.async(flags: .barrier) {
+                self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
+            }
         }
     }
     
     // MARK: - Web3BidirectionalProvider
     
     public func subscribe<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<String>, onEvent: @escaping Web3ResponseCompletion<Result>) {
-        queue.async {
+        execQueue.async {
             self.send(request: request) { (_ resp: Web3Response<String>) -> Void in
                 guard let subscriptionId = resp.result else {
                     let err = Web3Response<String>(error: .serverError(resp.error))
@@ -195,7 +199,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
                 self.pendingSubscriptionResponses[subscriptionId] = SynchronizedArray(array: [])
                 self.currentSubscriptions[subscriptionId] = subscriptionSemaphore
                 
-                self.queue.async {
+                self.execQueue.async {
                     while true {
                         subscriptionSemaphore.wait()
 
@@ -284,7 +288,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
         // Handle close
         webSocket.onClose.whenComplete { result in
             if !self.closed && self.webSocket.isClosed {
-                self.queue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + 100_000_000)) {
+                self.execQueue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + 100_000_000)) {
                     try? self.reconnect()
                 }
             }
