@@ -13,7 +13,9 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
 
-    let execQueue: DispatchQueue
+    private let sendQueue: DispatchQueue
+    private let receiveQueue: DispatchQueue
+    private let reconnectQueue: DispatchQueue
 
     public private(set) var closed: Bool = false
 
@@ -70,7 +72,9 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
     public init(wsUrl: String, timeout: DispatchTimeInterval = .seconds(120)) throws {
         // Concurrent queue for faster concurrent requests
-        self.execQueue = DispatchQueue(label: "Web3WebSocketProvider", attributes: .concurrent)
+        self.sendQueue = DispatchQueue(label: "Web3WebSocketProvider_Send", attributes: .concurrent)
+        self.receiveQueue = DispatchQueue(label: "Web3WebSocketProvider_Receive", attributes: .concurrent)
+        self.reconnectQueue = DispatchQueue(label: "Web3WebSocketProvider_Reconnect", attributes: .concurrent)
 
         guard let url = URL(string: wsUrl) else {
             throw Error.invalidUrl
@@ -105,7 +109,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     // MARK: - Web3Provider
 
     public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {
-        execQueue.async {
+        sendQueue.async {
             let replacedIdRequest = RPCRequest(id: self.nextId, jsonrpc: request.jsonrpc, method: request.method, params: request.params)
 
             let body: Data
@@ -124,7 +128,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
             promise.futureResult.whenComplete { result in
                 switch result {
                 case .success(_):
-                    self.execQueue.async {
+                    self.sendQueue.async {
                         let result = responseSemaphore.wait(timeout: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + self.timeoutNanoSeconds))
 
                         defer {
@@ -178,7 +182,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     // MARK: - Web3BidirectionalProvider
     
     public func subscribe<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<String>, onEvent: @escaping Web3ResponseCompletion<Result>) {
-        execQueue.async {
+        sendQueue.async {
             self.send(request: request) { (_ resp: Web3Response<String>) -> Void in
                 guard let subscriptionId = resp.result else {
                     let err = Web3Response<String>(error: .serverError(resp.error))
@@ -195,7 +199,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
                 self.pendingSubscriptionResponses[subscriptionId] = SynchronizedArray(array: [])
                 self.currentSubscriptions[subscriptionId] = subscriptionSemaphore
                 
-                self.execQueue.async {
+                self.sendQueue.async {
                     while true {
                         subscriptionSemaphore.wait()
 
@@ -266,7 +270,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     private func registerWebSocketListeners() {
         // Receive response
         webSocket.onText { ws, string in
-            self.execQueue.async {
+            self.receiveQueue.async {
                 guard let data = string.data(using: .utf8) else {
                     return
                 }
@@ -286,7 +290,7 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
         // Handle close
         webSocket.onClose.whenComplete { result in
             if !self.closed && self.webSocket.isClosed {
-                self.execQueue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + 100_000_000)) {
+                self.reconnectQueue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + 100_000_000)) {
                     try? self.reconnect()
                 }
             }
@@ -298,6 +302,9 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
         for key in currentSubscriptions.dictionary.keys {
             pendingSubscriptionResponses[key]?.append(cancelSubscriptionValue)
             currentSubscriptions[key]?.signal()
+        }
+        for req in pendingRequests {
+            req.value.signal()
         }
 
         // Reconnect
