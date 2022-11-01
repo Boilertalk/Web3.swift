@@ -104,145 +104,141 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     // MARK: - Web3Provider
 
     public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {
-        sendQueue.async {
-            let replacedIdRequest = RPCRequest(id: self.nextId, jsonrpc: request.jsonrpc, method: request.method, params: request.params)
+        let replacedIdRequest = RPCRequest(id: self.nextId, jsonrpc: request.jsonrpc, method: request.method, params: request.params)
 
-            let body: Data
-            do {
-                body = try self.encoder.encode(replacedIdRequest)
-            } catch {
+        let body: Data
+        do {
+            body = try self.encoder.encode(replacedIdRequest)
+        } catch {
+            let err = Web3Response<Result>(error: .requestFailed(error))
+            response(err)
+            return
+        }
+
+        // Generic failure sender
+        let failure: (_ error: Error) -> () = { error in
+            let err = Web3Response<Result>(error: .serverError(error))
+            response(err)
+            return
+        }
+
+        // The queue to process the response
+        let queue = self.receiveQueue
+
+        // The timeout
+        let timeoutItem = DispatchWorkItem {
+            self.pendingRequests[replacedIdRequest.id] = nil
+
+            // Respond to user
+            failure(Error.timeoutError)
+        }
+        queue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + self.timeoutNanoSeconds), execute: timeoutItem)
+
+        // The response
+        let responseCompletion: (_ response: String?) -> Void = { responseString in
+            queue.async {
+                defer {
+                    // Remove from pending requests
+                    self.pendingRequests[replacedIdRequest.id] = nil
+                }
+
+                timeoutItem.cancel()
+
+                guard self.pendingRequests[replacedIdRequest.id] != nil else {
+                    // Timeout happened already. Rare. Timeout sent the timeout error. Do nothing.
+                    return
+                }
+
+                guard let responseString = responseString else {
+                    failure(Error.webSocketClosedRetry)
+                    return
+                }
+
+                // Parse response
+                guard let responseData = responseString.data(using: .utf8), let decoded = try? self.decoder.decode(RPCResponse<Result>.self, from: responseData) else {
+                    failure(Error.unexpectedResponse)
+                    return
+                }
+                // Put back original request id
+                let idReplacedDecoded = RPCResponse<Result>(id: request.id, jsonrpc: decoded.jsonrpc, result: decoded.result, error: decoded.error)
+
+                // Return result
+                let res = Web3Response(rpcResponse: idReplacedDecoded)
+                response(res)
+            }
+        }
+
+        // Set the pending request
+        self.pendingRequests[replacedIdRequest.id] = (timeoutItem: timeoutItem, responseCompletion: responseCompletion)
+
+        // Response result for sending the message over the WebSocket
+        let promise = self.wsEventLoopGroup.next().makePromise(of: Void.self)
+        promise.futureResult.whenComplete { result in
+            switch result {
+            case .success(_):
+                break
+            case .failure(let error):
                 let err = Web3Response<Result>(error: .requestFailed(error))
                 response(err)
                 return
             }
-
-            // Generic failure sender
-            let failure: (_ error: Error) -> () = { error in
-                let err = Web3Response<Result>(error: .serverError(error))
-                response(err)
-                return
-            }
-
-            // The queue to process the response
-            let queue = self.receiveQueue
-
-            // The timeout
-            let timeoutItem = DispatchWorkItem {
-                self.pendingRequests[replacedIdRequest.id] = nil
-
-                // Respond to user
-                failure(Error.timeoutError)
-            }
-            queue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + self.timeoutNanoSeconds), execute: timeoutItem)
-
-            // The response
-            let responseCompletion: (_ response: String?) -> Void = { responseString in
-                queue.async {
-                    defer {
-                        // Remove from pending requests
-                        self.pendingRequests[replacedIdRequest.id] = nil
-                    }
-
-                    timeoutItem.cancel()
-
-                    guard self.pendingRequests[replacedIdRequest.id] != nil else {
-                        // Timeout happened already. Rare. Timeout sent the timeout error. Do nothing.
-                        return
-                    }
-
-                    guard let responseString = responseString else {
-                        failure(Error.webSocketClosedRetry)
-                        return
-                    }
-
-                    // Parse response
-                    guard let responseData = responseString.data(using: .utf8), let decoded = try? self.decoder.decode(RPCResponse<Result>.self, from: responseData) else {
-                        failure(Error.unexpectedResponse)
-                        return
-                    }
-                    // Put back original request id
-                    let idReplacedDecoded = RPCResponse<Result>(id: request.id, jsonrpc: decoded.jsonrpc, result: decoded.result, error: decoded.error)
-
-                    // Return result
-                    let res = Web3Response(rpcResponse: idReplacedDecoded)
-                    response(res)
-                }
-            }
-
-            // Set the pending request
-            self.pendingRequests[replacedIdRequest.id] = (timeoutItem: timeoutItem, responseCompletion: responseCompletion)
-
-            // Response result for sending the message over the WebSocket
-            let promise = self.wsEventLoopGroup.next().makePromise(of: Void.self)
-            promise.futureResult.whenComplete { result in
-                switch result {
-                case .success(_):
-                    break
-                case .failure(let error):
-                    let err = Web3Response<Result>(error: .requestFailed(error))
-                    response(err)
-                    return
-                }
-            }
-
-            // Send Request through WebSocket once the Promise was set
-            self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
         }
+
+        // Send Request through WebSocket once the Promise was set
+        self.webSocket.send(String(data: body, encoding: .utf8) ?? "", promise: promise)
     }
     
     // MARK: - Web3BidirectionalProvider
     
     public func subscribe<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<String>, onEvent: @escaping Web3ResponseCompletion<Result>) {
-        sendQueue.async {
-            self.send(request: request) { (_ resp: Web3Response<String>) -> Void in
-                guard let subscriptionId = resp.result else {
-                    let err = Web3Response<String>(error: .serverError(resp.error))
-                    response(err)
-                    return
-                }
-                
-                // Return subscription id
-                let res = Web3Response(status: .success(subscriptionId))
-                response(res)
-
-                let queue = self.receiveQueue
-
-                // Subscription cancelled by us or the server, not the User.
-                let onCancel: () -> Void = {
-                    queue.async {
-                        // We are done, the subscription was cancelled. We don't care why
-                        self.currentSubscriptions[subscriptionId] = nil
-
-                        // Notify client
-                        let err = Web3Response<Result>(error: .subscriptionCancelled(Error.subscriptionCancelled))
-                        onEvent(err)
-                    }
-                }
-
-                let notificationReceived: (_ notification: String) -> Void = { notification in
-                    queue.async {
-                        // Generic failure sender
-                        let failure: (_ error: Error) -> () = { error in
-                            let err = Web3Response<Result>(error: .serverError(error))
-                            onEvent(err)
-                            return
-                        }
-
-                        // Parse notification
-                        guard let notificationData = notification.data(using: .utf8), let decoded = try? self.decoder.decode(RPCEventResponse<Result>.self, from: notificationData) else {
-                            failure(Error.unexpectedResponse)
-                            return
-                        }
-
-                        // Return result
-                        let res = Web3Response(rpcEventResponse: decoded)
-                        onEvent(res)
-                    }
-                }
-                
-                // Now we need to register the subscription id to our internal subscription id register
-                self.currentSubscriptions[subscriptionId] = (onCancel: onCancel, onNotification: notificationReceived)
+        self.send(request: request) { (_ resp: Web3Response<String>) -> Void in
+            guard let subscriptionId = resp.result else {
+                let err = Web3Response<String>(error: .serverError(resp.error))
+                response(err)
+                return
             }
+
+            // Return subscription id
+            let res = Web3Response(status: .success(subscriptionId))
+            response(res)
+
+            let queue = self.receiveQueue
+
+            // Subscription cancelled by us or the server, not the User.
+            let onCancel: () -> Void = {
+                queue.async {
+                    // We are done, the subscription was cancelled. We don't care why
+                    self.currentSubscriptions[subscriptionId] = nil
+
+                    // Notify client
+                    let err = Web3Response<Result>(error: .subscriptionCancelled(Error.subscriptionCancelled))
+                    onEvent(err)
+                }
+            }
+
+            let notificationReceived: (_ notification: String) -> Void = { notification in
+                queue.async {
+                    // Generic failure sender
+                    let failure: (_ error: Error) -> () = { error in
+                        let err = Web3Response<Result>(error: .serverError(error))
+                        onEvent(err)
+                        return
+                    }
+
+                    // Parse notification
+                    guard let notificationData = notification.data(using: .utf8), let decoded = try? self.decoder.decode(RPCEventResponse<Result>.self, from: notificationData) else {
+                        failure(Error.unexpectedResponse)
+                        return
+                    }
+
+                    // Return result
+                    let res = Web3Response(rpcEventResponse: decoded)
+                    onEvent(res)
+                }
+            }
+
+            // Now we need to register the subscription id to our internal subscription id register
+            self.currentSubscriptions[subscriptionId] = (onCancel: onCancel, onNotification: notificationReceived)
         }
     }
 
