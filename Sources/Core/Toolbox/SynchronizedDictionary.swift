@@ -82,6 +82,12 @@ public final class SynchronizedDictionary<KeyType: Hashable, ValueType>: Sequenc
         }
     }
 
+    public func getValueAsync(key: KeyType, response: @escaping (_ value: ValueType?) -> Void) {
+        accessQueue.async {
+            response(self.internalDictionary[key])
+        }
+    }
+
     private func setValue(value: ValueType?, forKey key: KeyType) {
         accessQueue.async(flags: .barrier) {
             self.internalDictionary[key] = value
