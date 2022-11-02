@@ -277,6 +277,19 @@ public extension Web3.Eth {
             }
         }
     }
+
+    func getLogs(
+        addresses: [EthereumAddress]?,
+        topics: [[EthereumData]]?,
+        fromBlock: EthereumQuantityTag,
+        toBlock: EthereumQuantityTag
+    ) -> Promise<[EthereumLogObject]> {
+        return Promise { seal in
+            self.getLogs(addresses: addresses, topics: topics, fromBlock: fromBlock, toBlock: toBlock) { response in
+                response.sealPromise(seal: seal)
+            }
+        }
+    }
 }
 
 fileprivate extension Web3Response {
