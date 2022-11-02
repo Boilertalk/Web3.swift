@@ -460,6 +460,31 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
 
+        public func getLogs(
+            addresses: [EthereumAddress]?,
+            topics: [[EthereumData]]?,
+            fromBlock: EthereumQuantityTag,
+            toBlock: EthereumQuantityTag,
+            response: @escaping Web3ResponseCompletion<[EthereumLogObject]>
+        ) {
+            struct LogsParam: Codable {
+                let address: [EthereumAddress]?
+                let topics: [[EthereumData]]?
+
+                let fromBlock: EthereumQuantityTag
+                let toBlock: EthereumQuantityTag
+            }
+
+            let req = RPCRequest<[LogsParam]>(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getLogs",
+                params: [LogsParam(address: addresses, topics: topics, fromBlock: fromBlock, toBlock: toBlock)]
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
         // MARK: - Events
 
         public func subscribeToNewHeads(
