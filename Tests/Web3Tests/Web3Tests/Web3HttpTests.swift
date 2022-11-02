@@ -548,6 +548,64 @@ class Web3HttpTests: QuickSpec {
                     }
                 }
             }
+
+            context("eth get logs") {
+                // HTTP
+                waitUntil(timeout: .seconds(2)) { done in
+                    firstly {
+                        try web3.eth.getLogs(
+                            addresses: [EthereumAddress(hex: "0xdAC17F958D2ee523a2206206994597C13D831ec7", eip55: true)],
+                            topics: [[EthereumData(ethereumValue: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef")]],
+                            fromBlock: .block(BigUInt(15884445)),
+                            toBlock: .block(BigUInt(15884445))
+                        )
+                    }.done { logs in
+                        for log in logs {
+                            it("should only include logs with this topic") {
+                                expect(log.topics[0].hex()) == "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+                            }
+                        }
+                        it("should be the expected number of logs") {
+                            expect(logs.count) == 22
+                        }
+                        done()
+                    }.catch { error in
+                        it("should not fail") {
+                            expect(false) == true
+                        }
+                        done()
+                    }
+                }
+
+                // WebSocket
+                waitUntil(timeout: .seconds(2)) { done in
+                    try! web3Ws.eth.getLogs(
+                        addresses: [EthereumAddress(hex: "0xdAC17F958D2ee523a2206206994597C13D831ec7", eip55: true)],
+                        topics: [[EthereumData(ethereumValue: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef")]],
+                        fromBlock: .block(BigUInt(15884445)),
+                        toBlock: .block(BigUInt(15884445))
+                    ) { response in
+                        it("should be status ok") {
+                            expect(response.status.isSuccess) == true
+                        }
+                        it("should not be nil") {
+                            expect(response.result).toNot(beNil())
+                        }
+
+                        for log in response.result ?? [] {
+                            it("should only include logs with this topic") {
+                                expect(log.topics[0].hex()) == "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
+                            }
+                        }
+                        it("should be the expected number of logs") {
+                            expect(response.result?.count) == 22
+                        }
+
+                        // Tests done
+                        done()
+                    }
+                }
+            }
         }
     }
 }
