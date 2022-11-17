@@ -94,9 +94,9 @@ targets: [
     .target(
         name: "MyProject",
         dependencies: [
-            .product(name: "Web3", package: "Web3"),
-            .product(name: "Web3PromiseKit", package: "Web3"),
-            .product(name: "Web3ContractABI", package: "Web3"),
+            .product(name: "Web3", package: "Web3.swift"),
+            .product(name: "Web3PromiseKit", package: "Web3.swift"),
+            .product(name: "Web3ContractABI", package: "Web3.swift"),
         ]
     ),
     .testTarget(
@@ -333,12 +333,16 @@ let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "...")
 firstly {
     web3.eth.getTransactionCount(address: myPrivateKey.address, block: .latest)
 }.then { nonce in
-    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).createTransaction(
+    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).createTransaction(        
         nonce: nonce,
+        gasPrice: EthereumQuantity(quantity: 21.gwei),
+        maxFeePerGas: nil,
+        maxPriorityFeePerGas: nil,
+        gasLimit: 100000,
         from: myPrivateKey.address,
         value: 0,
-        gas: 100000,
-        gasPrice: EthereumQuantity(quantity: 21.gwei)
+        accessList: [:],
+        transactionType: .legacy
     )!.sign(with: myPrivateKey).promise
 }.then { tx in
     web3.eth.sendRawTransaction(transaction: tx)
@@ -353,12 +357,16 @@ let myAddress = try EthereumAddress(hex: "0x1f04ef7263804fafb839f0d04e2b5a6a1a57
 firstly {
     web3.eth.getTransactionCount(address: myAddress, block: .latest)
 }.then { nonce in
-    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).send(
+    try contract.transfer(to: EthereumAddress(hex: "0x3edB3b95DDe29580FFC04b46A68a31dD46106a4a", eip55: true), value: 100000).send(        
         nonce: nonce,
+        gasPrice: EthereumQuantity(quantity: 21.gwei),
+        maxFeePerGas: nil,
+        maxPriorityFeePerGas: nil,
+        gasLimit: 150000,
         from: myAddress,
         value: 0,
-        gas: 150000,
-        gasPrice: EthereumQuantity(quantity: 21.gwei)
+        accessList: [:],
+        transactionType: .legacy
     )
 }.done { txHash in
     print(txHash)
@@ -394,7 +402,17 @@ firstly {
 
 // Send some tokens to another address (locally signing the transaction)
 let myPrivateKey = try EthereumPrivateKey(hexPrivateKey: "...")
-guard let transaction = contract["transfer"]?(EthereumAddress.testAddress, BigUInt(100000)).createTransaction(nonce: 0, from: myPrivateKey.address, value: 0, gas: 150000, gasPrice: EthereumQuantity(quantity: 21.gwei)) else {
+guard let transaction = contract["transfer"]?(EthereumAddress.testAddress, BigUInt(100000)).createTransaction(
+    nonce: 0,
+    gasPrice: EthereumQuantity(quantity: 21.gwei),
+    maxFeePerGas: nil,
+    maxPriorityFeePerGas: nil,
+    gasLimit: 150000,
+    from: myPrivateKey.address,
+    value: 0,
+    accessList: [:],
+    transactionType: .legacy
+)) else {
     return
 }
 let signedTx = try transaction.sign(with: myPrivateKey)

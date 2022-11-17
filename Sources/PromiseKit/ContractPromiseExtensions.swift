@@ -9,6 +9,7 @@
 
 import Web3ContractABI
 import PromiseKit
+import Collections
 
 #if !Web3CocoaPods
     import Web3
@@ -24,9 +25,30 @@ public extension SolidityInvocation {
         }
     }
 
-    func send(nonce: EthereumQuantity? = nil, from: EthereumAddress, value: EthereumQuantity?, gas: EthereumQuantity, gasPrice: EthereumQuantity?) -> Promise<EthereumData> {
+    func send(
+        nonce: EthereumQuantity? = nil,
+        gasPrice: EthereumQuantity? = nil,
+        maxFeePerGas: EthereumQuantity? = nil,
+        maxPriorityFeePerGas: EthereumQuantity? = nil,
+        gasLimit: EthereumQuantity? = nil,
+        from: EthereumAddress,
+        value: EthereumQuantity? = nil,
+        accessList: OrderedDictionary<EthereumAddress, [EthereumData]> = [:],
+        transactionType: EthereumTransaction.TransactionType = .legacy
+    ) -> Promise<EthereumData> {
         return Promise { seal in
-            self.send(nonce: nonce, from: from, value: value, gas: gas, gasPrice: gasPrice, completion: seal.resolve)
+            self.send(
+                nonce: nonce,
+                gasPrice: gasPrice,
+                maxFeePerGas: maxFeePerGas,
+                maxPriorityFeePerGas: maxPriorityFeePerGas,
+                gasLimit: gasLimit,
+                from: from,
+                value: value,
+                accessList: accessList,
+                transactionType: transactionType,
+                completion: seal.resolve
+            )
         }
     }
 
@@ -39,9 +61,30 @@ public extension SolidityInvocation {
 
 public extension SolidityConstructorInvocation {
 
-    func send(nonce: EthereumQuantity? = nil, from: EthereumAddress, value: EthereumQuantity = 0, gas: EthereumQuantity, gasPrice: EthereumQuantity?) -> Promise<EthereumData> {
+    func send(
+        nonce: EthereumQuantity? = nil,
+        gasPrice: EthereumQuantity? = nil,
+        maxFeePerGas: EthereumQuantity? = nil,
+        maxPriorityFeePerGas: EthereumQuantity? = nil,
+        gasLimit: EthereumQuantity? = nil,
+        from: EthereumAddress,
+        value: EthereumQuantity? = nil,
+        accessList: OrderedDictionary<EthereumAddress, [EthereumData]> = [:],
+        transactionType: EthereumTransaction.TransactionType = .legacy
+    ) -> Promise<EthereumData> {
         return Promise { seal in
-            self.send(nonce: nonce, from: from, value: value, gas: gas, gasPrice: gasPrice, completion: seal.resolve)
+            self.send(
+                nonce: nonce,
+                gasPrice: gasPrice,
+                maxFeePerGas: maxFeePerGas,
+                maxPriorityFeePerGas: maxPriorityFeePerGas,
+                gasLimit: gasLimit,
+                from: from,
+                value: value,
+                accessList: accessList,
+                transactionType: transactionType,
+                completion: seal.resolve
+            )
         }
     }
 }
