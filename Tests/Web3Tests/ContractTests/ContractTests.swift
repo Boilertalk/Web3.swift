@@ -101,7 +101,7 @@ class ContractTests: QuickSpec {
             describe("Constructor method") {
                 it("should be able to be deployed") {
                     waitUntil { done in
-                        contract.deploy(name: "Test Instance").send(from: .testAddress, value: 0, gas: 15000, gasPrice: nil).done { hash in
+                        contract.deploy(name: "Test Instance").send(gasPrice: nil, gasLimit: 15000, from: .testAddress, value: 0).done { hash in
                             done()
                         }.catch { error in
                             fail()
@@ -127,7 +127,17 @@ class ContractTests: QuickSpec {
 
                 it("should fail with send") {
                     waitUntil { done in
-                        invocation.send(from: .testAddress, value: nil, gas: 0, gasPrice: 0).catch { error in
+                        invocation.send(
+                            nonce: nil,
+                            gasPrice: 0,
+                            maxFeePerGas: nil,
+                            maxPriorityFeePerGas: nil,
+                            gasLimit: 0,
+                            from: .testAddress,
+                            value: nil,
+                            accessList: [:],
+                            transactionType: .legacy
+                        ).catch { error in
                             expect(error as? InvocationError).to(equal(InvocationError.invalidInvocation))
                             done()
                         }
@@ -156,7 +166,17 @@ class ContractTests: QuickSpec {
                     let expectedHash = try! EthereumData(ethereumValue: "0x0e670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331")
                     waitUntil { done in
                         firstly {
-                            invocation.send(from: .testAddress, value: EthereumQuantity(quantity: 1.eth), gas: 21000, gasPrice: nil)
+                            invocation.send(
+                                nonce: nil,
+                                gasPrice: nil,
+                                maxFeePerGas: nil,
+                                maxPriorityFeePerGas: nil,
+                                gasLimit: 21000,
+                                from: .testAddress,
+                                value: EthereumQuantity(quantity: 1.eth),
+                                accessList: [:],
+                                transactionType: .legacy
+                            )
                         }.done { hash in
                             expect(hash).to(equal(expectedHash))
                             done()
@@ -184,7 +204,17 @@ class ContractTests: QuickSpec {
                 it("should succeed with send") {
                     let expectedHash = try! EthereumData(ethereumValue: "0x0e670ec64341771606e55d6b4ca35a1a6b75ee3d5145a99d05921026d1527331")
                     waitUntil { done in
-                        invocation.send(from: .testAddress, value: nil, gas: 12000, gasPrice: 700000).done { hash in
+                        invocation.send(
+                            nonce: nil,
+                            gasPrice: 700000,
+                            maxFeePerGas: nil,
+                            maxPriorityFeePerGas: nil,
+                            gasLimit: 12000,
+                            from: .testAddress,
+                            value: nil,
+                            accessList: [:],
+                            transactionType: .legacy
+                        ).done { hash in
                             expect(hash).to(equal(expectedHash))
                             done()
                         }.catch { error in
