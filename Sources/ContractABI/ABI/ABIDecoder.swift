@@ -81,7 +81,11 @@ public struct ABIDecoder {
                     return returnDictionary
                 }
             default:
-                break
+              if hexString.isEmpty {
+                returnDictionary[outputs[0].name] = try decodeType(type: outputs[0].type, hexString: hexString, components: outputs[0].components)
+                return returnDictionary
+              }
+              break
             }
         }
 
