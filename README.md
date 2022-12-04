@@ -52,7 +52,7 @@ If you want to conveniently parse JSON ABIs for Ethereum Smart Contracts, you ca
 Finally, if you want to add functionality to `Web3.swift` which is not provided yet, you don't have to wait until it gets merged
 and released in a version bump. You can simple extend/update functionality within you own app as our APIs are made to be very open
 for changes.    
-For example, if you want to add a web3 method which is not provided yet by `Web3.swift` (we will only support Infura supported methods),
+For example, if you want to add a web3 method which is not provided yet by `Web3.swift` (we will only support Infura and Nodereal supported methods),
 you only have to add [some 3 lines of code](https://github.com/Boilertalk/Web3.swift/blob/master/Sources/Core/Web3/Web3.swift#L132)
 (depending on the input and output parameters of the method). Adding IPC rpc support would be only implementing a protocol and answering
 requests.
@@ -167,7 +167,7 @@ The base class for all available methods is `Web3`. You can, for example, instan
 an http provider:
 
 ```Swift
-let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>") //For Nodereal let web3 = Web3("rpcURL: https://eth-mainnet.nodereal.io/v1/<your_nodereal_id>")
 ```
 
 All `web3_` methods are available directly from the `Web3` struct. The `net_` methods are
@@ -314,7 +314,7 @@ Our static ERC20 interface is called `GenericERC20Contract`, the ERC721 contract
 With those `StaticContract` types you can create and use your contract like in the following example (We are using PromiseKit again in our examples).
 
 ```Swift
-let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>") //For Nodereal let web3 = Web3("rpcURL: https://eth-mainnet.nodereal.io/v1/<your_nodereal_id>")
 
 let contractAddress = try EthereumAddress(hex: "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", eip55: true)
 let contract = web3.eth.Contract(type: GenericERC20Contract.self, address: contractAddress)
@@ -382,7 +382,7 @@ By creating your own interfaces, you can interact with any smart contract!
 If you only have access to the JSON ABI of a smart contract or you don't want to create a static template, you can use our dynamic contract api to parse the json string into a usable contract *during runtime*. See the example below.
 
 ```Swift
-let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>")
+let web3 = Web3(rpcURL: "https://mainnet.infura.io/<your_infura_id>") //For Nodereal let web3 = Web3("rpcURL: https://eth-mainnet.nodereal.io/v1/<your_nodereal_id>")
 
 let contractAddress = try EthereumAddress(hex: "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0", eip55: true)
 let contractJsonABI = "<your contract ABI as a JSON string>".data(using: .utf8)!
