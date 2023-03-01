@@ -125,7 +125,7 @@ Because of an internal decision, we stopped supporting any Package Managers othe
 To elaborate a little on this decision: With XCode 11 and Swift 5.1 we reached a point with Swift Package Manager where it
 slowly started making other package managers irrelevant. You could already load all your dependencies in the XCode project
 with Swift Package Manager.    
-With more updates it became even more prelevant. Cocoapods and Carthage maintainers lost interest into their project and
+With more updates it became even more prevalent. Cocoapods and Carthage maintainers lost interest in their project and
 stopped maintaining it. There are many unresolved issues, many problems especially for library developers with Cocoapods.
 
 So much hassle for no real gain. Users can already put dependencies which support SPM into their XCode project. So why bother?
@@ -134,7 +134,7 @@ The answer is simple. Some still use XCode < 11 and some library developers depe
 
 The decision was hard and took some time. But after seeing that the last version was very stable and used in many
 production apps already, we decided to start with this move now.    
-XCode 10 is already more than 2 years old. Most projects already upgraded, the ones which didn't have a much bigger
+XCode 10 is already more than 2 years old. Most projects already upgraded, the ones that didn't have a much bigger
 problem than Web3.swift not making Updates for Cocoapods...    
 Library owners depending on Web3.swift are encouraged to drop Cocoapods and Carthage Support as well.
 
