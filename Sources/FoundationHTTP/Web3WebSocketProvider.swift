@@ -97,6 +97,9 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
     deinit {
         closed = true
         _ = webSocket.close(code: .goingAway)
+
+        // As described in https://github.com/apple/swift-nio/issues/2371
+        try? wsEventLoopGroup.syncShutdownGracefully()
     }
 
     // MARK: - Web3Provider
