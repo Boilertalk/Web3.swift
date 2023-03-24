@@ -11,7 +11,7 @@ import Dispatch
 import FoundationNetworking
 #endif
 
-public class Web3HttpProvider: Web3Provider {
+public struct Web3HttpProvider: Web3Provider {
 
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
