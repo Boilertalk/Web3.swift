@@ -91,7 +91,7 @@ public class SolidityConstantFunction: SolidityFunction {
     public let inputs: [SolidityFunctionParameter]
     public let outputs: [SolidityFunctionParameter]?
     
-    public let handler: SolidityFunctionHandler
+    public unowned let handler: SolidityFunctionHandler
     
     public required init?(abiObject: ABIObject, handler: SolidityFunctionHandler) {
         guard abiObject.type == .function, abiObject.stateMutability?.isConstant == true else { return nil }
@@ -120,7 +120,7 @@ public class SolidityPayableFunction: SolidityFunction {
     public let inputs: [SolidityFunctionParameter]
     public let outputs: [SolidityFunctionParameter]? = nil
     
-    public let handler: SolidityFunctionHandler
+    public unowned let handler: SolidityFunctionHandler
     
     public required init?(abiObject: ABIObject, handler: SolidityFunctionHandler) {
         guard abiObject.type == .function, abiObject.stateMutability == .payable else { return nil }
@@ -147,7 +147,7 @@ public class SolidityNonPayableFunction: SolidityFunction {
     public let inputs: [SolidityFunctionParameter]
     public let outputs: [SolidityFunctionParameter]? = nil
     
-    public let handler: SolidityFunctionHandler
+    public unowned let handler: SolidityFunctionHandler
     
     public required init?(abiObject: ABIObject, handler: SolidityFunctionHandler) {
         guard abiObject.type == .function, abiObject.stateMutability == .nonpayable else { return nil }
@@ -171,7 +171,7 @@ public class SolidityNonPayableFunction: SolidityFunction {
 /// Represents a function that creates a contract
 public class SolidityConstructor {
     public let inputs: [SolidityFunctionParameter]
-    public let handler: SolidityFunctionHandler
+    public unowned let handler: SolidityFunctionHandler
     public let payable: Bool
     
     public init?(abiObject: ABIObject, handler: SolidityFunctionHandler) {
