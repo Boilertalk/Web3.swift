@@ -20,7 +20,7 @@ public struct Web3 {
 
     public struct Properties {
 
-        public let provider: Web3Provider
+        public unowned let provider: Web3Provider
         public let rpcId: Int
     }
 
