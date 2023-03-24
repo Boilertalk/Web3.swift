@@ -273,7 +273,11 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
 
     private func registerWebSocketListeners() {
         // Receive response
-        webSocket.onText { ws, string in
+        webSocket.onText { [weak self] ws, string in
+            guard let self else {
+                return
+            }
+
             self.receiveQueue.async {
                 guard let data = string.data(using: .utf8) else {
                     return
@@ -298,7 +302,11 @@ public class Web3WebSocketProvider: Web3Provider, Web3BidirectionalProvider {
         }
 
         // Handle close
-        webSocket.onClose.whenComplete { result in
+        webSocket.onClose.whenComplete { [weak self] result in
+            guard let self else {
+                return
+            }
+
             if !self.closed && self.webSocket.isClosed {
                 self.reconnectQueue.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: DispatchTime.now().uptimeNanoseconds + 100_000_000)) {
                     try? self.reconnect()
