@@ -89,7 +89,7 @@ public struct Web3HttpProvider: Web3Provider {
         }
     }
 
-    func addheaders(key:String, value:String) {
+    public func addheaders(key:String, value:String) {
         Web3HttpProvider.headers[key] = value
     }
 }
