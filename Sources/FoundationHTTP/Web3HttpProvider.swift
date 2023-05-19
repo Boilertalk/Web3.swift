@@ -20,7 +20,7 @@ public struct Web3HttpProvider: Web3Provider {
 
     let session: URLSession
 
-    static let headers = [
+    static var headers = [
         "Accept": "application/json",
         "Content-Type": "application/json"
     ]
@@ -87,5 +87,9 @@ public struct Web3HttpProvider: Web3Provider {
             }
             task.resume()
         }
+    }
+
+    public func addheaders(key:String, value:String) {
+        Web3HttpProvider.headers[key] = value
     }
 }
