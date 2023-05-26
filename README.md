@@ -425,10 +425,37 @@ firstly {
     print(error)
 }
 ```
+## Create Address & QR Code
 
 Using this API you can interact with any smart contract in the Ethereum Network!
 
 For more examples, including contract creation (constructor calling) check out our [tests](Tests/Web3Tests/ContractTests).
+
+
+Create Address is a SwiftUI-based application that generates Ethereum addresses, public keys, and private keys. 
+
+It utilizes the secp256k1 elliptic curve library and the CoreImage framework to generate QR codes.
+
+<img src="create.png" alt="Create Image" width="400">
+
+<img src="QR.png" alt="QR Image" width="400">
+
+
+Build and run the application on a simulator or a physical device.
+
+Usage
+Create Address provides a simple interface to generate Ethereum addresses and associated keys. Follow these steps to create an address:
+
+Launch the application.
+
+Tap the "Create Address" button.
+
+Once the address is generated, it will be displayed along with a QR code representation.
+
+You can copy the address to the clipboard by tapping the "Copy" button next to it.
+
+Optionally, you can also reveal the public key and private key associated with the address by tapping the corresponding buttons.
+
 
 ## Common errors
 
