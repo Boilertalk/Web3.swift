@@ -425,12 +425,13 @@ firstly {
     print(error)
 }
 ```
-## Create Address & QR Code
+
 
 Using this API you can interact with any smart contract in the Ethereum Network!
 
 For more examples, including contract creation (constructor calling) check out our [tests](Tests/Web3Tests/ContractTests).
 
+## Create Address & QR Code
 
 Create Address is a SwiftUI-based application that generates Ethereum addresses, public keys, and private keys. 
 
