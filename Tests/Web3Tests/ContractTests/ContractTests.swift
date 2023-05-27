@@ -64,7 +64,7 @@ class TestContract: GenericERC721Contract {
     }
 
     // Example of a static function
-    func buyToken() -> SolidityInvocation {
+    func buyToken() -> SolidityPayableInvocation {
         let method = SolidityPayableFunction(name: "buyToken", inputs: [], outputs: nil, handler: self)
         return method.invoke()
     }
@@ -124,26 +124,6 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-
-                it("should fail with send") {
-                    waitUntil { done in
-                        invocation.send(
-                            nonce: nil,
-                            gasPrice: 0,
-                            maxFeePerGas: nil,
-                            maxPriorityFeePerGas: nil,
-                            gasLimit: 0,
-                            from: .testAddress,
-                            value: nil,
-                            accessList: [:],
-                            transactionType: .legacy
-                        ).catch { error in
-                            expect(error as? InvocationError).to(equal(InvocationError.invalidInvocation))
-                            done()
-                        }
-                    }
-                }
-
             }
 
             describe("Payable method") {
@@ -185,16 +165,6 @@ class ContractTests: QuickSpec {
                         }
                     }
                 }
-
-                it("should fail with call") {
-                    waitUntil { done in
-                        invocation.call().catch { error in
-                            expect(error as? InvocationError).to(equal(.invalidInvocation))
-                            done()
-                        }
-                    }
-                }
-
             }
 
             describe("Non payable method") {
@@ -219,15 +189,6 @@ class ContractTests: QuickSpec {
                             done()
                         }.catch { error in
                             fail(error.localizedDescription)
-                        }
-                    }
-                }
-
-                it("should fail with call") {
-                    waitUntil { done in
-                        invocation.call().catch { error in
-                            expect(error as? InvocationError).to(equal(.invalidInvocation))
-                            done()
                         }
                     }
                 }

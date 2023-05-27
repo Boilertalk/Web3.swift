@@ -9,7 +9,7 @@ import Foundation
 
 /// ERC165
 public protocol ERC165Contract: EthereumContract {
-    func supportsInterface(interface: String) -> SolidityInvocation
+    func supportsInterface(interface: String) -> SolidityReadInvocation
 }
 
 public extension ERC165Contract {
@@ -18,7 +18,7 @@ public extension ERC165Contract {
     ///
     /// - Parameter interface: first 4 bytes of keccak hash of the interface, expressed as a string (ex: "0x01ffc9a7")
     /// - Returns: Invocation for this method with the interface
-    func supportsInterface(interface: String) -> SolidityInvocation {
+    func supportsInterface(interface: String) -> SolidityReadInvocation {
         let inputs = [SolidityFunctionParameter(name: "_interface", type: .bytes(length: 4))]
         let outputs = [SolidityFunctionParameter(name: "_supportsInterface", type: .bool)]
         let method = SolidityConstantFunction(name: "supportsInterface", inputs: inputs, outputs: outputs, handler: self)

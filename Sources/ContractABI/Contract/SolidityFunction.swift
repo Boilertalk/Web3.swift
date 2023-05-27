@@ -48,6 +48,7 @@ public struct SolidityFunctionParameter: SolidityParameter {
 
 /// Represents a function within a contract
 public protocol SolidityFunction: AnyObject {
+    associatedtype Invocation: SolidityInvocation where Invocation.Function == Self
     
     /// Name of the method. Must match the contract source.
     var name: String { get }
@@ -72,7 +73,7 @@ public protocol SolidityFunction: AnyObject {
     ///
     /// - Parameter inputs: Input values. Must be in the correct order.
     /// - Returns: Invocation object
-    func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation
+    func invoke(_ inputs: [ABIEncodable]) -> Invocation
 }
 
 public extension SolidityFunction {
@@ -81,12 +82,15 @@ public extension SolidityFunction {
         return "\(name)(\(inputs.map { $0.type.stringValue }.joined(separator: ",")))"
     }
     
+    func invoke(_ inputs: ABIEncodable...) -> Invocation {
+        return self.invoke(inputs)
+    }
 }
 
 // MARK: - Function Implementations
 
 /// Represents a function that is read-only. It will not modify state on the blockchain.
-public class SolidityConstantFunction: SolidityFunction {
+public final class SolidityConstantFunction: SolidityFunction {
     public let name: String
     public let inputs: [SolidityFunctionParameter]
     public let outputs: [SolidityFunctionParameter]?
@@ -109,13 +113,13 @@ public class SolidityConstantFunction: SolidityFunction {
         self.handler = handler
     }
     
-    public func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation {
+    public func invoke(_ inputs: [ABIEncodable]) -> SolidityReadInvocation {
         return SolidityReadInvocation(method: self, parameters: inputs, handler: handler)
     }
 }
 
 /// Represents a function that can modify the state of the contract and can accept ETH.
-public class SolidityPayableFunction: SolidityFunction {
+public final class SolidityPayableFunction: SolidityFunction {
     public let name: String
     public let inputs: [SolidityFunctionParameter]
     public let outputs: [SolidityFunctionParameter]? = nil
@@ -136,13 +140,13 @@ public class SolidityPayableFunction: SolidityFunction {
         self.handler = handler
     }
     
-    public func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation {
+    public func invoke(_ inputs: [ABIEncodable]) -> SolidityPayableInvocation {
         return SolidityPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
 }
 
 /// Represents a function that can modify the state of the contract and cannot accept ETH.
-public class SolidityNonPayableFunction: SolidityFunction {
+public final class SolidityNonPayableFunction: SolidityFunction {
     public let name: String
     public let inputs: [SolidityFunctionParameter]
     public let outputs: [SolidityFunctionParameter]? = nil
@@ -163,7 +167,7 @@ public class SolidityNonPayableFunction: SolidityFunction {
         self.handler = handler
     }
     
-    public func invoke(_ inputs: ABIEncodable...) -> SolidityInvocation {
+    public func invoke(_ inputs: [ABIEncodable]) -> SolidityNonPayableInvocation {
         return SolidityNonPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
 }

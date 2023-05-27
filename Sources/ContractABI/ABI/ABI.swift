@@ -21,7 +21,7 @@ public struct ABI {
     
     // MARK: - Encoding
     
-    public static func encodeFunctionSignature(_ function: SolidityFunction) -> String {
+    public static func encodeFunctionSignature(_ function: any SolidityFunction) -> String {
         return "0x" + String(function.signature.sha3(.keccak256).prefix(8))
     }
     
@@ -49,9 +49,9 @@ public struct ABI {
         return "0x" + encoded
     }
     
-    public static func encodeFunctionCall(_ invocation: SolidityInvocation) throws -> String {
+    public static func encodeFunctionCall(_ invocation: any SolidityInvocation) throws -> String {
         let encodedInputs = try ABIEncoder.encode(invocation.parameters)
-        let signatureString = encodeFunctionSignature(invocation.method)
+        let signatureString = encodeFunctionSignature(invocation.method as any SolidityFunction)
         return signatureString + encodedInputs
     }
     

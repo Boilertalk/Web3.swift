@@ -107,7 +107,8 @@ class DynamicContractTests: QuickSpec {
 
                     it("should be able to call constant method") {
                         waitUntil { done in
-                            contract["balanceOf"]?(EthereumAddress.testAddress).call() { response, error in
+                            let method: SolidityConstantFunction? = contract["balanceOf"]
+                            method?.invoke(EthereumAddress.testAddress).call() { response, error in
                                 if let response = response, let balance = response["_balance"] as? BigUInt {
                                     expect(balance).to(equal(1))
                                     done()
@@ -119,7 +120,8 @@ class DynamicContractTests: QuickSpec {
                     }
 
                     it("should be able to create an EthereumCall") {
-                        guard let call = contract["balanceOf"]?(EthereumAddress.testAddress).createCall() else {
+                        let method: SolidityConstantFunction? = contract["balanceOf"]
+                        guard let call = method?.invoke(EthereumAddress.testAddress).createCall() else {
                             fail("Could not generate call")
                             return
                         }
@@ -139,7 +141,8 @@ class DynamicContractTests: QuickSpec {
                 describe("Sends") {
 
                     it("should be able to send non-payable method") {
-                        guard let transaction = contract["transfer"]?(EthereumAddress.testAddress, BigUInt(1)).createTransaction(
+                        let method: SolidityPayableFunction? = contract["transfer"]
+                        guard let transaction = method?.invoke(EthereumAddress.testAddress, BigUInt(1)).createTransaction(
                             nonce: 0,
                             gasPrice: nil,
                             maxFeePerGas: nil,
@@ -189,7 +192,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnSimpleStaticTuple"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnSimpleStaticTuple"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTuple"] as? [String: Any] else {
                                 fail("returned tuple should be decoded")
@@ -219,7 +223,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnComplexStaticTuple"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnComplexStaticTuple"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTuple"] as? [String: Any] else {
                                 fail("returned tuple should be decoded")
@@ -259,7 +264,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnSimpleStaticTupleArray"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnSimpleStaticTupleArray"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
                                 fail("returned tuple array should be decoded and count should be 4")
@@ -291,7 +297,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnComplexStaticTupleArray"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnComplexStaticTupleArray"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
                                 fail("returned tuple array should be decoded and count should be 4")
@@ -333,7 +340,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnSimpleDynamicTuple"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnSimpleDynamicTuple"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTuple"] as? [String: Any] else {
                                 fail("returned tuple should be decoded")
@@ -363,7 +371,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnComplexDynamicTuple"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnComplexDynamicTuple"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTuple"] as? [String: Any] else {
                                 fail("returned tuple should be decoded")
@@ -403,7 +412,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnSimpleDynamicTupleArray"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnSimpleDynamicTupleArray"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
                                 fail("returned tuple array should be decoded and count should be 4")
@@ -435,7 +445,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnComplexDynamicTupleArray"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnComplexDynamicTupleArray"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTupleArray"] as? [[String: Any]], t.count == 4 else {
                                 fail("returned tuple array should be decoded and count should be 4")
@@ -469,7 +480,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnSimpleMultidimensionalArray"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnSimpleMultidimensionalArray"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnArray"] as? [[BigUInt]], t.count == 2 else {
                                 fail("returned array should be decoded and count should be 2")
@@ -501,7 +513,8 @@ class DynamicContractTests: QuickSpec {
                             provider.addStub(method: "eth_call", data: tupleCallData)
                         }
                         firstly {
-                            contract["returnComplexStaticTupleMultidimensionalArray"]!().call()
+                            let method: SolidityConstantFunction? = contract["returnComplexStaticTupleMultidimensionalArray"]
+                            return method!.invoke().call()
                         }.done { outputs in
                             guard let t = outputs["returnTupleArray"] as? [[[String: Any]]], t.count == 12 else {
                                 fail("returned tuple array should be decoded and count should be 12")

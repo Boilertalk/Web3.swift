@@ -41,7 +41,7 @@ public class DynamicContract: EthereumContract {
     
     private(set) public var constructor: SolidityConstructor?
     private(set) public var events: [SolidityEvent] = []
-    private(set) public var methods: [String: SolidityFunction] = [:]
+    private(set) public var methods: [String: any SolidityFunction] = [:]
     
     public init(abi: [ABIObject], address: EthereumAddress?, eth: Web3.Eth) {
         self.address = address
@@ -86,7 +86,7 @@ public class DynamicContract: EthereumContract {
     /// Adds a method object to list of stored methods. Generally this should be done automatically by Web3.
     ///
     /// - Parameter method: `ABIFunction` that can be called on this contract
-    public func add(method: SolidityFunction) {
+    public func add(method: any SolidityFunction) {
         methods[method.name] = method
     }
     
@@ -94,8 +94,8 @@ public class DynamicContract: EthereumContract {
     /// For example: `MyContract['balanceOf']?(address).call() { ... }`
     ///
     /// - Parameter name: Name of function to call
-    public subscript(_ name: String) -> ((ABIEncodable...) -> SolidityInvocation)? {
-        return methods[name]?.invoke
+    public subscript<F: SolidityFunction>(_ name: String) -> F? {
+        return methods[name] as? F
     }
     
     /// Deploys a new instance of this contract to the network

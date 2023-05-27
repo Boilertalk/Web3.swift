@@ -17,14 +17,17 @@ import Collections
 
 // MARK: - Extensions
 
-public extension SolidityInvocation {
+public extension SolidityReadInvocation {
 
     func call(block: EthereumQuantityTag = .latest) -> Promise<[String: Any]> {
         return Promise { seal in
             self.call(block: block, completion: seal.resolve)
         }
     }
+}
 
+public extension SolidityPayableInvocation {
+    
     func send(
         nonce: EthereumQuantity? = nil,
         gasPrice: EthereumQuantity? = nil,
@@ -51,6 +54,39 @@ public extension SolidityInvocation {
             )
         }
     }
+}
+
+public extension SolidityNonPayableInvocation {
+    
+    func send(
+        nonce: EthereumQuantity? = nil,
+        gasPrice: EthereumQuantity? = nil,
+        maxFeePerGas: EthereumQuantity? = nil,
+        maxPriorityFeePerGas: EthereumQuantity? = nil,
+        gasLimit: EthereumQuantity? = nil,
+        from: EthereumAddress,
+        value: EthereumQuantity? = nil,
+        accessList: OrderedDictionary<EthereumAddress, [EthereumData]> = [:],
+        transactionType: EthereumTransaction.TransactionType = .legacy
+    ) -> Promise<EthereumData> {
+        return Promise { seal in
+            self.send(
+                nonce: nonce,
+                gasPrice: gasPrice,
+                maxFeePerGas: maxFeePerGas,
+                maxPriorityFeePerGas: maxPriorityFeePerGas,
+                gasLimit: gasLimit,
+                from: from,
+                value: value,
+                accessList: accessList,
+                transactionType: transactionType,
+                completion: seal.resolve
+            )
+        }
+    }
+}
+
+public extension SolidityInvocation {
 
     func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, value: EthereumQuantity? = nil) -> Promise<EthereumQuantity> {
         return Promise { seal in

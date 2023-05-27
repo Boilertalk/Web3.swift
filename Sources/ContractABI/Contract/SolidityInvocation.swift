@@ -20,8 +20,9 @@ public enum InvocationError: Error {
 
 /// Represents invoking a given contract method with parameters
 public protocol SolidityInvocation {
+    associatedtype Function: SolidityFunction where Function.Invocation == Self
     /// The function that was invoked
-    var method: SolidityFunction { get }
+    var method: Function { get }
     
     /// Parameters method was invoked with
     var parameters: [SolidityWrappedValue] { get }
@@ -29,46 +30,13 @@ public protocol SolidityInvocation {
     /// Handler for submitting calls and sends
     var handler: SolidityFunctionHandler { get }
     
-    /// Generates an EthereumCall object
-    func createCall() -> EthereumCall?
-    
-    /// Generates an EthereumTransaction object
-    func createTransaction(
-        nonce: EthereumQuantity?,
-        gasPrice: EthereumQuantity?,
-        maxFeePerGas: EthereumQuantity?,
-        maxPriorityFeePerGas: EthereumQuantity?,
-        gasLimit: EthereumQuantity?,
-        from: EthereumAddress?,
-        value: EthereumQuantity?,
-        accessList: OrderedDictionary<EthereumAddress, [EthereumData]>,
-        transactionType: EthereumTransaction.TransactionType
-    ) -> EthereumTransaction?
-    
-    /// Read data from the blockchain. Only available for constant functions.
-    func call(block: EthereumQuantityTag, completion: @escaping ([String: Any]?, Error?) -> Void)
-    
-    /// Write data to the blockchain. Only available for non-constant functions.
-    func send(
-        nonce: EthereumQuantity?,
-        gasPrice: EthereumQuantity?,
-        maxFeePerGas: EthereumQuantity?,
-        maxPriorityFeePerGas: EthereumQuantity?,
-        gasLimit: EthereumQuantity?,
-        from: EthereumAddress,
-        value: EthereumQuantity?,
-        accessList: OrderedDictionary<EthereumAddress, [EthereumData]>,
-        transactionType: EthereumTransaction.TransactionType,
-        completion: @escaping (EthereumData?, Error?) -> Void
-    )
-    
     /// Estimate how much gas is needed to execute this transaction.
     func estimateGas(from: EthereumAddress?, gas: EthereumQuantity?, value: EthereumQuantity?, completion: @escaping (EthereumQuantity?, Error?) -> Void)
     
     /// Encodes the ABI for this invocation
     func encodeABI() -> EthereumData?
     
-    init(method: SolidityFunction, parameters: [ABIEncodable], handler: SolidityFunctionHandler)
+    init(method: Function, parameters: [ABIEncodable], handler: SolidityFunctionHandler)
 }
 
 // MARK: - Read Invocation
@@ -76,12 +44,12 @@ public protocol SolidityInvocation {
 /// An invocation that is read-only. Should only use .call()
 public struct SolidityReadInvocation: SolidityInvocation {
     
-    public let method: SolidityFunction
+    public let method: SolidityConstantFunction
     public let parameters: [SolidityWrappedValue]
     
     public let handler: SolidityFunctionHandler
     
-    public init(method: SolidityFunction, parameters: [ABIEncodable], handler: SolidityFunctionHandler) {
+    public init(method: SolidityConstantFunction, parameters: [ABIEncodable], handler: SolidityFunctionHandler) {
         self.method = method
         self.parameters = zip(parameters, method.inputs).map { SolidityWrappedValue(value: $0, type: $1.type) }
         self.handler = handler
@@ -100,41 +68,11 @@ public struct SolidityReadInvocation: SolidityInvocation {
         handler.call(call, outputs: outputs, block: block, completion: completion)
     }
     
-    public func send(
-        nonce: EthereumQuantity?,
-        gasPrice: EthereumQuantity?,
-        maxFeePerGas: EthereumQuantity?,
-        maxPriorityFeePerGas: EthereumQuantity?,
-        gasLimit: EthereumQuantity?,
-        from: EthereumAddress,
-        value: EthereumQuantity?,
-        accessList: OrderedDictionary<EthereumAddress, [EthereumData]>,
-        transactionType: EthereumTransaction.TransactionType,
-        completion: @escaping (EthereumData?, Error?) -> Void
-    ) {
-        completion(nil, InvocationError.invalidInvocation)
-    }
-    
     public func createCall() -> EthereumCall? {
         guard let data = encodeABI() else { return nil }
         guard let to = handler.address else { return nil }
         return EthereumCall(from: nil, to: to, gas: nil, gasPrice: nil, value: nil, data: data)
     }
-    
-    public func createTransaction(
-        nonce: EthereumQuantity?,
-        gasPrice: EthereumQuantity?,
-        maxFeePerGas: EthereumQuantity?,
-        maxPriorityFeePerGas: EthereumQuantity?,
-        gasLimit: EthereumQuantity?,
-        from: EthereumAddress?,
-        value: EthereumQuantity?,
-        accessList: OrderedDictionary<EthereumAddress, [EthereumData]>,
-        transactionType: EthereumTransaction.TransactionType
-    ) -> EthereumTransaction? {
-        return nil
-    }
-    
 }
 
 // MARK: - Payable Invocation
@@ -142,12 +80,12 @@ public struct SolidityReadInvocation: SolidityInvocation {
 /// An invocation that writes to the blockchain and can receive ETH. Should only use .send()
 public struct SolidityPayableInvocation: SolidityInvocation {
     
-    public let method: SolidityFunction
+    public let method: SolidityPayableFunction
     public let parameters: [SolidityWrappedValue]
     
     public let handler: SolidityFunctionHandler
     
-    public init(method: SolidityFunction, parameters: [ABIEncodable], handler: SolidityFunctionHandler) {
+    public init(method: SolidityPayableFunction, parameters: [ABIEncodable], handler: SolidityFunctionHandler) {
         self.method = method
         self.parameters = zip(parameters, method.inputs).map { SolidityWrappedValue(value: $0, type: $1.type) }
         self.handler = handler
@@ -180,14 +118,6 @@ public struct SolidityPayableInvocation: SolidityInvocation {
             accessList: accessList,
             transactionType: transactionType
         )
-    }
-    
-    public func createCall() -> EthereumCall? {
-        return nil
-    }
-    
-    public func call(block: EthereumQuantityTag = .latest, completion: @escaping ([String: Any]?, Error?) -> Void) {
-        completion(nil, InvocationError.invalidInvocation)
     }
     
     public func send(
@@ -228,12 +158,13 @@ public struct SolidityPayableInvocation: SolidityInvocation {
 
 /// An invocation that writes to the blockchain and cannot receive ETH. Should only use .send().
 public struct SolidityNonPayableInvocation: SolidityInvocation {
-    public let method: SolidityFunction
+    
+    public let method: SolidityNonPayableFunction
     public let parameters: [SolidityWrappedValue]
     
     public let handler: SolidityFunctionHandler
     
-    public init(method: SolidityFunction, parameters: [ABIEncodable], handler: SolidityFunctionHandler) {
+    public init(method: SolidityNonPayableFunction, parameters: [ABIEncodable], handler: SolidityFunctionHandler) {
         self.method = method
         self.parameters = zip(parameters, method.inputs).map { SolidityWrappedValue(value: $0, type: $1.type) }
         self.handler = handler
@@ -266,14 +197,6 @@ public struct SolidityNonPayableInvocation: SolidityInvocation {
             accessList: accessList,
             transactionType: transactionType
         )
-    }
-    
-    public func createCall() -> EthereumCall? {
-        return nil
-    }
-    
-    public func call(block: EthereumQuantityTag = .latest, completion: @escaping ([String: Any]?, Error?) -> Void) {
-        completion(nil, InvocationError.invalidInvocation)
     }
     
     public func send(
@@ -315,10 +238,6 @@ public struct SolidityNonPayableInvocation: SolidityInvocation {
 public extension SolidityInvocation {
     
     // Default Implementations
-    
-    func call(completion: @escaping ([String: Any]?, Error?) -> Void) {
-        self.call(block: .latest, completion: completion)
-    }
     
     func estimateGas(from: EthereumAddress? = nil, gas: EthereumQuantity? = nil, value: EthereumQuantity? = nil, completion: @escaping (EthereumQuantity?, Error?) -> Void) {
         guard let data = encodeABI() else {
