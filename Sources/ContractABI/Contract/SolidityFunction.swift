@@ -73,17 +73,13 @@ public protocol SolidityFunction: AnyObject {
     ///
     /// - Parameter inputs: Input values. Must be in the correct order.
     /// - Returns: Invocation object
-    func invoke(_ inputs: [ABIEncodable]) -> Invocation
+    func invoke(_ inputs: ABIEncodable...) -> Invocation
 }
 
 public extension SolidityFunction {
     
     var signature: String {
         return "\(name)(\(inputs.map { $0.type.stringValue }.joined(separator: ",")))"
-    }
-    
-    func invoke(_ inputs: ABIEncodable...) -> Invocation {
-        return self.invoke(inputs)
     }
 }
 
@@ -113,7 +109,7 @@ public final class SolidityConstantFunction: SolidityFunction {
         self.handler = handler
     }
     
-    public func invoke(_ inputs: [ABIEncodable]) -> SolidityReadInvocation {
+    public func invoke(_ inputs: ABIEncodable...) -> SolidityReadInvocation {
         return SolidityReadInvocation(method: self, parameters: inputs, handler: handler)
     }
 }
@@ -140,7 +136,7 @@ public final class SolidityPayableFunction: SolidityFunction {
         self.handler = handler
     }
     
-    public func invoke(_ inputs: [ABIEncodable]) -> SolidityPayableInvocation {
+    public func invoke(_ inputs: ABIEncodable...) -> SolidityPayableInvocation {
         return SolidityPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
 }
@@ -167,7 +163,7 @@ public final class SolidityNonPayableFunction: SolidityFunction {
         self.handler = handler
     }
     
-    public func invoke(_ inputs: [ABIEncodable]) -> SolidityNonPayableInvocation {
+    public func invoke(_ inputs: ABIEncodable...) -> SolidityNonPayableInvocation {
         return SolidityNonPayableInvocation(method: self, parameters: inputs, handler: handler)
     }
 }

@@ -91,11 +91,11 @@ public class DynamicContract: EthereumContract {
     }
     
     /// Invocation of a method with the provided name
-    /// For example: `MyContract['balanceOf']?(address).call() { ... }`
+    /// For example: `myContract['balanceOf', SolidityConstantFunction.self]?(address).call() { ... }`
     ///
     /// - Parameter name: Name of function to call
-    public subscript<F: SolidityFunction>(_ name: String) -> F? {
-        return methods[name] as? F
+    public subscript<Function: SolidityFunction>(_ name: String, _: Function.Type = SolidityConstantFunction.self) -> ((ABIEncodable...) -> Function.Invocation)? {
+        return (methods[name] as? Function)?.invoke
     }
     
     /// Deploys a new instance of this contract to the network
