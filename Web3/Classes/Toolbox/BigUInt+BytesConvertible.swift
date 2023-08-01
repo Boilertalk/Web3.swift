@@ -1,0 +1,43 @@
+//
+//  BigUInt+BytesConvertible.swift
+//  Web3
+//
+//  Created by Koray Koska on 06.02.18.
+//
+
+import Foundation
+import BigInt
+import VaporBytes
+
+extension BigUInt: BytesConvertible {
+
+    public func makeBytes() -> Bytes {
+        var bytes: [UInt8] = []
+        for w in self.words {
+            let wordBytes = w.makeBytes()
+            for i in (0..<wordBytes.count).reversed() {
+                bytes.insert(wordBytes[i], at: 0)
+            }
+        }
+        return bytes
+    }
+
+    public init(bytes: Bytes) {
+        var bytes = bytes
+
+        var words: [Word] = []
+
+        let wordSize = MemoryLayout<Word>.size
+        let paddingNeeded = (wordSize - (bytes.count % wordSize)) % wordSize
+        for _ in 0..<paddingNeeded {
+            bytes.insert(0x00, at: 0)
+        }
+
+        for i in Swift.stride(from: 0, to: bytes.count, by: wordSize) {
+            let word = BigUInt.Word(bytes: Array(bytes[i..<(i + wordSize)]))
+            words.insert(word, at: 0)
+        }
+
+        self.init(words: words)
+    }
+}

@@ -7,6 +7,7 @@
 
 import Foundation
 import BigInt
+import VaporBytes
 
 public struct Transaction {
 
@@ -16,5 +17,11 @@ public struct Transaction {
 
     public let gasLimit: Int
 
-    // public let to:
+    public let to: EthereumAddress
+
+    public let value: BigUInt
+
+    public let data: Bytes
+
+    // public let v
 }
