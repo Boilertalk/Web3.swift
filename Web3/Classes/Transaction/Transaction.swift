@@ -41,6 +41,20 @@ public struct Transaction {
     /// EIP 155 chainId. Mainnet: 1
     public let chainId: UInt
 
+    /**
+     * Initializes a new instance of `Transaction` with the given values.
+     *
+     * - parameter nonce: The nonce of this transaction.
+     * - parameter gasPrice: The gas price for this transaction.
+     * - parameter gasLimit: The gas limit for this transaction.
+     * - parameter to: The address of the receiver.
+     * - parameter value: The value to be sent by this transaction.
+     * - parameter data: Input data for this transaction. Defaults to [].
+     * - parameter v: EC signature parameter v. Defaults to 0.
+     * - parameter r: EC signature parameter r. Defaults to 0.
+     * - parameter s: EC recovery ID. Defaults to 0.
+     * - parameter chainId: The chainId as described in EIP155. Mainnent: 1
+     */
     public init(
         nonce: UInt,
         gasPrice: UInt,
@@ -53,11 +67,6 @@ public struct Transaction {
         s: BigUInt = 0,
         chainId: UInt
     ) {
-        var v = v
-        if v == 0 {
-            v = BigUInt(integerLiteral: UInt64(chainId))
-        }
-
         self.nonce = nonce
         self.gasPrice = gasPrice
         self.gasLimit = gasLimit
