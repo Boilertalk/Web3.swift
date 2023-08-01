@@ -38,6 +38,6 @@ let package = Package(
             sources: ["PromiseKit"]),
         .testTarget(
             name: "Web3Tests",
-            dependencies: ["Web3", "Quick", "Nimble"])
+            dependencies: ["Web3", "Web3PromiseKit", "Quick", "Nimble"])
     ]
 )
