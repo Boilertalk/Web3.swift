@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 #if !Web3CocoaPods
-    import Web3Core
+    import Web3
 #endif
 
 extension RPCResponse.Error: Error {
