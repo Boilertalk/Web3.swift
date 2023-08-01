@@ -22,19 +22,19 @@ before_install:
   - pod repo update
   - pod install --project-directory=Example
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-        brew install kylef/formulae/swiftenv; # Install swiftenv
-        if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi;
+      brew install kylef/formulae/swiftenv;
+      if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi;
     else
-        git clone https://github.com/kylef/swiftenv.git ~/.swiftenv; # Install swiftenv
-        export SWIFTENV_ROOT="$HOME/.swiftenv";
-        export PATH="$SWIFTENV_ROOT/bin:$PATH";
-        eval "$(swiftenv init -)";
+      git clone https://github.com/kylef/swiftenv.git ~/.swiftenv;
+      export SWIFTENV_ROOT="$HOME/.swiftenv";
+      export PATH="$SWIFTENV_ROOT/bin:$PATH";
+      eval "$(swiftenv init -)";
     fi
   - swiftenv install $(cat .swift-version) # Install swift with swiftenv
 script:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-        set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.2 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.2' ONLY_ACTIVE_ARCH=NO | xcpretty;
-        pod lib lint --allow-warnings;
+      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.2 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.2' ONLY_ACTIVE_ARCH=NO | xcpretty;
+      pod lib lint --allow-warnings;
     fi
   - swift build
   - swift build -c release
