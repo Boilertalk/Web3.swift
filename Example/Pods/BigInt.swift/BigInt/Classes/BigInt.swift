@@ -6,7 +6,7 @@
 //  Copyright © 2016-2017 Károly Lőrentey.
 //
 
-import SipHash
+import Foundation
 
 //MARK: BigInt
 
