@@ -1,5 +1,5 @@
 //
-//  Int+BytesRepresentable.swift
+//  UInt+BytesRepresentable.swift
 //  Web3
 //
 //  Created by Koray Koska on 01.02.18.
@@ -8,7 +8,7 @@
 import Foundation
 import VaporBytes
 
-extension Int: BytesRepresentable {
+extension UInt: BytesRepresentable {
 
     public func makeBytes() -> Bytes {
         var bytes: Bytes = Bytes()
