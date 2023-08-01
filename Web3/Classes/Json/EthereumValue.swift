@@ -107,10 +107,11 @@ extension EthereumValue: ExpressibleByBooleanLiteral {
 
 extension EthereumValue: ExpressibleByArrayLiteral {
 
-    public typealias ArrayLiteralElement = EthereumValue
+    public typealias ArrayLiteralElement = EthereumValueRepresentable
 
     public init(arrayLiteral elements: ArrayLiteralElement...) {
-        valueType = .array(elements)
+        let values = elements.map({ $0.ethereumValue() })
+        valueType = .array(values)
     }
 }
 
@@ -148,5 +149,18 @@ public extension EthereumValue {
         }
 
         return nil
+    }
+}
+
+// MARK: - EthereumValueConvertible
+
+extension EthereumValue: EthereumValueConvertible {
+
+    public init(ethereumValue: EthereumValue) {
+        self = ethereumValue
+    }
+
+    public func ethereumValue() -> EthereumValue {
+        return self
     }
 }

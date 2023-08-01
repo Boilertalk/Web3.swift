@@ -171,3 +171,20 @@ public struct EthereumAddress {
         case checksumWrong
     }
 }
+
+// MARK: - EthereumValueConvertible
+
+extension EthereumAddress: EthereumValueConvertible {
+
+    public init(ethereumValue: EthereumValue) throws {
+        guard let str = ethereumValue.string else {
+            throw EthereumValueInitializableError.notInitializable
+        }
+
+        try self.init(hex: str, eip55: false)
+    }
+
+    public func ethereumValue() -> EthereumValue {
+        return EthereumValue(stringLiteral: hex(eip55: false))
+    }
+}

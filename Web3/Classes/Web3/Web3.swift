@@ -107,5 +107,65 @@ public struct Web3 {
 
             properties.provider.basicSend(request: req, response: response)
         }
+
+        public func hashrate(response: @escaping BasicWeb3ResponseCompletion) {
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_hashrate", params: [])
+
+            properties.provider.basicSend(request: req, response: response)
+        }
+
+        public func gasPrice(response: @escaping BasicWeb3ResponseCompletion) {
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_gasPrice", params: [])
+
+            properties.provider.basicSend(request: req, response: response)
+        }
+
+        public func accounts(response: @escaping BasicWeb3ResponseCompletion) {
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_accounts", params: [])
+
+            properties.provider.basicSend(request: req, response: response)
+        }
+
+        public func blockNumber(response: @escaping BasicWeb3ResponseCompletion) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_blockNumber",
+                params: []
+            )
+
+            properties.provider.basicSend(request: req, response: response)
+        }
+
+        public func getBalance(
+            address: EthereumAddress,
+            block: EthereumQuantityTag,
+            response: @escaping BasicWeb3ResponseCompletion
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getBalance",
+                params: [address, block]
+            )
+
+            properties.provider.basicSend(request: req, response: response)
+        }
+
+        public func getStorageAt(
+            address: EthereumAddress,
+            position: EthereumQuantity,
+            block: EthereumQuantityTag,
+            response: @escaping BasicWeb3ResponseCompletion
+        ) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_getStorageAt",
+                params: [address, position, block]
+            )
+
+            properties.provider.basicSend(request: req, response: response)
+        }
     }
 }
