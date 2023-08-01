@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VaporBytes
 
 /**
  * The default RLP Encoder which takes `RLPItem`'s and rlp encodes them as documented on Github:

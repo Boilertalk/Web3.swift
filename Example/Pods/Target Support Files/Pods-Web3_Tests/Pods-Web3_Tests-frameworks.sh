@@ -140,7 +140,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Quick/Quick.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/VaporBytes/VaporBytes.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Web3/Web3.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework"
 fi
@@ -151,7 +150,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Quick/Quick.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/VaporBytes/VaporBytes.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Web3/Web3.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/secp256k1.swift/secp256k1.framework"
 fi

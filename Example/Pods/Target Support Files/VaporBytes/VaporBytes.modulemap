@@ -1,6 +1,0 @@
-framework module VaporBytes {
-  umbrella header "VaporBytes-umbrella.h"
-
-  export *
-  module * { export * }
-}

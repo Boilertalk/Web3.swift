@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VaporBytes
 
 /**
  * The default RLP Decoder which takes rlp encoded `Bytes` and creates their representing `RLPItem`

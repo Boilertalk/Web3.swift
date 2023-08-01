@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VaporBytes
 
 public struct EthereumLogObject: Codable {
 

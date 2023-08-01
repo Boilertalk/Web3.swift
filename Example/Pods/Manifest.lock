@@ -7,9 +7,6 @@ PODS:
   - Quick (1.2.0)
   - secp256k1.swift (0.1.1)
   - SipHash (1.2.0)
-  - VaporBytes (1.1.0):
-    - VaporBytes/Default (= 1.1.0)
-  - VaporBytes/Default (1.1.0)
   - Web3 (0.1.0):
     - Web3/Core (= 0.1.0)
     - Web3/HTTPExtension (= 0.1.0)
@@ -17,7 +14,6 @@ PODS:
     - BigInt (~> 3.0)
     - CryptoSwift (~> 0.8)
     - secp256k1.swift (~> 0.1)
-    - VaporBytes (~> 1.1)
   - Web3/HTTPExtension (0.1.0):
     - Web3/Core
   - Web3/PromiseKit (0.1.0):
@@ -42,8 +38,7 @@ SPEC CHECKSUMS:
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   secp256k1.swift: f2dd50b7909e7d3d7527502619d061b85bd1c294
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
-  VaporBytes: 628752235bc16d69800b52355de7118762a9009f
-  Web3: 509fd0dbabb2ced3f0166286c4417bf05fc38a91
+  Web3: b1729430d65b07e6769a64be40f27de0ba1da54a
 
 PODFILE CHECKSUM: 2f710184f832269e9555625936985a2bc3b69022
 

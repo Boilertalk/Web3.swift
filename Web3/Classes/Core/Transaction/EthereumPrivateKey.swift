@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import VaporBytes
 import secp256k1
 import CryptoSwift
 

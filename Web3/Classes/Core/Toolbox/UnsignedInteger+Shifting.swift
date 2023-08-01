@@ -1,6 +1,17 @@
+//
+//  UnsignedInteger+Shifting.swift
+//  Web3
+//
+//  Created by Koray Koska on 06.04.18.
+//  Copyright © 2018 Boilertalk. All rights reserved.
+//
+
+import Foundation
+
 extension UnsignedInteger {
+
     /**
-     Returns whether or not a given bitMask is part of the caller
+     * Returns true iff mask is included in self
      */
     public func containsMask(_ mask: Self) -> Bool {
         return (self & mask) == mask
@@ -8,20 +19,21 @@ extension UnsignedInteger {
 }
 
 extension UnsignedInteger {
+
     /**
-     A right bit shifter that is supported without the need for a concrete type.
+     * Shift right
      */
     mutating func shiftRight(_ places: Int) {
-        (1...places).forEach { _ in
+        for _ in 0..<places {
             self /= 2
         }
     }
 
     /**
-     A bit shifter that is supported without the need for a concrete type.
+     * Shift left
      */
     mutating func shiftLeft(_ places: Int) {
-        (1...places).forEach { _ in
+        for _ in 0..<places {
             self *= 2
         }
     }

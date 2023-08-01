@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import VaporBytes
 
+/*
 extension UInt: BytesRepresentable {
 
     public func makeBytes() -> Bytes {
@@ -23,4 +23,4 @@ extension UInt: BytesRepresentable {
 
         return bytes
     }
-}
+}*/
