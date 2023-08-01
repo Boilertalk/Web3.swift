@@ -249,4 +249,3 @@ extension EthereumPrivateKey: Equatable {
         return lhs.rawPrivateKey == rhs.rawPrivateKey
     }
 }
-

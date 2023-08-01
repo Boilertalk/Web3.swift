@@ -289,3 +289,12 @@ public class EthereumPublicKey {
         secp256k1_context_destroy(ctx)
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumPublicKey: Equatable {
+
+    public static func ==(_ lhs: EthereumPublicKey, _ rhs: EthereumPublicKey) -> Bool {
+        return lhs.rawPublicKey == rhs.rawPublicKey
+    }
+}
