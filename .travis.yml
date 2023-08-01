@@ -22,7 +22,6 @@ before_install:
   - pod repo update
   - pod install --project-directory=Example
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      # Let travis manage swift versions for macOS builds
       echo "macOS build. swiftenv will not be installed.";
     else
       git clone https://github.com/kylef/swiftenv.git ~/.swiftenv;
@@ -30,7 +29,7 @@ before_install:
       export PATH="$SWIFTENV_ROOT/bin:$PATH";
       eval "$(swiftenv init -)";
 
-      swiftenv install $(cat .swift-version) # Install swift with swiftenv
+      swiftenv install $(cat .swift-version);
     fi
 script:
   # Output something every 10 minutes or Travis kills the job
