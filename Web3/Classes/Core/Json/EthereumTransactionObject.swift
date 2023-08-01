@@ -61,3 +61,14 @@ extension EthereumTransactionObject: Equatable {
             && lhs.input == rhs.input
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumTransactionObject: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(
+            hash, nonce, blockHash, blockNumber, transactionIndex, from, to, value, gasPrice, gas, input
+        )
+    }
+}

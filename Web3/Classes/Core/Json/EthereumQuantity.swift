@@ -61,6 +61,19 @@ public extension EthereumValue {
     }
 }
 
+// MARK: - BytesConvertible
+
+extension EthereumQuantity: BytesConvertible {
+
+    public init(bytes: Bytes) {
+        self = EthereumQuantity.bytes(bytes)
+    }
+
+    public func makeBytes() -> Bytes {
+        return quantity.makeBytes()
+    }
+}
+
 // MARK: - Equatable
 
 extension EthereumQuantity: Equatable {
