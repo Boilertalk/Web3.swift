@@ -38,10 +38,20 @@ class EthereumCallParamsTests: QuickSpec {
                         block: .latest
                     )
                     expect(e).toNot(beNil())
+                    guard let call = e else {
+                        return
+                    }
 
-                    let str = "[{\"value\":\"0xa\",\"to\":\"0x829bd824b016326a401d083b33d092293333a830\",\"gas\":\"0x5208\",\"data\":\"0x00ff\",\"gasPrice\":\"0x4e3b29200\",\"from\":\"0x52bc44d5378309ee2abf1539bf71de1b7d7be3b5\"},\"latest\"]"
+                    let newCall = try? self.decoder.decode(EthereumCallParams.self, from: self.encoder.encode(call))
+                    expect(newCall).toNot(beNil())
 
-                    expect(try? self.encoder.encode(e!).makeString()) == str
+                    expect(newCall?.from?.hex(eip55: true)) == "0x52bc44d5378309EE2abF1539BF71dE1b7d7bE3b5"
+                    expect(newCall?.to.hex(eip55: true)) == "0x829BD824B016326A401d083B33D092293333A830"
+                    expect(newCall?.gas?.quantity) == 21000
+                    expect(newCall?.gasPrice?.quantity) == UInt(21).gwei
+                    expect(newCall?.value?.quantity) == 10
+                    expect(newCall?.data?.bytes) == [0x00, 0xff]
+                    expect(newCall?.block.tagType) == .latest
                 }
             }
 
