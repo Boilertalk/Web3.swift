@@ -21,6 +21,9 @@ extension Array where Element == UInt8 {
         guard fd != -1 else {
             return nil
         }
+        defer {
+            close(fd)
+        }
 
         let ret = read(fd, &array, MemoryLayout<UInt8>.size * array.count)
         guard ret > 0 else {
