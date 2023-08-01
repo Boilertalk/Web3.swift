@@ -21,6 +21,20 @@ public struct EthereumSyncStatusObject: Codable {
     /// The estimated highest block
     public let highestBlock: EthereumQuantity?
 
+    public init() {
+        self.syncing = false
+        self.startingBlock = nil
+        self.currentBlock = nil
+        self.highestBlock = nil
+    }
+
+    public init(startingBlock: EthereumQuantity, currentBlock: EthereumQuantity, highestBlock: EthereumQuantity) {
+        self.startingBlock = startingBlock
+        self.currentBlock = currentBlock
+        self.highestBlock = highestBlock
+        self.syncing = true
+    }
+
     public enum CodingKeys: String, CodingKey {
 
         case startingBlock
