@@ -1,21 +1,7 @@
-#
-# Be sure to run `pod lib lint Web3.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = 'Web3'
   s.version          = '0.1.0'
   s.summary          = 'Web3 library for Swift. Sign transactions and interact with Smart Contracts in the Ethereum Network.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
 Web3 library to sign transactions, interact with Smart Contracts, call
@@ -33,18 +19,29 @@ HTTP RPC interface provided by this library or a custom RPC interface
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'Web3/Classes/**/*'
-  
+  s.subspec 'Core' do |ss|
+    ss.source_files = 'Web3/Classes/Core/**/*'
+
+    # Core dependencies
+    ss.dependency 'BigInt', '~> 3.0'
+    ss.dependency 'CryptoSwift', '~> 0.8'
+    ss.dependency 'secp256k1.swift', '~> 0.1'
+    ss.dependency 'VaporBytes', '~> 1.0'
+  end
+
+  s.subspec 'AlamofireHTTP' do |ss|
+    ss.source_files = 'Web3/Classes/AlamofireHTTP/**/*'
+
+    ss.dependency 'Web3/Core'
+
+    # AlamofireHTTP dependencies
+    ss.dependency 'Alamofire', '~> 4.6'
+  end
+
   # s.resource_bundles = {
   #   'Web3' => ['Web3/Assets/*.png']
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-
-  s.dependency 'BigInt', '~> 3.0'
-  s.dependency 'CryptoSwift', '~> 0.8'
-  s.dependency 'secp256k1.swift', '~> 0.1'
-  s.dependency 'Alamofire', '~> 4.6'
-  s.dependency 'VaporBytes', '~> 1.0'
 end
