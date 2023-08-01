@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ * A block as returned by an Ethereum node.
+ */
 public struct EthereumBlock: Codable {
 
     /// The block number. nil when its a pending block.
@@ -60,6 +63,63 @@ public struct EthereumBlock: Codable {
     /// The unix timestamp for when the block was collated.
     let timestamp: String
 
+    /// Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.
+    let transactions: [Transaction]
+
     /// Array of uncle hashes.
     let uncles: [String]
+
+    /**
+     * Represents a transaction as either a hash or an object.
+     */
+    public struct Transaction: Codable {
+
+        /// The transaction as an object
+        let object: EthereumTransaction?
+
+        /// The transaction as an hash
+        let hash: String?
+
+        public init(object: EthereumTransaction) {
+            self.object = object
+            self.hash = nil
+        }
+
+        public init(hash: String) {
+            self.hash = hash
+            self.object = nil
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+
+            if let tx = try? container.decode(EthereumTransaction.self) {
+                self.init(object: tx)
+            } else if let tx = try? container.decode(String.self) {
+                self.init(hash: tx)
+            }
+
+            throw Error.unsupportedType
+        }
+
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+
+            if let object = object {
+                try container.encode(object)
+            } else if let hash = hash {
+                try container.encode(hash)
+            }
+
+            // This will never happen, but to be consistent...
+            try container.encodeNil()
+        }
+
+        /// Encoding and Decoding errors specific to EthereumValue
+        public enum Error: Swift.Error {
+
+            /// The type set is not convertible to EthereumValue
+            case unsupportedType
+        }
+    }
 }
