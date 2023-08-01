@@ -29,7 +29,7 @@ extension NSRegularExpression {
         return matches.flatMap { match -> [String] in
             return (0..<match.numberOfRanges).map {
                 let substring = nsString.substring(with: match.range(at: $0))
-                return String(substring)
+                return substring
             }
         }
     }
