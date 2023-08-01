@@ -109,9 +109,34 @@ extension EthereumValue: ExpressibleByArrayLiteral {
 
     public typealias ArrayLiteralElement = EthereumValueRepresentable
 
-    public init(arrayLiteral elements: ArrayLiteralElement...) {
-        let values = elements.map({ $0.ethereumValue() })
+    public init(array: [EthereumValueRepresentable]) {
+        let values = array.map({ $0.ethereumValue() })
         valueType = .array(values)
+    }
+
+    public init(arrayLiteral elements: ArrayLiteralElement...) {
+        self.init(array: elements)
+    }
+}
+
+// MARK: - Convenient Setters
+
+public extension EthereumValue {
+
+    public static func string(_ string: String) -> EthereumValue {
+        return self.init(stringLiteral: string)
+    }
+
+    public static func int(_ int: Int) -> EthereumValue {
+        return self.init(integerLiteral: int)
+    }
+
+    public static func bool(_ bool: Bool) -> EthereumValue {
+        return self.init(booleanLiteral: bool)
+    }
+
+    public static func array(_ array: [EthereumValueRepresentable]) -> EthereumValue {
+        return self.init(array: array)
     }
 }
 
