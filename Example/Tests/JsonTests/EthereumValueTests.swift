@@ -150,6 +150,19 @@ class EthereumValueTests: QuickSpec {
                     expect(value?.array?[safe: 8]?.int) == 1
                 }
             }
+
+            context("ethereum value convertible") {
+
+                it("should initialize itself") {
+                    let ethereumValue = try? EthereumValue(ethereumValue: 10)
+                    expect(ethereumValue?.int) == 10
+                }
+
+                it("should return itself") {
+                    let ethereumValue: EthereumValue = EthereumValue.bool(true).ethereumValue()
+                    expect(ethereumValue.bool) == true
+                }
+            }
         }
     }
 }
