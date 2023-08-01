@@ -78,7 +78,12 @@ and macOS and Linux (with SPM).
 (currently Ubuntu 14.04 and 16.04) but it should be compatible with all little endian systems
 which are able to compile the Swift Compiler, Foundation and Glibc.
 
-###
+### :zap: Speed and Efficiency
+
+We try to make this library as fast as possible while trying to provide an API which increases your development
+workflow such that you can focus on building great DAPPS instead of worrying about implementation details.
+
+All our APIs are thread safe and designed to be used in highly concurrent applications
 
 ## Installation
 
@@ -89,6 +94,14 @@ it, simply add the following line to your `Podfile`:
 
 ```ruby
 pod 'Web3'
+```
+
+### Carthage
+
+Web3 is compatible with [Carthage](https://github.com/Carthage/Carthage), a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To install it, simply add the following line to your `Cartfile`:
+
+```
+github "Boilertalk/Web3.swift"
 ```
 
 ### Swift Package Manager
@@ -111,9 +124,17 @@ import Web3
 
 > TODO: Add usage examples
 
+## Disclaimer
+
+Until we reach version 1.0.0 our API is subject to breaking changes between minor version jumps.
+This is to make sure we can focus on providing the best implementation while we are in heavy development
+instead of trying to maintain something which is deprecated.
+
+That being said, we will try to minimize breaking changes. Most certainly there won't be many.
+
 ## Author
 
-Koray Koska, koray@koska.at
+The awesome guys at Boilertalk :alembic:
 
 ## License
 
