@@ -3,8 +3,17 @@ PODS:
     - SipHash (~> 1.2)
   - CryptoSwift (0.8.3)
   - Nimble (7.0.3)
+  - PromiseKit (6.2.1):
+    - PromiseKit/CorePromise (= 6.2.1)
+    - PromiseKit/Foundation (= 6.2.1)
+    - PromiseKit/UIKit (= 6.2.1)
+  - PromiseKit/CorePromise (6.2.1)
+  - PromiseKit/Foundation (6.2.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.2.1):
+    - PromiseKit/CorePromise
   - Quick (1.2.0)
-  - secp256k1.swift (0.1.0)
+  - secp256k1.swift (0.1.1)
   - SipHash (1.2.0)
   - VaporBytes (1.1.0):
     - VaporBytes/Default (= 1.1.0)
@@ -12,6 +21,7 @@ PODS:
   - Web3 (0.1.0):
     - Web3/Core (= 0.1.0)
     - Web3/HTTPExtension (= 0.1.0)
+    - Web3/PromiseKit (= 0.1.0)
   - Web3/Core (0.1.0):
     - BigInt (~> 3.0)
     - CryptoSwift (~> 0.8)
@@ -19,6 +29,8 @@ PODS:
     - VaporBytes (~> 1.1)
   - Web3/HTTPExtension (0.1.0):
     - Web3/Core
+  - Web3/PromiseKit (0.1.0):
+    - PromiseKit (~> 6.0)
 
 DEPENDENCIES:
   - Nimble (~> 7.0.2)
@@ -33,11 +45,12 @@ SPEC CHECKSUMS:
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
   CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  PromiseKit: edaca6f0a7ed73b08c287600537d13867a7fabc7
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  secp256k1.swift: c4734a8c5597de8ff4af5db24624d6dd883eede0
+  secp256k1.swift: f2dd50b7909e7d3d7527502619d061b85bd1c294
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
   VaporBytes: 628752235bc16d69800b52355de7118762a9009f
-  Web3: 4d301468d0744efec5e9d20662f60b76b828da68
+  Web3: ef00529e9066cd0c92b0b3c85178e800244857a7
 
 PODFILE CHECKSUM: 6187d63273cbe49465a8ccc30c3bfdf2efc80482
 

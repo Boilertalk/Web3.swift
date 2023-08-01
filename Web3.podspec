@@ -22,6 +22,10 @@ HTTP RPC interface provided by this library or a custom RPC interface
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '2.0'
 
+  s.pod_target_xcconfig = {
+    'OTHER_SWIFT_FLAGS' => '-DWeb3CocoaPods'
+  }
+
   s.subspec 'Core' do |ss|
     ss.source_files = 'Web3/Classes/Core/**/*'
 
@@ -30,6 +34,13 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.dependency 'CryptoSwift', '~> 0.8'
     ss.dependency 'secp256k1.swift', '~> 0.1'
     ss.dependency 'VaporBytes', '~> 1.1'
+  end
+
+  s.subspec 'PromiseKit' do |ss|
+    ss.source_files = 'Web3/Classes/PromiseKit/**/*'
+
+    # PromiseKit dependency
+    ss.dependency 'PromiseKit', '~> 6.0'
   end
 
   s.subspec 'HTTPExtension' do |ss|
