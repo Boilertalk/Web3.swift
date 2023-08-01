@@ -110,7 +110,7 @@ open class RLPDecoder {
             // We start after the length defining bytes (and the first byte)
             var pointer = Int(byteCount) + 1
             while pointer < rlp.count {
-                let count = try getCount(rlp: Array(rlp[pointer...]))
+                let count = try getCount(rlp: Array(rlp[pointer...])) + Int(getLengthByteCount(sign: rlp[pointer]))
 
                 guard rlp.count >= (pointer + count + 1) else {
                     throw Error.inputBad
@@ -141,6 +141,15 @@ open class RLPDecoder {
 
     // MARK: - Helper methods
 
+    /**
+     * Returns the length of the given rlp as defined in its signature
+     * (first byte plus optional length bytes). Excludes the sign byte (the first byte)
+     * and the optional length bytes.
+     *
+     * - parameter rlp: The rlp to analyze.
+     *
+     * - returns: The length of the given rlp as defined in its signature.
+     */
     private func getCount(rlp: Bytes) throws -> Int {
         guard rlp.count > 0 else {
             throw Error.inputBad
@@ -180,5 +189,25 @@ open class RLPDecoder {
         }
 
         return Int(count)
+    }
+
+    /**
+     * Returns the number of bytes for the length signature of an rlp encoded item.
+     *
+     * Returns 0 if the sign includes the length of the rlp item. (<= 55 bytes).
+     *
+     * - parameter sign: The sign (first byte) of an rlp encoded item.
+     *
+     * - returns: The number of bytes for the length signature as defined in the given sign.
+     */
+    private func getLengthByteCount(sign: Byte) -> Byte {
+        var byteCount: UInt8 = 0
+        if sign >= 0xb8 && sign <= 0xbf {
+            byteCount = sign - 0xb7
+        } else if sign >= 0xf8 && sign <= 0xff {
+            byteCount = sign - 0xf7
+        }
+
+        return byteCount
     }
 }

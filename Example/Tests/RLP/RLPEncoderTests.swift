@@ -123,6 +123,27 @@ class RLPEncoderTests: QuickSpec {
                     expect(rlp[6]) == 0xc1
                     expect(rlp[7]) == 0xc0
                 }
+
+                it("should be an array of long latin strings") {
+                    let str = "Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+                    let r = try? encoder.encode([.string(str), .string(str)])
+                    guard let rlp = self.expectCount(r, count: 118) else {
+                        return
+                    }
+
+                    expect(rlp[0]) == 0xf8
+                    expect(rlp[1]) == 0x74
+
+                    expect(rlp[2]) == 0xb8
+                    expect(rlp[3]) == 0x38
+                    let rlpStringOne = Array(rlp[4..<60])
+                    self.expectGeneralRLPString(string: str, rlp: rlpStringOne)
+
+                    expect(rlp[60]) == 0xb8
+                    expect(rlp[61]) == 0x38
+                    let rlpStringTwo = Array(rlp[62..<118])
+                    self.expectGeneralRLPString(string: str, rlp: rlpStringTwo)
+                }
             }
         }
     }

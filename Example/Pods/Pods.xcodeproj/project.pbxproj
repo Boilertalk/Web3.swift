@@ -940,6 +940,7 @@
 				266CAE50C9B5867F15CA367EF8818F02 /* RLP */,
 				94C960FE7DEB3E8DE4632DDE4CD9B019 /* Support Files */,
 				F009387FAEA9318DFC95E4E99EB238D2 /* Toolbox */,
+				0E8C911D2027F72E00563B6E /* Transaction */,
 				1CCA55E68F7357C2B3594FA953A55A90 /* Web3 */,
 			);
 			name = Web3;
@@ -958,6 +959,14 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Nimble";
+			sourceTree = "<group>";
+		};
+		0E8C911D2027F72E00563B6E /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Transaction;
+			path = Web3/Classes/Transaction;
 			sourceTree = "<group>";
 		};
 		1636E68B1657A2FB6AF74B5ECAB82992 /* Providers */ = {
