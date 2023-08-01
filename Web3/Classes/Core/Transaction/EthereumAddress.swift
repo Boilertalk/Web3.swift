@@ -215,7 +215,8 @@ extension EthereumAddress: BytesConvertible {
 
 extension EthereumAddress: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(self)
+    public func hash(into hasher: inout Hasher) {
+        // TODO: Is throwing deterministic here?
+        try? hasher.combine(makeBytes())
     }
 }

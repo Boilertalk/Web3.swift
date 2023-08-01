@@ -152,17 +152,19 @@ extension EthereumCallParams: Equatable {
 
 extension EthereumCall: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(
-            from, to, gas, gasPrice, value, data
-        )
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(from)
+        hasher.combine(to)
+        hasher.combine(gas)
+        hasher.combine(gasPrice)
+        hasher.combine(value)
+        hasher.combine(data)
     }
 }
 
 extension EthereumCallParams: Hashable {
 
-    public var hashValue: Int {
-        // Do we need to include `block` for performance reasons?
-        return call.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(call)
     }
 }

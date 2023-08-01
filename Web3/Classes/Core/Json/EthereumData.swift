@@ -46,7 +46,7 @@ extension EthereumData: EthereumValueConvertible {
 
 public extension EthereumValue {
 
-    public var ethereumData: EthereumData? {
+    var ethereumData: EthereumData? {
         return try? EthereumData(ethereumValue: self)
     }
 }
@@ -64,9 +64,7 @@ extension EthereumData: Equatable {
 
 extension EthereumData: Hashable {
 
-    public var hashValue: Int {
-        return hashValues(
-            bytes
-        )
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(bytes)
     }
 }

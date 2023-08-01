@@ -64,7 +64,7 @@ extension EthereumLogObject: Equatable {
 
 extension EthereumLogObject: Hashable {
 
-    public var hashValue: Int {
+    public func hash(into hasher: inout Hasher) {
         var removedBytes: UInt8?
         if let removed = self.removed {
             removedBytes = removed ? UInt8(0x01) : UInt8(0x00)
@@ -76,6 +76,10 @@ extension EthereumLogObject: Hashable {
         for t in topics {
             arr.append(t)
         }
-        return hashValues(arr)
+
+        for bytes in arr {
+            // TODO: Is throwing deterministic here?
+            try? hasher.combine(bytes?.makeBytes())
+        }
     }
 }
