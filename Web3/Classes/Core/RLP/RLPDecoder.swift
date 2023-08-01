@@ -54,75 +54,11 @@ open class RLPDecoder {
             let bytes = Array(rlp[1..<rlp.count])
             return .bytes(bytes)
         } else if sign >= 0xb8 && sign <= 0xbf {
-            let byteCount = sign - 0xb7
-            guard byteCount <= 8 else {
-                throw Error.inputTooLong
-            }
-
-            let stringCount = try getCount(rlp: rlp)
-
-            let rlpCount = stringCount + Int(byteCount) + 1
-            guard rlp.count == rlpCount else {
-                throw Error.inputMalformed
-            }
-
-            let bytes = Array(rlp[(Int(byteCount) + 1) ..< Int(rlpCount)])
-            return .bytes(bytes)
+            return try decodeLongBytes(sign: sign, rlp: rlp)
         } else if sign >= 0xc0 && sign <= 0xf7 {
-            let totalCount = sign - 0xc0
-            guard rlp.count == totalCount + 1 else {
-                throw Error.inputMalformed
-            }
-            if totalCount == 0 {
-                return []
-            }
-            var items = [RLPItem]()
-
-            var pointer = 1
-            while pointer < rlp.count {
-                let count = try getCount(rlp: Array(rlp[pointer...]))
-
-                guard rlp.count >= (pointer + count + 1) else {
-                    throw Error.inputMalformed
-                }
-
-                let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
-                try items.append(decode(itemRLP))
-
-                pointer += (count + 1)
-            }
-
-            return .array(items)
+            return try decodeShortArray(sign: sign, rlp: rlp)
         } else if sign >= 0xf8 && sign <= 0xff {
-            let byteCount = sign - 0xf7
-            guard byteCount <= 8 else {
-                throw Error.inputTooLong
-            }
-
-            let totalCount = try getCount(rlp: rlp)
-
-            let rlpCount = totalCount + Int(byteCount) + 1
-            guard rlp.count == rlpCount else {
-                throw Error.inputMalformed
-            }
-            var items = [RLPItem]()
-
-            // We start after the length defining bytes (and the first byte)
-            var pointer = Int(byteCount) + 1
-            while pointer < rlp.count {
-                let count = try getCount(rlp: Array(rlp[pointer...])) + Int(getLengthByteCount(sign: rlp[pointer]))
-
-                guard rlp.count >= (pointer + count + 1) else {
-                    throw Error.inputMalformed
-                }
-
-                let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
-                try items.append(decode(itemRLP))
-
-                pointer += (count + 1)
-            }
-
-            return .array(items)
+            return try decodeLongArray(sign: sign, rlp: rlp)
         } else {
             throw Error.lengthPrefixMalformed
         }
@@ -140,6 +76,82 @@ open class RLPDecoder {
     }
 
     // MARK: - Helper methods
+
+    private func decodeLongBytes(sign: Byte, rlp: Bytes) throws -> RLPItem {
+        let byteCount = sign - 0xb7
+        guard byteCount <= 8 else {
+            throw Error.inputTooLong
+        }
+
+        let stringCount = try getCount(rlp: rlp)
+
+        let rlpCount = stringCount + Int(byteCount) + 1
+        guard rlp.count == rlpCount else {
+            throw Error.inputMalformed
+        }
+
+        let bytes = Array(rlp[(Int(byteCount) + 1) ..< Int(rlpCount)])
+        return .bytes(bytes)
+    }
+
+    private func decodeShortArray(sign: Byte, rlp: Bytes) throws -> RLPItem {
+        let totalCount = sign - 0xc0
+        guard rlp.count == totalCount + 1 else {
+            throw Error.inputMalformed
+        }
+        if totalCount == 0 {
+            return []
+        }
+        var items = [RLPItem]()
+
+        var pointer = 1
+        while pointer < rlp.count {
+            let count = try getCount(rlp: Array(rlp[pointer...]))
+
+            guard rlp.count >= (pointer + count + 1) else {
+                throw Error.inputMalformed
+            }
+
+            let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
+            try items.append(decode(itemRLP))
+
+            pointer += (count + 1)
+        }
+
+        return .array(items)
+    }
+
+    private func decodeLongArray(sign: Byte, rlp: Bytes) throws -> RLPItem {
+        let byteCount = sign - 0xf7
+        guard byteCount <= 8 else {
+            throw Error.inputTooLong
+        }
+
+        let totalCount = try getCount(rlp: rlp)
+
+        let rlpCount = totalCount + Int(byteCount) + 1
+        guard rlp.count == rlpCount else {
+            throw Error.inputMalformed
+        }
+        var items = [RLPItem]()
+
+        // We start after the length defining bytes (and the first byte)
+        var pointer = Int(byteCount) + 1
+        while pointer < rlp.count {
+            let count = try getCount(rlp: Array(rlp[pointer...])) + Int(getLengthByteCount(sign: rlp[pointer]))
+
+            guard rlp.count >= (pointer + count + 1) else {
+                throw Error.inputMalformed
+            }
+
+            let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
+            try items.append(decode(itemRLP))
+
+            pointer += (count + 1)
+        }
+
+        return .array(items)
+    }
 
     /**
      * Returns the length of the given rlp as defined in its signature
