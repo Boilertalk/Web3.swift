@@ -19,11 +19,11 @@ class EthereumAddressTests: QuickSpec {
                 it("should be valid ethereum addresses") {
                     let a = try? EthereumAddress(hex: "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d", eip55: false)
                     expect(a).toNot(beNil())
-                    expect(a?.stringAddress(eip55: false)) == "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d"
+                    expect(a?.hex(eip55: false)) == "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d"
 
                     let a2 = try? EthereumAddress(hex: "f5745ddac99ee7b70518a9035c00cfd63c490b1d", eip55: false)
                     expect(a2).toNot(beNil())
-                    expect(a2?.stringAddress(eip55: false)) == "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d"
+                    expect(a2?.hex(eip55: false)) == "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d"
 
                     expect(a?.rawAddress) == a2?.rawAddress
 
@@ -32,11 +32,11 @@ class EthereumAddressTests: QuickSpec {
                         eip55: false
                     )
                     expect(randomMixedCase).toNot(beNil())
-                    expect(randomMixedCase?.stringAddress(eip55: false)) == "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d"
+                    expect(randomMixedCase?.hex(eip55: false)) == "0xf5745ddac99ee7b70518a9035c00cfd63c490b1d"
 
                     let zero = try? EthereumAddress(hex: "0x0000000000000000000000000000000000000000", eip55: false)
                     expect(zero).toNot(beNil())
-                    expect(zero?.stringAddress(eip55: false)) == "0x0000000000000000000000000000000000000000"
+                    expect(zero?.hex(eip55: false)) == "0x0000000000000000000000000000000000000000"
                     expect(zero?.rawAddress) == [
                         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
@@ -66,11 +66,11 @@ class EthereumAddressTests: QuickSpec {
                 it("should be valid checksumed ethereum addresses") {
                     let a = try? EthereumAddress(hex: "0xf5745DDAC99EE7B70518A9035c00cfD63C490B1D", eip55: true)
                     expect(a).toNot(beNil())
-                    expect(a?.stringAddress(eip55: true)) == "0xf5745DDAC99EE7B70518A9035c00cfD63C490B1D"
+                    expect(a?.hex(eip55: true)) == "0xf5745DDAC99EE7B70518A9035c00cfD63C490B1D"
 
                     let a2 = try? EthereumAddress(hex: "f5745DDAC99EE7B70518A9035c00cfD63C490B1D", eip55: true)
                     expect(a2).toNot(beNil())
-                    expect(a2?.stringAddress(eip55: true)) == "0xf5745DDAC99EE7B70518A9035c00cfD63C490B1D"
+                    expect(a2?.hex(eip55: true)) == "0xf5745DDAC99EE7B70518A9035c00cfD63C490B1D"
 
                     expect(a?.rawAddress) == a2?.rawAddress
                 }
