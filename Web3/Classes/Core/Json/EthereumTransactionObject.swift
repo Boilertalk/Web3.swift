@@ -41,4 +41,30 @@ public struct EthereumTransactionObject: Codable {
 
     /// The data send along with the transaction.
     public let input: EthereumData
+
+    public init(
+        hash: EthereumData,
+        nonce: EthereumQuantity,
+        blockHash: EthereumData?,
+        blockNumber: EthereumQuantity?,
+        transactionIndex: EthereumQuantity?,
+        from: EthereumAddress,
+        to: EthereumAddress?,
+        value: EthereumQuantity,
+        gasPrice: EthereumQuantity,
+        gas: EthereumQuantity,
+        input: EthereumData
+    ) {
+        self.hash = hash
+        self.nonce = nonce
+        self.blockHash = blockHash
+        self.blockNumber = blockNumber
+        self.transactionIndex = transactionIndex
+        self.from = from
+        self.to = to
+        self.value = value
+        self.gasPrice = gasPrice
+        self.gas = gas
+        self.input = input
+    }
 }

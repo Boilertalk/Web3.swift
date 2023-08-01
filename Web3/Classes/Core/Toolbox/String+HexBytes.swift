@@ -88,7 +88,7 @@ extension String {
     }
 }
 
-enum StringHexBytesError: Error {
+public enum StringHexBytesError: Error {
 
     case hexStringMalformed
 }

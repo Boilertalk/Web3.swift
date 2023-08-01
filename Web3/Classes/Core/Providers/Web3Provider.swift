@@ -16,14 +16,20 @@ public protocol Web3Provider {
 
 public struct Web3Response<Result: Codable> {
 
-    let status: Status
+    public let status: Status
 
     public enum Status: String {
 
         case ok
+        case requestFailed
         case connectionFailed
         case serverError
     }
 
-    let rpcResponse: RPCResponse<Result>?
+    public let rpcResponse: RPCResponse<Result>?
+
+    public init(status: Status, rpcResponse: RPCResponse<Result>? = nil) {
+        self.status = status
+        self.rpcResponse = rpcResponse
+    }
 }
