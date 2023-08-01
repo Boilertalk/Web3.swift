@@ -169,3 +169,23 @@ fileprivate extension Collection {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+fileprivate extension String {
+
+    func hexByteArray() -> [UInt8]? {
+        guard count % 2 == 0 else {
+            return nil
+        }
+        var hex = [UInt8]()
+        for i in stride(from: 0, to: count, by: 2) {
+            let s = self.index(self.startIndex, offsetBy: i)
+            let e = self.index(self.startIndex, offsetBy: i + 2)
+            guard let byte = UInt8(String(self[s..<e]), radix: 16) else {
+                return nil
+            }
+            hex.append(byte)
+        }
+
+        return hex
+    }
+}
