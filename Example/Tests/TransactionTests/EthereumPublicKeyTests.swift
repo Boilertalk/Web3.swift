@@ -65,6 +65,25 @@ class EthereumPublicKeyTests: QuickSpec {
                     expect(pub?.address.hex(eip55: true)) == "0xB54C5E59124546034BF1b8a07b52e35b34cb5Ff8"
                 }
             }
+
+            context("hashable") {
+                it("should produce correct hashValues") {
+                    let hex = "0x5872ec8b7f69bebfd6104d5eb19a339e9316afcc84864c98bbb3d5e10f0eea21b361d2cb1890113c85c5fc633fd0897223b69823a9c59341dd2981b0fb978671"
+                    let pub1 = try? EthereumPublicKey(hexPublicKey: hex)
+                    let pub2 = try? EthereumPublicKey(hexPublicKey: hex)
+
+                    expect(pub1?.hashValue) == pub2?.hashValue
+                }
+
+                it("should produce different hashValues") {
+                    let hex = "0x5872ec8b7f69bebfd6104d5eb19a339e9316afcc84864c98bbb3d5e10f0eea21b361d2cb1890113c85c5fc633fd0897223b69823a9c59341dd2981b0fb978671"
+                    let hex2 = "0x735e1f29385d943e41ee3d72c3f867837bf279b52db4c42cf3904186edb7c957db34cfda5a4d0620556ce4a539cfb023576fe0e768eece9f0001fedf3bcc448d"
+                    let pub1 = try? EthereumPublicKey(hexPublicKey: hex)
+                    let pub2 = try? EthereumPublicKey(hexPublicKey: hex2)
+
+                    expect(pub1?.hashValue) != pub2?.hashValue
+                }
+            }
         }
     }
 }

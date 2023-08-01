@@ -67,6 +67,30 @@ class EthereumPrivateKeyTests: QuickSpec {
                     ]
                 }
             }
+
+            context("hashable") {
+                it("should produce correct hashValues") {
+                    let p1 = try? EthereumPrivateKey(
+                        hexPrivateKey: "0xddeff73b1db1d8ddfd5e4c8e6e9a538938e53f98aaa027403ae69885fc97ddad"
+                    )
+                    let p2 = try? EthereumPrivateKey(
+                        hexPrivateKey: "0xddeff73b1db1d8ddfd5e4c8e6e9a538938e53f98aaa027403ae69885fc97ddad"
+                    )
+
+                    expect(p1?.hashValue) == p2?.hashValue
+                }
+
+                it("should produce different hashValues") {
+                    let p1 = try? EthereumPrivateKey(
+                        hexPrivateKey: "0xddeff73b1db1d8ddfd5e4c8e6e9a538938e53f98aaa027403ae69885fc97ddad"
+                    )
+                    let p2 = try? EthereumPrivateKey(
+                        hexPrivateKey: "0xad028828bbe74b01302dfcd0b8f06cdc8fc50668649ce5859926bd69a947667f"
+                    )
+
+                    expect(p1?.hashValue) != p2?.hashValue
+                }
+            }
         }
     }
 }
