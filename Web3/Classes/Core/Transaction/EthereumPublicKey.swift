@@ -52,18 +52,7 @@ public class EthereumPublicKey {
         self.rawPublicKey = publicKey
 
         // Create context
-        let c = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN) | UInt32(SECP256K1_CONTEXT_VERIFY))
-        guard let ctx = c else {
-            throw Error.internalError
-        }
-
-        guard var rand = Bytes.secureRandom(count: 32) else {
-            throw Error.internalError
-        }
-
-        guard secp256k1_context_randomize(ctx, &rand) == 1 else {
-            throw Error.internalError
-        }
+        let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
         self.ctx = ctx
 
         // Generate associated ethereum address
@@ -93,18 +82,7 @@ public class EthereumPublicKey {
      */
     public init(message: Bytes, v: UInt, r: BigUInt, s: BigUInt) throws {
         // Create context
-        let c = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN) | UInt32(SECP256K1_CONTEXT_VERIFY))
-        guard let ctx = c else {
-            throw Error.internalError
-        }
-
-        guard var rand = Bytes.secureRandom(count: 32) else {
-            throw Error.internalError
-        }
-
-        guard secp256k1_context_randomize(ctx, &rand) == 1 else {
-            throw Error.internalError
-        }
+        let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
         self.ctx = ctx
 
         // Create raw signature array
@@ -192,33 +170,7 @@ public class EthereumPublicKey {
             throw Error.keyMalformed
         }
 
-        var hexPublicKey = hexPublicKey
-
-        if hexPublicKey.count == 130 {
-            let s = hexPublicKey.index(hexPublicKey.startIndex, offsetBy: 0)
-            let e = hexPublicKey.index(hexPublicKey.startIndex, offsetBy: 2)
-            let prefix = String(hexPublicKey[s..<e])
-
-            guard prefix == "0x" else {
-                throw Error.keyMalformed
-            }
-
-            // Remove prefix
-            hexPublicKey = String(hexPublicKey[e...])
-        }
-
-        var raw = Bytes()
-        for i in stride(from: 0, to: hexPublicKey.count, by: 2) {
-            let s = hexPublicKey.index(hexPublicKey.startIndex, offsetBy: i)
-            let e = hexPublicKey.index(hexPublicKey.startIndex, offsetBy: i + 2)
-
-            guard let b = Byte(String(hexPublicKey[s..<e]), radix: 16) else {
-                throw Error.keyMalformed
-            }
-            raw.append(b)
-        }
-
-        try self.init(publicKey: raw)
+        try self.init(publicKey: hexPublicKey.hexBytes())
     }
 
     // MARK: - Convenient functions
