@@ -60,6 +60,19 @@ class EthereumQuantityTagTests: QuickSpec {
                     expect(EthereumQuantityTag.block(124000).ethereumValue().string) == "0x1e460"
                 }
             }
+
+            context("equatable") {
+                expect(EthereumQuantityTag.TagType.latest == .latest) == true
+                expect(EthereumQuantityTag.TagType.earliest == .earliest) == true
+                expect(EthereumQuantityTag.TagType.pending == .pending) == true
+                expect(EthereumQuantityTag.TagType.block(1024) == .block(1024)) == true
+
+                expect(EthereumQuantityTag.TagType.latest == .earliest) == false
+                expect(EthereumQuantityTag.TagType.earliest == .latest) == false
+                expect(EthereumQuantityTag.TagType.pending == .block(128)) == false
+                expect(EthereumQuantityTag.TagType.block(256) == .pending) == false
+                expect(EthereumQuantityTag.TagType.block(256) == .block(255)) == false
+            }
         }
     }
 }

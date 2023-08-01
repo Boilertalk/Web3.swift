@@ -577,7 +577,9 @@ SOFTWARE.
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright (c) 2018 Koray Koska &lt;koray@koska.at&gt;
+			<string>The MIT License (MIT)
+
+Copyright (c) 2018 Boilertalk Ltd.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
