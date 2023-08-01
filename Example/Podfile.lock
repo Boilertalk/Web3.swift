@@ -1,10 +1,10 @@
 PODS:
   - BigInt.swift (1.0.0)
-  - CryptoSwift (0.8.3)
+  - CryptoSwift (0.9.0)
   - Nimble (7.0.3)
-  - PromiseKit/CorePromise (6.2.1)
+  - PromiseKit/CorePromise (6.2.4)
   - Quick (1.2.0)
-  - secp256k1.swift (0.1.1)
+  - secp256k1.swift (0.1.4)
   - Web3 (0.1.0):
     - Web3/Core (= 0.1.0)
     - Web3/HTTPExtension (= 0.1.0)
@@ -30,11 +30,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BigInt.swift: 1e0ddf08d82166e72dfb0fa8d40301d273081afc
-  CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
+  CryptoSwift: bca8c5b653dcc2d9734409242a070ff53bafac86
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
-  PromiseKit: edaca6f0a7ed73b08c287600537d13867a7fabc7
+  PromiseKit: 625b1fc69944fc839503748101c5968cf54b527b
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  secp256k1.swift: f2dd50b7909e7d3d7527502619d061b85bd1c294
+  secp256k1.swift: a7e7a214f6db6ce5db32cc6b2b45e5c4dd633634
   Web3: c01e6cd637cafc9dc675c43252b3d4afc3f20f5b
 
 PODFILE CHECKSUM: 2f710184f832269e9555625936985a2bc3b69022
