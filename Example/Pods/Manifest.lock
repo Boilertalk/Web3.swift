@@ -7,11 +7,15 @@ PODS:
   - Quick (1.2.0)
   - secp256k1_ios (0.1.1)
   - SipHash (1.2.0)
+  - VaporBytes (1.1.0):
+    - VaporBytes/Default (= 1.1.0)
+  - VaporBytes/Default (1.1.0)
   - Web3 (0.1.0):
     - Alamofire (~> 4.6)
     - BigInt (~> 3.0)
     - CryptoSwift (~> 0.8)
     - secp256k1_ios (~> 0.1)
+    - VaporBytes (~> 1.0)
 
 DEPENDENCIES:
   - Nimble (~> 7.0.2)
@@ -30,7 +34,8 @@ SPEC CHECKSUMS:
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   secp256k1_ios: 3c94e6cce14ff03924cb6dc10c5017f17011b79d
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
-  Web3: 64ae1c24a5ecd0134ae4bea9c64229397188756c
+  VaporBytes: 628752235bc16d69800b52355de7118762a9009f
+  Web3: d4d702e876664c1148a93b49596c7656946a15a1
 
 PODFILE CHECKSUM: 6187d63273cbe49465a8ccc30c3bfdf2efc80482
 
