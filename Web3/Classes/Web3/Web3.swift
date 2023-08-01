@@ -6,12 +6,17 @@
 //
 
 import Foundation
+import Alamofire
 
 public struct Web3 {
 
-    public let rpcURL: String
+    public let provider: Web3Provider
 
-    public init(rpcURL: String) {
-        self.rpcURL = rpcURL
+    public init(rpcURL: URLConvertible) {
+        self.init(provider: Web3HttpProvider(rpcURL: rpcURL))
+    }
+
+    public init(provider: Web3Provider) {
+        self.provider = provider
     }
 }
