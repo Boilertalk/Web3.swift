@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E3642E71FF935FA00F2057E /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3642E61FF935FA00F2057E /* RPCRequestJsonTests.swift */; };
 		150E389340965312534B3A3C /* Pods_Web3_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CB1201F821856643D5487E2 /* Pods_Web3_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -28,11 +29,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E3642E61FF935FA00F2057E /* RPCRequestJsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCRequestJsonTests.swift; sourceTree = "<group>"; };
 		1CB1201F821856643D5487E2 /* Pods_Web3_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		28AC84258E572A22C421D9EC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		28AC84258E572A22C421D9EC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4B6302C92440ED16E8098B85 /* Pods-Web3_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		54763F71F3CD48B573B31A30 /* Web3.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = Web3.podspec; path = ../Web3.podspec; sourceTree = "<group>"; };
-		5F6FEB1B7F32891D300E0838 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		54763F71F3CD48B573B31A30 /* Web3.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Web3.podspec; path = ../Web3.podspec; sourceTree = "<group>"; };
+		5F6FEB1B7F32891D300E0838 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Web3_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Web3_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E3642E51FF935C600F2057E /* JsonTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E3642E61FF935FA00F2057E /* RPCRequestJsonTests.swift */,
+			);
+			path = JsonTests;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +125,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				0E3642E51FF935C600F2057E /* JsonTests */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -395,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				0E3642E71FF935FA00F2057E /* RPCRequestJsonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
