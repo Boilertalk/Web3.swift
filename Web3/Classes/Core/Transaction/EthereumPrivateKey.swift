@@ -25,6 +25,9 @@ public class EthereumPrivateKey {
         return publicKey.address
     }
 
+    /// True iff ctx should not be freed on deinit
+    private let ctxSelfManaged: Bool
+
     /// Internal context for secp256k1 library calls
     private let ctx: OpaquePointer
 
@@ -79,18 +82,36 @@ public class EthereumPrivateKey {
      *
      * - parameter privateKey: The private key bytes.
      *
+     * - parameter ctx: An optional self managed context. If you have specific requirements and
+     *                  your app performs not as fast as you want it to, you can manage the
+     *                  `secp256k1_context` yourself with the public methods
+     *                  `secp256k1_default_ctx_create` and `secp256k1_default_ctx_destroy`.
+     *                  If you do this, we will not be able to free memory automatically and you
+     *                  __have__ to destroy the context yourself once your app is closed or
+     *                  you are sure it will not be used any longer. Only use this optional
+     *                  context management if you know exactly what you are doing and you really
+     *                  need it.
+     *
      * - throws: EthereumPrivateKey.Error.keyMalformed if the restrictions described above are not met.
      *           EthereumPrivateKey.Error.internalError if a secp256k1 library call or another internal call fails.
      *           EthereumPrivateKey.Error.pubKeyGenerationFailed if the public key extraction from the private key fails.
      */
-    public init(privateKey: Bytes) throws {
+    public init(privateKey: Bytes, ctx: OpaquePointer? = nil) throws {
         guard privateKey.count == 32 else {
             throw Error.keyMalformed
         }
         self.rawPrivateKey = privateKey
 
-        let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
-        self.ctx = ctx
+        let finalCtx: OpaquePointer
+        if let ctx = ctx {
+            finalCtx = ctx
+            self.ctxSelfManaged = true
+        } else {
+            let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
+            finalCtx = ctx
+            self.ctxSelfManaged = false
+        }
+        self.ctx = finalCtx
 
         // *** Generate public key ***
         guard let pubKey = malloc(MemoryLayout<secp256k1_pubkey>.size)?.assumingMemoryBound(to: secp256k1_pubkey.self) else {
@@ -101,13 +122,13 @@ public class EthereumPrivateKey {
             free(pubKey)
         }
         var secret = privateKey
-        if secp256k1_ec_pubkey_create(ctx, pubKey, &secret) != 1 {
+        if secp256k1_ec_pubkey_create(finalCtx, pubKey, &secret) != 1 {
             throw Error.pubKeyGenerationFailed
         }
 
         var pubOut = Bytes(repeating: 0, count: 65)
         var pubOutLen = 65
-        _ = secp256k1_ec_pubkey_serialize(ctx, &pubOut, &pubOutLen, pubKey, UInt32(SECP256K1_EC_UNCOMPRESSED))
+        _ = secp256k1_ec_pubkey_serialize(finalCtx, &pubOut, &pubOutLen, pubKey, UInt32(SECP256K1_EC_UNCOMPRESSED))
         guard pubOutLen == 65 else {
             throw Error.pubKeyGenerationFailed
         }
@@ -115,7 +136,7 @@ public class EthereumPrivateKey {
         // First byte is header byte 0x04
         pubOut.remove(at: 0)
 
-        self.publicKey = try EthereumPublicKey(publicKey: pubOut)
+        self.publicKey = try EthereumPublicKey(publicKey: pubOut, ctx: ctx)
         // *** End Generate public key ***
 
         // Verify private key
@@ -141,11 +162,21 @@ public class EthereumPrivateKey {
      *
      * - parameter hexPrivateKey: The private key bytes.
      *
+     * - parameter ctx: An optional self managed context. If you have specific requirements and
+     *                  your app performs not as fast as you want it to, you can manage the
+     *                  `secp256k1_context` yourself with the public methods
+     *                  `secp256k1_default_ctx_create` and `secp256k1_default_ctx_destroy`.
+     *                  If you do this, we will not be able to free memory automatically and you
+     *                  __have__ to destroy the context yourself once your app is closed or
+     *                  you are sure it will not be used any longer. Only use this optional
+     *                  context management if you know exactly what you are doing and you really
+     *                  need it.
+     *
      * - throws: EthereumPrivateKey.Error.keyMalformed if the restrictions described above are not met.
      *           EthereumPrivateKey.Error.internalError if a secp256k1 library call or another internal call fails.
      *           EthereumPrivateKey.Error.pubKeyGenerationFailed if the public key extraction from the private key fails.
      */
-    public convenience init(hexPrivateKey: String) throws {
+    public convenience init(hexPrivateKey: String, ctx: OpaquePointer? = nil) throws {
         guard hexPrivateKey.count == 64 || hexPrivateKey.count == 66 else {
             throw Error.keyMalformed
         }
@@ -176,7 +207,7 @@ public class EthereumPrivateKey {
             raw.append(b)
         }
 
-        try self.init(privateKey: raw)
+        try self.init(privateKey: raw, ctx: ctx)
     }
 
     // MARK: - Convenient functions
@@ -244,7 +275,9 @@ public class EthereumPrivateKey {
     // MARK: - Deinitialization
 
     deinit {
-        secp256k1_context_destroy(ctx)
+        if !ctxSelfManaged {
+            secp256k1_context_destroy(ctx)
+        }
     }
 }
 

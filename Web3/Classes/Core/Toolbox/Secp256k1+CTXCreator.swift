@@ -9,7 +9,7 @@ import Foundation
 import secp256k1
 import VaporBytes
 
-func secp256k1_default_ctx_create(errorThrowable: Error) throws -> OpaquePointer {
+public func secp256k1_default_ctx_create(errorThrowable: Error) throws -> OpaquePointer {
     let c = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN) | UInt32(SECP256K1_CONTEXT_VERIFY))
     guard let ctx = c else {
         throw errorThrowable
@@ -24,4 +24,8 @@ func secp256k1_default_ctx_create(errorThrowable: Error) throws -> OpaquePointer
     }
 
     return ctx
+}
+
+public func secp256k1_default_ctx_destroy(ctx: OpaquePointer) {
+    secp256k1_context_destroy(ctx)
 }

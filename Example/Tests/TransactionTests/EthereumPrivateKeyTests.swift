@@ -13,10 +13,14 @@ import BigInt
 
 class EthereumPrivateKeyTests: QuickSpec {
 
+    enum OwnErrors: Error {
+
+        case shouldNotThrow
+    }
+
     override func spec() {
         describe("ethereum private key checks") {
             context("private key verification") {
-
                 it("should be a valid private key") {
                     let hex = "0xddeff73b1db1d8ddfd5e4c8e6e9a538938e53f98aaa027403ae69885fc97ddad"
                     let bytes: [UInt8] = [
@@ -58,6 +62,43 @@ class EthereumPrivateKeyTests: QuickSpec {
                 it("should be a valid public key") {
                     let publicKey = try? EthereumPrivateKey(
                         hexPrivateKey: "0x026cf37c61297a451e340cdc7fbc71b6789a3b1cb27dcdc9a9a2a32c16ce2afc"
+                    ).publicKey
+                    expect(publicKey?.rawPublicKey) == [
+                        0xf8, 0x52, 0x1a, 0x0e, 0x42, 0x7d, 0xd3, 0xec, 0xd7, 0x1a, 0xf4, 0xf2, 0x17, 0xdf, 0x8f, 0xef,
+                        0xf2, 0x6b, 0x85, 0x72, 0x95, 0x38, 0xb7, 0x59, 0x0c, 0x20, 0x98, 0x60, 0x55, 0x46, 0x7f, 0xb6,
+                        0x0c, 0xce, 0xd0, 0x8f, 0x6b, 0x2c, 0x56, 0x76, 0x75, 0x08, 0xf3, 0xe7, 0x97, 0x6d, 0x5b, 0xcc,
+                        0xd5, 0x2c, 0x91, 0xbf, 0x59, 0x77, 0xbb, 0x5d, 0x95, 0x43, 0x82, 0x67, 0x52, 0x26, 0x79, 0x18
+                    ]
+                }
+
+                // We don't destroy the context as for these tests this is not really a security problem and quite
+                // cumbersome (How do we know the tests are really finished?)
+                // It should nevertheless always be done for real applications.
+                let oCtx = try? secp256k1_default_ctx_create(errorThrowable: OwnErrors.shouldNotThrow)
+                it("should be a valid ctx pointer") {
+                    expect(oCtx).toNot(beNil())
+                }
+                guard let ctx = oCtx else {
+                    return
+                }
+
+                it("should work with own ctx") {
+                    let publicKey = try? EthereumPrivateKey(
+                        hexPrivateKey: "0x026cf37c61297a451e340cdc7fbc71b6789a3b1cb27dcdc9a9a2a32c16ce2afc",
+                        ctx: ctx
+                    ).publicKey
+                    expect(publicKey?.rawPublicKey) == [
+                        0xf8, 0x52, 0x1a, 0x0e, 0x42, 0x7d, 0xd3, 0xec, 0xd7, 0x1a, 0xf4, 0xf2, 0x17, 0xdf, 0x8f, 0xef,
+                        0xf2, 0x6b, 0x85, 0x72, 0x95, 0x38, 0xb7, 0x59, 0x0c, 0x20, 0x98, 0x60, 0x55, 0x46, 0x7f, 0xb6,
+                        0x0c, 0xce, 0xd0, 0x8f, 0x6b, 0x2c, 0x56, 0x76, 0x75, 0x08, 0xf3, 0xe7, 0x97, 0x6d, 0x5b, 0xcc,
+                        0xd5, 0x2c, 0x91, 0xbf, 0x59, 0x77, 0xbb, 0x5d, 0x95, 0x43, 0x82, 0x67, 0x52, 0x26, 0x79, 0x18
+                    ]
+                }
+
+                it("should work with own ctx twice") {
+                    let publicKey = try? EthereumPrivateKey(
+                        hexPrivateKey: "0x026cf37c61297a451e340cdc7fbc71b6789a3b1cb27dcdc9a9a2a32c16ce2afc",
+                        ctx: ctx
                     ).publicKey
                     expect(publicKey?.rawPublicKey) == [
                         0xf8, 0x52, 0x1a, 0x0e, 0x42, 0x7d, 0xd3, 0xec, 0xd7, 0x1a, 0xf4, 0xf2, 0x17, 0xdf, 0x8f, 0xef,
