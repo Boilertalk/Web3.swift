@@ -1,5 +1,5 @@
 //
-//  EthereumSyncStatus.swift
+//  EthereumSyncStatusObject.swift
 //  Web3
 //
 //  Created by Koray Koska on 30.12.17.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EthereumSyncStatus: Codable {
+public struct EthereumSyncStatusObject: Codable {
 
     /// True iff the peer is syncing right now. If false, all other values will be nil
     public let syncing: Bool

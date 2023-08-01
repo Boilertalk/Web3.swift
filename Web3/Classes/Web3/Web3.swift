@@ -96,7 +96,7 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
 
-        public func syncing(response: @escaping Web3ResponseCompletion<EthereumSyncStatus>) {
+        public func syncing(response: @escaping Web3ResponseCompletion<EthereumSyncStatusObject>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_syncing", params: [])
 
             properties.provider.send(request: req, response: response)
@@ -255,7 +255,7 @@ public struct Web3 {
         }
 
         public func sendRawTransaction(
-            transaction: Transaction,
+            transaction: EthereumTransaction,
             response: @escaping Web3ResponseCompletion<EthereumData>
         ) {
             let req = BasicRPCRequest(
@@ -297,7 +297,7 @@ public struct Web3 {
         public func getBlockByHash(
             blockHash: EthereumData,
             fullTransactionObjects: Bool,
-            response: @escaping Web3ResponseCompletion<EthereumBlock>
+            response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -312,7 +312,7 @@ public struct Web3 {
         public func getBlockByNumber(
             block: EthereumQuantityTag,
             fullTransactionObjects: Bool,
-            response: @escaping Web3ResponseCompletion<EthereumBlock>
+            response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -326,7 +326,7 @@ public struct Web3 {
 
         public func getTransactionByHash(
             blockHash: EthereumData,
-            response: @escaping Web3ResponseCompletion<EthereumTransaction?>
+            response: @escaping Web3ResponseCompletion<EthereumTransactionObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -341,7 +341,7 @@ public struct Web3 {
         public func getTransactionByBlockHashAndIndex(
             blockHash: EthereumData,
             transactionIndex: EthereumQuantity,
-            response: @escaping Web3ResponseCompletion<EthereumTransaction>
+            response: @escaping Web3ResponseCompletion<EthereumTransactionObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -356,7 +356,7 @@ public struct Web3 {
         public func getTransactionByBlockNumberAndIndex(
             block: EthereumQuantityTag,
             transactionIndex: EthereumQuantity,
-            response: @escaping Web3ResponseCompletion<EthereumTransaction>
+            response: @escaping Web3ResponseCompletion<EthereumTransactionObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -370,7 +370,7 @@ public struct Web3 {
 
         public func getTransactionReceipt(
             transactionHash: EthereumData,
-            response: @escaping Web3ResponseCompletion<EthereumTransactionReceipt>
+            response: @escaping Web3ResponseCompletion<EthereumTransactionReceiptObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -385,7 +385,7 @@ public struct Web3 {
         public func getUncleByBlockHashAndIndex(
             blockHash: EthereumData,
             uncleIndex: EthereumQuantity,
-            response: @escaping Web3ResponseCompletion<EthereumBlock>
+            response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,
@@ -400,7 +400,7 @@ public struct Web3 {
         public func getUncleByBlockNumberAndIndex(
             block: EthereumQuantityTag,
             uncleIndex: EthereumQuantity,
-            response: @escaping Web3ResponseCompletion<EthereumBlock>
+            response: @escaping Web3ResponseCompletion<EthereumBlockObject?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,

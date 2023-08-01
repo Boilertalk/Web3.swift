@@ -1,5 +1,5 @@
 //
-//  EthereumTransactionReceipt.swift
+//  EthereumTransactionReceiptObject.swift
 //  Web3
 //
 //  Created by Koray Koska on 31.12.17.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EthereumTransactionReceipt: Codable {
+public struct EthereumTransactionReceiptObject: Codable {
 
     /// 32 Bytes - hash of the transaction.
     public let transactionHash: EthereumData
@@ -31,7 +31,7 @@ public struct EthereumTransactionReceipt: Codable {
     public let contractAddress: EthereumData?
 
     /// Array of log objects, which this transaction generated.
-    public let logs: [EthereumLog]
+    public let logs: [EthereumLogObject]
 
     /// 256 Bytes - Bloom filter for light clients to quickly retrieve related logs.
     public let logsBloom: EthereumData

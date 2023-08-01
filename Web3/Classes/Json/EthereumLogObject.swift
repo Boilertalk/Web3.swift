@@ -1,5 +1,5 @@
 //
-//  EthereumLog.swift
+//  EthereumLogObject.swift
 //  Web3
 //
 //  Created by Koray Koska on 31.12.17.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EthereumLog: Codable {
+public struct EthereumLogObject: Codable {
 
     /// true when the log was removed, due to a chain reorganization. false if its a valid log.
     public let removed: Bool

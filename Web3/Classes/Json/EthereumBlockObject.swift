@@ -1,5 +1,5 @@
 //
-//  EthereumBlock.swift
+//  EthereumBlockObject.swift
 //  Web3
 //
 //  Created by Koray Koska on 30.12.17.
@@ -10,7 +10,7 @@ import Foundation
 /**
  * A block as returned by an Ethereum node.
  */
-public struct EthereumBlock: Codable {
+public struct EthereumBlockObject: Codable {
 
     /// The block number. nil when its a pending block.
     public let number: EthereumQuantity?
@@ -75,7 +75,7 @@ public struct EthereumBlock: Codable {
     public struct Transaction: Codable {
 
         /// The transaction as an object
-        public let object: EthereumTransaction?
+        public let object: EthereumTransactionObject?
 
         /// The transaction as an hash
         public let hash: EthereumData?
@@ -85,7 +85,7 @@ public struct EthereumBlock: Codable {
          *
          * - parameter object: The Transaction as an object.
          */
-        public init(object: EthereumTransaction) {
+        public init(object: EthereumTransactionObject) {
             self.object = object
             self.hash = nil
         }
@@ -103,7 +103,7 @@ public struct EthereumBlock: Codable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
 
-            if let tx = try? container.decode(EthereumTransaction.self) {
+            if let tx = try? container.decode(EthereumTransactionObject.self) {
                 self.init(object: tx)
             } else if let tx = try? container.decode(EthereumData.self) {
                 self.init(hash: tx)
