@@ -48,6 +48,10 @@ public extension EthereumQuantityTag {
 
 extension EthereumQuantityTag: EthereumValueConvertible {
 
+    public static func string(_ string: String) throws -> EthereumQuantityTag {
+        return try self.init(ethereumValue: .string(string))
+    }
+
     public init(ethereumValue: EthereumValue) throws {
         guard let str = ethereumValue.string else {
             throw EthereumValueInitializableError.notInitializable

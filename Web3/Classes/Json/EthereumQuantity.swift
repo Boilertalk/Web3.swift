@@ -33,6 +33,10 @@ extension EthereumQuantity: ExpressibleByIntegerLiteral {
 
 extension EthereumQuantity: EthereumValueConvertible {
 
+    public static func string(_ string: String) throws -> EthereumQuantity {
+        return try self.init(ethereumValue: .string(string))
+    }
+
     public init(ethereumValue: EthereumValue) throws {
         guard let str = ethereumValue.string else {
             throw EthereumValueInitializableError.notInitializable
