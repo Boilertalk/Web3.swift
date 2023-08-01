@@ -20,9 +20,14 @@ before_install:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then instruments -s devices; fi
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       echo "macOS build. swiftenv will not be installed.";
+      echo "Installing llvm for test coverage conversion.";
+
+      brew install llvm;
     else
+      echo "Installing Linux Swift dependencies.";
       sudo apt-get -q install -y libz3-4;
 
+      echo "Installing swiftenv and Swift version specified in .swift-version.";
       git clone https://github.com/kylef/swiftenv.git ~/.swiftenv;
       export SWIFTENV_ROOT="$HOME/.swiftenv";
       export PATH="$SWIFTENV_ROOT/bin:$PATH";
