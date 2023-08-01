@@ -12,6 +12,7 @@ import PromiseKit
 
 #if !Web3CocoaPods
     import Web3
+    import Web3PromiseKit
 #endif
 
 // MARK: - Extensions
