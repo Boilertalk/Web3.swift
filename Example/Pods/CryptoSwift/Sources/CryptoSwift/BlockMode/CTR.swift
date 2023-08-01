@@ -14,38 +14,121 @@
 //
 
 //  Counter (CTR)
-//
 
-struct CTRModeWorker: RandomAccessBlockModeWorker {
-    let cipherOperation: CipherOperationOnBlock
-    private let iv: ArraySlice<UInt8>
-    var counter: UInt = 0
-
-    init(iv: ArraySlice<UInt8>, cipherOperation: @escaping CipherOperationOnBlock) {
-        self.iv = iv
-        self.cipherOperation = cipherOperation
+public struct CTR: StreamMode {
+    public enum Error: Swift.Error {
+        /// Invalid IV
+        case invalidInitializationVector
     }
 
-    mutating func encrypt(_ plaintext: ArraySlice<UInt8>) -> Array<UInt8> {
-        let nonce = buildNonce(iv, counter: UInt64(counter))
-        counter = counter + 1
+    public let options: BlockModeOption = [.initializationVectorRequired, .useEncryptToDecrypt]
+    private let iv: Array<UInt8>
+    private let counter: Int
 
-        guard let ciphertext = cipherOperation(nonce.slice) else {
-            return Array(plaintext)
+    public init(iv: Array<UInt8>, counter: Int = 0) {
+        self.iv = iv
+        self.counter = counter
+    }
+
+    public func worker(blockSize: Int, cipherOperation: @escaping CipherOperationOnBlock) throws -> CipherModeWorker {
+        if iv.count != blockSize {
+            throw Error.invalidInitializationVector
         }
 
-        return xor(plaintext, ciphertext)
-    }
-
-    mutating func decrypt(_ ciphertext: ArraySlice<UInt8>) -> Array<UInt8> {
-        return encrypt(ciphertext)
+        return CTRModeWorker(blockSize: blockSize, iv: iv.slice, counter: counter, cipherOperation: cipherOperation)
     }
 }
 
-private func buildNonce(_ iv: ArraySlice<UInt8>, counter: UInt64) -> Array<UInt8> {
-    let noncePartLen = AES.blockSize / 2
-    let noncePrefix = Array(iv[iv.startIndex..<iv.startIndex.advanced(by: noncePartLen)])
-    let nonceSuffix = Array(iv[iv.startIndex.advanced(by: noncePartLen)..<iv.startIndex.advanced(by: iv.count)])
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+struct CTRModeWorker: StreamModeWorker, SeekableModeWorker, CounterModeWorker {
+    typealias Counter = CTRCounter
+
+    final class CTRCounter {
+        private let constPrefix: Array<UInt8>
+        private var value: UInt64
+        //TODO: make it an updatable value, computing is too slow
+        var bytes: Array<UInt8> {
+            return constPrefix + value.bytes()
+        }
+
+        init(_ initialValue: Array<UInt8>) {
+            let halfIndex = initialValue.startIndex.advanced(by: initialValue.count / 2)
+            constPrefix = Array(initialValue[initialValue.startIndex..<halfIndex])
+
+            let suffixBytes = Array(initialValue[halfIndex...])
+            value = UInt64(bytes: suffixBytes)
+        }
+
+        convenience init(nonce: Array<UInt8>, startAt index: Int) {
+            self.init(buildCounterValue(nonce, counter: UInt64(index)))
+        }
+
+        static func +=(lhs: CTRCounter, rhs: Int) {
+            lhs.value += UInt64(rhs)
+        }
+    }
+
+    let cipherOperation: CipherOperationOnBlock
+    let additionalBufferSize: Int = 0
+    let iv: Array<UInt8>
+    var counter: CTRCounter
+
+    private let blockSize: Int
+
+    // The same keystream is used for the block length plaintext
+    // As new data is added, keystream suffix is used to xor operation.
+    private var keystream: Array<UInt8>
+    private var keystreamPosIdx = 0
+
+    init(blockSize: Int, iv: ArraySlice<UInt8>, counter: Int, cipherOperation: @escaping CipherOperationOnBlock) {
+        self.cipherOperation = cipherOperation
+        self.blockSize = blockSize
+        self.iv = Array(iv)
+
+        // the first keystream is calculated from the nonce = initial value of counter
+        self.counter = CTRCounter(nonce: Array(iv), startAt: counter)
+        self.keystream = Array(cipherOperation(self.counter.bytes.slice)!)
+    }
+
+    mutating func seek(to position: Int) throws {
+        let offset = position % blockSize
+        counter = CTRCounter(nonce: iv, startAt: position / blockSize)
+        keystream = Array(cipherOperation(counter.bytes.slice)!)
+        keystreamPosIdx = offset
+    }
+
+    // plaintext is at most blockSize long
+    mutating func encrypt(block plaintext: ArraySlice<UInt8>) -> Array<UInt8> {
+        var result = Array<UInt8>(reserveCapacity: plaintext.count)
+
+        var processed = 0
+        while processed < plaintext.count {
+            // Update keystream
+            if keystreamPosIdx == blockSize {
+                counter += 1
+                keystream = Array(cipherOperation(counter.bytes.slice)!)
+                keystreamPosIdx = 0
+            }
+
+            let xored: Array<UInt8> = xor(plaintext[plaintext.startIndex.advanced(by: processed)...], keystream[keystreamPosIdx...])
+            keystreamPosIdx += xored.count
+            processed += xored.count
+            result += xored
+        }
+
+        return result
+    }
+
+    mutating func decrypt(block ciphertext: ArraySlice<UInt8>) -> Array<UInt8> {
+        return encrypt(block: ciphertext)
+    }
+}
+
+private func buildCounterValue(_ iv: Array<UInt8>, counter: UInt64) -> Array<UInt8> {
+    let noncePartLen = iv.count / 2
+    let noncePrefix = iv[iv.startIndex..<iv.startIndex.advanced(by: noncePartLen)]
+    let nonceSuffix = iv[iv.startIndex.advanced(by: noncePartLen)..<iv.startIndex.advanced(by: iv.count)]
     let c = UInt64(bytes: nonceSuffix) + counter
     return noncePrefix + c.bytes()
 }
