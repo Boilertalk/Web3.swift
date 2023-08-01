@@ -31,6 +31,29 @@ public class EthereumPrivateKey {
     // MARK: - Initialization
 
     /**
+     * Initializes a new cryptographically secure `EthereumPrivateKey` from random noise.
+     *
+     * The process of generating the new private key is as follows:
+     *
+     * - Generate a secure random number between 55 and 65.590. Call it `rand`.
+     * - Read `rand` bytes from `/dev/urandom` and call it `bytes`.
+     * - Create the keccak256 hash of `bytes` and initialize this private key with the generated hash.
+     */
+    public convenience init() throws {
+        guard var rand = Bytes.secureRandom(count: 2)?.bigEndianUInt else {
+            throw Error.internalError
+        }
+        rand += 55
+
+        guard let bytes = Bytes.secureRandom(count: Int(rand)) else {
+            throw Error.internalError
+        }
+        let bytesHash = SHA3(variant: .keccak256).calculate(for: bytes)
+
+        try self.init(privateKey: bytesHash)
+    }
+
+    /**
      * Initializes a new instance of `EthereumPrivateKey` with the given `privateKey` Bytes.
      *
      * `privateKey` must be exactly a big endian 32 Byte array representing the private key.
