@@ -115,7 +115,6 @@ open class RLPDecoder {
                 guard rlp.count >= (pointer + count + 1) else {
                     throw Error.inputBad
                 }
-                print("while \(pointer)")
 
                 let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
                 try items.append(decode(itemRLP))

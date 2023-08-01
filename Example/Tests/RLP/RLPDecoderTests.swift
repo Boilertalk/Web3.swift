@@ -97,6 +97,23 @@ class RLPDecoderTests: QuickSpec {
 
                     expect(item.string) == str
                 }
+
+                it("should be a signed transaction") {
+                    let h = "f86d808504e3b29200825208943011f9a95fe30585ec5b3a555a62a51fab941b16890138400eca364a00008026a063b2edbba05d7b2e26d97174553478724b9c305323a67fee43fd333a1e336f06a0389874858c39fddf5437220d90531c649f0da592403df0c1915cb0f720535e0a".hexByteArray()
+                    expect(h).toNot(beNil())
+                    guard let hex = h else {
+                        return
+                    }
+
+                     let i = try? decoder.decode(hex)
+                     expect(i).toNot(beNil())
+                     guard let item = i else {
+                        return
+                     }
+
+                     print("****")
+                     print(item.description)
+                }
             }
 
             context("list items") {
