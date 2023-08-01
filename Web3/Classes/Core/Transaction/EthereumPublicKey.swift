@@ -80,23 +80,23 @@ public class EthereumPublicKey {
      * - throws: EthereumPublicKey.Error.signatureMalformed if the signature is not valid or in other ways malformed.
      *           EthereumPublicKey.Error.internalError if a secp256k1 library call or another internal call fails.
      */
-    public init(message: Bytes, v: UInt, r: BigUInt, s: BigUInt) throws {
+    public init(message: Bytes, v: EthereumQuantity, r: EthereumQuantity, s: EthereumQuantity) throws {
         // Create context
         let ctx = try secp256k1_default_ctx_create(errorThrowable: Error.internalError)
         self.ctx = ctx
 
         // Create raw signature array
         var rawSig = Bytes()
-        var r = r.makeBytes().trimLeadingZeros()
-        var s = s.makeBytes().trimLeadingZeros()
+        var r = r.quantity.makeBytes().trimLeadingZeros()
+        var s = s.quantity.makeBytes().trimLeadingZeros()
 
         guard r.count <= 32 && s.count <= 32 else {
             throw Error.signatureMalformed
         }
-        guard v <= Int32.max else {
+        guard let vUInt = v.quantity.makeBytes().bigEndianUInt, vUInt <= Int32.max else {
             throw Error.signatureMalformed
         }
-        var v = Int32(v)
+        let v = Int32(vUInt)
 
         for i in 0..<(32 - r.count) {
             r.insert(0, at: 0)

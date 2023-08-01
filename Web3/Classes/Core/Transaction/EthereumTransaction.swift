@@ -14,34 +14,34 @@ public struct EthereumTransaction {
     // MARK: - Properties
 
     /// The number of transactions made prior to this one
-    public let nonce: UInt
+    public let nonce: EthereumQuantity
 
     /// Gas price provided Wei
-    public let gasPrice: BigUInt
+    public let gasPrice: EthereumQuantity
 
     /// Gas limit provided
-    public let gasLimit: UInt
+    public let gasLimit: EthereumQuantity
 
     /// Address of the receiver
     public let to: EthereumAddress
 
     /// Value to transfer provided in Wei
-    public let value: BigUInt
+    public let value: EthereumQuantity
 
     /// Input data for this transaction
-    public let data: Bytes
+    public let data: EthereumData
 
     /// EC signature parameter v
-    public let v: UInt
+    public let v: EthereumQuantity
 
     /// EC signature parameter r
-    public let r: BigUInt
+    public let r: EthereumQuantity
 
     /// EC recovery ID
-    public let s: BigUInt
+    public let s: EthereumQuantity
 
     /// EIP 155 chainId. Mainnet: 1
-    public let chainId: UInt
+    public let chainId: EthereumQuantity
 
     // MARK: - Initialization
 
@@ -62,16 +62,16 @@ public struct EthereumTransaction {
      *                      old style transactions are assumed.
      */
     public init(
-        nonce: UInt,
-        gasPrice: BigUInt,
-        gasLimit: UInt,
+        nonce: EthereumQuantity,
+        gasPrice: EthereumQuantity,
+        gasLimit: EthereumQuantity,
         to: EthereumAddress,
-        value: BigUInt,
-        data: Bytes = [],
-        v: UInt = 0,
-        r: BigUInt = 0,
-        s: BigUInt = 0,
-        chainId: UInt
+        value: EthereumQuantity,
+        data: EthereumData = EthereumData(bytes: []),
+        v: EthereumQuantity = 0,
+        r: EthereumQuantity = 0,
+        s: EthereumQuantity = 0,
+        chainId: EthereumQuantity
     ) {
         self.nonce = nonce
         self.gasPrice = gasPrice
@@ -83,11 +83,11 @@ public struct EthereumTransaction {
         self.r = r
         self.s = s
 
-        if chainId == 0 && v >= 37 {
-            if v % 2 == 0 {
-                self.chainId = (v - 36) / 2
+        if chainId.quantity == 0 && v.quantity >= 37 {
+            if v.quantity % 2 == 0 {
+                self.chainId = EthereumQuantity(quantity: (v.quantity - 36) / 2)
             } else {
-                self.chainId = (v - 35) / 2
+                self.chainId = EthereumQuantity(quantity: (v.quantity - 35) / 2)
             }
         } else {
             self.chainId = chainId
@@ -106,11 +106,14 @@ public struct EthereumTransaction {
         let rawRlp = try RLPEncoder().encode(rlp(forSigning: true))
         let signature = try privateKey.sign(message: rawRlp)
 
-        let v: UInt
-        if self.chainId == 0 {
-            v = signature.v + 27
+        let v: BigUInt
+        if self.chainId.quantity == 0 {
+            v = BigUInt(signature.v) + BigUInt(27)
         } else {
-            v = signature.v + 27 + (chainId * 2 + 8)
+            let sigV = BigUInt(signature.v)
+            let big27 = BigUInt(27)
+            let chainIdCalc = (chainId.quantity * BigUInt(2) + BigUInt(8))
+            v = sigV + big27 + chainIdCalc
         }
 
         let r = BigUInt(bytes: signature.r)
@@ -123,9 +126,9 @@ public struct EthereumTransaction {
             to: self.to,
             value: self.value,
             data: self.data,
-            v: v,
-            r: r,
-            s: s,
+            v: EthereumQuantity(quantity: v),
+            r: EthereumQuantity(quantity: r),
+            s: EthereumQuantity(quantity: s),
             chainId: self.chainId
         )
 
@@ -133,18 +136,18 @@ public struct EthereumTransaction {
     }
 
     public func verifySignature() -> Bool {
-        let recId: UInt
-        if v >= 35 + (2 * chainId) {
-            recId = v - 35 - (2 * chainId)
+        let recId: BigUInt
+        if v.quantity >= BigUInt(35) + (BigUInt(2) * chainId.quantity) {
+            recId = v.quantity - BigUInt(35) - (BigUInt(2) * chainId.quantity)
         } else {
-            if v >= 27 {
-                recId = v - 27
+            if v.quantity >= 27 {
+                recId = v.quantity - 27
             } else {
-                recId = v
+                recId = v.quantity
             }
         }
 
-        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp(forSigning: true)), v: recId, r: r, s: s) {
+        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp(forSigning: true)), v: EthereumQuantity(quantity: recId), r: r, s: s) {
             return true
         }
 
@@ -167,23 +170,23 @@ extension EthereumTransaction: RLPItemConvertible {
         guard let array = rlp.array, array.count == 9 else {
             throw Error.rlpItemInvalid
         }
-        guard let nonce = array[0].uint, let gasPrice = array[1].bigUInt, let gasLimit = array[2].uint,
+        guard let nonce = array[0].bigUInt, let gasPrice = array[1].bigUInt, let gasLimit = array[2].bigUInt,
             let toBytes = array[3].bytes, let to = try? EthereumAddress(rawAddress: toBytes),
-            let value = array[4].bigUInt, let data = array[5].bytes, let v = array[6].uint,
+            let value = array[4].bigUInt, let data = array[5].bytes, let v = array[6].bigUInt,
             let r = array[7].bigUInt, let s = array[8].bigUInt else {
                 throw Error.rlpItemInvalid
         }
 
         self.init(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            gasLimit: gasLimit,
+            nonce: EthereumQuantity(quantity: nonce),
+            gasPrice: EthereumQuantity(quantity: gasPrice),
+            gasLimit: EthereumQuantity(quantity: gasLimit),
             to: to,
-            value: value,
-            data: data,
-            v: v,
-            r: r,
-            s: s,
+            value: EthereumQuantity(quantity: value),
+            data: EthereumData(bytes: data),
+            v: EthereumQuantity(quantity: v),
+            r: EthereumQuantity(quantity: r),
+            s: EthereumQuantity(quantity: s),
             chainId: 0
         )
     }
@@ -195,41 +198,41 @@ extension EthereumTransaction: RLPItemConvertible {
     public func rlp(forSigning: Bool) -> RLPItem {
         let item: RLPItem
         if forSigning {
-            if chainId == 0 {
+            if chainId.quantity == 0 {
                 item = [
-                    .uint(nonce),
-                    .bigUInt(gasPrice),
-                    .uint(gasLimit),
+                    .bigUInt(nonce.quantity),
+                    .bigUInt(gasPrice.quantity),
+                    .bigUInt(gasLimit.quantity),
                     .bytes(to.rawAddress),
-                    .bigUInt(value),
-                    .bytes(data)
+                    .bigUInt(value.quantity),
+                    .bytes(data.bytes)
                 ]
             } else {
                 item = [
-                    .uint(nonce),
-                    .bigUInt(gasPrice),
-                    .uint(gasLimit),
+                    .bigUInt(nonce.quantity),
+                    .bigUInt(gasPrice.quantity),
+                    .bigUInt(gasLimit.quantity),
                     .bytes(to.rawAddress),
-                    .bigUInt(value),
-                    .bytes(data),
+                    .bigUInt(value.quantity),
+                    .bytes(data.bytes),
 
                     // EIP 155: For signing and recovering: replace v with chainId and r and s with 0
-                    .uint(chainId),
+                    .bigUInt(chainId.quantity),
                     .bigUInt(0),
                     .bigUInt(0)
                 ]
             }
         } else {
             item = [
-                .uint(nonce),
-                .bigUInt(gasPrice),
-                .uint(gasLimit),
+                .bigUInt(nonce.quantity),
+                .bigUInt(gasPrice.quantity),
+                .bigUInt(gasLimit.quantity),
                 .bytes(to.rawAddress),
-                .bigUInt(value),
-                .bytes(data),
-                .uint(v),
-                .bigUInt(r),
-                .bigUInt(s)
+                .bigUInt(value.quantity),
+                .bytes(data.bytes),
+                .bigUInt(v.quantity),
+                .bigUInt(r.quantity),
+                .bigUInt(s.quantity)
             ]
         }
 
