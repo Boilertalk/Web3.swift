@@ -17,7 +17,7 @@ public struct Transaction {
     public let nonce: UInt
 
     /// Gas price provided Wei
-    public let gasPrice: UInt
+    public let gasPrice: BigUInt
 
     /// Gas limit provided
     public let gasLimit: UInt
@@ -49,10 +49,10 @@ public struct Transaction {
      * Initializes a new instance of `Transaction` with the given values.
      *
      * - parameter nonce: The nonce of this transaction.
-     * - parameter gasPrice: The gas price for this transaction.
+     * - parameter gasPrice: The gas price for this transaction in wei.
      * - parameter gasLimit: The gas limit for this transaction.
      * - parameter to: The address of the receiver.
-     * - parameter value: The value to be sent by this transaction.
+     * - parameter value: The value to be sent by this transaction in wei.
      * - parameter data: Input data for this transaction. Defaults to [].
      * - parameter v: EC signature parameter v. Defaults to 0.
      * - parameter r: EC signature parameter r. Defaults to 0.
@@ -63,7 +63,7 @@ public struct Transaction {
      */
     public init(
         nonce: UInt,
-        gasPrice: UInt,
+        gasPrice: BigUInt,
         gasLimit: UInt,
         to: EthereumAddress,
         value: BigUInt,
@@ -147,7 +147,7 @@ extension Transaction: RLPItemConvertible {
         guard let array = rlp.array, array.count == 9 else {
             throw Error.rlpItemInvalid
         }
-        guard let nonce = array[0].uint, let gasPrice = array[1].uint, let gasLimit = array[2].uint,
+        guard let nonce = array[0].uint, let gasPrice = array[1].bigUInt, let gasLimit = array[2].uint,
             let toBytes = array[3].bytes, let to = try? EthereumAddress(rawAddress: toBytes),
             let value = array[4].bigUInt, let data = array[5].bytes, let v = array[6].uint,
             let r = array[7].bigUInt, let s = array[8].bigUInt else {
@@ -178,7 +178,7 @@ extension Transaction: RLPItemConvertible {
             if chainId == 0 {
                 item = [
                     .uint(nonce),
-                    .uint(gasPrice),
+                    .bigUInt(gasPrice),
                     .uint(gasLimit),
                     .bytes(to.rawAddress),
                     .bigUInt(value),
@@ -187,7 +187,7 @@ extension Transaction: RLPItemConvertible {
             } else {
                 item = [
                     .uint(nonce),
-                    .uint(gasPrice),
+                    .bigUInt(gasPrice),
                     .uint(gasLimit),
                     .bytes(to.rawAddress),
                     .bigUInt(value),
@@ -202,7 +202,7 @@ extension Transaction: RLPItemConvertible {
         } else {
             item = [
                 .uint(nonce),
-                .uint(gasPrice),
+                .bigUInt(gasPrice),
                 .uint(gasLimit),
                 .bytes(to.rawAddress),
                 .bigUInt(value),
