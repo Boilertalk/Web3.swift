@@ -52,8 +52,12 @@ class EthereumCallParamsTests: QuickSpec {
                     expect(e).toNot(beNil())
 
                     expect(e?.block.tagType) == EthereumQuantityTag.TagType.latest
+                    expect(e?.from?.hex(eip55: true)) == "0x52bc44d5378309EE2abF1539BF71dE1b7d7bE3b5"
                     expect(e?.to.hex(eip55: true)) == "0x829BD824B016326A401d083B33D092293333A830"
                     expect(e?.gas?.quantity) == BigUInt(21000)
+                    expect(e?.gasPrice?.quantity) == UInt(21).gwei
+                    expect(e?.value?.quantity) == BigUInt(10)
+                    expect(e?.data?.bytes) == [0x00, 0xff]
                 }
             }
         }
