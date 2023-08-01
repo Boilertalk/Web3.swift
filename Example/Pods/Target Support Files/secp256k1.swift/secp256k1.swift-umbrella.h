@@ -14,6 +14,6 @@
 #import "secp256k1_ecdh.h"
 #import "secp256k1_recovery.h"
 
-FOUNDATION_EXPORT double secp256k1_iosVersionNumber;
-FOUNDATION_EXPORT const unsigned char secp256k1_iosVersionString[];
+FOUNDATION_EXPORT double secp256k1VersionNumber;
+FOUNDATION_EXPORT const unsigned char secp256k1VersionString[];
 

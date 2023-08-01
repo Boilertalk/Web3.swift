@@ -7,7 +7,7 @@
 
 import Foundation
 import VaporBytes
-import secp256k1_ios
+import secp256k1
 import Security
 import CryptoSwift
 import BigInt
