@@ -19,7 +19,10 @@ let package = Package(
         .package(url: "https://github.com/attaswift/BigInt.git", from: "3.0.0"),
         .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "0.8.0"),
         .package(url: "https://github.com/Boilertalk/secp256k1.swift.git", from: "0.1.0"),
-        .package(url: "https://github.com/vapor/bits.git", from: "1.1.0")
+        .package(url: "https://github.com/vapor/bits.git", from: "1.1.0"),
+
+        // Test dependencies
+        .package(url: "https://github.com/Quick/Quick.git", from: "1.2.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -39,6 +42,6 @@ let package = Package(
             exclude: ["LinuxMain.swift"],
             sources: ".",
             name: "Web3Tests",
-            dependencies: ["Web3"]),
+            dependencies: ["Web3", "Quick"]),
     ]
 )

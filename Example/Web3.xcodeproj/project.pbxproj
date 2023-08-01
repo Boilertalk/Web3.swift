@@ -33,6 +33,7 @@
 		0E1C9C84202FEE120022FEEA /* EthereumCallParamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumCallParamsTests.swift; sourceTree = "<group>"; };
 		0E2239192030E1DC00612590 /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
 		0E22391B20311E5700612590 /* EthereumBlockObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumBlockObjectTests.swift; sourceTree = "<group>"; };
+		0E24F0A5203761140019F214 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		0E307D24203277C100314BF8 /* EthereumValueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumValueTests.swift; sourceTree = "<group>"; };
 		0E38BB4420338F4300C33C12 /* EthereumSyncStatusObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumSyncStatusObjectTests.swift; sourceTree = "<group>"; };
 		0E48AA072026304B00F558C8 /* RLPItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPItemTests.swift; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 				0EBFAE50200AD29B00223E3F /* Web3Tests */,
 				0E9C48C31FFC32FA00541E6F /* JsonTests */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				0E24F0A5203761140019F214 /* LinuxMain.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
