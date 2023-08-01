@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E1C49B6202A485400806321 /* EthereumPrivateKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B5202A485400806321 /* EthereumPrivateKeyTests.swift */; };
 		0E1C49BA202A9B5F00806321 /* EthereumPublicKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C49B9202A9B5F00806321 /* EthereumPublicKeyTests.swift */; };
+		0E1C9C85202FEE120022FEEA /* EthereumCallParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1C9C84202FEE120022FEEA /* EthereumCallParamsTests.swift */; };
 		0E48AA082026304B00F558C8 /* RLPItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48AA072026304B00F558C8 /* RLPItemTests.swift */; };
 		0E6AAFDC20252AF900517802 /* RLPEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */; };
 		0E6C78CE2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		0E1C49B5202A485400806321 /* EthereumPrivateKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPrivateKeyTests.swift; sourceTree = "<group>"; };
 		0E1C49B9202A9B5F00806321 /* EthereumPublicKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumPublicKeyTests.swift; sourceTree = "<group>"; };
+		0E1C9C84202FEE120022FEEA /* EthereumCallParamsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumCallParamsTests.swift; sourceTree = "<group>"; };
 		0E48AA072026304B00F558C8 /* RLPItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPItemTests.swift; sourceTree = "<group>"; };
 		0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPEncoderTests.swift; sourceTree = "<group>"; };
 		0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentableTests.swift"; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */,
+				0E1C9C84202FEE120022FEEA /* EthereumCallParamsTests.swift */,
 			);
 			path = JsonTests;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				0E1C49BA202A9B5F00806321 /* EthereumPublicKeyTests.swift in Sources */,
 				0EECEE942028AC950070544B /* EthereumAddressTests.swift in Sources */,
 				0E8C911C20278A9900563B6E /* RLPDecoderTests.swift in Sources */,
+				0E1C9C85202FEE120022FEEA /* EthereumCallParamsTests.swift in Sources */,
 				0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */,
 				0E1C49B6202A485400806321 /* EthereumPrivateKeyTests.swift in Sources */,
 				0E48AA082026304B00F558C8 /* RLPItemTests.swift in Sources */,

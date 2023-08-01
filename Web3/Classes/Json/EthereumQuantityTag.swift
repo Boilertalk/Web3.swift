@@ -80,3 +80,32 @@ extension EthereumQuantityTag: EthereumValueConvertible {
         }
     }
 }
+
+extension EthereumQuantityTag.TagType: Equatable {
+
+    public static func ==(lhs: EthereumQuantityTag.TagType, rhs: EthereumQuantityTag.TagType) -> Bool {
+        switch lhs {
+        case .block(let bigLeft):
+            if case .block(let bigRight) = rhs {
+                return bigLeft == bigRight
+            } else {
+                return false
+            }
+        case .latest:
+            if case .latest = rhs {
+                return true
+            }
+            return false
+        case .earliest:
+            if case .earliest = rhs {
+                return true
+            }
+            return false
+        case .pending:
+            if case .pending = rhs {
+                return true
+            }
+            return false
+        }
+    }
+}
