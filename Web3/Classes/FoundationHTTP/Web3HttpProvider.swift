@@ -8,6 +8,9 @@
 
 import Foundation
 import Dispatch
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public struct Web3HttpProvider: Web3Provider {
 

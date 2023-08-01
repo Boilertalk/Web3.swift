@@ -24,7 +24,7 @@ extension Array where Element == Byte {
         var str = prefix ? "0x" : ""
 
         // Remove leading zero bytes
-        var bytes = self.trimLeadingZeros()
+        let bytes = self.trimLeadingZeros()
 
         if bytes.count > 0 {
             // If there is one leading zero (4 bit) left, this one removes it
