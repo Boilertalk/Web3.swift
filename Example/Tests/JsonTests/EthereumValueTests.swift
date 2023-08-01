@@ -96,6 +96,60 @@ class EthereumValueTests: QuickSpec {
                     // TODO: Add nil checking...
                 }
             }
+
+            context("array values") {
+
+                it("should encode successfully") {
+                    let value: EthereumValue = .array(
+                        [
+                            [] as EthereumValue,
+                            [] as EthereumValue,
+                            [] as EthereumValue,
+                            ["hello"] as EthereumValue,
+                            [100] as EthereumValue,
+                            false,
+                            [true] as EthereumValue,
+                            0,
+                            1
+                        ]
+                    )
+
+                    let json = try? self.encoder.encode(value)
+                    expect(json).toNot(beNil())
+                    expect(json?.makeBytes().makeString()) == "[[],[],[],[\"hello\"],[100],false,[true],0,1]"
+                }
+
+                it("should decode successfully") {
+                    let json = "[[],[],[],[\"hello\"],[100],false,[true],0,1]"
+
+                    let value = try? self.decoder.decode(EthereumValue.self, from: Data(json.makeBytes()))
+                    expect(value).toNot(beNil())
+
+                    expect(value?.array?.count) == 9
+
+                    expect(value?.array?[safe: 0]?.array?.count) == 0
+                    expect(value?.array?[safe: 1]?.array?.count) == 0
+                    expect(value?.array?[safe: 2]?.array?.count) == 0
+
+                    expect(value?.array?[safe: 3]?.array?.count) == 1
+                    expect(value?.array?[safe: 3]?.array?[safe: 0]?.string) == "hello"
+
+                    expect(value?.array?[safe: 4]?.array?.count) == 1
+                    expect(value?.array?[safe: 4]?.array?[safe: 0]?.int) == 100
+
+                    expect(value?.array?[safe: 5]?.array).to(beNil())
+                    expect(value?.array?[safe: 5]?.bool) == false
+
+                    expect(value?.array?[safe: 6]?.array?.count) == 1
+                    expect(value?.array?[safe: 6]?.array?[safe: 0]?.bool) == true
+
+                    expect(value?.array?[safe: 7]?.array).to(beNil())
+                    expect(value?.array?[safe: 7]?.int) == 0
+
+                    expect(value?.array?[safe: 8]?.array).to(beNil())
+                    expect(value?.array?[safe: 8]?.int) == 1
+                }
+            }
         }
     }
 }
