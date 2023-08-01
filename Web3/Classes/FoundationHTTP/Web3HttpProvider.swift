@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Web3Core
 import Dispatch
 
 public struct Web3HttpProvider: Web3Provider {
@@ -28,8 +27,8 @@ public struct Web3HttpProvider: Web3Provider {
     public init(rpcURL: String, session: URLSession = URLSession(configuration: .default)) {
         self.rpcURL = rpcURL
         self.session = session
-        // Synchronized queue so our requests are made as they come in (FIFO)
-        self.queue = DispatchQueue(label: "Web3HttpProvider")
+        // Concurrent queue for faster concurrent requests
+        self.queue = DispatchQueue(label: "Web3HttpProvider", attributes: .concurrent)
     }
 
     public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {

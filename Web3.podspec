@@ -32,13 +32,10 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.dependency 'VaporBytes', '~> 1.1'
   end
 
-  s.subspec 'AlamofireHTTP' do |ss|
-    ss.source_files = 'Web3/Classes/AlamofireHTTP/**/*'
+  s.subspec 'HTTPExtension' do |ss|
+    ss.source_files = 'Web3/Classes/FoundationHTTP/**/*'
 
     ss.dependency 'Web3/Core'
-
-    # AlamofireHTTP dependencies
-    ss.dependency 'Alamofire', '~> 4.6'
   end
 
   # s.resource_bundles = {

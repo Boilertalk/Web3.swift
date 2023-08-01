@@ -41,14 +41,11 @@
       }
     },
     {
-      "name": "AlamofireHTTP",
-      "source_files": "Web3/Classes/AlamofireHTTP/**/*",
+      "name": "HTTPExtension",
+      "source_files": "Web3/Classes/FoundationHTTP/**/*",
       "dependencies": {
         "Web3/Core": [
 
-        ],
-        "Alamofire": [
-          "~> 4.6"
         ]
       }
     }
