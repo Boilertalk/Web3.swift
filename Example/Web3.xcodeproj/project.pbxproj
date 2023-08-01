@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		E54BAE94B0A9A8565CD31D93 /* Pods_Web3_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -19,7 +18,6 @@
 		4BC29B1E862FC7EC18CDE5FA /* Pods-Web3_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Web3_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Web3_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		746C365C55131A708ACBAB71 /* Web3.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Web3.podspec; path = ../Web3.podspec; sourceTree = "<group>"; };
 		DA16060729F56349F6C9ADD3 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Web3_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				0E9C48C31FFC32FA00541E6F /* JsonTests */,
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -250,7 +247,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 				0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
