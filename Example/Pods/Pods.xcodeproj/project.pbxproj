@@ -23,6 +23,7 @@
 		0E6C78CB2023CC03007A9993 /* UInt+BytesRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CA2023CC03007A9993 /* UInt+BytesRepresentable.swift */; };
 		0E6C78D02023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CF2023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift */; };
 		0E80C84C9C4809F4D9E1CA756D928B6C /* num_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 2AD2E0EBAEBD74DECA0B3FBEAE6F2319 /* num_impl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0E8C91212028029100563B6E /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C91202028029100563B6E /* Transaction.swift */; };
 		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D168112FBA2A6FD0653ABC0EB10F5EE /* Timeline.swift */; };
 		13319D017D26653501E0FA331833EC3C /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A373AA2551481DC9219795677BEDB /* Random.swift */; };
 		152BA68678A9161227766CE6A75C19D4 /* NoPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20D7F01CCB9CBFE5249E71A6805B345 /* NoPadding.swift */; };
@@ -484,6 +485,7 @@
 		0E48AA092026764100F558C8 /* Bytes+UInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bytes+UInt.swift"; sourceTree = "<group>"; };
 		0E6C78CA2023CC03007A9993 /* UInt+BytesRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentable.swift"; sourceTree = "<group>"; };
 		0E6C78CF2023E0EA007A9993 /* Bytes+TrimLeadingZeros.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bytes+TrimLeadingZeros.swift"; sourceTree = "<group>"; };
+		0E8C91202028029100563B6E /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		0EED877C7C0E06C01CF89EC7C9D05DBE /* UnsignedInteger+Shifting.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsignedInteger+Shifting.swift"; path = "Sources/Bits/UnsignedInteger+Shifting.swift"; sourceTree = "<group>"; };
 		111809DF751CFAEBE8464443B7115115 /* Match.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Match.swift; path = Sources/Nimble/Matchers/Match.swift; sourceTree = "<group>"; };
 		112219FB38BF951FE2792A00481B707E /* RandomAccessBlockModeWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RandomAccessBlockModeWorker.swift; path = Sources/CryptoSwift/BlockMode/RandomAccessBlockModeWorker.swift; sourceTree = "<group>"; };
@@ -964,6 +966,7 @@
 		0E8C911D2027F72E00563B6E /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				0E8C91202028029100563B6E /* Transaction.swift */,
 			);
 			name = Transaction;
 			path = Web3/Classes/Transaction;
@@ -2136,6 +2139,7 @@
 				FA1399159ECAC5EE461BE4D642E49ADB /* RLPItem.swift in Sources */,
 				0E48AA062026115E00F558C8 /* RLPDecoder.swift in Sources */,
 				F525BC8A522436CDE6B4794F9BF2CD60 /* RPCRequest.swift in Sources */,
+				0E8C91212028029100563B6E /* Transaction.swift in Sources */,
 				51AE288A7A204E29D3F3B88D25B2B54D /* RPCResponse.swift in Sources */,
 				DE4E17E5063C9625ECDB5B5E0AA69518 /* Web3-dummy.m in Sources */,
 				F107FB09B6272751366938742097A5D1 /* Web3.swift in Sources */,
