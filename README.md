@@ -1,5 +1,5 @@
 <a href="https://github.com/Boilertalk/Web3.swift">
-  <img src="https://storage.googleapis.com/boilertalk/logo.svg" width="100%" height="256">
+  <img src="https://bitcoinboomer-atm-app-releases.ams3.digitaloceanspaces.com/boilertalk.svg" width="100%" height="256">
 </a>
 
 <p align="center">
