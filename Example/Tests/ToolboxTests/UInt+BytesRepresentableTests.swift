@@ -18,14 +18,14 @@ class UIntBytesRepresentableTests: QuickSpec {
                 it("should be zero") {
                     let zero = UInt(0).makeBytes()
 
-                    expect(zero.count) == MemoryLayout<Int>.size
+                    expect(zero.count) == MemoryLayout<UInt>.size
 
-                    guard zero.count == MemoryLayout<Int>.size else {
+                    guard zero.count == MemoryLayout<UInt>.size else {
                         // We already expect that
                         return
                     }
 
-                    for i in 0 ..< MemoryLayout<Int>.size {
+                    for i in 0 ..< MemoryLayout<UInt>.size {
                         expect(zero[i]) == 0x00
                     }
                 }
@@ -33,14 +33,14 @@ class UIntBytesRepresentableTests: QuickSpec {
                 it("should be int max") {
                     let max = UInt.max.makeBytes()
 
-                    expect(max.count) == MemoryLayout<Int>.size
+                    expect(max.count) == MemoryLayout<UInt>.size
 
-                    guard max.count == MemoryLayout<Int>.size else {
+                    guard max.count == MemoryLayout<UInt>.size else {
                         return
                     }
 
                     // For uint max value is 1111 1111 ....
-                    for i in 0 ..< MemoryLayout<Int>.size {
+                    for i in 0 ..< MemoryLayout<UInt>.size {
                         expect(max[i]) == 0xff
                     }
                 }
@@ -50,18 +50,18 @@ class UIntBytesRepresentableTests: QuickSpec {
                 it("should be 0x0400") {
                     let two = UInt(1024).makeBytes()
 
-                    expect(two.count) == MemoryLayout<Int>.size
+                    expect(two.count) == MemoryLayout<UInt>.size
 
-                    guard two.count == MemoryLayout<Int>.size else {
+                    guard two.count == MemoryLayout<UInt>.size else {
                         return
                     }
 
-                    for i in 0 ..< MemoryLayout<Int>.size - 2 {
+                    for i in 0 ..< MemoryLayout<UInt>.size - 2 {
                         expect(two[i]) == 0x00
                     }
 
-                    expect(two[MemoryLayout<Int>.size - 2]) == 0x04
-                    expect(two[MemoryLayout<Int>.size - 1]) == 0x00
+                    expect(two[MemoryLayout<UInt>.size - 2]) == 0x04
+                    expect(two[MemoryLayout<UInt>.size - 1]) == 0x00
                 }
             }
         }
