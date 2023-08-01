@@ -326,7 +326,7 @@ public struct Web3 {
 
         public func getTransactionByHash(
             blockHash: EthereumData,
-            response: @escaping Web3ResponseCompletion<EthereumTransaction>
+            response: @escaping Web3ResponseCompletion<EthereumTransaction?>
         ) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,

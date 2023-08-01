@@ -13,13 +13,13 @@ public struct EthereumSyncStatus: Codable {
     public let syncing: Bool
 
     /// The block at which the import started (will only be reset, after the sync reached his head)
-    public let startingBlock: String?
+    public let startingBlock: EthereumQuantity?
 
     /// The current block, same as eth_blockNumber
-    public let currentBlock: String?
+    public let currentBlock: EthereumQuantity?
 
     /// The estimated highest block
-    public let highestBlock: String?
+    public let highestBlock: EthereumQuantity?
 
     public enum CodingKeys: String, CodingKey {
 
@@ -38,9 +38,9 @@ public struct EthereumSyncStatus: Codable {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 
             self.syncing = true
-            self.startingBlock = try container.decode(String.self, forKey: .startingBlock)
-            self.currentBlock = try container.decode(String.self, forKey: .currentBlock)
-            self.highestBlock = try container.decode(String.self, forKey: .highestBlock)
+            self.startingBlock = try container.decode(EthereumQuantity.self, forKey: .startingBlock)
+            self.currentBlock = try container.decode(EthereumQuantity.self, forKey: .currentBlock)
+            self.highestBlock = try container.decode(EthereumQuantity.self, forKey: .highestBlock)
         }
     }
 
