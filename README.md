@@ -96,6 +96,13 @@ it, simply add the following line to your `Podfile`:
 pod 'Web3'
 ```
 
+If you want to use the [PromiseKit](https://github.com/mxcl/PromiseKit) extensions, also add the following line
+to your `Podfile`:
+
+```ruby
+pod 'Web3/PromiseKit'
+```
+
 ### Carthage
 
 Web3 is compatible with [Carthage](https://github.com/Carthage/Carthage), a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To install it, simply add the following line to your `Cartfile`:
@@ -114,7 +121,23 @@ dependencies: [
 ]
 ```
 
-After which you can import it in your `.swift` files.
+And then add it to your target dependencies:
+
+```Swift
+targets: [
+    .target(
+        name: "MyProject",
+        dependencies: ["Web3"]),
+    .testTarget(
+        name: "MyProjectTests",
+        dependencies: ["MyProject"])
+]
+```
+
+> Note: If you want to use PromiseKit extensions with SPM, you also have to add `Web3PromiseKit`
+to your target dependencies and also import it in your code.
+
+After the installation you can import `Web3` in your `.swift` files.
 
 ```Swift
 import Web3
