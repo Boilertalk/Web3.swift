@@ -111,6 +111,27 @@ class EthereumBlockObjectTests: QuickSpec {
                     expect(tx?.object?.input.hex()) == "0x0a19b14a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001ce97c70706df20000000000000000000000000000419d0d8bdd9af5e606ae2232ed285aff190e711b000000000000000000000000000000000000000000000000000328708d2b380000000000000000000000000000000000000000000000000000000000004d931400000000000000000000000000000000000000000000000000000000cc56a16a0000000000000000000000006b01bb8b9f5d00a0f0fe8532d2beda1d5d1a42ce000000000000000000000000000000000000000000000000000000000000001c64402c21718134a6c59382663ea1f0eadd995581f1fb402c3b5f83586529e5bd70782295477707b527c40a050b7e7b2a81c4619bcad145a2e5ebfd83f78df5f9000000000000000000000000000000000000000000000002e425df9692720000"
                 }
             }
+
+            context("hash only transaction") {
+
+                it("should encode and decode successfully") {
+                    let tx = try? EthereumBlockObject.Transaction(hash: .string("0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb"))
+                    expect(tx).toNot(beNil())
+
+                    expect(tx?.object).to(beNil())
+                    expect(tx?.hash?.hex()) == "0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb"
+
+                    let encoded = try? self.encoder.encode([tx])
+                    expect(encoded?.makeBytes().makeString()) == "[\"0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb\"]"
+
+                    let decoded = try? self.decoder.decode([EthereumBlockObject.Transaction].self, from: Data("[\"0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb\"]".makeBytes()))
+                    expect(decoded).toNot(beNil())
+
+                    expect(decoded?.count) == 1
+                    expect(decoded?.first?.hash?.hex()) == "0xe28aa8aeb6bdbd06f6a3e9ef498f5fd0b39c8bd5fb14b27a0d27d686c92d99bb"
+                    expect(decoded?.first?.object).to(beNil())
+                }
+            }
         }
     }
 }
