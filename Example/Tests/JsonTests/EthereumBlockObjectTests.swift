@@ -9,6 +9,7 @@
 import Quick
 import Nimble
 @testable import Web3
+import Foundation
 
 class EthereumBlockObjectTests: QuickSpec {
 
