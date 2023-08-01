@@ -9,7 +9,7 @@ import Foundation
 import VaporBytes
 import CryptoSwift
 
-func hashValues(_ values: BytesRepresentable?...) -> Int {
+func hashValues(_ values: [BytesRepresentable?]) -> Int {
     var raw = Bytes()
 
     for v in values {
@@ -22,6 +22,10 @@ func hashValues(_ values: BytesRepresentable?...) -> Int {
     let hash = SHA3(variant: .keccak256).calculate(for: raw)
 
     return hash.biggestInt()
+}
+
+func hashValues(_ values: BytesRepresentable?...) -> Int {
+    return hashValues(values)
 }
 
 private extension Array where Element == UInt8 {

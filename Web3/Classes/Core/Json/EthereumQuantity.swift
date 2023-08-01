@@ -82,3 +82,12 @@ extension EthereumQuantity: Equatable {
         return lhs.quantity == rhs.quantity
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumQuantity: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(quantity)
+    }
+}

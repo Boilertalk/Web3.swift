@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VaporBytes
 
 public struct EthereumLogObject: Codable {
 
@@ -56,5 +57,21 @@ extension EthereumLogObject: Equatable {
             && lhs.address == rhs.address
             && lhs.data == rhs.data
             && lhs.topics == rhs.topics
+    }
+}
+
+// MARK: - Hashable
+
+extension EthereumLogObject: Hashable {
+
+    public var hashValue: Int {
+        var arr: [BytesRepresentable?] = [
+            removed ? UInt8(0x01) : UInt8(0x00), logIndex, transactionIndex, transactionHash, blockHash, blockNumber,
+            address, data
+        ]
+        for t in topics {
+            arr.append(t)
+        }
+        return hashValues(arr)
     }
 }

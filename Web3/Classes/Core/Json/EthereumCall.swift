@@ -146,3 +146,22 @@ extension EthereumCallParams: Equatable {
         return lhs.call == rhs.call && lhs.block == rhs.block
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumCall: Hashable {
+
+    public var hashValue: Int {
+        return hashValues(
+            from, to, gas, gasPrice, value, data
+        )
+    }
+}
+
+extension EthereumCallParams: Hashable {
+
+    public var hashValue: Int {
+        // Do we need to include `block` for performance reasons?
+        return call.hashValue
+    }
+}

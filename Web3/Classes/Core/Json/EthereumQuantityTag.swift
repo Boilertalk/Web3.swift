@@ -121,3 +121,28 @@ extension EthereumQuantityTag: Equatable {
         return lhs.tagType == rhs.tagType
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumQuantityTag.TagType: Hashable {
+
+    public var hashValue: Int {
+        switch self {
+        case .block(let bigInt):
+            return hashValues(bigInt)
+        case .latest:
+            return hashValues(Byte(0x01))
+        case .earliest:
+            return hashValues(Byte(0x02))
+        case .pending:
+            return hashValues(Byte(0x03))
+        }
+    }
+}
+
+extension EthereumQuantityTag: Hashable {
+
+    public var hashValue: Int {
+        return tagType.hashValue
+    }
+}

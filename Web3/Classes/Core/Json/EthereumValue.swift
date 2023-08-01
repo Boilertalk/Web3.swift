@@ -232,3 +232,30 @@ extension EthereumValue: Equatable {
         return lhs.valueType == rhs.valueType
     }
 }
+
+// MARK: - Hashable
+
+extension EthereumValue.ValueType: Hashable {
+
+    public var hashValue: Int {
+        switch self {
+        case .string(let str):
+            return hashValues(str)
+        case .int(let int):
+            return hashValues(String(int))
+        case .bool(let bool):
+            return hashValues(bool ? UInt8(0x01) : UInt8(0x00))
+        case .array(let array):
+            return hashValues(String(array.reduce(0, { $0 ^ $1.hashValue })))
+        case .nil:
+            return hashValues(UInt8(0x00))
+        }
+    }
+}
+
+extension EthereumValue: Hashable {
+
+    public var hashValue: Int {
+        return valueType.hashValue
+    }
+}
