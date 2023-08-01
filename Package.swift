@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Web3",
     platforms: [
-       .iOS(.v12),
+       .iOS(.v10),
        .macOS(.v10_12)
     ],
     products: [
