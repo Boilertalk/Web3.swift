@@ -16,13 +16,7 @@ class IntBytesRepresentableTests: QuickSpec {
         describe("int bytes representable") {
             context("special cases") {
                 it("should be zero") {
-                    let z = try? 0.makeBytes()
-                    expect(z).toNot(beNil())
-
-                    guard let zero = z else {
-                        // We already expect that
-                        return
-                    }
+                    let zero = 0.makeBytes()
 
                     expect(zero.count) == MemoryLayout<Int>.size
 
@@ -37,12 +31,7 @@ class IntBytesRepresentableTests: QuickSpec {
                 }
 
                 it("should be int max") {
-                    let m = try? Int.max.makeBytes()
-                    expect(m).toNot(beNil())
-
-                    guard let max = m else {
-                        return
-                    }
+                    let max = Int.max.makeBytes()
 
                     expect(max.count) == MemoryLayout<Int>.size
 
@@ -60,12 +49,7 @@ class IntBytesRepresentableTests: QuickSpec {
 
             context("two bytes") {
                 it("should be 0x0400") {
-                    let t = try? 1024.makeBytes()
-                    expect(t).toNot(beNil())
-
-                    guard let two = t else {
-                        return
-                    }
+                    let two = 1024.makeBytes()
 
                     expect(two.count) == MemoryLayout<Int>.size
 
