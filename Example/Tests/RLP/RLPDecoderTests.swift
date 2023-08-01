@@ -9,7 +9,6 @@
 import Quick
 import Nimble
 @testable import Web3
-// @testable import Web3Core
 
 class RLPDecoderTests: QuickSpec {
 
