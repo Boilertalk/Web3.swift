@@ -29,15 +29,7 @@ extension String {
             string = String(string[post...])
         }
 
-        for i in stride(from: 0, to: string.count, by: 2) {
-            let start = string.index(string.startIndex, offsetBy: i)
-            let end = string.index(string.startIndex, offsetBy: i + 2)
-
-            guard let byte = Byte(String(string[start..<end]), radix: 16) else {
-                throw StringHexBytesError.hexStringMalformed
-            }
-            bytes.append(byte)
-        }
+        try bytes.append(contentsOf: string.rawHex())
 
         return bytes
     }
@@ -74,11 +66,18 @@ extension String {
             string = String(string[newStart...])
         }
 
-        for i in stride(from: 0, to: string.count, by: 2) {
-            let start = string.index(string.startIndex, offsetBy: i)
-            let end = string.index(string.startIndex, offsetBy: i + 2)
+        try bytes.append(contentsOf: string.rawHex())
 
-            guard let byte = Byte(String(string[start..<end]), radix: 16) else {
+        return bytes
+    }
+
+    private func rawHex() throws -> Bytes {
+        var bytes = Bytes()
+        for i in stride(from: 0, to: self.count, by: 2) {
+            let start = self.index(self.startIndex, offsetBy: i)
+            let end = self.index(self.startIndex, offsetBy: i + 2)
+
+            guard let byte = Byte(String(self[start..<end]), radix: 16) else {
                 throw StringHexBytesError.hexStringMalformed
             }
             bytes.append(byte)
