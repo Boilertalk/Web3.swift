@@ -193,3 +193,42 @@ extension EthereumValue: EthereumValueConvertible {
         return self
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumValue.ValueType: Equatable {
+
+    public static func ==(_ lhs: EthereumValue.ValueType, _ rhs: EthereumValue.ValueType) -> Bool {
+        switch lhs {
+        case .string(let str):
+            if case .string(let rStr) = rhs {
+                return str == rStr
+            }
+            return false
+        case .int(let int):
+            if case .int(let rInt) = rhs {
+                return int == rInt
+            }
+            return false
+        case .bool(let bool):
+            if case .bool(let rBool) = rhs {
+                return bool == rBool
+            }
+            return false
+        case .array(let array):
+            if case .array(let rArray) = rhs {
+                return array == rArray
+            }
+            return false
+        case .nil:
+            return rhs == .nil
+        }
+    }
+}
+
+extension EthereumValue: Equatable {
+
+    public static func ==(_ lhs: EthereumValue, _ rhs: EthereumValue) -> Bool {
+        return lhs.valueType == rhs.valueType
+    }
+}
