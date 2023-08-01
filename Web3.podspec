@@ -22,7 +22,7 @@ HTTP RPC interface provided by this library or a custom RPC interface
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '2.0'
 
-  s.swift_version = '5.0.1'
+  s.swift_versions = '5.1.3', '5.1.2', '5.0', '5.1'
 
   s.pod_target_xcconfig = {
     'OTHER_SWIFT_FLAGS' => '-DWeb3CocoaPods'
