@@ -13,8 +13,8 @@ dist: trusty
 language: generic
 sudo: required
 
-osx_image: xcode9.2
-xcode_sdk: iphonesimulator11.2
+osx_image: xcode9.3beta
+xcode_sdk: iphonesimulator11.3
 # cache: cocoapods
 # podfile: Example/Podfile
 before_install:
@@ -22,22 +22,21 @@ before_install:
   - pod repo update
   - pod install --project-directory=Example
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      brew install kylef/formulae/swiftenv;
-      if which swiftenv > /dev/null; then eval "$(swiftenv init -)"; fi;
+      # Let travis manage swift versions for macOS builds
     else
       git clone https://github.com/kylef/swiftenv.git ~/.swiftenv;
       export SWIFTENV_ROOT="$HOME/.swiftenv";
       export PATH="$SWIFTENV_ROOT/bin:$PATH";
       eval "$(swiftenv init -)";
+
+      swiftenv install $(cat .swift-version) # Install swift with swiftenv
     fi
-  - swiftenv install $(cat .swift-version) # Install swift with swiftenv
-  - swiftenv global $(cat .swift-version)
 script:
   # Output something every 10 minutes or Travis kills the job
   - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
   # Actual script
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.2 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.2' ONLY_ACTIVE_ARCH=NO | xcpretty;
+      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator11.3 -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.3' ONLY_ACTIVE_ARCH=NO | xcpretty;
       pod lib lint --allow-warnings;
     fi
   - swift build
