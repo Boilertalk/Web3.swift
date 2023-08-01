@@ -2,7 +2,7 @@ PODS:
   - Alamofire (4.6.0)
   - BigInt (3.0.1):
     - SipHash (~> 1.2)
-  - CryptoSwift (0.8.1)
+  - CryptoSwift (0.8.3)
   - Nimble (7.0.3)
   - Quick (1.2.0)
   - secp256k1.swift (0.1.0)
@@ -34,13 +34,13 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
-  CryptoSwift: 4b07d5b508c1eb67bfa314a727b705f8048a85de
+  CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
   Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   secp256k1.swift: c4734a8c5597de8ff4af5db24624d6dd883eede0
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
   VaporBytes: 628752235bc16d69800b52355de7118762a9009f
-  Web3: d89d1e64ce9073c7d6a1b43c990258c2a41998df
+  Web3: f4dced9c3ee3dd936cce3c2667d7166b2a94a8e5
 
 PODFILE CHECKSUM: 6187d63273cbe49465a8ccc30c3bfdf2efc80482
 

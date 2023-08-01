@@ -45,17 +45,9 @@ public class EthereumPrivateKey {
         }
         rand += 55
 
-        guard var bytes = Bytes.secureRandom(count: Int(rand)) else {
+        guard let bytes = Bytes.secureRandom(count: Int(rand)) else {
             throw Error.internalError
         }
-        // Temporary fix until CryptoSwift SHA3 fix gets merged
-        if bytes.count % 136 == 0 {
-            guard let fB = Bytes.secureRandom(count: 1), let fixByte = fB.first else {
-                throw Error.internalError
-            }
-            bytes.append(fixByte)
-        }
-        // End temp fix
         let bytesHash = SHA3(variant: .keccak256).calculate(for: bytes)
 
         try self.init(privateKey: bytesHash)
