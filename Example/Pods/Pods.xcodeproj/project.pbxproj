@@ -29,6 +29,8 @@
 		0E7113851FF802080018DAAA /* EthereumSyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7113841FF802080018DAAA /* EthereumSyncStatus.swift */; };
 		0E7113871FF806800018DAAA /* EthereumValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7113861FF806800018DAAA /* EthereumValue.swift */; };
 		0E71138A1FF82C0B0018DAAA /* EthereumTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7113881FF81EB30018DAAA /* EthereumTransaction.swift */; };
+		0E71138C1FF8768D0018DAAA /* EthereumTransactionReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E71138B1FF8768D0018DAAA /* EthereumTransactionReceipt.swift */; };
+		0E71138E1FF87BAB0018DAAA /* EthereumLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E71138D1FF87BAB0018DAAA /* EthereumLog.swift */; };
 		0EB915029F9BFF4FD7311D4FBF84DF01 /* Utils+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A9DC255706704473F678E2FA50459D /* Utils+Foundation.swift */; };
 		10141BBA78786EC27D5A2CA45581FB28 /* Pods-Web3_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1983B56F5E8BEF15429C19770CB71A4B /* Pods-Web3_Tests-dummy.m */; };
 		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B0904AF612C9574FBA0DAA0353B9E7 /* Timeline.swift */; };
@@ -448,6 +450,8 @@
 		0E7113841FF802080018DAAA /* EthereumSyncStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumSyncStatus.swift; sourceTree = "<group>"; };
 		0E7113861FF806800018DAAA /* EthereumValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumValue.swift; sourceTree = "<group>"; };
 		0E7113881FF81EB30018DAAA /* EthereumTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumTransaction.swift; sourceTree = "<group>"; };
+		0E71138B1FF8768D0018DAAA /* EthereumTransactionReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumTransactionReceipt.swift; sourceTree = "<group>"; };
+		0E71138D1FF87BAB0018DAAA /* EthereumLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumLog.swift; sourceTree = "<group>"; };
 		0EB0FE069DA911A9C6EA0B963E107FF8 /* secp256k1_ecdh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = secp256k1_ecdh.h; path = secp256k1_ios/include/secp256k1_ecdh.h; sourceTree = "<group>"; };
 		0F0244DF3DC7F711696DFF71ED11E4BA /* MatcherProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatcherProtocols.swift; path = Sources/Nimble/Matchers/MatcherProtocols.swift; sourceTree = "<group>"; };
 		0FBEFEE6F665404F4F4AC56A138E5494 /* DSL+Wait.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DSL+Wait.swift"; path = "Sources/Nimble/DSL+Wait.swift"; sourceTree = "<group>"; };
@@ -889,6 +893,8 @@
 				0E7113841FF802080018DAAA /* EthereumSyncStatus.swift */,
 				0E7113821FF801FC0018DAAA /* EthereumBlock.swift */,
 				0E7113881FF81EB30018DAAA /* EthereumTransaction.swift */,
+				0E71138B1FF8768D0018DAAA /* EthereumTransactionReceipt.swift */,
+				0E71138D1FF87BAB0018DAAA /* EthereumLog.swift */,
 			);
 			name = Json;
 			path = Web3/Classes/Json;
@@ -1834,9 +1840,11 @@
 				0E7113871FF806800018DAAA /* EthereumValue.swift in Sources */,
 				0E71137F1FF7FAF80018DAAA /* RPCRequest.swift in Sources */,
 				0E7113851FF802080018DAAA /* EthereumSyncStatus.swift in Sources */,
+				0E71138E1FF87BAB0018DAAA /* EthereumLog.swift in Sources */,
 				0E71138A1FF82C0B0018DAAA /* EthereumTransaction.swift in Sources */,
 				0E71137C1FF7FA7A0018DAAA /* Web3HttpProvider.swift in Sources */,
 				0E7113771FF7F8920018DAAA /* Web3.swift in Sources */,
+				0E71138C1FF8768D0018DAAA /* EthereumTransactionReceipt.swift in Sources */,
 				0E7113811FF7FCB40018DAAA /* RPCResponse.swift in Sources */,
 				D4158E6543D0AF4D24907544296530A6 /* Web3-dummy.m in Sources */,
 			);
