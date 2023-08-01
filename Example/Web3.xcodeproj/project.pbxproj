@@ -25,7 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E24F0A5203761140019F214 /* LinuxMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		0EA5D3D6203911A80037C2BE /* BytesExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BytesExtensions.swift; sourceTree = "<group>"; };
 		0EA5D3DA203912090037C2BE /* EthereumQuantityTagTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTagTests.swift; sourceTree = "<group>"; };
 		0EA5D3DB203912090037C2BE /* EthereumBlockObjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EthereumBlockObjectTests.swift; sourceTree = "<group>"; };
@@ -155,7 +154,6 @@
 				0EA5D3F4203912470037C2BE /* TransactionTests */,
 				0EA5D3F5203912660037C2BE /* Web3Tests */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
-				0E24F0A5203761140019F214 /* LinuxMain.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
