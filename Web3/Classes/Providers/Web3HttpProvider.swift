@@ -25,7 +25,7 @@ public struct Web3HttpProvider: Web3Provider {
         self.queue = DispatchQueue(label: "Web3HttpProvider")
     }
 
-    public func send<Result>(request: RPCRequest, response: @escaping Web3ResponseCompletion<Result>) {
+    public func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>) {
         let req = Alamofire.request(rpcURL, method: HTTPMethod.post, parameters: [:], encoding: request, headers: type(of: self).headers)
 
         req.responseDecodable(queue: queue) { (resp: DataResponse<RPCResponse<Result>>) in

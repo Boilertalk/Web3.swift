@@ -11,12 +11,12 @@ public protocol Web3Provider {
 
     typealias Web3ResponseCompletion<Result: Codable> = (_ resp: Web3Response<Result>) -> Void
 
-    func send<Result>(request: RPCRequest, response: @escaping Web3ResponseCompletion<Result>)
+    func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>)
 }
 
 public extension Web3Provider {
 
-    public func basicSend(request: RPCRequest, response: @escaping Web3ResponseCompletion<EthereumValue>) {
+    public func basicSend(request: BasicRPCRequest, response: @escaping Web3ResponseCompletion<EthereumValue>) {
         send(request: request, response: response)
     }
 }

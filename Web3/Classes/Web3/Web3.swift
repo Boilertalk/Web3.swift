@@ -55,7 +55,7 @@ public struct Web3 {
     // MARK: - Web3 methods
 
     public func clientVersion(response: @escaping BasicWeb3ResponseCompletion) {
-        let req = RPCRequest(id: rpcId, jsonrpc: type(of: self).jsonrpc, method: "web3_clientVersion", params: [])
+        let req = BasicRPCRequest(id: rpcId, jsonrpc: type(of: self).jsonrpc, method: "web3_clientVersion", params: [])
 
         provider.basicSend(request: req, response: response)
     }
@@ -67,13 +67,13 @@ public struct Web3 {
         let properties: Properties
 
         public func version(response: @escaping BasicWeb3ResponseCompletion) {
-            let req = RPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_version", params: [])
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_version", params: [])
 
             properties.provider.basicSend(request: req, response: response)
         }
 
         public func peerCount(response: @escaping BasicWeb3ResponseCompletion) {
-            let req = RPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_peerCount", params: [])
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_peerCount", params: [])
 
             properties.provider.basicSend(request: req, response: response)
         }
@@ -86,19 +86,24 @@ public struct Web3 {
         let properties: Properties
 
         public func protocolVersion(response: @escaping BasicWeb3ResponseCompletion) {
-            let req = RPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_protocolVersion", params: [])
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_protocolVersion",
+                params: []
+            )
 
             properties.provider.basicSend(request: req, response: response)
         }
 
         public func syncing(response: @escaping Web3ResponseCompletion<EthereumSyncStatus>) {
-            let req = RPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_syncing", params: [])
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_syncing", params: [])
 
             properties.provider.send(request: req, response: response)
         }
 
         public func mining(response: @escaping BasicWeb3ResponseCompletion) {
-            let req = RPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_mining", params: [])
+            let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "eth_mining", params: [])
 
             properties.provider.basicSend(request: req, response: response)
         }
