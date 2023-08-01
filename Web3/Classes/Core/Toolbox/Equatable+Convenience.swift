@@ -29,6 +29,16 @@ precedencegroup ApplicativePrecedence {
 
 infix operator <*> : ApplicativePrecedence
 
+prefix operator =/=
+
 func <*><T, U>(_ fun: (T) -> U, _ val: [T]) -> [U] {
     return val.map(fun)
+}
+
+prefix func =/=<T: Equatable>(_ arr: [(T?, T?)]) -> Bool {
+    return arr.reduce(false, { $1.0 == $1.1 })
+}
+
+prefix func =/=<T: Equatable>(_ arr: [([T], [T])]) -> Bool {
+    return arr.reduce(false, { $1.0 == $1.1 })
 }
