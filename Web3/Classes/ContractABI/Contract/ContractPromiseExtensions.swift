@@ -14,10 +14,6 @@ import PromiseKit
     import Web3
 #endif
 
-#if canImport(Web3PromiseKit)
-    import Web3PromiseKit
-#endif
-
 // MARK: - Extensions
 
 public extension SolidityInvocation {
@@ -50,6 +46,9 @@ public extension SolidityConstructorInvocation {
     }
 }
 
+#if canImport(Web3PromiseKit)
+import Web3PromiseKit
+
 // MARK: - Promisable and Guaranteeable
 
 extension SolidityTuple: Guaranteeable {}
@@ -62,5 +61,6 @@ extension SolidityReadInvocation: Guaranteeable {}
 extension SolidityPayableInvocation: Guaranteeable {}
 extension SolidityNonPayableInvocation: Guaranteeable {}
 extension SolidityConstructorInvocation: Guaranteeable {}
+#endif
 
 #endif
