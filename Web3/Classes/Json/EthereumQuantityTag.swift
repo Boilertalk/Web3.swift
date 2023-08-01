@@ -59,7 +59,7 @@ extension EthereumQuantityTag: EthereumValueConvertible {
         } else if str == "pending" {
             tagType = .pending
         } else {
-            guard let h = try? str.hexBytes().bigEndianUInt, let hex = h else {
+            guard let h = try? str.quantityHexBytes().bigEndianUInt, let hex = h else {
                 throw EthereumValueInitializableError.notInitializable
             }
             tagType = .block(hex)

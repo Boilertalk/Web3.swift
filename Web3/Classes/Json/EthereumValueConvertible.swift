@@ -10,7 +10,7 @@ import Foundation
 /**
  * Objects which can be converted to `EthereumValue` can implement this.
  */
-public protocol EthereumValueRepresentable {
+public protocol EthereumValueRepresentable: Encodable {
 
     /**
      * Converts `self` to `EthereumValue`.
@@ -23,7 +23,7 @@ public protocol EthereumValueRepresentable {
 /**
  * Objects which can be initialized with `EthereumValue`'s can implement this.
  */
-public protocol EthereumValueInitializable {
+public protocol EthereumValueInitializable: Decodable {
 
     /**
      * Initializes `self` with the given `EthereumValue` if possible. Throws otherwise.
@@ -45,6 +45,24 @@ extension EthereumValueInitializable {
         try self.init(ethereumValue: e)
     }
 }
+
+// MARK: - Default Codable
+
+extension EthereumValueRepresentable {
+
+    public func encode(to encoder: Encoder) throws {
+        try ethereumValue().encode(to: encoder)
+    }
+}
+
+extension EthereumValueInitializable {
+
+    public init(from decoder: Decoder) throws {
+        try self.init(ethereumValue: EthereumValue(from: decoder))
+    }
+}
+
+// MARK: - Errors
 
 public enum EthereumValueRepresentableError: Swift.Error {
 

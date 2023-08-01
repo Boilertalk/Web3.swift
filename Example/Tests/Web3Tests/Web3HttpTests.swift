@@ -69,8 +69,8 @@ class Web3HttpTests: QuickSpec {
                         it("should not be nil") {
                             expect(response.rpcResponse).toNot(beNil())
                         }
-                        it("should be a string response") {
-                            expect(response.rpcResponse?.result?.string).toNot(beNil())
+                        it("should be a quantity response") {
+                            expect(response.rpcResponse?.result?.quantity).toNot(beNil())
                         }
 
                         // Tests done
