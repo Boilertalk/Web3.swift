@@ -7,11 +7,3 @@
 //
 
 @_exported import BigInt
-
-#if canImport(Web3PromiseKit)
-@_exported import Web3PromiseKit
-#endif
-
-#if canImport(Web3ContractABI)
-@_exported import Web3ContractABI
-#endif
