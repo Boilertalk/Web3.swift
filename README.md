@@ -83,7 +83,7 @@ which are able to compile the Swift Compiler, Foundation and Glibc.
 We try to make this library as fast as possible while trying to provide an API which increases your development
 workflow such that you can focus on building great DAPPS instead of worrying about implementation details.
 
-All our APIs are thread safe and designed to be used in highly concurrent applications
+All our APIs are thread safe and designed to be used in highly concurrent applications.
 
 ## Installation
 
