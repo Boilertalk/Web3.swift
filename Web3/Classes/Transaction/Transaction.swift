@@ -132,12 +132,21 @@ public struct Transaction {
         return self
     }
 
+    public func verifySignature() -> Bool {
+        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp(forSigning: true)), v: v, r: r, s: s) {
+            return true
+        }
+
+        return false
+    }
+
     // MARK: - Errors
 
     public enum Error: Swift.Error {
 
         case transactionInvalid
         case rlpItemInvalid
+        case signatureMalformed
     }
 }
 
