@@ -161,7 +161,7 @@ public class EthereumPublicKey {
 
         // Generate uncompressed public key bytes
         var rawPubKey = Bytes(repeating: 0, count: 65)
-        var outputlen = 0
+        var outputlen = 65
         guard secp256k1_ec_pubkey_serialize(ctx, &rawPubKey, &outputlen, pubkey, UInt32(SECP256K1_EC_UNCOMPRESSED)) == 1 else {
             throw Error.internalError
         }
