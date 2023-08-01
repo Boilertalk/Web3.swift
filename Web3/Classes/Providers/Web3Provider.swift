@@ -14,13 +14,6 @@ public protocol Web3Provider {
     func send<Params, Result>(request: RPCRequest<Params>, response: @escaping Web3ResponseCompletion<Result>)
 }
 
-public extension Web3Provider {
-
-    public func basicSend(request: BasicRPCRequest, response: @escaping Web3ResponseCompletion<EthereumValue>) {
-        send(request: request, response: response)
-    }
-}
-
 public struct Web3Response<Result: Codable> {
 
     let status: Status
