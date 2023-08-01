@@ -19,6 +19,10 @@ public struct EthereumData: BytesConvertible {
     public func makeBytes() throws -> Bytes {
         return bytes
     }
+
+    public func hex() -> String {
+        return bytes.hexString(prefix: true)
+    }
 }
 
 extension EthereumData: EthereumValueConvertible {

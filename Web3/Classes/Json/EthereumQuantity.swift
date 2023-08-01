@@ -20,6 +20,10 @@ public struct EthereumQuantity {
     public init(quantity: BigUInt) {
         self.quantity = quantity
     }
+
+    public func hex() -> String {
+        return quantity.makeBytes().quantityHexString(prefix: true)
+    }
 }
 
 extension EthereumQuantity: ExpressibleByIntegerLiteral {
