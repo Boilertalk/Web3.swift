@@ -10,12 +10,35 @@
 
 import XCTest
 import Quick
-@testable import Web3
+@testable import Web3Tests
 
 QCKMain([
-    RLPEncoderTests.self,
+    // JsonTests
+    EthereumBlockObjectTests.self,
+    EthereumCallParamsTests.self,
+    EthereumDataTests.self,
+    EthereumQuantityTagTests.self,
+    EthereumQuantityTests.self,
+    EthereumSyncStatusObjectTests.self,
+    EthereumValueTests.self,
+    RPCRequestJsonTests.self,
+
+    // RLPTests
     RLPDecoderTests.self,
-    RLPItemTests.self
+    RLPEncoderTests.self,
+    RLPItemTests.self,
+
+    // ToolboxTests
+    UIntBytesRepresentableTests.self,
+
+    // TransactionTests
+    EthereumAddressTests.self,
+    EthereumPrivateKeyTests.self,
+    EthereumPublicKeyTests.self,
+    TransactionTests.self,
+
+    // Web3Tests
+    Web3HttpTests.self
 ])
 
 #endif

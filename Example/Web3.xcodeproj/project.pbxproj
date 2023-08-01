@@ -91,14 +91,14 @@
 			path = JsonTests;
 			sourceTree = "<group>";
 		};
-		0EA5D3EA2039120D0037C2BE /* RLP */ = {
+		0EA5D3EA2039120D0037C2BE /* RLPTests */ = {
 			isa = PBXGroup;
 			children = (
 				0EA5D3EB2039121E0037C2BE /* RLPDecoderTests.swift */,
 				0EA5D3EC2039121E0037C2BE /* RLPEncoderTests.swift */,
 				0EA5D3ED2039121E0037C2BE /* RLPItemTests.swift */,
 			);
-			path = RLP;
+			path = RLPTests;
 			sourceTree = "<group>";
 		};
 		0EA5D3F1203912290037C2BE /* ToolboxTests */ = {
@@ -149,7 +149,7 @@
 				0EA5D3D5203911920037C2BE /* Helpers */,
 				0EA5D3D8203911BF0037C2BE /* InternalTests */,
 				0EA5D3D9203911E30037C2BE /* JsonTests */,
-				0EA5D3EA2039120D0037C2BE /* RLP */,
+				0EA5D3EA2039120D0037C2BE /* RLPTests */,
 				0EA5D3F1203912290037C2BE /* ToolboxTests */,
 				0EA5D3F4203912470037C2BE /* TransactionTests */,
 				0EA5D3F5203912660037C2BE /* Web3Tests */,
