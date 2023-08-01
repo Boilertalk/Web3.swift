@@ -7,6 +7,7 @@
 
 import Foundation
 import Web3Core
+import Dispatch
 
 public struct Web3HttpProvider: Web3Provider {
 
