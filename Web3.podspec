@@ -26,6 +26,8 @@ HTTP RPC interface provided by this library or a custom RPC interface
     'OTHER_SWIFT_FLAGS' => '-DWeb3CocoaPods'
   }
 
+  s.default_subspecs = 'Core', 'HTTPExtension'
+
   s.subspec 'Core' do |ss|
     ss.source_files = 'Web3/Classes/Core/**/*'
 
@@ -36,18 +38,18 @@ HTTP RPC interface provided by this library or a custom RPC interface
     ss.dependency 'VaporBytes', '~> 1.1'
   end
 
+  s.subspec 'HTTPExtension' do |ss|
+    ss.source_files = 'Web3/Classes/FoundationHTTP/**/*'
+
+    ss.dependency 'Web3/Core'
+  end
+
   s.subspec 'PromiseKit' do |ss|
     ss.source_files = 'Web3/Classes/PromiseKit/**/*'
 
     ss.dependency 'Web3/Core'
     # PromiseKit dependency
     ss.dependency 'PromiseKit', '~> 6.0'
-  end
-
-  s.subspec 'HTTPExtension' do |ss|
-    ss.source_files = 'Web3/Classes/FoundationHTTP/**/*'
-
-    ss.dependency 'Web3/Core'
   end
 
   # s.resource_bundles = {

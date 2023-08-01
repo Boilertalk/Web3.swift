@@ -31,6 +31,7 @@ PODS:
     - Web3/Core
   - Web3/PromiseKit (0.1.0):
     - PromiseKit (~> 6.0)
+    - Web3/Core
 
 DEPENDENCIES:
   - Nimble (~> 7.0.2)
@@ -50,7 +51,7 @@ SPEC CHECKSUMS:
   secp256k1.swift: f2dd50b7909e7d3d7527502619d061b85bd1c294
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
   VaporBytes: 628752235bc16d69800b52355de7118762a9009f
-  Web3: ef00529e9066cd0c92b0b3c85178e800244857a7
+  Web3: 58c4755c3f7e4ed4d5cdf38208ac475933d1df77
 
 PODFILE CHECKSUM: 6187d63273cbe49465a8ccc30c3bfdf2efc80482
 
