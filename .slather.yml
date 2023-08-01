@@ -1,0 +1,7 @@
+coverage_service: cobertura_xml
+xcodeproj: Example/Web3.xcodeproj
+scheme: Web3-Example
+workspace: Example/Web3.xcworkspace
+binary_basename: Web3
+source_directory: Web3/Classes
+output_directory: ./test-reports
