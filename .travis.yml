@@ -6,8 +6,8 @@
 os:
   - linux
   - osx
-# Ubuntu 14.04
-dist: trusty
+# Ubuntu 20.04
+dist: focal
 
 # Generic language as travis doesn't know anything about SPM and Linux
 language: generic
@@ -15,13 +15,9 @@ sudo: required
 
 osx_image: xcode12
 xcode_sdk: iphonesimulator14.0
-# cache: cocoapods
-# podfile: Example/Podfile
+
 before_install:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then instruments -s devices; fi
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then gem install cocoapods; fi # Since Travis is not always on latest version
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then pod repo update; fi
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then pod install --project-directory=Example; fi
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
       echo "macOS build. swiftenv will not be installed.";
     else
@@ -32,22 +28,17 @@ before_install:
 
       swiftenv install $(cat .swift-version);
     fi
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then gem install slather; fi
 script:
   # Output something every 10 minutes or Travis kills the job
   - while sleep 60; do echo "=====[ $SECONDS seconds still running ]====="; done &
   # Actual script
-  - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      set -o pipefail && xcodebuild test -enableCodeCoverage YES -workspace Example/Web3.xcworkspace -scheme Web3-Example -sdk iphonesimulator14.0 -destination 'platform=iOS Simulator,name=iPhone X,OS=14.0' ONLY_ACTIVE_ARCH=YES | xcpretty;
-      pod lib lint --allow-warnings;
-    fi
   - swift build
   - swift build -c release
-  - swift test
+  - swift test --enable-code-coverage
   # Kill background echo job
   - kill %1
 after_success:
   - if [ $TRAVIS_OS_NAME == "osx" ]; then
-      slather;
-      bash <(curl -s https://codecov.io/bash) -f test-reports/cobertura.xml -X coveragepy -X gcov -X xcode;
+      llvm-cov export -format="lcov" .build/debug/Web3PackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov;
+      bash <(curl https://codecov.io/bash);
     fi
