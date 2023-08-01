@@ -13,25 +13,25 @@ public struct EthereumLog: Codable {
     public let removed: Bool
 
     /// Integer of the log index position in the block. nil when its pending log.
-    public let logIndex: String
+    public let logIndex: EthereumQuantity
 
     /// Integer of the transactions index position log was created from. nil when its pending log.
-    public let transactionIndex: String?
+    public let transactionIndex: EthereumQuantity?
 
     /// 32 Bytes - hash of the transactions this log was created from. nil when its pending log.
-    public let transactionHash: String?
+    public let transactionHash: EthereumData?
 
     /// 32 Bytes - hash of the block where this log was in. nil when its pending. nil when its pending log.
-    public let blockHash: String?
+    public let blockHash: EthereumData?
 
     /// The block number where this log was in. nil when its pending. nil when its pending log.
-    public let blockNumber: String?
+    public let blockNumber: EthereumQuantity?
 
     /// 20 Bytes - address from which this log originated.
-    public let address: String
+    public let address: EthereumAddress
 
     /// Contains one or more 32 Bytes non-indexed arguments of the log.
-    public let data: String
+    public let data: EthereumData
 
     /**
      * Array of 0 to 4 32 Bytes DATA of indexed log arguments.
@@ -39,5 +39,5 @@ public struct EthereumLog: Codable {
      * In solidity: The first topic is the hash of the signature of the event (e.g. Deposit(address,bytes32,uint256))
      * except you declared the event with the anonymous specifier.)
      */
-    public let topics: [String]
+    public let topics: [EthereumData]
 }
