@@ -50,3 +50,12 @@ public extension EthereumValue {
         return try? EthereumData(ethereumValue: self)
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumData: Equatable {
+
+    public static func ==(_ lhs: EthereumData, _ rhs: EthereumData) -> Bool {
+        return lhs.bytes == rhs.bytes
+    }
+}

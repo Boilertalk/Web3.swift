@@ -188,3 +188,12 @@ extension EthereumAddress: EthereumValueConvertible {
         return EthereumValue(stringLiteral: hex(eip55: false))
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumAddress: Equatable {
+
+    public static func ==(_ lhs: EthereumAddress, _ rhs: EthereumAddress) -> Bool {
+        return lhs.rawAddress == rhs.rawAddress
+    }
+}

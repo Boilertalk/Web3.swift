@@ -133,3 +133,24 @@ public struct EthereumBlockObject: Codable {
         }
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumBlockObject.Transaction: Equatable {
+
+    public static func ==(_ lhs: EthereumBlockObject.Transaction, _ rhs: EthereumBlockObject.Transaction) -> Bool {
+        return lhs.object == rhs.object && lhs.hash == rhs.hash
+    }
+}
+
+/*
+extension EthereumBlockObject: Equatable {
+
+    public static func ==(_ lhs: EthereumBlockObject, _ rhs: EthereumBlockObject) -> Bool {
+        let lr = [(lhs, rhs)]
+
+        { return ($0.0.number, $0.1.number) } <*> lr
+
+        return lhs.number == rhs.number && lhs.hash == rhs.hash
+    }
+}*/
