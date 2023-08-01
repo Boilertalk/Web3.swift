@@ -11,6 +11,9 @@ import Nimble
 import PromiseKit
 import BigInt
 import Foundation
+#if canImport(Web3ContractABI)
+    @testable import Web3ContractABI
+#endif
 
 extension EthereumAddress {
     static let testAddress = try! EthereumAddress(hex: "0x0000000000000000000000000000000000000000", eip55: false)

@@ -7,6 +7,9 @@
 
 import Foundation
 import BigInt
+#if !Web3CocoaPods
+    import Web3
+#endif
 
 /// Struct representing the combination of a SolidityType and a native value
 public struct SolidityWrappedValue {
