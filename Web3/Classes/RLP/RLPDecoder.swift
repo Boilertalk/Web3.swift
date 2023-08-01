@@ -33,18 +33,13 @@ open class RLPDecoder {
             return .bytes(bytes)
         } else if sign >= 0xb8 && sign <= 0xbf {
             let byteCount = sign - 0xb7
-            guard rlp.count >= byteCount + 1 else {
-                throw Error.inputBad
-            }
             guard byteCount <= 8 else {
                 throw Error.inputTooLong
             }
 
-            guard let stringCount = Array(rlp[1 ..< (1 + Int(byteCount))]).bigEndianUInt else {
-                throw Error.inputTooLong
-            }
+            let stringCount = try getCount(rlp: rlp)
 
-            let rlpCount = stringCount + UInt(byteCount) + 1
+            let rlpCount = stringCount + Int(byteCount) + 1
             guard rlp.count == rlpCount else {
                 throw Error.inputBad
             }
@@ -63,44 +58,28 @@ open class RLPDecoder {
 
             var pointer = 1
             while pointer < rlp.count {
-                let innerSign = rlp[pointer]
-                let count: UInt8
-                if innerSign >= 0x00 && innerSign <= 0x7f {
-                    count = 1
-                } else if innerSign >= 0x80 && innerSign <= 0xb7 {
-                    count = innerSign - 0x80
-                } else if innerSign >= 0xc0 && innerSign <= 0xf7 {
-                    count = innerSign - 0xc0
-                } else {
-                    // If the whole list ist <= 55 bytes, one item should never be > 55 bytes.
+                let count = try getCount(rlp: Array(rlp[pointer...]))
+
+                guard rlp.count >= (pointer + count + 1) else {
                     throw Error.inputBad
                 }
 
-                guard rlp.count >= (pointer + Int(count) + 1) else {
-                    throw Error.inputBad
-                }
-
-                let itemRLP = Array(rlp[pointer..<(pointer + Int(count) + 1)])
+                let itemRLP = Array(rlp[pointer..<(pointer + count + 1)])
                 try items.append(decode(itemRLP))
 
-                pointer += (Int(count) + 1)
+                pointer += (count + 1)
             }
 
             return .array(items)
         } else if sign >= 0xf8 && sign <= 0xff {
             let byteCount = sign - 0xf7
-            guard rlp.count >= byteCount + 1 else {
-                throw Error.inputBad
-            }
             guard byteCount <= 8 else {
                 throw Error.inputTooLong
             }
 
-            guard let totalCount = Array(rlp[1 ..< (1 + Int(byteCount))]).bigEndianUInt else {
-                throw Error.inputTooLong
-            }
+            let totalCount = try getCount(rlp: rlp)
 
-            let rlpCount = totalCount + UInt(byteCount) + 1
+            let rlpCount = totalCount + Int(byteCount) + 1
             guard rlp.count == rlpCount else {
                 throw Error.inputBad
             }

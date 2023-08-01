@@ -10,6 +10,7 @@
 		0E48AA082026304B00F558C8 /* RLPItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E48AA072026304B00F558C8 /* RLPItemTests.swift */; };
 		0E6AAFDC20252AF900517802 /* RLPEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */; };
 		0E6C78CE2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */; };
+		0E8C911C20278A9900563B6E /* RLPDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */; };
 		0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */; };
 		0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */; };
 		E54BAE94B0A9A8565CD31D93 /* Pods_Web3_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */; };
@@ -19,6 +20,7 @@
 		0E48AA072026304B00F558C8 /* RLPItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPItemTests.swift; sourceTree = "<group>"; };
 		0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPEncoderTests.swift; sourceTree = "<group>"; };
 		0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentableTests.swift"; sourceTree = "<group>"; };
+		0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPDecoderTests.swift; sourceTree = "<group>"; };
 		0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCRequestJsonTests.swift; sourceTree = "<group>"; };
 		0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HttpTests.swift; sourceTree = "<group>"; };
 		2823EF66D329567217458073 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				0E6AAFDB20252AF900517802 /* RLPEncoderTests.swift */,
+				0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */,
 				0E48AA072026304B00F558C8 /* RLPItemTests.swift */,
 			);
 			path = RLP;
@@ -288,6 +291,7 @@
 				0E6C78CE2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift in Sources */,
 				0E6AAFDC20252AF900517802 /* RLPEncoderTests.swift in Sources */,
 				0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */,
+				0E8C911C20278A9900563B6E /* RLPDecoderTests.swift in Sources */,
 				0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */,
 				0E48AA082026304B00F558C8 /* RLPItemTests.swift in Sources */,
 			);
