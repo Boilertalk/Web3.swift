@@ -8,7 +8,6 @@
 import Foundation
 import VaporBytes
 import secp256k1
-import Security
 import CryptoSwift
 
 public class EthereumPrivateKey {
@@ -65,8 +64,7 @@ public class EthereumPrivateKey {
             throw Error.internalError
         }
 
-        var rand = Bytes(repeating: 0, count: 32)
-        guard SecRandomCopyBytes(kSecRandomDefault, 32, &rand) == errSecSuccess else {
+        guard var rand = Bytes.secureRandom(count: 32) else {
             throw Error.internalError
         }
 
