@@ -47,4 +47,6 @@ Package.pins
 Package.resolved
 .build
 
+.swiftpm
+
 # *** End Swift Package Manager ***
