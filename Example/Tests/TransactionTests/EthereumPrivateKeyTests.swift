@@ -9,6 +9,7 @@
 import Quick
 import Nimble
 @testable import Web3
+import BigInt
 
 class EthereumPrivateKeyTests: QuickSpec {
 
@@ -64,6 +65,29 @@ class EthereumPrivateKeyTests: QuickSpec {
                         0x0c, 0xce, 0xd0, 0x8f, 0x6b, 0x2c, 0x56, 0x76, 0x75, 0x08, 0xf3, 0xe7, 0x97, 0x6d, 0x5b, 0xcc,
                         0xd5, 0x2c, 0x91, 0xbf, 0x59, 0x77, 0xbb, 0x5d, 0x95, 0x43, 0x82, 0x67, 0x52, 0x26, 0x79, 0x18
                     ]
+                }
+            }
+
+            context("message signing") {
+
+                it("should be a valid signed message") {
+                    let p = try? EthereumPrivateKey(
+                        hexPrivateKey: "0x94eca03b4541a0eb0d173e321b6f960d08cfe4c5a75fa00ebe0a3d283c609c3a"
+                    )
+                    let t = p?.address
+                    expect(t).toNot(beNil())
+
+                    guard let to = t, let privateKey = p else {
+                        return
+                    }
+
+                    print("****")
+
+                    var tx = Transaction(nonce: 0, gasPrice: 21000000000, gasLimit: 21000, to: to, value: BigUInt(10).power(18), chainId: 3)
+
+                    let expectedTransaction = "f86c808504e3b2920082520894867aeeeed428ed9ba7f97fc7e16f16dfcf02f375880de0b6b3a76400008029a099060c9146c68716da3a79533866dc941a03b171911d675f518c97a73882f7a6a0019167adb26b602501c954e7793e798407836f524b9778f5be6ebece5fc998c6"
+
+                    expect(try? RLPEncoder().encode(tx.sign(with: privateKey).rlp()).toHexString()) == expectedTransaction
                 }
             }
         }
