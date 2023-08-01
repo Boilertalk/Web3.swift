@@ -320,21 +320,26 @@ class Web3HttpTests: QuickSpec {
 
             context("eth get transaction count by hash") {
                 waitUntil { done in
-                    let res = try? web3.eth.getBlockTransactionCountByHash(blockHash: .string("0x596f2d863a893392c55b72b5ba29e9ba67bdaa13c31765f9119e850a62565960")) { response in
-                        it("should be status ok") {
-                            expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
-                        }
-                        it("should not be nil") {
-                            expect(response.rpcResponse).toNot(beNil())
-                        }
-                        it("should be a quantity response") {
-                            expect(response.rpcResponse?.result?.quantity) == 0xaa
-                        }
+                    do {
+                        try web3.eth.getBlockTransactionCountByHash(blockHash: .string("0x596f2d863a893392c55b72b5ba29e9ba67bdaa13c31765f9119e850a62565960")) { response in
+                            it("should be status ok") {
+                                expect(response.status.rawValue) == Web3Response<String>.Status.ok.rawValue
+                            }
+                            it("should not be nil") {
+                                expect(response.rpcResponse).toNot(beNil())
+                            }
+                            it("should be a quantity response") {
+                                expect(response.rpcResponse?.result?.quantity) == 0xaa
+                            }
 
-                        // Tests done
-                        done()
+                            // Tests done
+                            done()
+                        }
+                    } catch {
+                        it("should not throw an error") {
+                            expect(false) == true
+                        }
                     }
-                    expect(res).toNot(beNil())
                 }
             }
         }

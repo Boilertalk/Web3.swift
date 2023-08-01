@@ -171,3 +171,48 @@ class EthereumBlockObjectTests: QuickSpec {
         }
     }
 }
+
+extension EthereumBlockObject {
+
+    init(
+        number: EthereumQuantity?,
+        hash: EthereumData?,
+        parentHash: EthereumData,
+        nonce: EthereumData?,
+        sha3Uncles: EthereumData,
+        logsBloom: EthereumData?,
+        transactionsRoot: EthereumData,
+        stateRoot: EthereumData,
+        receiptsRoot: EthereumData,
+        miner: EthereumAddress,
+        difficulty: EthereumQuantity,
+        totalDifficulty: EthereumQuantity,
+        extraData: EthereumData,
+        size: EthereumQuantity,
+        gasLimit: EthereumQuantity,
+        gasUsed: EthereumQuantity,
+        timestamp: EthereumQuantity,
+        transactions: [Transaction],
+        uncles: [EthereumData]
+        ) {
+        self.number = number
+        self.hash = hash
+        self.parentHash = parentHash
+        self.nonce = nonce
+        self.sha3Uncles = sha3Uncles
+        self.logsBloom = logsBloom
+        self.transactionsRoot = transactionsRoot
+        self.stateRoot = stateRoot
+        self.receiptsRoot = receiptsRoot
+        self.miner = miner
+        self.difficulty = difficulty
+        self.totalDifficulty = totalDifficulty
+        self.extraData = extraData
+        self.size = size
+        self.gasLimit = gasLimit
+        self.gasUsed = gasUsed
+        self.timestamp = timestamp
+        self.transactions = transactions
+        self.uncles = uncles
+    }
+}
