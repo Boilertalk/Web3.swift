@@ -12,6 +12,9 @@ import PromiseKit
 
 #if !Web3CocoaPods
     import Web3
+#endif
+
+#if canImport(Web3PromiseKit)
     import Web3PromiseKit
 #endif
 
