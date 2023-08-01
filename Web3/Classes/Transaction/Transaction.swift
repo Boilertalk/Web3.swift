@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import BigInt
+
+public struct Transaction {
+
+    public let nonce: Int
+
+    public let gasPrice: Int
+
+    public let gasLimit: Int
+
+    // public let to:
+}
