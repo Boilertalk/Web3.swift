@@ -18,6 +18,7 @@
 		0E6C78CE2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */; };
 		0E785FD1203358E10046645A /* EthereumDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E785FD0203358E10046645A /* EthereumDataTests.swift */; };
 		0E785FD320335C510046645A /* EthereumQuantityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E785FD220335C510046645A /* EthereumQuantityTests.swift */; };
+		0E785FD52033654A0046645A /* EthereumQuantityTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E785FD42033654A0046645A /* EthereumQuantityTagTests.swift */; };
 		0E8C911C20278A9900563B6E /* RLPDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */; };
 		0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */; };
 		0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */; };
@@ -37,6 +38,7 @@
 		0E6C78CD2023CDC3007A9993 /* UInt+BytesRepresentableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt+BytesRepresentableTests.swift"; sourceTree = "<group>"; };
 		0E785FD0203358E10046645A /* EthereumDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumDataTests.swift; sourceTree = "<group>"; };
 		0E785FD220335C510046645A /* EthereumQuantityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTests.swift; sourceTree = "<group>"; };
+		0E785FD42033654A0046645A /* EthereumQuantityTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EthereumQuantityTagTests.swift; sourceTree = "<group>"; };
 		0E8C911B20278A9900563B6E /* RLPDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLPDecoderTests.swift; sourceTree = "<group>"; };
 		0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCRequestJsonTests.swift; sourceTree = "<group>"; };
 		0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HttpTests.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				0E307D24203277C100314BF8 /* EthereumValueTests.swift */,
 				0E785FD0203358E10046645A /* EthereumDataTests.swift */,
 				0E785FD220335C510046645A /* EthereumQuantityTests.swift */,
+				0E785FD42033654A0046645A /* EthereumQuantityTagTests.swift */,
 			);
 			path = JsonTests;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */,
 				0E307D25203277C100314BF8 /* EthereumValueTests.swift in Sources */,
 				0E1C49BA202A9B5F00806321 /* EthereumPublicKeyTests.swift in Sources */,
+				0E785FD52033654A0046645A /* EthereumQuantityTagTests.swift in Sources */,
 				0EECEE942028AC950070544B /* EthereumAddressTests.swift in Sources */,
 				0E8C911C20278A9900563B6E /* RLPDecoderTests.swift in Sources */,
 				0E22391A2030E1DC00612590 /* TransactionTests.swift in Sources */,
