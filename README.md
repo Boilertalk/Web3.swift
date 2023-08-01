@@ -120,7 +120,7 @@ Web3 is compatible with Swift Package Manager v4 (Swift 4 and above). Simply add
 
 ```Swift
 dependencies: [
-    .package(url: "https://github.com/Boilertalk/Web3.swift.git", from: "0.1.0")
+    .package(url: "https://github.com/Boilertalk/Web3.swift.git", from: "0.2.0")
 ]
 ```
 
