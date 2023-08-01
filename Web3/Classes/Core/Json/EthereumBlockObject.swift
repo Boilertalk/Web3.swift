@@ -146,26 +146,25 @@ extension EthereumBlockObject.Transaction: Equatable {
 extension EthereumBlockObject: Equatable {
 
     public static func ==(_ lhs: EthereumBlockObject, _ rhs: EthereumBlockObject) -> Bool {
-        let lr = [(lhs, rhs)]
 
-        return =/=(({ ($0.0.number, $0.1.number) }) <*> lr)
-            && =/=(({ ($0.0.hash, $0.1.hash) }) <*> lr)
-            && =/=(({ ($0.0.parentHash, $0.1.parentHash) }) <*> lr)
-            && =/=(({ ($0.0.nonce, $0.1.nonce) }) <*> lr)
-            && =/=(({ ($0.0.sha3Uncles, $0.1.sha3Uncles) }) <*> lr)
-            && =/=(({ ($0.0.logsBloom, $0.1.logsBloom) }) <*> lr)
-            && =/=(({ ($0.0.transactionsRoot, $0.1.transactionsRoot) }) <*> lr)
-            && =/=(({ ($0.0.stateRoot, $0.1.stateRoot) }) <*> lr)
-            && =/=(({ ($0.0.receiptsRoot, $0.1.receiptsRoot) }) <*> lr)
-            && =/=(({ ($0.0.miner, $0.1.miner) }) <*> lr)
-            && =/=(({ ($0.0.difficulty, $0.1.difficulty) }) <*> lr)
-            && =/=(({ ($0.0.totalDifficulty, $0.1.totalDifficulty) }) <*> lr)
-            && =/=(({ ($0.0.extraData, $0.1.extraData) }) <*> lr)
-            && =/=(({ ($0.0.size, $0.1.size) }) <*> lr)
-            && =/=(({ ($0.0.gasLimit, $0.1.gasLimit) }) <*> lr)
-            && =/=(({ ($0.0.gasUsed, $0.1.gasUsed) }) <*> lr)
-            && =/=(({ ($0.0.timestamp, $0.1.timestamp) }) <*> lr)
-            && =/=(({ ($0.0.transactions, $0.1.transactions) }) <*> lr)
-            && =/=(({ ($0.0.uncles, $0.1.uncles) }) <*> lr)
+        return lhs.number == rhs.number
+            && lhs.hash == rhs.hash
+            && lhs.parentHash == rhs.parentHash
+            && lhs.nonce == rhs.nonce
+            && lhs.sha3Uncles == rhs.sha3Uncles
+            && lhs.logsBloom == rhs.logsBloom
+            && lhs.transactionsRoot == rhs.transactionsRoot
+            && lhs.stateRoot == rhs.stateRoot
+            && lhs.receiptsRoot == rhs.receiptsRoot
+            && lhs.miner == rhs.miner
+            && lhs.difficulty == rhs.difficulty
+            && lhs.totalDifficulty == rhs.totalDifficulty
+            && lhs.extraData == rhs.extraData
+            && lhs.size == rhs.size
+            && lhs.gasLimit == rhs.gasLimit
+            && lhs.gasUsed == rhs.gasUsed
+            && lhs.timestamp == rhs.timestamp
+            && lhs.transactions == rhs.transactions
+            && lhs.uncles == rhs.uncles
     }
 }

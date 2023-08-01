@@ -125,3 +125,24 @@ public struct EthereumCallParams: Codable {
         try container.encode(block)
     }
 }
+
+// MARK: - Equatable
+
+extension EthereumCall: Equatable {
+
+    public static func ==(_ lhs: EthereumCall, _ rhs: EthereumCall) -> Bool {
+        return lhs.from == rhs.from
+            && lhs.to == rhs.to
+            && lhs.gas == rhs.gas
+            && lhs.gasPrice == rhs.gasPrice
+            && lhs.value == rhs.value
+            && lhs.data == rhs.data
+    }
+}
+
+extension EthereumCallParams: Equatable {
+
+    public static func ==(_ lhs: EthereumCallParams, _ rhs: EthereumCallParams) -> Bool {
+        return lhs.call == rhs.call && lhs.block == rhs.block
+    }
+}

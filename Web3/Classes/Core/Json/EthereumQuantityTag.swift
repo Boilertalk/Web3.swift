@@ -85,6 +85,8 @@ extension EthereumQuantityTag: EthereumValueConvertible {
     }
 }
 
+// MARK: - Equatable
+
 extension EthereumQuantityTag.TagType: Equatable {
 
     public static func ==(lhs: EthereumQuantityTag.TagType, rhs: EthereumQuantityTag.TagType) -> Bool {
@@ -92,9 +94,8 @@ extension EthereumQuantityTag.TagType: Equatable {
         case .block(let bigLeft):
             if case .block(let bigRight) = rhs {
                 return bigLeft == bigRight
-            } else {
-                return false
             }
+            return false
         case .latest:
             if case .latest = rhs {
                 return true
@@ -111,5 +112,12 @@ extension EthereumQuantityTag.TagType: Equatable {
             }
             return false
         }
+    }
+}
+
+extension EthereumQuantityTag: Equatable {
+
+    public static func ==(_ lhs: EthereumQuantityTag, _ rhs: EthereumQuantityTag) -> Bool {
+        return lhs.tagType == rhs.tagType
     }
 }
