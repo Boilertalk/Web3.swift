@@ -82,17 +82,8 @@ public class EthereumPrivateKey {
     // MARK: - Convenient functions
 
     public func publicKey() throws -> Bytes {
-        guard let ctx = secp256k1_context_create(UInt32(SECP256K1_CONTEXT_SIGN)) else {
-            throw Error.pubKeyGenerationFailed
-        }
-
-        // Cleanup
-        defer {
-            secp256k1_context_destroy(ctx)
-        }
-
         guard let pubKey = malloc(MemoryLayout<secp256k1_pubkey>.size)?.assumingMemoryBound(to: secp256k1_pubkey.self) else {
-            throw Error.pubKeyGenerationFailed
+            throw Error.internalError
         }
 
         // Cleanup
@@ -105,22 +96,20 @@ public class EthereumPrivateKey {
         let result = secp256k1_ec_pubkey_create(ctx, pubKey, &secret)
 
         if result != 1 {
-            throw Error.keyMalformed
+            throw Error.pubKeyGenerationFailed
         }
 
-        let rawPK = pubKey.pointee.data
-        let pk: Bytes = [
-            rawPK.0, rawPK.1, rawPK.2, rawPK.3, rawPK.4, rawPK.5, rawPK.6, rawPK.7,
-            rawPK.8, rawPK.9, rawPK.10, rawPK.11, rawPK.12, rawPK.13, rawPK.14, rawPK.15,
-            rawPK.16, rawPK.17, rawPK.18, rawPK.19, rawPK.20, rawPK.21, rawPK.22, rawPK.23,
-            rawPK.24, rawPK.25, rawPK.26, rawPK.27, rawPK.28, rawPK.29, rawPK.30, rawPK.31,
-            rawPK.32, rawPK.33, rawPK.34, rawPK.35, rawPK.36, rawPK.37, rawPK.38, rawPK.39,
-            rawPK.40, rawPK.41, rawPK.42, rawPK.43, rawPK.44, rawPK.45, rawPK.46, rawPK.47,
-            rawPK.48, rawPK.49, rawPK.50, rawPK.51, rawPK.52, rawPK.53, rawPK.54, rawPK.55,
-            rawPK.56, rawPK.57, rawPK.58, rawPK.59, rawPK.60, rawPK.61, rawPK.62, rawPK.63
-        ]
+        var pubOut = Bytes(repeating: 0, count: 65)
+        var pubOutLen = 65
+        _ = secp256k1_ec_pubkey_serialize(ctx, &pubOut, &pubOutLen, pubKey, UInt32(SECP256K1_EC_UNCOMPRESSED))
+        guard pubOutLen == 65 else {
+            throw Error.pubKeyGenerationFailed
+        }
 
-        return pk
+        // First byte is 0x04
+        pubOut.remove(at: 0)
+
+        return pubOut
     }
 
     // MARK: - Helper functions
