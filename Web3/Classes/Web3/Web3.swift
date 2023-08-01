@@ -35,16 +35,30 @@ public struct Web3 {
         return properties.rpcId
     }
 
+    /// The struct holding all `net` requests
     public let net: Net
 
+    /// The struct holding all `eth` requests
     public let eth: Eth
 
     // MARK: - Initialization
 
+    /**
+     * Initializes a new instance of `Web3` with the default HTTP RPC interface and the given url.
+     *
+     * - parameter rpcURL: The URL of the HTTP RPC API.
+     * - parameter rpcId: The rpc id to be used in all requests. Defaults to 1.
+     */
     public init(rpcURL: URLConvertible, rpcId: Int = 1) {
         self.init(provider: Web3HttpProvider(rpcURL: rpcURL), rpcId: rpcId)
     }
 
+    /**
+     * Initializes a new instance of `Web3` with the given custom provider.
+     *
+     * - parameter provider: The provider which handles all requests and responses.
+     * - parameter rpcId: The rpc id to be used in all requests. Defaults to 1.
+     */
     public init(provider: Web3Provider, rpcId: Int = 1) {
         let properties = Properties(provider: provider, rpcId: rpcId)
         self.properties = properties
@@ -54,6 +68,13 @@ public struct Web3 {
 
     // MARK: - Web3 methods
 
+    /**
+     * Returns the current client version.
+     *
+     * e.g.: "Mist/v0.9.3/darwin/go1.4.1"
+     *
+     * - parameter response: The response handler. (Returns `String` - The current client version)
+     */
     public func clientVersion(response: @escaping Web3ResponseCompletion<String>) {
         let req = BasicRPCRequest(id: rpcId, jsonrpc: type(of: self).jsonrpc, method: "web3_clientVersion", params: [])
 
@@ -66,12 +87,26 @@ public struct Web3 {
 
         let properties: Properties
 
+        /**
+         * Returns the current network id (chain id).
+         *
+         * e.g.: "1" - Ethereum Mainnet, "2" - Morden testnet, "3" - Ropsten Testnet
+         *
+         * - parameter response: The response handler. (Returns `String` - The current network id)
+         */
         public func version(response: @escaping Web3ResponseCompletion<String>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_version", params: [])
 
             properties.provider.send(request: req, response: response)
         }
 
+        /**
+         * Returns number of peers currently connected to the client.
+         *
+         * e.g.: 0x2 - 2
+         *
+         * - parameter response: The response handler. (Returns `EthereumQuantity` - Integer of the number of connected peers)
+         */
         public func peerCount(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
             let req = BasicRPCRequest(id: properties.rpcId, jsonrpc: Web3.jsonrpc, method: "net_peerCount", params: [])
 
