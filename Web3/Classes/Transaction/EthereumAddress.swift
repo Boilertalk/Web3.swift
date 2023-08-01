@@ -11,8 +11,12 @@ import VaporBytes
 
 public struct EthereumAddress {
 
+    // MARK: - Properties
+
     /// The raw address bytes
     public let rawAddress: Bytes
+
+    // MARK: - Initialization
 
     /**
      * Initializes this instance of `EthereumAddress` with the given `hex` String.
@@ -111,6 +115,8 @@ public struct EthereumAddress {
         self.rawAddress = rawAddress
     }
 
+    // MARK: - Convenient functions
+
     /**
      * Returns this ethereum address as a hex string.
      *
@@ -156,6 +162,8 @@ public struct EthereumAddress {
 
         return hex
     }
+
+    // MARK: - Errors
 
     public enum Error: Swift.Error {
 

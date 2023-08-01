@@ -18,6 +18,9 @@ public class EthereumPublicKey {
     /// The raw public key bytes
     public let rawPublicKey: Bytes
 
+    /// The `EthereumAddress` associated with this public key
+    public let address: EthereumAddress
+
     /// Internal context for secp256k1 library calls
     private let ctx: OpaquePointer
 
@@ -62,6 +65,14 @@ public class EthereumPublicKey {
             throw Error.internalError
         }
         self.ctx = ctx
+
+        // Generate associated ethereum address
+        var hash = SHA3(variant: .keccak256).calculate(for: publicKey)
+        guard hash.count == 32 else {
+            throw Error.internalError
+        }
+        hash = Array(hash[12...])
+        self.address = try EthereumAddress(rawAddress: hash)
 
         // Verify public key
         try verifyPublicKey()
@@ -114,20 +125,6 @@ public class EthereumPublicKey {
     }
 
     // MARK: - Convenient functions
-
-    /**
-     * Returns the `EthereumAddress` associated with this public key.
-     */
-    public func address() throws -> EthereumAddress {
-        var hash = SHA3(variant: .keccak256).calculate(for: rawPublicKey)
-        guard hash.count == 32 else {
-            throw Error.internalError
-        }
-
-        hash = Array(hash[12...])
-
-        return try EthereumAddress(rawAddress: hash)
-    }
 
     /**
      * Returns this public key serialized as a hex string.
