@@ -25,7 +25,7 @@ public struct Web3Response<Result: Codable> {
 
     let status: Status
 
-    public enum Status {
+    public enum Status: String {
 
         case ok
         case connectionFailed

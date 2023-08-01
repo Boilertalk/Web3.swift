@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */; };
+		0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */; };
 		E54BAE94B0A9A8565CD31D93 /* Pods_Web3_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD5947923E8841F929DE0AE8 /* Pods_Web3_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E9C48C41FFC331700541E6F /* RPCRequestJsonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RPCRequestJsonTests.swift; sourceTree = "<group>"; };
+		0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web3HttpTests.swift; sourceTree = "<group>"; };
 		2823EF66D329567217458073 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		363401ACDEDC2B8D29D107CB /* Pods-Web3_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4BC29B1E862FC7EC18CDE5FA /* Pods-Web3_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Web3_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Web3_Tests/Pods-Web3_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 			path = JsonTests;
 			sourceTree = "<group>";
 		};
+		0EBFAE50200AD29B00223E3F /* Web3Tests */ = {
+			isa = PBXGroup;
+			children = (
+				0EBFAE51200AD54100223E3F /* Web3HttpTests.swift */,
+			);
+			path = Web3Tests;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +75,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				0EBFAE50200AD29B00223E3F /* Web3Tests */,
 				0E9C48C31FFC32FA00541E6F /* JsonTests */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -247,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EBFAE52200AD54100223E3F /* Web3HttpTests.swift in Sources */,
 				0E9C48C51FFC331700541E6F /* RPCRequestJsonTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
