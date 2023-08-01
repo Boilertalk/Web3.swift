@@ -453,6 +453,39 @@ class Web3HttpTests: QuickSpec {
                     }
                 }
             }
+
+            context("eth estimate gas") {
+                waitUntil { done in
+                    firstly {
+                        Promise { seal in
+                            let call = try EthereumCall(
+                                from: nil,
+                                to: EthereumAddress(hex: "0x2e704bf506b96adac7ad1df0db461344146a4657", eip55: false),
+                                gas: nil,
+                                gasPrice: nil,
+                                value: nil,
+                                data: EthereumData(
+                                    ethereumValue: "0xaa1e84de000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000046461766500000000000000000000000000000000000000000000000000000000"
+                                )
+                            )
+                            seal.resolve(call, nil)
+                        }
+                        }.then { call in
+                            web3.eth.estimateGas(call: call)
+                        }.done { quantity in
+                            let expectedQuantity: EthereumQuantity = try .string("0x58dc")
+                            it("should be the expected quantity") {
+                                expect(quantity) == expectedQuantity
+                            }
+                            done()
+                        }.catch { error in
+                            it("should not fail") {
+                                expect(false) == true
+                            }
+                            done()
+                    }
+                }
+            }
         }
     }
 }
