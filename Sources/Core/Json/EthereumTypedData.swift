@@ -8,30 +8,51 @@ public struct EthereumTypedData: Codable {
     public struct EIP712Domain: Codable {
         var name: String
         var version: String
+        init(name: String, version: String) {
+            self.name = name
+            self.version = version
+        }
     }
 
     public struct DomainType: Codable {
         var name: String
         var type: String
+        init(name: String, type: String) {
+            self.name = name
+            self.type = type
+        }
     }
 
-    public struct Pass: Codable {
+    public struct TypedDataMessage: Codable {
         var holder: String
         var contractAddress: String
         var tokenId: BigUInt
         var environmentId: String
+        init(holder: String, contractAddress: String, tokenId: BigUInt, environmentId: String) {
+            self.holder = holder
+            self.contractAddress = contractAddress
+            self.tokenId = tokenId
+            self.environmentId = environmentId
+        }
     }
 
-    public struct TypedDataMessage: Codable {
+    public struct TypedData: Codable {
         var domain: EIP712Domain
-        var message: Pass
+        var message: TypedDataMessage
         var primaryType: String
         var types: [String: [DomainType]]
+        init(domain: EIP712Domain, message: TypedDataMessage, primaryType: String, types: [String: [DomainType]]) {
+            self.domain = domain
+            self.message = message
+            self.primaryType = primaryType
+            self.types = types
+        }
+
     }
-    public let typedData: TypedDataMessage
+    public let typedData: TypedData
 
     public init(
-        typedData: TypedDataMessage
+        typedData: TypedData
     ) {
         self.typedData = typedData
     }
