@@ -344,14 +344,14 @@ public struct Web3 {
 
         public func signTypedData_v4(
             address: EthereumAddress,
-            typedData: EthereumData,
+            typedData: EthereumTypedData,
             response: @escaping Web3ResponseCompletion<EthereumData>
         ) {
-            let req = RPCRequest<EthereumCallParams>(
+            let req = RPCRequest<EthereumTypedDataParams>(
                 id: properties.rpcId,
                 jsonrpc: Web3.jsonrpc,
                 method: "eth_signTypedData_v4",
-                params: [address, typedData]
+                params: EthereumTypedDataParams(typedData: typedData, address: address)
             )
 
             properties.provider.send(request: req, response: response)
