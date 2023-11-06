@@ -342,21 +342,6 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
 
-        public func signTypedData_v4(
-            address: EthereumAddress,
-            typedData: EthereumTypedData,
-            response: @escaping Web3ResponseCompletion<EthereumData>
-        ) {
-            let req = RPCRequest<EthereumTypedDataParams>(
-                id: properties.rpcId,
-                jsonrpc: Web3.jsonrpc,
-                method: "eth_signTypedData_v4",
-                params: EthereumTypedDataParams(typedData: typedData, address: address)
-            )
-
-            properties.provider.send(request: req, response: response)
-        }
-
         public func estimateGas(call: EthereumCall, response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
             let req = RPCRequest<[EthereumCall]>(
                 id: properties.rpcId,
