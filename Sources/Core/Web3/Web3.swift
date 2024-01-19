@@ -156,6 +156,17 @@ public struct Web3 {
             properties.provider.send(request: req, response: response)
         }
 
+        public func chainId(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
+            let req = BasicRPCRequest(
+                id: properties.rpcId,
+                jsonrpc: Web3.jsonrpc,
+                method: "eth_chainId",
+                params: []
+            )
+
+            properties.provider.send(request: req, response: response)
+        }
+
         public func blockNumber(response: @escaping Web3ResponseCompletion<EthereumQuantity>) {
             let req = BasicRPCRequest(
                 id: properties.rpcId,

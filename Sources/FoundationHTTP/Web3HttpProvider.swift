@@ -20,10 +20,14 @@ public struct Web3HttpProvider: Web3Provider {
 
     let session: URLSession
 
-    static let headers = [
+    static var headers: [String: String]  = [
         "Accept": "application/json",
         "Content-Type": "application/json"
     ]
+
+    static func addHeader(key: String, value: String) {
+        headers[key] = value
+    }
 
     public let rpcURL: String
 
@@ -87,5 +91,9 @@ public struct Web3HttpProvider: Web3Provider {
             }
             task.resume()
         }
+    }
+
+    public func addheaders(key:String, value:String) {
+        Web3HttpProvider.addHeader(key: key, value: value)
     }
 }
