@@ -6,6 +6,7 @@ import PromiseKit
 #if canImport(Web3PromiseKit)
     @testable import Web3PromiseKit
 #endif
+import NIOConcurrencyHelpers
 
 class Web3EventsTests: QuickSpec {
 
@@ -42,14 +43,14 @@ class Web3EventsTests: QuickSpec {
                 it("should subscribe and unsubscribe to new heads") {
                     waitUntil(timeout: .seconds(30)) { done in
                         var subId = ""
-                        var cancelled = false
+                        var cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToNewHeads(subscribed: { response in
                             expect(response.result).toNot(beNil())
 
                             subId = response.result ?? ""
                         }, onEvent: { newHead in
                             guard let _ = newHead.result else {
-                                if cancelled {
+                                if cancelled.withLockedValue({ $0 }) {
                                     switch (newHead.error as? Web3Response<EthereumBlockObject>.Error) {
                                     case .subscriptionCancelled(_):
                                         // Expected
@@ -64,9 +65,11 @@ class Web3EventsTests: QuickSpec {
                             }
 
                             // Tests done. Test unsubscribe.
-                            if !cancelled {
-                                cancelled = true
-
+                            if !cancelled.withLockedValue({
+                                let old = $0
+                                $0 = true
+                                return old
+                            }) {
                                 try! web3Ws.eth.unsubscribe(subscriptionId: subId, completion: { unsubscribed in
                                     expect(unsubscribed).to(beTrue())
 
@@ -82,14 +85,14 @@ class Web3EventsTests: QuickSpec {
                 it("should subscribe and unsubscribe to new pending transactions") {
                     waitUntil(timeout: .seconds(5)) { done in
                         var subId = ""
-                        var cancelled = false
+                        var cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToNewPendingTransactions(subscribed: { response in
                             expect(response.result).toNot(beNil())
 
                             subId = response.result ?? ""
                         }, onEvent: { hash in
                             guard let hashValue = hash.result else {
-                                if cancelled {
+                                if cancelled.withLockedValue({ $0 }) {
                                     switch (hash.error as? Web3Response<EthereumData>.Error) {
                                     case .subscriptionCancelled(_):
                                         // Expected
@@ -106,9 +109,11 @@ class Web3EventsTests: QuickSpec {
                             expect(hashValue.bytes.count).to(equal(32))
 
                             // Tests done. Test unsubscribe.
-                            if !cancelled {
-                                cancelled = true
-
+                            if !cancelled.withLockedValue({
+                                let old = $0
+                                $0 = true
+                                return old
+                            }) {
                                 try! web3Ws.eth.unsubscribe(subscriptionId: subId, completion: { unsubscribed in
                                     expect(unsubscribed).to(beTrue())
 
@@ -124,14 +129,14 @@ class Web3EventsTests: QuickSpec {
                 it("should subscribe and unsubscribe to all logs") {
                     waitUntil(timeout: .seconds(60)) { done in
                         var subId = ""
-                        var cancelled = false
+                        var cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToLogs(subscribed: { response in
                             expect(response.result).toNot(beNil())
 
                             subId = response.result ?? ""
                         }, onEvent: { log in
                             guard let _ = log.result else {
-                                if cancelled {
+                                if cancelled.withLockedValue({ $0 }) {
                                     switch (log.error as? Web3Response<EthereumLogObject>.Error) {
                                     case .subscriptionCancelled(_):
                                         // Expected
@@ -146,9 +151,11 @@ class Web3EventsTests: QuickSpec {
                             }
 
                             // Tests done. Test unsubscribe.
-                            if !cancelled {
-                                cancelled = true
-
+                            if !cancelled.withLockedValue({
+                                let old = $0
+                                $0 = true
+                                return old
+                            }) {
                                 try! web3Ws.eth.unsubscribe(subscriptionId: subId, completion: { unsubscribed in
                                     expect(unsubscribed).to(beTrue())
 
@@ -165,7 +172,7 @@ class Web3EventsTests: QuickSpec {
                     // We test USDT transfers as they happen basically every block
                     waitUntil(timeout: .seconds(60)) { done in
                         var subId = ""
-                        var cancelled = false
+                        var cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToLogs(
                             addresses: [EthereumAddress(hex: "0xdAC17F958D2ee523a2206206994597C13D831ec7", eip55: false )],
                             topics: [[EthereumData(ethereumValue: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef")]],
@@ -176,7 +183,7 @@ class Web3EventsTests: QuickSpec {
                             },
                             onEvent: { log in
                                 guard let topicValue = log.result else {
-                                    if cancelled {
+                                    if cancelled.withLockedValue({ $0 }) {
                                         switch (log.error as? Web3Response<EthereumLogObject>.Error) {
                                         case .subscriptionCancelled(_):
                                             // Expected
@@ -193,9 +200,11 @@ class Web3EventsTests: QuickSpec {
                                 expect(topicValue.topics.first?.hex()).to(equal("0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"))
 
                                 // Tests done. Test unsubscribe.
-                                if !cancelled {
-                                    cancelled = true
-
+                                if !cancelled.withLockedValue({
+                                    let old = $0
+                                    $0 = true
+                                    return old
+                                }) {
                                     try! web3Ws.eth.unsubscribe(subscriptionId: subId, completion: { unsubscribed in
                                         expect(unsubscribed).to(beTrue())
 
