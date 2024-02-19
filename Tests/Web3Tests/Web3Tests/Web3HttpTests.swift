@@ -16,8 +16,8 @@ import PromiseKit
 
 class Web3HttpTests: QuickSpec {
 
-    let infuraUrl = "https://mainnet.infura.io/v3/362c324f295a4032b2fe87d910aaa33a"
-    let infuraWsUrl = "wss://mainnet.infura.io/ws/v3/362c324f295a4032b2fe87d910aaa33a"
+    let infuraUrl = "https://mainnet.infura.io/v3/0058461a5a1e47d3992ac9470168bcc3"
+    let infuraWsUrl = "wss://mainnet.infura.io/ws/v3/0058461a5a1e47d3992ac9470168bcc3"
 
     override func spec() {
         describe("http rpc requests") {
