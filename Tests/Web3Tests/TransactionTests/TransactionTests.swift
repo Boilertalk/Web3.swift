@@ -125,6 +125,82 @@ class TransactionTests: QuickSpec {
                     expect(extendedSignature!.verifySignature()) == true
                 }
             }
+            context("Init from RLP Item") {
+                let p = try? EthereumPrivateKey(
+                    hexPrivateKey: "0x94eca03b4541a0eb0d173e321b6f960d08cfe4c5a75fa00ebe0a3d283c609c3a"
+                )
+                let t = p?.address
+
+                guard let to = t, let privateKey = p else {
+                    return
+                }
+                
+                // Legacy Tx
+                
+                let tx = EthereumTransaction(nonce: 0, gasPrice: EthereumQuantity(quantity: 21.gwei), gasLimit: 21000, to: to, value: EthereumQuantity(quantity: 1.eth))
+
+                // Sign transaction with private key
+                let newTx = try? tx.sign(with: privateKey, chainId: 3)
+                it("should not be nil") {
+                    expect(newTx).toNot(beNil())
+                }
+                let rlpEncoder = RLPEncoder()
+                let rlpEncodedBasicTxBytes = try rlpEncoder.encode(newTx!.rlp())
+                let rlpDecoder = RLPDecoder()
+                let rlpEncodedBasicTx = try rlpDecoder.decode(rlpEncodedBasicTxBytes)
+                
+                let expectedSignedBasicTx = try EthereumSignedTransaction(rlp: rlpEncodedBasicTx)
+
+                let expectedTransaction = "0xf86c808504e3b2920082520894867aeeeed428ed9ba7f97fc7e16f16dfcf02f375880de0b6b3a76400008029a099060c9146c68716da3a79533866dc941a03b171911d675f518c97a73882f7a6a0019167adb26b602501c954e7793e798407836f524b9778f5be6ebece5fc998c6"
+
+                it("should produce the expected transaction") {
+                    expect(try? expectedSignedBasicTx.rawTransaction().bytes.hexString(prefix: true)) == expectedTransaction
+                }
+                
+                // Modern Tx
+
+                let extendedTx = try! EthereumTransaction(
+                    nonce: 0,
+                    gasPrice: EthereumQuantity(quantity: 21.gwei),
+                    maxFeePerGas: EthereumQuantity(quantity: 21.gwei),
+                    maxPriorityFeePerGas: EthereumQuantity(quantity: 1.gwei),
+                    gasLimit: 21000,
+                    to: to,
+                    value: EthereumQuantity(quantity: 1.eth),
+                    data: EthereumData("0x02f8730180843b9aca008504e3b2920082".hexBytes()),
+                    accessList: [
+                        try! EthereumAddress(hex: "0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae", eip55: false): [
+                            EthereumData(ethereumValue: "0x0000000000000000000000000000000000000000000000000000000000000003"),
+                            EthereumData(ethereumValue: "0x0000000000000000000000000000000000000000000000000000000000000007")
+                        ],
+                        try! EthereumAddress(hex: "0xbb9bc244d798123fde783fcc1c72d3bb8c189413", eip55: false): [],
+                    ],
+                    transactionType: .eip1559
+                )
+                let extendedSignature = try? extendedTx.sign(with: privateKey, chainId: 3)
+     
+                let rlpEncodedTxBytes = try rlpEncoder.encode(extendedSignature!.rlp())
+                let rlpEncodedTx = try rlpDecoder.decode(rlpEncodedTxBytes)
+                
+                let expectedSignedTx = try EthereumSignedTransaction(rlp: rlpEncodedTx)
+
+                let expectedExtendedTx = "0x02f8f70380843b9aca008504e3b2920082520894867aeeeed428ed9ba7f97fc7e16f16dfcf02f375880de0b6b3a76400009102f8730180843b9aca008504e3b2920082f872f85994de0b295669a9fd93d5f28d9ec85e40f4cb697baef842a00000000000000000000000000000000000000000000000000000000000000003a00000000000000000000000000000000000000000000000000000000000000007d694bb9bc244d798123fde783fcc1c72d3bb8c189413c080a0e0cd5f5e03d10e3d792fb652f6d1ea470cb6cdf745462980dff1652904cc4ed5a06f8b372427d15b68158597cd547c0f77165563da6a0b954d575920888edaf36c"
+                
+                it("should produce the expected transaction") {
+                    expect(try? expectedSignedTx.rawTransaction().bytes.hexString(prefix: true)) == expectedExtendedTx
+                }
+
+                it("should be a valid tx") {
+                    expect(expectedSignedTx.verifySignature()) == true
+                }
+                
+                // Invalid RLP Item
+                
+                let nonTxRlpItem: RLPItem = []
+                it("should throw on invalid RLP Items") {
+                    expect(try EthereumSignedTransaction(rlp: nonTxRlpItem)).to(throwError())
+                }
+            }
         }
     }
 }

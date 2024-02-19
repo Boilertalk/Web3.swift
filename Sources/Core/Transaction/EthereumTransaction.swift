@@ -577,10 +577,10 @@ extension EthereumSignedTransaction: RLPItemConvertible {
                 accessList: accessList,
                 transactionType: .eip1559
             )
+        } else {
+            // Unsupported transaction types
+            throw Error.rlpItemInvalid
         }
-
-        // Unsupported transaction types
-        throw Error.rlpItemInvalid
     }
 
     public func rlp() -> RLPItem {
