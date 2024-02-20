@@ -118,6 +118,9 @@ public final class EthereumPublicKey {
      *           EthereumPublicKey.Error.internalError if a secp256k1 library call or another internal call fails.
      */
     public init(message: Bytes, v: EthereumQuantity, r: EthereumQuantity, s: EthereumQuantity, ctx: OpaquePointer? = nil) throws {
+        let originalR = r
+        let originalS = s
+
         // Create context
         let finalCtx: OpaquePointer
         if let ctx = ctx {
@@ -171,7 +174,7 @@ public final class EthereumPublicKey {
         defer {
             free(pubkey)
         }
-        var hash = SHA3(variant: .keccak256).calculate(for: rawSig)
+        var hash = SHA3(variant: .keccak256).calculate(for: message)
         guard hash.count == 32 else {
             throw Error.internalError
         }
@@ -196,6 +199,13 @@ public final class EthereumPublicKey {
         }
         pubHash = Array(pubHash[12...])
         self.address = try EthereumAddress(rawAddress: pubHash)
+
+        // Final check for signature validity
+
+        let signatureVerified = try verifySignature(message: message, v: vUInt, r: originalR.quantity, s: originalS.quantity)
+        if !signatureVerified {
+            throw Error.signatureMalformed
+        }
     }
 
     /**
@@ -220,7 +230,6 @@ public final class EthereumPublicKey {
 
     // MARK: - Convenient functions
 
-    /*
     public func verifySignature(message: Bytes, v: UInt, r: BigUInt, s: BigUInt) throws -> Bool {
         // Get public key
         var rawpubKey = rawPublicKey
@@ -246,12 +255,12 @@ public final class EthereumPublicKey {
         guard v <= Int32.max else {
             throw Error.signatureMalformed
         }
-        var v = Int32(v)
+        let v = Int32(v)
 
-        for i in 0..<(32 - r.count) {
+        for _ in 0..<(32 - r.count) {
             r.insert(0, at: 0)
         }
-        for i in 0..<(32 - s.count) {
+        for _ in 0..<(32 - s.count) {
             s.insert(0, at: 0)
         }
 
@@ -286,7 +295,7 @@ public final class EthereumPublicKey {
             throw Error.internalError
         }
         return secp256k1_ecdsa_verify(ctx, sig, &hash, pubkey) == 1
-    }*/
+    }
 
     /**
      * Returns this public key serialized as a hex string.

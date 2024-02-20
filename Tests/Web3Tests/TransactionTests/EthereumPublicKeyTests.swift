@@ -91,6 +91,69 @@ class EthereumPublicKeyTests: QuickSpec {
                     expect(pub1?.hashValue) != pub2?.hashValue
                 }
             }
+
+            context("Public key generation from elliptic curve") {
+                let rlpDecoder = RLPDecoder()
+
+                it("should correctly verify the signature") {
+                    let rawTx = "0xf8710180830f4240850d5bd0dff6825208944f5e9d9e6e05af22ef7683548c1c67a0436ea86987133a618ca1c85080c001a0f71d478c03498d090cf00e80f1bf4bba753dcb06fdcd5b0a0d683adb19a9ee5aa04aaa7c9720b1e3e13af27e20f489fa3ad4668ef5d4786176e47453192c4912e1".hexToBytes()
+                    let rlpArray = try? rlpDecoder.decode(rawTx)
+                    let tx = try! EthereumSignedTransaction(rlp: rlpArray!)
+
+                    let rlp = RLPItem(
+                        nonce: tx.nonce,
+                        gasPrice: tx.gasPrice,
+                        maxFeePerGas: tx.maxFeePerGas,
+                        maxPriorityFeePerGas: tx.maxPriorityFeePerGas,
+                        gasLimit: tx.gasLimit,
+                        to: tx.to,
+                        value: tx.value,
+                        data: tx.data,
+                        chainId: tx.chainId,
+                        accessList: tx.accessList,
+                        transactionType: tx.transactionType
+                    )
+                    let rawRlp = try RLPEncoder().encode(rlp)
+                    var messageToSign = Bytes()
+                    messageToSign.append(0x02)
+                    messageToSign.append(contentsOf: rawRlp)
+
+                    let originalPublicKey = try EthereumPublicKey(hexPublicKey: "0xcca03e481ecd3c7fe43bc5e3c495a8601557c52c509d9ca7fc89d3052a9855209a2a73b7f929e664baf24abb8443ebbd2ae7ef5bce3741ec013b721a545c136f")
+
+                    expect(originalPublicKey.address.hex(eip55: true)) == "0x3d4CE0e38A3F4294df8AE65bC8A57b8eEc976203"
+
+                    let isCorrect = try originalPublicKey.verifySignature(message: messageToSign, v: tx.v.makeBytes().bigEndianUInt!, r: tx.r.quantity, s: tx.s.quantity)
+                    expect(isCorrect) == true
+                }
+
+                it("should generate the correct from address") {
+                    let rawTx = "0xf8710180830f4240850d5bd0dff6825208944f5e9d9e6e05af22ef7683548c1c67a0436ea86987133a618ca1c85080c001a0f71d478c03498d090cf00e80f1bf4bba753dcb06fdcd5b0a0d683adb19a9ee5aa04aaa7c9720b1e3e13af27e20f489fa3ad4668ef5d4786176e47453192c4912e1".hexToBytes()
+                    let rlpArray = try? rlpDecoder.decode(rawTx)
+                    let tx = try! EthereumSignedTransaction(rlp: rlpArray!)
+
+                    let rlp = RLPItem(
+                        nonce: tx.nonce,
+                        gasPrice: tx.gasPrice,
+                        maxFeePerGas: tx.maxFeePerGas,
+                        maxPriorityFeePerGas: tx.maxPriorityFeePerGas,
+                        gasLimit: tx.gasLimit,
+                        to: tx.to,
+                        value: tx.value,
+                        data: tx.data,
+                        chainId: tx.chainId,
+                        accessList: tx.accessList,
+                        transactionType: tx.transactionType
+                    )
+                    let rawRlp = try RLPEncoder().encode(rlp)
+                    var messageToSign = Bytes()
+                    messageToSign.append(0x02)
+                    messageToSign.append(contentsOf: rawRlp)
+
+                    let from = try EthereumPublicKey(message: messageToSign, v: tx.v, r: tx.r, s: tx.s).address
+
+                    expect(from.hex(eip55: true)) == "0x3d4CE0e38A3F4294df8AE65bC8A57b8eEc976203"
+                }
+            }
         }
     }
 }

@@ -39,8 +39,8 @@ public struct Web3Response<Result: Codable> {
         case subscriptionCancelled(Swift.Error?)
     }
 
-    public enum Status<Result> {
-        case success(Result)
+    public enum Status<StatusResult> {
+        case success(StatusResult)
         case failure(Swift.Error)
     }
 
@@ -108,7 +108,7 @@ extension Web3Response.Status {
         return !isSuccess
     }
 
-    public var result: Result? {
+    public var result: StatusResult? {
         switch self {
         case .success(let value):
             return value

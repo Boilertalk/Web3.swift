@@ -43,7 +43,7 @@ class Web3EventsTests: QuickSpec {
                 it("should subscribe and unsubscribe to new heads") {
                     waitUntil(timeout: .seconds(30)) { done in
                         var subId = ""
-                        var cancelled = NIOLockedValueBox(false)
+                        let cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToNewHeads(subscribed: { response in
                             expect(response.result).toNot(beNil())
 
@@ -85,7 +85,7 @@ class Web3EventsTests: QuickSpec {
                 it("should subscribe and unsubscribe to new pending transactions") {
                     waitUntil(timeout: .seconds(5)) { done in
                         var subId = ""
-                        var cancelled = NIOLockedValueBox(false)
+                        let cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToNewPendingTransactions(subscribed: { response in
                             expect(response.result).toNot(beNil())
 
@@ -129,7 +129,7 @@ class Web3EventsTests: QuickSpec {
                 it("should subscribe and unsubscribe to all logs") {
                     waitUntil(timeout: .seconds(60)) { done in
                         var subId = ""
-                        var cancelled = NIOLockedValueBox(false)
+                        let cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToLogs(subscribed: { response in
                             expect(response.result).toNot(beNil())
 
@@ -172,7 +172,7 @@ class Web3EventsTests: QuickSpec {
                     // We test USDT transfers as they happen basically every block
                     waitUntil(timeout: .seconds(60)) { done in
                         var subId = ""
-                        var cancelled = NIOLockedValueBox(false)
+                        let cancelled = NIOLockedValueBox(false)
                         try! web3Ws.eth.subscribeToLogs(
                             addresses: [EthereumAddress(hex: "0xdAC17F958D2ee523a2206206994597C13D831ec7", eip55: false )],
                             topics: [[EthereumData(ethereumValue: "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef")]],
