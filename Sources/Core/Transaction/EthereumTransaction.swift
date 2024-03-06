@@ -423,6 +423,26 @@ public struct EthereumSignedTransaction {
         case signatureMalformed
         case gasPriceMismatch(msg: String)
         case chainIdNotSet(msg: String)
+        case rawTransactionInvalid
+    }
+}
+
+extension EthereumSignedTransaction {
+    
+    public init(
+        rawTx: EthereumData
+    ) throws {
+        var rawTxBytes = rawTx.makeBytes()
+        if (rawTxBytes.starts(with: [0x02])) {
+            rawTxBytes.removeFirst()
+        }
+        do {
+            var rlp = try RLPDecoder().decode(rawTxBytes)
+            
+            try self.init(rlp: rlp)
+        } catch {
+            throw Error.rawTransactionInvalid
+        }
     }
 }
 
