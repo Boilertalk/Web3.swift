@@ -255,6 +255,33 @@ class TransactionTests: QuickSpec {
                     expect(extendedSignature == signedExtTx) == true
                 }
             }
+            context("Recover sender of Tx") {
+                
+                // Modern tx
+                
+                let rawExtTx = try? EthereumData(ethereumValue:  "0x02f8b40183879f6a84773594008517bfac7c0083032918943845badade8e6dff049820680d1f14bd3903a5d080b844a9059cbb000000000000000000000000566586bba243e683256cd4bef168813e42df9d6400000000000000000000000000000000000000000000003147d6c40e7e078000c001a08753897821b034540cb14d2aa0dafa880c9017831d633ff9da498cf0369d061ca016ad20c8c2aa12edcb8ab7fd8ff0ff980d65fe42d5859a8688ee92da36b479d6")
+                
+                let signedExtTx = try! EthereumSignedTransaction(rawTx: rawExtTx!)
+                let extFrom = try! signedExtTx.from()
+                let expectedExtFrom = try! EthereumAddress(hex: "0xDFd5293D8e347dFe59E90eFd55b2956a1343963d", eip55: true)
+                
+                it("should equal the extendedTx") {
+                    expect(extFrom == expectedExtFrom) == true
+                }
+            
+                // Legacy tx
+                
+                let rawTx = try? EthereumData(ethereumValue: "0xf8aa41850336f420fc830160429484018071282d4b2996272659d9c01cb08dd7327f80b844a9059cbb00000000000000000000000025b2ad0f7c48390278a39d58efeb94056fc49f1c000000000000000000000000000000000000000000000006e04233f855ff21a025a055b539fae05d8a8a19614e422fe8bc7f3ea9e49d9e613172f05fb7d584adb099a0124ce216d52a345a5293765065c3689d6134c92d42374604836c4cc8336cec42")
+                
+                let legacyTx = try! EthereumSignedTransaction(rawTx: rawTx!)
+                let legacyFrom = try! legacyTx.from()
+                let expectedLegacyFrom = try! EthereumAddress(hex: "0x096C84037baA375749479b8bE002A11d11aa9a5a", eip55: true)
+                
+                it("should be equal for legacy tx") {
+                    expect(legacyFrom == expectedLegacyFrom) == true
+                }
+                
+            }
         }
     }
 }

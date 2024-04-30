@@ -712,3 +712,61 @@ extension EthereumSignedTransaction: Hashable {
         hasher.combine(transactionType)
     }
 }
+
+extension EthereumSignedTransaction {
+    
+    public func from() throws -> EthereumAddress {
+        return try publicKey().address
+    }
+    
+    public func publicKey() throws -> EthereumPublicKey {
+        let messageToSign = try self.unsignedMessage()
+        var recId: BigUInt
+        if v.quantity >= BigUInt(35) + (BigUInt(2) * chainId.quantity) {
+            recId = v.quantity - BigUInt(35) - (BigUInt(2) * chainId.quantity)
+        } else {
+            if v.quantity >= 27 {
+                recId = v.quantity - 27
+            } else {
+                recId = v.quantity
+            }
+        }
+        return try EthereumPublicKey(message: messageToSign, v: EthereumQuantity(quantity: recId), r: self.r, s: self.s)
+    }
+    
+    private func unsignedMessage() throws -> Bytes {
+        let rlpEncoder = RLPEncoder()
+        let rlp = self.rlp()
+        
+        if let arr = rlp.array{
+            
+            if self.transactionType == .legacy {
+                let legacyrlp = RLPItem(
+                    nonce: self.nonce,
+                    gasPrice: self.gasPrice,
+                    gasLimit: self.gasLimit,
+                    to: self.to,
+                    value: self.value,
+                    data: self.data,
+                    v: self.chainId,
+                    r: 0,
+                    s: 0
+                )
+                let rawRlp = try RLPEncoder().encode(legacyrlp)
+                return rawRlp
+            } else if self.transactionType == .eip1559 {
+                let unsignedRlp = Array(arr[0..<(arr.count - 3)])
+                var messageToSign = Bytes()
+                let unsignedRlpBytes = try rlpEncoder.encode(RLPItem.array(unsignedRlp))
+                messageToSign.append(0x02)
+                messageToSign.append(contentsOf: unsignedRlpBytes)
+                return messageToSign
+            } else {
+                throw Error.transactionInvalid
+            }
+        } else {
+            throw Error.rlpItemInvalid
+        }
+    }
+    
+}
