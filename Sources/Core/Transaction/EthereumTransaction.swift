@@ -736,25 +736,25 @@ extension EthereumSignedTransaction {
     
     private func unsignedMessage() throws -> Bytes {
         let rlpEncoder = RLPEncoder()
-        let rlp = self.rlp()
         
-        if let arr = rlp.array{
+        if self.transactionType == .legacy {
+            let legacyrlp = RLPItem(
+                nonce: self.nonce,
+                gasPrice: self.gasPrice,
+                gasLimit: self.gasLimit,
+                to: self.to,
+                value: self.value,
+                data: self.data,
+                v: self.chainId,
+                r: 0,
+                s: 0
+            )
+            let rawRlp = try RLPEncoder().encode(legacyrlp)
+            return rawRlp
+        } else if self.transactionType == .eip1559 {
+            let rlp = self.rlp()
             
-            if self.transactionType == .legacy {
-                let legacyrlp = RLPItem(
-                    nonce: self.nonce,
-                    gasPrice: self.gasPrice,
-                    gasLimit: self.gasLimit,
-                    to: self.to,
-                    value: self.value,
-                    data: self.data,
-                    v: self.chainId,
-                    r: 0,
-                    s: 0
-                )
-                let rawRlp = try RLPEncoder().encode(legacyrlp)
-                return rawRlp
-            } else if self.transactionType == .eip1559 {
+            if let arr = rlp.array{
                 let unsignedRlp = Array(arr[0..<(arr.count - 3)])
                 var messageToSign = Bytes()
                 let unsignedRlpBytes = try rlpEncoder.encode(RLPItem.array(unsignedRlp))
@@ -764,6 +764,7 @@ extension EthereumSignedTransaction {
             } else {
                 throw Error.transactionInvalid
             }
+
         } else {
             throw Error.rlpItemInvalid
         }
