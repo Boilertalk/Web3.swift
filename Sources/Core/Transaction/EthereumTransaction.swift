@@ -390,54 +390,30 @@ public struct EthereumSignedTransaction {
                 recId = v.quantity
             }
         }
-        let rlp = RLPItem(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            v: chainId,
-            r: 0,
-            s: 0
-        )
-        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp), v: EthereumQuantity(quantity: recId), r: r, s: s) {
-            return true
+        do {
+            let messageToSign = try self.unsignedTransaction().messageToSign(chainId: self.chainId)
+            if let _ = try? EthereumPublicKey(message: messageToSign, v: EthereumQuantity(quantity: recId), r: r, s: s) {
+                return true
+            }
+        } catch {
+            return false
         }
 
         return false
     }
 
     private func verifyEip1559Signature() -> Bool {
-        let rlp = RLPItem(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            maxFeePerGas: maxFeePerGas,
-            maxPriorityFeePerGas: maxPriorityFeePerGas,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            v: 0,
-            r: 0,
-            s: 0,
-            chainId: chainId,
-            accessList: accessList,
-            transactionType: transactionType
-        )
-        var messageToSign = Bytes()
-        messageToSign.append(0x02)
         do {
-            try messageToSign.append(contentsOf: RLPEncoder().encode(rlp))
+            let messageToSign = try self.unsignedTransaction().messageToSign(chainId: self.chainId)
+            
+            if let _ = try? EthereumPublicKey(message: messageToSign, v: v, r: r, s: s) {
+                return true
+            }
+
+            return false
         } catch {
             return false
         }
-
-        if let _ = try? EthereumPublicKey(message: messageToSign, v: v, r: r, s: s) {
-            return true
-        }
-
-        return false
     }
 
     // MARK: - Errors
@@ -462,7 +438,7 @@ extension EthereumSignedTransaction {
             rawTxBytes.removeFirst()
         }
         do {
-            var rlp = try RLPDecoder().decode(rawTxBytes)
+            let rlp = try RLPDecoder().decode(rawTxBytes)
             
             try self.init(rlp: rlp)
         } catch {
