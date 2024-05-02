@@ -124,19 +124,8 @@ public struct EthereumTransaction: Codable {
         guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gasLimit, let value = value else {
             throw EthereumSignedTransaction.Error.transactionInvalid
         }
-        let rlp = RLPItem(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            v: chainId,
-            r: 0,
-            s: 0
-        )
-        let rawRlp = try RLPEncoder().encode(rlp)
-        let signature = try privateKey.sign(message: rawRlp)
+        let messageToSign = try self.messageToSign(chainId: chainId)
+        let signature = try privateKey.sign(message: messageToSign)
 
         let v: BigUInt
         if chainId.quantity == 0 {
@@ -190,24 +179,8 @@ public struct EthereumTransaction: Codable {
         if chainId.quantity == BigUInt(0) {
             throw EthereumSignedTransaction.Error.chainIdNotSet(msg: "EIP1559 transactions need a chainId")
         }
-
-        let rlp = RLPItem(
-            nonce: nonce,
-            gasPrice: gasPrice ?? EthereumQuantity(integerLiteral: 0),
-            maxFeePerGas: maxFeePerGas,
-            maxPriorityFeePerGas: maxPriorityFeePerGas,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            chainId: chainId,
-            accessList: accessList,
-            transactionType: transactionType
-        )
-        let rawRlp = try RLPEncoder().encode(rlp)
-        var messageToSign = Bytes()
-        messageToSign.append(0x02)
-        messageToSign.append(contentsOf: rawRlp)
+        
+        var messageToSign = try self.messageToSign(chainId: chainId)
         let signature = try privateKey.sign(message: messageToSign)
 
         let v = BigUInt(signature.v)
@@ -230,6 +203,58 @@ public struct EthereumTransaction: Codable {
             accessList: accessList,
             transactionType: transactionType
         )
+    }
+}
+
+public extension EthereumTransaction {
+    
+    fileprivate func messageToSign(chainId: EthereumQuantity) throws -> Bytes {
+        let rlpEncoder = RLPEncoder()
+        
+        if self.transactionType == .legacy {
+            guard let nonce = nonce, let gasPrice = gasPrice, let gasLimit = gasLimit, let value = value else {
+                throw EthereumSignedTransaction.Error.transactionInvalid
+            }
+            let rlp = RLPItem(
+                nonce: nonce,
+                gasPrice: gasPrice,
+                gasLimit: gasLimit,
+                to: to,
+                value: value,
+                data: data,
+                v: chainId,
+                r: 0,
+                s: 0
+            )
+            let rawRlp = try RLPEncoder().encode(rlp)
+            return rawRlp
+        } else if self.transactionType == .eip1559 {
+            guard let nonce = nonce, let maxFeePerGas = maxFeePerGas, let maxPriorityFeePerGas = maxPriorityFeePerGas,
+                  let gasLimit = gasLimit, let value = value else {
+                throw EthereumSignedTransaction.Error.transactionInvalid
+            }
+            let rlp = RLPItem(
+                nonce: nonce,
+                gasPrice: gasPrice ?? EthereumQuantity(integerLiteral: 0),
+                maxFeePerGas: maxFeePerGas,
+                maxPriorityFeePerGas: maxPriorityFeePerGas,
+                gasLimit: gasLimit,
+                to: to,
+                value: value,
+                data: data,
+                chainId: chainId,
+                accessList: accessList,
+                transactionType: transactionType
+            )
+            let rawRlp = try rlpEncoder.encode(rlp)
+            var messageToSign = Bytes()
+            messageToSign.append(0x02)
+            messageToSign.append(contentsOf: rawRlp)
+            
+            return messageToSign
+        } else {
+            throw EthereumSignedTransaction.Error.transactionInvalid
+        }
     }
 }
 
@@ -365,54 +390,30 @@ public struct EthereumSignedTransaction {
                 recId = v.quantity
             }
         }
-        let rlp = RLPItem(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            v: chainId,
-            r: 0,
-            s: 0
-        )
-        if let _ = try? EthereumPublicKey(message: RLPEncoder().encode(rlp), v: EthereumQuantity(quantity: recId), r: r, s: s) {
-            return true
+        do {
+            let messageToSign = try self.unsignedTransaction().messageToSign(chainId: self.chainId)
+            if let _ = try? EthereumPublicKey(message: messageToSign, v: EthereumQuantity(quantity: recId), r: r, s: s) {
+                return true
+            }
+        } catch {
+            return false
         }
 
         return false
     }
 
     private func verifyEip1559Signature() -> Bool {
-        let rlp = RLPItem(
-            nonce: nonce,
-            gasPrice: gasPrice,
-            maxFeePerGas: maxFeePerGas,
-            maxPriorityFeePerGas: maxPriorityFeePerGas,
-            gasLimit: gasLimit,
-            to: to,
-            value: value,
-            data: data,
-            v: 0,
-            r: 0,
-            s: 0,
-            chainId: chainId,
-            accessList: accessList,
-            transactionType: transactionType
-        )
-        var messageToSign = Bytes()
-        messageToSign.append(0x02)
         do {
-            try messageToSign.append(contentsOf: RLPEncoder().encode(rlp))
+            let messageToSign = try self.unsignedTransaction().messageToSign(chainId: self.chainId)
+            
+            if let _ = try? EthereumPublicKey(message: messageToSign, v: v, r: r, s: s) {
+                return true
+            }
+
+            return false
         } catch {
             return false
         }
-
-        if let _ = try? EthereumPublicKey(message: messageToSign, v: v, r: r, s: s) {
-            return true
-        }
-
-        return false
     }
 
     // MARK: - Errors
@@ -437,7 +438,7 @@ extension EthereumSignedTransaction {
             rawTxBytes.removeFirst()
         }
         do {
-            var rlp = try RLPDecoder().decode(rawTxBytes)
+            let rlp = try RLPDecoder().decode(rawTxBytes)
             
             try self.init(rlp: rlp)
         } catch {
@@ -711,4 +712,42 @@ extension EthereumSignedTransaction: Hashable {
         hasher.combine(accessList)
         hasher.combine(transactionType)
     }
+}
+
+extension EthereumSignedTransaction {
+    
+    public func from() throws -> EthereumAddress {
+        return try publicKey().address
+    }
+    
+    public func publicKey() throws -> EthereumPublicKey {
+        let messageToSign = try self.unsignedTransaction().messageToSign(chainId: self.chainId)
+        var recId: BigUInt
+        if v.quantity >= BigUInt(35) + (BigUInt(2) * chainId.quantity) {
+            recId = v.quantity - BigUInt(35) - (BigUInt(2) * chainId.quantity)
+        } else {
+            if v.quantity >= 27 {
+                recId = v.quantity - 27
+            } else {
+                recId = v.quantity
+            }
+        }
+        return try EthereumPublicKey(message: messageToSign, v: EthereumQuantity(quantity: recId), r: self.r, s: self.s)
+    }
+    
+    public func unsignedTransaction() throws -> EthereumTransaction {
+        return EthereumTransaction(
+            nonce: self.nonce,
+            gasPrice: self.gasPrice,
+            maxFeePerGas: self.maxFeePerGas,
+            maxPriorityFeePerGas: self.maxPriorityFeePerGas,
+            gasLimit: self.gasLimit,
+            to: self.to,
+            value: self.value,
+            data: self.data,
+            accessList: self.accessList,
+            transactionType: self.transactionType
+        )
+    }
+    
 }

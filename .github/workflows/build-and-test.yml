@@ -56,9 +56,10 @@ jobs:
         if: ${{ matrix.os == 'macos-latest' }}
         run: xcrun llvm-cov export -format="lcov" .build/debug/Web3PackageTests.xctest/Contents/MacOS/Web3PackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
       - name: Upload Test Coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: ${{ matrix.os == 'macos-latest' }}
         with:
           files: ./info.lcov
           fail_ci_if_error: true
           verbose: true
+          token: ${{ secrets.CODECOV_TOKEN }}
