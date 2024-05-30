@@ -34,6 +34,7 @@ public struct ABIObject: Codable {
     /// - function: A function object
     /// - constructor: A constructor method for a contract
     /// - fallback: The fallback function for a contract (executed whenever eth is sent)
+    /// - error: An error object
     public enum ObjectType: String, Codable {
         // event
         case event
@@ -46,6 +47,9 @@ public struct ABIObject: Codable {
         
         // http://solidity.readthedocs.io/en/v0.4.21/contracts.html#fallback-function
         case fallback
+        
+        // error
+        case error
     }
     
     /// Represents a value passed into our returned from a method or event
