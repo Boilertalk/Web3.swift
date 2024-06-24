@@ -180,7 +180,7 @@ public struct EthereumTransaction: Codable {
             throw EthereumSignedTransaction.Error.chainIdNotSet(msg: "EIP1559 transactions need a chainId")
         }
         
-        var messageToSign = try self.messageToSign(chainId: chainId)
+        let messageToSign = try self.messageToSign(chainId: chainId)
         let signature = try privateKey.sign(message: messageToSign)
 
         let v = BigUInt(signature.v)
