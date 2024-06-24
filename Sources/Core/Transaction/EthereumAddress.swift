@@ -8,7 +8,7 @@
 import Foundation
 import CryptoSwift
 
-public struct EthereumAddress {
+public struct EthereumAddress: Sendable {
 
     // MARK: - Properties
 

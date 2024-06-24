@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EthereumLogObject: Codable {
+public struct EthereumLogObject: Codable, Sendable {
 
     /// true when the log was removed, due to a chain reorganization. false if its a valid log.
     public let removed: Bool?

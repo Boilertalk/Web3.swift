@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct EthereumData: BytesConvertible {
+public struct EthereumData: BytesConvertible, Sendable {
 
     public let bytes: Bytes
 

@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import BigInt
+@preconcurrency import BigInt
 
-public struct EthereumQuantity {
+public struct EthereumQuantity: Sendable {
 
     public let quantity: BigUInt
 

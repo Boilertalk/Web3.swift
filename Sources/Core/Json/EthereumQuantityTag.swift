@@ -7,11 +7,11 @@
 
 import Foundation
 import CryptoSwift
-import BigInt
+@preconcurrency import BigInt
 
-public struct EthereumQuantityTag {
+public struct EthereumQuantityTag: Sendable {
 
-    public enum TagType {
+    public enum TagType: Sendable {
 
         case block(BigUInt)
         case latest

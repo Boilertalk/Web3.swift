@@ -10,12 +10,12 @@ import Foundation
 /**
  * A `Codable`, Ethereum representable value.
  */
-public struct EthereumValue: Codable {
+public struct EthereumValue: Codable, Sendable {
 
     /// The internal type of this value
     public let valueType: ValueType
 
-    public enum ValueType {
+    public enum ValueType: Sendable {
 
         /// A string value
         case string(String)

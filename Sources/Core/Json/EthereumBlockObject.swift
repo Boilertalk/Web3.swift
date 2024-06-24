@@ -10,7 +10,7 @@ import Foundation
 /**
  * A block as returned by an Ethereum node.
  */
-public struct EthereumBlockObject: Codable {
+public struct EthereumBlockObject: Codable, Sendable {
 
     /// The block number. nil when its a pending block.
     public let number: EthereumQuantity?
@@ -72,7 +72,7 @@ public struct EthereumBlockObject: Codable {
     /**
      * Represents a transaction as either a hash or an object.
      */
-    public struct Transaction: Codable {
+    public struct Transaction: Codable, Sendable {
 
         /// The transaction as an object
         public let object: EthereumTransactionObject?
