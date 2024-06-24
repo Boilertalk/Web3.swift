@@ -16,10 +16,10 @@ import BigInt
 /// - type: A regular single type
 /// - array: A homogenous collection of a type with an optional length
 /// - tuple: A collection of types
-public indirect enum SolidityType {
+public indirect enum SolidityType: Sendable {
     
     /// Solidity Base Types
-    public enum ValueType {
+    public enum ValueType: Sendable {
         
         /// unsigned integer type of M bits, 0 < M <= 256, M % 8 == 0. e.g. uint32, uint8, uint256.
         case uint(bits: UInt16)
