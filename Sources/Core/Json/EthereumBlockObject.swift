@@ -68,6 +68,22 @@ public struct EthereumBlockObject: Codable {
 
     /// Array of uncle hashes.
     public let uncles: [EthereumData]?
+    
+    public let author: EthereumAddress?
+    
+    public let baseFeePerGas: EthereumQuantity?
+    
+    public let blobGasUsed: EthereumQuantity?
+    
+    public let excessBlobGas: EthereumQuantity?
+    
+    public let mixHash: EthereumData?
+    
+    public let parentBeaconBlockRoot: EthereumData?
+    
+    public let withdrawals : [Withdrawal]?
+    
+    public let withdrawalsRoot: EthereumData?
 
     /**
      * Represents a transaction as either a hash or an object.
@@ -132,6 +148,13 @@ public struct EthereumBlockObject: Codable {
             case unsupportedType
         }
     }
+    
+    public struct Withdrawal: Codable {
+        public let address: EthereumAddress
+        public let amount: EthereumQuantity
+        public let index: EthereumQuantity
+        public let validatorIndex: EthereumQuantity
+    }
 }
 
 // MARK: - Equatable
@@ -140,6 +163,15 @@ extension EthereumBlockObject.Transaction: Equatable {
 
     public static func ==(_ lhs: EthereumBlockObject.Transaction, _ rhs: EthereumBlockObject.Transaction) -> Bool {
         return lhs.object == rhs.object && lhs.hash == rhs.hash
+    }
+}
+
+extension EthereumBlockObject.Withdrawal: Equatable {
+    public static func ==(_ lhs: EthereumBlockObject.Withdrawal, _ rhs: EthereumBlockObject.Withdrawal) -> Bool {
+        return lhs.address == rhs.address
+            && lhs.amount == rhs.amount
+            && lhs.index == rhs.index
+            && lhs.validatorIndex == rhs.validatorIndex
     }
 }
 
@@ -166,6 +198,14 @@ extension EthereumBlockObject: Equatable {
             && lhs.timestamp == rhs.timestamp
             && lhs.transactions == rhs.transactions
             && lhs.uncles == rhs.uncles
+            && lhs.author == rhs.author
+            && lhs.baseFeePerGas == rhs.baseFeePerGas
+            && lhs.blobGasUsed == rhs.blobGasUsed
+            && lhs.excessBlobGas == rhs.excessBlobGas
+            && lhs.mixHash == rhs.mixHash
+            && lhs.parentBeaconBlockRoot == rhs.parentBeaconBlockRoot
+            && lhs.withdrawals == rhs.withdrawals
+            && lhs.withdrawalsRoot == rhs.withdrawalsRoot
     }
 }
 
@@ -204,5 +244,12 @@ extension EthereumBlockObject: Hashable {
         hasher.combine(gasLimit)
         hasher.combine(gasUsed)
         hasher.combine(timestamp)
+        hasher.combine(baseFeePerGas)
+        hasher.combine(author)
+        hasher.combine(blobGasUsed)
+        hasher.combine(excessBlobGas)
+        hasher.combine(mixHash)
+        hasher.combine(parentBeaconBlockRoot)
+        hasher.combine(withdrawalsRoot)
     }
 }
